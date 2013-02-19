@@ -2,20 +2,14 @@
 <html>
 <head>
   <title>Lmr</title>
-  <style type="text/css">
-  	.success { background-color:#38DF64; }
-		.failed { background-color:#FF4040; }
-		.pos { background-color:#38DF64; }
-		.neg { background-color:#FF4040; }
-		.neutral { background-color:orange; }
-	</style>
-  <!--<%= stylesheet_link_tag "application", :media => "all" %>-->
-  <!--<%= javascript_include_tag "application" %>-->
+  <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
+	
+	<div id="top_nav"><%= link_to 'Score Cards', score_cards_path %></div>
+	<%= yield %>
 
 </body>
 </html>

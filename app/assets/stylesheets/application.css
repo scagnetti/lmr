@@ -8,8 +8,49 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
+ *= require bootstrap-datepicker
  *= require_self
  *= require_tree .
- * 
- *= require bootstrap-datepicker
+ *
  */
+body {
+	border: 0 none;
+	margin: 0;
+	padding: 0;
+	font-family: Arial, sans-serif;
+	background-color: #FFFFFF;
+	line-height: 1.67;
+	min-width: 1000px;
+	overflow-y: scroll;
+}
+
+.success {
+	background-color: #38DF64;
+}
+
+.failed {
+	background-color: #FF4040;
+}
+
+.pos {
+	background-color: #38DF64;
+}
+
+.neg {
+	background-color: #FF4040;
+}
+
+.neutral {
+	background-color: orange;
+}
+
+#top_nav {
+	line-height: 39px;
+	background: none repeat scroll 0 0 #444444;
+	font-size: 14px;
+}
+
+#top_nav a, #top_nav a:visited {
+	text-decoration: none;
+	color: #FFFFFF;
+}
