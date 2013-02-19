@@ -1,0 +1,61 @@
+<div>
+	<%= render 'score', :score => @score_card.reversal.score %>
+	Dreimonatsreversal: <img src="/help.png" title="Perf. in jedem Mt. < DAX | ansonsten | Perf. in jedem Mt. > DAX">
+  <% if @score_card.reversal.succeeded %>
+	 <br>
+	 <table border="1">
+	   <colgroup>
+	     <col width="150">
+       <col width="100">
+       <col width="100">
+       <col width="100">
+       <col width="100">
+    </colgroup>
+	 	<tr>
+	 		<th></th>
+	 		<th><%= @score_card.reversal.four_months_ago %></th>
+	 		<th><%= @score_card.reversal.three_months_ago %></th>
+	 		<th><%= @score_card.reversal.two_months_ago %></th>
+	 		<th><%= @score_card.reversal.one_month_ago %></th>
+	 	</tr>
+	 	<tr>
+	 		<td>Aktienkurs</td>
+	 		<td><%= @score_card.reversal.value_four_months_ago %></td>
+	 		<td><%= @score_card.reversal.value_three_months_ago %></td>
+	 		<td><%= @score_card.reversal.value_two_months_ago %></td>
+	 		<td><%= @score_card.reversal.value_one_month_ago %></td>
+	 	</tr>
+	 	<tr>
+	 		<td>Indexpunkte</td>
+	 		<td><%= @score_card.reversal.index_four_months_ago %></td>
+	 		<td><%= @score_card.reversal.index_three_months_ago %></td>
+	 		<td><%= @score_card.reversal.index_two_months_ago %></td>
+	 		<td><%= @score_card.reversal.index_one_month_ago %></td>
+	 	</tr>
+	 	<tr>
+	 		<td>Aktienperformance</td>
+	 		<td></td>
+			<td><%= @score_card.reversal.value_perf_three_months_ago %></td>
+			<td><%= @score_card.reversal.value_perf_two_months_ago %></td>
+			<td><%= @score_card.reversal.value_perf_one_month_ago %></td>
+	 	</tr>
+	 	<tr>
+	 		<td>Indexperformance</td>
+	 		<td></td>
+			<td><%= @score_card.reversal.index_perf_three_months_ago %></td>
+			<td><%= @score_card.reversal.index_perf_two_months_ago %></td>
+			<td><%= @score_card.reversal.index_perf_one_month_ago %></td>
+	 	</tr>
+	 </table>
+	<% else %>
+		<%= render 'failed' %>
+	<% end %>
+</div>
+
+
+  	
+  	
+  	
+
+
+

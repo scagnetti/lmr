@@ -1,0 +1,19 @@
+<div>
+	<%= render 'score', :score => @score_card.reaction.score %>
+	Reaktion auf Quartalszahlen: <img src="/help.png" title="positiv | zwischen -1% und +1% | negativ">
+  <% if @score_card.reaction.succeeded %>
+	 <br>
+		&nbsp;&nbsp;Veröffentlicht am: <%= @score_card.reaction.release_date %><br>
+  	&nbsp;&nbsp;Aktie-Öffnungskurs: <%= @score_card.reaction.price_opening %><br>
+  	&nbsp;&nbsp;Aktie-Schlusskurs: <%= @score_card.reaction.price_closing %><br>
+  	&nbsp;&nbsp;Index-Öffnungskurs: <%= @score_card.reaction.index_opening %><br>
+  	&nbsp;&nbsp;Index-Schlusskurs: <%= @score_card.reaction.index_closing %>
+	<% else %>
+		<%= render 'failed' %>
+	<% end %>
+</div>
+
+
+
+
+

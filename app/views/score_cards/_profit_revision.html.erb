@@ -1,0 +1,12 @@
+<div>
+	<%= render 'score', :score => @score_card.profit_revision.score %>
+	Gewinnrevisionen: <img src="/help.png" title="steigend | zwischen -5% und +5% | fallend">
+  <% if @score_card.profit_revision.succeeded %>
+	 <br>
+		&nbsp;&nbsp;Heraufstufungen: <%= @score_card.profit_revision.up %><br>
+		&nbsp;&nbsp;Bestätigungen: <%= @score_card.profit_revision.equal %><br>
+		&nbsp;&nbsp;Herabstufungen: <%= @score_card.profit_revision.down %>
+	<% else %>
+		<%= render 'failed' %>
+	<% end %>
+</div>

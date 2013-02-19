@@ -1,0 +1,25 @@
+<h1>Listing stock indices</h1>
+
+<table>
+  <tr>
+    <th>Isin</th>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @stock_indices.each do |stock_index| %>
+  <tr>
+    <td><%= stock_index.isin %></td>
+    <td><%= stock_index.name %></td>
+    <td><%= link_to 'Show', stock_index %></td>
+    <td><%= link_to 'Edit', edit_stock_index_path(stock_index) %></td>
+    <td><%= link_to 'Destroy', stock_index, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New stock_index', new_stock_index_path %>

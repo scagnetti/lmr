@@ -1,0 +1,11 @@
+<div>
+	<%= render 'score', :score => @score_card.current_price_earnings_ratio.score %>
+  KGV aktuell: <img src="/help.png" title="< 12 | 12 - 16 | > 16">
+  <% if @score_card.current_price_earnings_ratio.succeeded %>
+		<br>
+		&nbsp;&nbsp;Jahr: <%= @score_card.current_price_earnings_ratio.this_year %><br>
+		&nbsp;&nbsp;Wert: <%= @score_card.current_price_earnings_ratio.value %>
+	<% else %>%
+		<%= render 'failed' %>
+	<% end %>
+</div>

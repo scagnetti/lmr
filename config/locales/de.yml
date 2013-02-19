@@ -1,0 +1,32 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+de:
+  date:
+    formats:
+      default: "%Y-%m-%d"
+  time:
+    formats:
+      default: "%Y-%m-%d %H:%M:%S"
+
+  views:
+      pagination:
+        first: "&laquo; Erster"
+        last: "Letzter &raquo;"
+        previous: "&lsaquo; Vorheriger"
+        next: "Nächster &rsaquo;"
+
+  analyse_stock: "Aktienauswertung nach Levermann"
+  analyse_decription: "Geben Sie die Eigenschaften der zu prüfenden Aktie ein:"
+  isin: "ISIN:"
+  index: "Index:"
+  financial: "Finanzwert:"
+  submit: "Go"
+  
+  analyse_result: "Ergebnis"
+  stock_name: "Name der Aktie: %{name}"
+  stock_price: "Aktueller Kurs: %{price}"
+  roe: "RoE LJ: %{roe}"
+  quarterly_figures: "Reaktion auf Quartalszahlen vom %{release_date}:"
+  stock_dev: "Kurs der Aktie bei Eröffnung: %{before} bei Schluss: %{after}"
+  index_dev: "Kurs des Index bei Eröffnung: %{before} bei Schluss: %{after}"

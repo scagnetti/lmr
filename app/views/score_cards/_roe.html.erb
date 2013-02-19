@@ -1,0 +1,11 @@
+<div>
+	<%= render 'score', :score => @score_card.return_on_equity.score %>
+	RoE LJ: <img src="/help.png" title="> 20% | 20% - 10% | < 10%">
+  <% if @score_card.return_on_equity.succeeded %>
+	 <br>
+		&nbsp;&nbsp;Jahr: <%= @score_card.return_on_equity.last_year %><br>
+		&nbsp;&nbsp;Wert: <%= @score_card.return_on_equity.value %>%
+	<% else %>
+		<%= render 'failed' %>
+	<% end %>
+</div>

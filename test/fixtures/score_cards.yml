@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  isin: MyString
+  name: MyString
+  financial: false
+  price: 1.5
+
+two:
+  isin: MyString
+  name: MyString
+  financial: false
+  price: 1.5

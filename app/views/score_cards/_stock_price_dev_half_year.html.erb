@@ -1,0 +1,12 @@
+<div>
+	<%= render 'score', :score => @score_card.stock_price_dev_half_year.score %>
+	Kurs heute gg. Kurs vor 6 Monaten: <img src="/help.png" title="steigend | zwischen -5% und +5% | fallend">
+  <% if @score_card.stock_price_dev_half_year.succeeded %>
+	 <br>
+		&nbsp;&nbsp;Kurs heute: <%= @score_card.price %><br>
+  	&nbsp;&nbsp;Kurs vor sechs Monaten: <%= @score_card.stock_price_dev_half_year.value %><br>
+  	&nbsp;&nbsp;Performance: <%= @score_card.stock_price_dev_half_year.perf %>
+	<% else %>
+		<%= render 'failed' %>
+	<% end %>
+</div>

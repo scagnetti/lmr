@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+<h2>Analyse für: <%= @score_card.name %> (ISIN: <%= @score_card.isin %>)</h3>
+<h3>Aktueller Kurs: <%= @score_card.price %> | Vergleichs-Index: <%= @score_card.stock_index.name %> | Finanzwert: <%= @score_card.financial %></h4>
+<h4>Ergebnis: <%= @score_card.total_score %></h5>
+
+<%= render 'roe' %><br>
+<%= render 'ebit_margin' %><br>
+<%= render 'equity_ratio' %><br>
+<%= render 'current_price_earnings_ratio' %><br>
+<%= render 'average_price_earnings_ratio' %><br>
+<%= render 'analysts_opinion' %><br>
+<%= render 'reaction' %><br>
+<%= render 'profit_revision' %><br>
+<%= render 'stock_price_dev_half_year' %><br>
+<%= render 'stock_price_dev_one_year' %><br>
+<%= render 'price_momentum' %><br>
+<%= render 'reversal' %><br>
+<%= render 'profit_growth' %><br>
+
+<%= link_to 'Back', score_cards_path %>

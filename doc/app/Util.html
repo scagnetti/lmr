@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<title>class Util - Rails Application Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/engine/util.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">Object
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-c-add_millenium">::add_millenium</a>
+    
+    <li><a href="#method-c-content_to_file">::content_to_file</a>
+    
+    <li><a href="#method-c-format">::format</a>
+    
+    <li><a href="#method-c-format_date_time">::format_date_time</a>
+    
+    <li><a href="#method-c-information_expired">::information_expired</a>
+    
+    <li><a href="#method-c-isin_to_wkn">::isin_to_wkn</a>
+    
+    <li><a href="#method-c-l10n_f">::l10n_f</a>
+    
+    <li><a href="#method-c-l10n_f_k">::l10n_f_k</a>
+    
+    <li><a href="#method-c-last_work_day_before">::last_work_day_before</a>
+    
+    <li><a href="#method-c-performance">::performance</a>
+    
+    <li><a href="#method-c-read_files">::read_files</a>
+    
+    <li><a href="#method-c-read_isin_from_file">::read_isin_from_file</a>
+    
+    <li><a href="#method-c-round">::round</a>
+    
+    <li><a href="#method-c-step_back_in_time">::step_back_in_time</a>
+    
+    <li><a href="#method-c-to_t">::to_t</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./doc/README_FOR_APP.html">README_FOR_APP</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./Analyst.html">Analyst</a>
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./BasicExtractor.html">BasicExtractor</a>
+  
+    <li><a href="./BoerseExtractor.html">BoerseExtractor</a>
+  
+    <li><a href="./DataMiningError.html">DataMiningError</a>
+  
+    <li><a href="./Ebit.html">Ebit</a>
+  
+    <li><a href="./Equity.html">Equity</a>
+  
+    <li><a href="./HomeController.html">HomeController</a>
+  
+    <li><a href="./HomeHelper.html">HomeHelper</a>
+  
+    <li><a href="./IndicesHelper.html">IndicesHelper</a>
+  
+    <li><a href="./InvalidIsinError.html">InvalidIsinError</a>
+  
+    <li><a href="./OnVistaExtractor.html">OnVistaExtractor</a>
+  
+    <li><a href="./OnVistaQuarterlyFiguresExtractor.html">OnVistaQuarterlyFiguresExtractor</a>
+  
+    <li><a href="./OnVistaValueExtractor.html">OnVistaValueExtractor</a>
+  
+    <li><a href="./Per.html">Per</a>
+  
+    <li><a href="./Reaction.html">Reaction</a>
+  
+    <li><a href="./ReturnOnEquity.html">ReturnOnEquity</a>
+  
+    <li><a href="./ScoreCard.html">ScoreCard</a>
+  
+    <li><a href="./ScoreCardsController.html">ScoreCardsController</a>
+  
+    <li><a href="./ScoreCardsHelper.html">ScoreCardsHelper</a>
+  
+    <li><a href="./StockIndex.html">StockIndex</a>
+  
+    <li><a href="./StockIndicesController.html">StockIndicesController</a>
+  
+    <li><a href="./StockProcessor.html">StockProcessor</a>
+  
+    <li><a href="./Util.html">Util</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class Util</h1>
+
+  <div id="description" class="description">
+    
+<p>Provides static support methods</p>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <!-- Constants -->
+    <section id="constants-list" class="section">
+      <h3 class="section-header">Constants</h3>
+      <dl>
+      
+        <dt id="DAY_IN_SECONDS">DAY_IN_SECONDS
+        
+        <dd class="description">
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-add_millenium" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">add_millenium</span><span
+            class="method-args">(date)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Ensures that the year part of a date consists of four digits: dd.MM.yy
+-&gt; dd.MM.yyyy</p>
+          
+
+          
+          <div class="method-source-code" id="add_millenium-source">
+            <pre><span class="ruby-comment"># File lib/engine/util.rb, line 70</span>
+<span class="ruby-keyword">def</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">add_millenium</span>(<span class="ruby-identifier">date</span>)
+  <span class="ruby-identifier">date</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-regexp">%r(\d{2})$/</span>, <span class="ruby-string">'20\1'</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- add_millenium-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- add_millenium-method -->
+
+    
+      <div id="method-c-content_to_file" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">content_to_file</span><span
+            class="method-args">(content, file_name)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Streams some content to a file (Mechanize::Page.body) If possible use
+Mechanize::Page.save_as(file_name)</p>
+          
+
+          
+          <div class="method-source-code" id="content_to_file-source">
+            <pre><span class="ruby-comment"># File lib/engine/util.rb, line 161</span>
+<span class="ruby-keyword">def</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">content_to_file</span>(<span class="ruby-identifier">content</span>, <span class="ruby-identifier">file_name</span>)
+  <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">file_name</span>, <span class="ruby-string">'w'</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">f</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">content</span>.<span class="ruby-identifier">to_s</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- content_to_file-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- content_to_file-method -->
+
+    
+      <div id="method-c-format" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">format</span><span
+            class="method-args">(date)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Apply default date format</p>
+          
+
+          
+          <div class="method-source-code" id="format-source">
+            <pre><span class="ruby-comment"># File lib/engine/util.rb, line 51</span>
+<span class="ruby-keyword">def</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">format</span>(<span class="ruby-identifier">date</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">date</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-string">&quot;--&quot;</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">date</span>.<span class="ruby-identifier">strftime</span>(<span class="ruby-string">&quot;%Y.%m.%d&quot;</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- format-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- format-method -->
+
+    
+      <div id="method-c-format_date_time" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">format_date_time</span><span
+            class="method-args">(date)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Apply default date time format</p>
+          
+
+          
+          <div class="method-source-code" id="format_date_time-source">
+            <pre><span class="ruby-comment"># File lib/engine/util.rb, line 60</span>
+<span class="ruby-keyword">def</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">format_date_time</span>(<span class="ruby-identifier">date</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">date</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-string">&quot;--&quot;</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">date</span>.<span class="ruby-identifier">strftime</span>(<span class="ruby-string">&quot;%Y.%m.%d - %H:%M:%S&quot;</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- format_date_time-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- format_date_time-method -->
+
+    
+      <div id="method-c-information_expired" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">information_expired</span><span
+            class="method-args">(date, threshold)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Checks if a given information is older than a certain threshold (in
+seconds).</p>
+          
+
+          
+          <div class="method-source-code" id="information_expired-source">
+            <pre><span class="ruby-comment"># File lib/engine/util.rb, line 39</span>
+<span class="ruby-keyword">def</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">information_expired</span>(<span class="ruby-identifier">date</span>, <span class="ruby-identifier">threshold</span>)
+  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Couldn't validate age of information because the given date is nil&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">date</span>.<span class="ruby-identifier">nil?</span>
+  <span class="ruby-comment"># The newer the information the smaller the difference in time up to now</span>
+  <span class="ruby-identifier">diff</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">date</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">diff</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">threshold</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- information_expired-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- information_expired-method -->
+
+    
+      <div id="method-c-isin_to_wkn" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">isin_to_wkn</span><span
+            class="method-args">(isin)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Extract the 6 digits that represent the WKN</p>
+          
+
+          
+          <div class="method-source-code" id="isin_to_wkn-source">
+            <pre><span class="ruby-comment"># File lib/engine/util.rb, line 155</span>
+<span class="ruby-keyword">def</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">isin_to_wkn</span>(<span class="ruby-identifier">isin</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">isin</span>.<span class="ruby-identifier">slice</span>(<span class="ruby-value">5</span><span class="ruby-operator">..</span><span class="ruby-value">10</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- isin_to_wkn-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- isin_to_wkn-method -->
+
+    
+      <div id="method-c-l10n_f" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">l10n_f</span><span
+            class="method-args">(s)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Convert a decimal separator from comma (,) to dot (.)</p>
+          
+
+          
+          <div class="method-source-code" id="l10n_f-source">
+            <pre><span class="ruby-comment"># File lib/engine/util.rb, line 9</span>
+<span class="ruby-keyword">def</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">l10n_f</span>(<span class="ruby-identifier">s</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-regexp">%r,/</span>, <span class="ruby-string">'.'</span>).<span class="ruby-identifier">to_f</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- l10n_f-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- l10n_f-method -->
+
+    
+      <div id="method-c-l10n_f_k" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">l10n_f_k</span><span
+            class="method-args">(value)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Convert a string to a float like 7.108,27 -&gt; 7108.27 by eliminating the
+kilo separator and replacing the decimal separator.</p>
+          
+
+          
+          <div class="method-source-code" id="l10n_f_k-source">
+            <pre><span class="ruby-comment"># File lib/engine/util.rb, line 15</span>
+<span class="ruby-keyword">def</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">l10n_f_k</span>(<span class="ruby-identifier">value</span>)
+  <span class="ruby-comment"># Eliminate the dot</span>
+  <span class="ruby-identifier">t1</span> = <span class="ruby-identifier">value</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-regexp">%r\./</span>, <span class="ruby-string">''</span>)
+  <span class="ruby-comment"># Replace the comma with a dot</span>
+  <span class="ruby-identifier">t2</span> = <span class="ruby-identifier">t1</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-regexp">%r,/</span>, <span class="ruby-string">'.'</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">t2</span>.<span class="ruby-identifier">to_f</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- l10n_f_k-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- l10n_f_k-method -->
+
+    
+      <div id="method-c-last_work_day_before" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">last_work_day_before</span><span
+            class="method-args">(date)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>TODO we still need to handle public holiday</p>
+          
+
+          
+          <div class="method-source-code" id="last_work_day_before-source">
+            <pre><span class="ruby-comment"># File lib/engine/util.rb, line 107</span>
+<span class="ruby-keyword">def</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">last_work_day_before</span>(<span class="ruby-identifier">date</span>)
+  <span class="ruby-keyword">case</span> <span class="ruby-identifier">date</span>.<span class="ruby-identifier">wday</span>()
+  <span class="ruby-keyword">when</span> <span class="ruby-value">0</span>
+    <span class="ruby-comment"># It's a Sunday so return Friday</span>
+    <span class="ruby-identifier">date</span> = <span class="ruby-identifier">date</span> <span class="ruby-operator">-</span> <span class="ruby-constant">DAY_IN_SECONDS</span> * <span class="ruby-value">2</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-value">1</span>
+    <span class="ruby-comment"># It's a Monday so return Friday</span>
+    <span class="ruby-identifier">date</span> = <span class="ruby-identifier">date</span> <span class="ruby-operator">-</span> <span class="ruby-constant">DAY_IN_SECONDS</span> * <span class="ruby-value">3</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-value">2</span>
+    <span class="ruby-comment"># It's a Tuesday so return Monday</span>
+    <span class="ruby-identifier">date</span> = <span class="ruby-identifier">date</span> <span class="ruby-operator">-</span> <span class="ruby-constant">DAY_IN_SECONDS</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-value">3</span>
+    <span class="ruby-comment"># It's a Wednesday so return Tuesday</span>
+    <span class="ruby-identifier">date</span> = <span class="ruby-identifier">date</span> <span class="ruby-operator">-</span> <span class="ruby-constant">DAY_IN_SECONDS</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-value">4</span>
+    <span class="ruby-comment"># It's a Thursday so return Wednesday</span>
+    <span class="ruby-identifier">date</span> = <span class="ruby-identifier">date</span> <span class="ruby-operator">-</span> <span class="ruby-constant">DAY_IN_SECONDS</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-value">5</span>
+    <span class="ruby-comment"># It's a Friday so return Thursday</span>
+    <span class="ruby-identifier">date</span> = <span class="ruby-identifier">date</span> <span class="ruby-operator">-</span> <span class="ruby-constant">DAY_IN_SECONDS</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-value">6</span>
+    <span class="ruby-comment"># It's a Saturday so return Friday</span>
+    <span class="ruby-identifier">date</span> = <span class="ruby-identifier">date</span> <span class="ruby-operator">-</span> <span class="ruby-constant">DAY_IN_SECONDS</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">date</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- last_work_day_before-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- last_work_day_before-method -->
+
+    
+      <div id="method-c-performance" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">performance</span><span
+            class="method-args">(t2, t1)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Calculates the performance between two values in percent  t2: value at the
+newer date t1: value at the older date</p>
+          
+
+          
+          <div class="method-source-code" id="performance-source">
+            <pre><span class="ruby-comment"># File lib/engine/util.rb, line 77</span>
+<span class="ruby-keyword">def</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">performance</span>(<span class="ruby-identifier">t2</span>, <span class="ruby-identifier">t1</span>)
+  <span class="ruby-identifier">ratio</span> = (<span class="ruby-identifier">t2</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">t1</span>) <span class="ruby-operator">-</span> <span class="ruby-value">1</span>
+  <span class="ruby-identifier">rounded_ratio</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">round</span>(<span class="ruby-identifier">ratio</span>)
+  <span class="ruby-identifier">percent</span> = <span class="ruby-identifier">rounded_ratio</span> * <span class="ruby-value">100</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">percent</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- performance-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- performance-method -->
+
+    
+      <div id="method-c-read_files" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">read_files</span><span
+            class="method-args">(file_pattern)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Read ISIN - stock name pairs from several files (e.g. *.txt)</p>
+          
+
+          
+          <div class="method-source-code" id="read_files-source">
+            <pre><span class="ruby-comment"># File lib/engine/util.rb, line 135</span>
+<span class="ruby-keyword">def</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">read_files</span>(<span class="ruby-identifier">file_pattern</span>)
+  <span class="ruby-identifier">isin_stock_name_pairs</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">glob</span>(<span class="ruby-identifier">file_pattern</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">tmp_hash</span> = <span class="ruby-identifier">read_isin_from_file</span>(<span class="ruby-identifier">file</span>)
+    <span class="ruby-identifier">isin_stock_name_pairs</span>.<span class="ruby-identifier">merge!</span>(<span class="ruby-identifier">tmp_hash</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">isin_stock_name_pairs</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- read_files-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- read_files-method -->
+
+    
+      <div id="method-c-read_isin_from_file" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">read_isin_from_file</span><span
+            class="method-args">(file_name)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Reads ISIN - stock name pairs from a text file</p>
+          
+
+          
+          <div class="method-source-code" id="read_isin_from_file-source">
+            <pre><span class="ruby-comment"># File lib/engine/util.rb, line 145</span>
+<span class="ruby-keyword">def</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">read_isin_from_file</span>(<span class="ruby-identifier">file_name</span>)
+  <span class="ruby-identifier">isin_stock_hash</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">file_name</span>).<span class="ruby-identifier">each_line</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">line</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">line</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">%r(.{12})\s(.*)/</span>)
+    <span class="ruby-identifier">isin_stock_hash</span>[<span class="ruby-node">$1</span>] = <span class="ruby-node">$2</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">isin_stock_hash</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- read_isin_from_file-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- read_isin_from_file-method -->
+
+    
+      <div id="method-c-round" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">round</span><span
+            class="method-args">(value)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Round the result, four digits precise</p>
+          
+
+          
+          <div class="method-source-code" id="round-source">
+            <pre><span class="ruby-comment"># File lib/engine/util.rb, line 85</span>
+<span class="ruby-keyword">def</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">round</span>(<span class="ruby-identifier">value</span>)
+  <span class="ruby-identifier">up_scale</span> = ((<span class="ruby-identifier">value</span> * <span class="ruby-value">10000</span>).<span class="ruby-identifier">round</span>()).<span class="ruby-identifier">to_f</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">up_scale</span> <span class="ruby-operator">/</span> <span class="ruby-value">10000</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- round-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- round-method -->
+
+    
+      <div id="method-c-step_back_in_time" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">step_back_in_time</span><span
+            class="method-args">(days, date)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Calculates a date in the past by subtracting a certain amount of days</p>
+          
+
+          
+          <div class="method-source-code" id="step_back_in_time-source">
+            <pre><span class="ruby-comment"># File lib/engine/util.rb, line 91</span>
+<span class="ruby-keyword">def</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">step_back_in_time</span>(<span class="ruby-identifier">days</span>, <span class="ruby-identifier">date</span>)
+  <span class="ruby-identifier">history_date</span> = <span class="ruby-identifier">date</span> <span class="ruby-operator">-</span> <span class="ruby-constant">DAY_IN_SECONDS</span> * <span class="ruby-identifier">days</span>
+  
+  <span class="ruby-comment"># Handle weekends</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">history_date</span>.<span class="ruby-identifier">wday</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+    <span class="ruby-comment"># Add one day to turn Sunday into a Monday</span>
+    <span class="ruby-identifier">history_date</span> = <span class="ruby-identifier">history_date</span> <span class="ruby-operator">+</span> <span class="ruby-constant">DAY_IN_SECONDS</span>
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">history_date</span>.<span class="ruby-identifier">wday</span> <span class="ruby-operator">==</span> <span class="ruby-value">6</span>
+     <span class="ruby-comment"># Subtract one day to turn Saturday into a Friday</span>
+     <span class="ruby-identifier">history_date</span> = <span class="ruby-identifier">history_date</span> <span class="ruby-operator">-</span> <span class="ruby-constant">DAY_IN_SECONDS</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">history_date</span> 
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- step_back_in_time-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- step_back_in_time-method -->
+
+    
+      <div id="method-c-to_t" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">to_t</span><span
+            class="method-args">(date)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Convert a given date pattern like 28.01.1948 (dd.MM.yyyy) into a time
+object.</p>
+          
+
+          
+          <div class="method-source-code" id="to_t-source">
+            <pre><span class="ruby-comment"># File lib/engine/util.rb, line 24</span>
+<span class="ruby-keyword">def</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">to_t</span>(<span class="ruby-identifier">date</span>)
+  <span class="ruby-identifier">match</span> = <span class="ruby-identifier">date</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">%r^(\d{2})\.(\d{2})\.(\d{4})$/</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">match</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">match</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">!=</span> <span class="ruby-value">4</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">at</span>(<span class="ruby-value">0</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-comment"># Skipp leading zeros</span>
+    <span class="ruby-comment">#year = match[3].to_i</span>
+    <span class="ruby-comment">#month = match[2].sub(/^0/,'').to_i</span>
+    <span class="ruby-comment">#day = match[1].sub(/^0/,'').to_i</span>
+    <span class="ruby-comment">#time = Time.local(year, month, day)</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">utc</span>(<span class="ruby-node">$3</span>, <span class="ruby-node">$2</span>, <span class="ruby-node">$1</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- to_t-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- to_t-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

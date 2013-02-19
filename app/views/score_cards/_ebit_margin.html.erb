@@ -1,0 +1,11 @@
+<div>
+	<%= render 'score', :score => @score_card.ebit_margin.score %>
+  EBIT-Marge LJ: <img src="/help.png" title="> 12% | 12% - 6% | < 6%">
+  <% if @score_card.ebit_margin.succeeded %>
+		<br>
+		&nbsp;&nbsp;Jahr: <%= @score_card.ebit_margin.last_year %><br>
+		&nbsp;&nbsp;Wert: <%= @score_card.ebit_margin.value %>%
+	<% else %>%
+		<%= render 'failed' %>
+	<% end %>
+</div>

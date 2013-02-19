@@ -1,0 +1,11 @@
+<div>
+	<%= render 'score', :score => @score_card.momentum.score %>
+	Kursmomentum steigend: <img src="/help.png" title="">
+  <% if @score_card.momentum.succeeded %>
+	 <br>
+		&nbsp;&nbsp;Vor einem halben Jahr: <%= @score_card.momentum.stock_price_dev_half_year.score %><br>
+		&nbsp;&nbsp;Vor einem ganzen Jahr: <%= @score_card.momentum.stock_price_dev_one_year.score %>
+	<% else %>
+		<%= render 'failed' %>
+	<% end %>
+</div>

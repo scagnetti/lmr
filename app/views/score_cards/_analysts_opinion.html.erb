@@ -1,0 +1,12 @@
+<div>
+	<%= render 'score', :score => @score_card.analysts_opinion.score %>
+	Analystenmeinungen: <img src="/help.png" title="negativ | neutral | positiv">
+  <% if @score_card.analysts_opinion.succeeded %>
+	 <br>
+		&nbsp;&nbsp;Kaufen: <%= @score_card.analysts_opinion.buy %><br>
+		&nbsp;&nbsp;Halten: <%= @score_card.analysts_opinion.hold %><br>
+		&nbsp;&nbsp;Verkaufen: <%= @score_card.analysts_opinion.sell %>
+	<% else %>
+		<%= render 'failed' %>
+	<% end %>
+</div>

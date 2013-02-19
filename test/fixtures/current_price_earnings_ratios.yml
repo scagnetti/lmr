@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+positive:
+  this_year: 2013
+  value: 10
+
+neutral:
+  this_year: 2013
+  value: 12
+
+negative:
+  this_year: 2013
+  value: 18

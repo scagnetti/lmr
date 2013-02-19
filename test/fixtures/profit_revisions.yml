@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+positive:
+  up: 3
+  equal: 2
+  down: 1
+
+neutral:
+  up: 2
+  equal: 3
+  down: 1
+
+negative:
+  up: 2
+  equal: 1
+  down: 3
+
+all_equal:
+  up: 1
+  equal: 1
+  down: 1
+  
+two_equal_down:
+  up: 1
+  equal: 2
+  down: 2
+  
+two_equal_equal:
+  up: 2
+  equal: 2
+  down: 1

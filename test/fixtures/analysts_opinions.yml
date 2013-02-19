@@ -1,0 +1,16 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+positive:
+  buy: 1
+  hold: 3
+  sell: 6
+
+neutral:
+  buy: 2
+  hold: 10
+  sell: 5
+  
+negative:
+  buy: 10
+  hold: 6
+  sell: 4

@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Isin:</b>
+  <%= @stock_index.isin %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @stock_index.name %>
+</p>
+
+
+<%= link_to 'Edit', edit_stock_index_path(@stock_index) %> |
+<%= link_to 'Back', stock_indices_path %>

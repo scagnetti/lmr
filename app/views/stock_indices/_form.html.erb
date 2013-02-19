@@ -1,0 +1,25 @@
+<%= form_for(@stock_index) do |f| %>
+  <% if @stock_index.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@stock_index.errors.count, "error") %> prohibited this index from being saved:</h2>
+
+      <ul>
+      <% @stock_index.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :isin %><br />
+    <%= f.text_field :isin %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,39 @@
+<h1>Auswertungen nach Levermann</h1>
+<%= link_to 'New Score card', new_score_card_path %>
+<br>
+<%= form_tag(score_cards_path, :method => "get") do %>
+	<%= label_tag(:d, "Datum:") %>
+	<%= text_field_tag(:d) %>
+	<%= submit_tag("filter") %>
+<% end %>
+<table cellspacing="0">
+  <colgroup>
+    <col width="60">
+    <col width="200">
+    <col width="400">
+    <col width="60">
+    <col width="80">
+    <col width="80">
+  </colgroup>
+  <tr style="color: white; background-color: #444;">
+  	<th style="height: 30px;">Score</th>
+    <th>Erstellt</th>
+    <th>Aktie</th>
+    <th>Financial</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @score_cards.each do |score_card| %>
+  <tr>
+  	<td align="center"><%= score_card.total_score %></td>
+    <td align="center"><%= l score_card.created_at %></td>
+    <td nowrap><%= score_card.name %></td>
+    <td align="center"><%= score_card.financial %></td>
+    <td align="center"><%= link_to 'Show', score_card %></td>
+    <td align="center"><%= link_to 'Destroy', score_card, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+<br />
+<%= paginate @score_cards %>

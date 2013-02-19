@@ -1,0 +1,27 @@
+Sat, 05 Jan 2013 13:40:39 +0100
+doc/README_FOR_APP	Tue, 13 Nov 2012 18:39:24 +0100
+app/controllers/application_controller.rb	Tue, 13 Nov 2012 18:39:23 +0100
+app/controllers/home_controller.rb	Sun, 25 Nov 2012 13:30:54 +0100
+app/controllers/score_cards_controller.rb	Sat, 22 Dec 2012 17:59:03 +0100
+app/controllers/stock_indices_controller.rb	Sat, 22 Dec 2012 16:50:49 +0100
+app/helpers/application_helper.rb	Tue, 13 Nov 2012 18:39:23 +0100
+app/helpers/home_helper.rb	Tue, 13 Nov 2012 19:02:49 +0100
+app/helpers/indices_helper.rb	Sat, 15 Dec 2012 10:29:35 +0100
+app/helpers/score_cards_helper.rb	Sat, 15 Dec 2012 12:10:07 +0100
+app/models/reaction.rb	Sat, 22 Dec 2012 17:52:08 +0100
+app/models/return_on_equity.rb	Sat, 05 Jan 2013 10:50:14 +0100
+app/models/score_card.rb	Sat, 22 Dec 2012 17:51:54 +0100
+app/models/stock_index.rb	Sat, 22 Dec 2012 16:51:29 +0100
+lib/engine/data-objects/analyst.rb	Thu, 29 Nov 2012 21:43:10 +0100
+lib/engine/data-objects/ebit.rb	Sun, 18 Nov 2012 11:55:19 +0100
+lib/engine/data-objects/equity.rb	Sun, 18 Nov 2012 11:55:14 +0100
+lib/engine/data-objects/per.rb	Sun, 18 Nov 2012 11:55:08 +0100
+lib/engine/exceptions/data_mining_error.rb	Wed, 31 Aug 2011 20:40:24 +0200
+lib/engine/exceptions/invalid_isin_error.rb	Wed, 14 Nov 2012 21:23:42 +0100
+lib/engine/extractor/basic_extractor.rb	Sat, 05 Jan 2013 13:29:46 +0100
+lib/engine/extractor/boerse_extractor.rb	Sat, 05 Jan 2013 13:01:50 +0100
+lib/engine/extractor/on_vista_extractor.rb	Sat, 05 Jan 2013 13:00:57 +0100
+lib/engine/extractor/on_vista_quarterly_figures_extractor.rb	Sat, 05 Jan 2013 11:55:45 +0100
+lib/engine/extractor/on_vista_value_extractor.rb	Sat, 05 Jan 2013 11:57:03 +0100
+lib/engine/stock_processor.rb	Sat, 05 Jan 2013 13:40:33 +0100
+lib/engine/util.rb	Fri, 04 Jan 2013 09:55:20 +0100
