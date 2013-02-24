@@ -32,6 +32,8 @@ gem 'jquery-rails'
 
 gem 'capistrano'
 
+gem 'rvm-capistrano'
+
 #gem 'linecache19', "0.5.13"
 
 #gem "ruby-debug-base19x", "0.11.30.pre10"
