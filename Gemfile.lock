@@ -66,6 +66,7 @@ GEM
       webrobots (~> 0.0, >= 0.0.9)
     mime-types (1.21)
     multi_json (1.6.1)
+    mysql2 (0.3.11)
     net-http-digest_auth (1.2.1)
     net-http-persistent (2.8)
     net-scp (1.1.0)
@@ -103,6 +104,8 @@ GEM
     rake (10.0.3)
     rdoc (3.12.1)
       json (~> 1.4)
+    rvm-capistrano (1.2.7)
+      capistrano (>= 2.0.0)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -129,5 +132,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   mechanize
+  mysql2
   rails (= 3.2.12)
+  rvm-capistrano
   sqlite3
