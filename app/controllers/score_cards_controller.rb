@@ -5,11 +5,11 @@ class ScoreCardsController < ApplicationController
   # GET /score_cards.json
   def index
     if params[:d] == nil
-      @score_cards = ScoreCard.order("created_at DESC").page(params[:page]).per(20)
+      @score_cards = ScoreCard.order("total_score DESC").page(params[:page]).per(20)
     else
       d = params[:d].to_date
       range = d.midnight..(d.midnight + 1.day)
-      @score_cards = ScoreCard.where(:created_at => range).order("created_at DESC").page(params[:page]).per(20)
+      @score_cards = ScoreCard.where(:created_at => range).order("total_score DESC").page(params[:page]).per(20)
     end
 
     respond_to do |format|
