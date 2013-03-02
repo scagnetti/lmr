@@ -7,8 +7,8 @@ class ScoreCardsController < ApplicationController
     if params[:d] == nil
       @score_cards = ScoreCard.order("created_at DESC").page(params[:page]).per(20)
     else
-      d = params[:d]
-      range = (d.midnight - 1.day)..d.midnight
+      d = params[:d].to_date
+      range = d.midnight..(d.midnight + 1.day)
       @score_cards = ScoreCard.where(:created_at => range).order("created_at DESC").page(params[:page]).per(20)
     end
 

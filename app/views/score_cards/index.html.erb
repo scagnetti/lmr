@@ -2,7 +2,7 @@
 <p>
 <%= form_tag(score_cards_path, :method => "get") do %>
 	<%= label_tag(:d, "Datum:") %>
-	<%= text_field_tag(:d) %>
+	<%= text_field_tag(:d, nil, :class => 'datepicker') %>
 	<%= submit_tag("filter") %>
 <% end %>
 </p>

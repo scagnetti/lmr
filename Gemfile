@@ -10,7 +10,7 @@ gem 'mysql2'
 gem 'kaminari'
 
 # Datepicker
-gem 'bootstrap-datepicker-rails'
+# gem 'bootstrap-datepicker-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -26,6 +26,8 @@ group :assets do
 end
 
 gem 'jquery-rails'
+
+gem 'jquery-ui-rails'
 
 # Deploy with Capistrano
 gem 'capistrano'
