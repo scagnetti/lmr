@@ -16,7 +16,7 @@ de:
         previous: "&lsaquo; Vorheriger"
         next: "Nächster &rsaquo;"
 
-  analyse_stock: "Aktienauswertung nach Levermann"
+  analyse_stock: "Neue Auswertung"
   analyse_decription: "Geben Sie die Eigenschaften der zu prüfenden Aktie ein:"
   isin: "ISIN:"
   index: "Index:"

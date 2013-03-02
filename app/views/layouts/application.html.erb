@@ -8,8 +8,18 @@
 </head>
 <body>
 	
-	<div id="top_nav"><%= link_to 'Score Cards', score_cards_path %></div>
-	<%= yield %>
+	<div id="top_nav">
+		<%= image_tag("bar_graph_small.png") %>
+		<ul>
+			<li class="active"><%= link_to 'Score Cards', score_cards_path %></li>
+			<li><%= link_to 'New Score Card', new_score_card_path %></li>
+			<li><%= link_to 'Stock Indices', stock_indices_path %></li>
+		</ul>
+	</div>
+	
+	<div id="content">
+		<%= yield %>
+	</div>
 
 </body>
 </html>

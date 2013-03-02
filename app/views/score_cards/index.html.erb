@@ -1,11 +1,11 @@
-<h1>Auswertungen nach Levermann</h1>
-<%= link_to 'New Score card', new_score_card_path %>
-<br>
+<h1>Durchgeführte Auswertungen</h1>
+<p>
 <%= form_tag(score_cards_path, :method => "get") do %>
 	<%= label_tag(:d, "Datum:") %>
 	<%= text_field_tag(:d) %>
 	<%= submit_tag("filter") %>
 <% end %>
+</p>
 <table cellspacing="0">
   <colgroup>
     <col width="60">
@@ -15,8 +15,8 @@
     <col width="80">
     <col width="80">
   </colgroup>
-  <tr style="color: white; background-color: #444;">
-  	<th style="height: 30px;">Score</th>
+  <tr>
+  	<th>Score</th>
     <th>Erstellt</th>
     <th>Aktie</th>
     <th>Financial</th>

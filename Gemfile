@@ -2,9 +2,6 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.12'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
 gem 'sqlite3'
 
 gem 'mysql2'
@@ -30,6 +27,7 @@ end
 
 gem 'jquery-rails'
 
+# Deploy with Capistrano
 gem 'capistrano'
 
 gem 'rvm-capistrano'
@@ -42,7 +40,7 @@ gem 'rvm-capistrano'
 
 gem 'mechanize'
 
-#gem 'thin'
+gem 'thin'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -52,9 +50,6 @@ gem 'mechanize'
 
 # Use unicorn as the app server
 # gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
 
 # To use debugger
 # gem 'debugger'
