@@ -308,10 +308,10 @@ class OnVistaExtractor < BasicExtractor
   end
   
   def extract_three_month_reversal(reversal)
-    reversal.four_months_ago = Util.subtract_months_from(Time.now, 4)
-    reversal.three_months_ago = Util.subtract_months_from(Time.now, 3)
-    reversal.two_months_ago = Util.subtract_months_from(Time.now, 2)
-    reversal.one_month_ago = Util.subtract_months_from(Time.now, 1)
+    reversal.four_months_ago = Util.avoid_weekend(Time.now - 4.months)
+    reversal.three_months_ago = Util.avoid_weekend(Time.now - 3.months)
+    reversal.two_months_ago = Util.avoid_weekend(Time.now - 2.months)
+    reversal.one_month_ago = Util.avoid_weekend(Time.now - 1.month)
     LOG.debug("#{self.class}: Four months ago: #{reversal.four_months_ago}")
     LOG.debug("#{self.class}: Three months ago: #{reversal.three_months_ago}")
     LOG.debug("#{self.class}: Two months ago: #{reversal.two_months_ago}")

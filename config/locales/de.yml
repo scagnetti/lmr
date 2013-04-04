@@ -13,8 +13,8 @@ de:
       pagination:
         first: "&laquo; Erster"
         last: "Letzter &raquo;"
-        previous: "&lsaquo; Vorheriger"
-        next: "Nächster &rsaquo;"
+        previous: "&lsaquo; Vor"
+        next: "Zurück &rsaquo;"
 
   analyse_stock: "Neue Auswertung"
   analyse_decription: "Geben Sie die Eigenschaften der zu prüfenden Aktie ein:"

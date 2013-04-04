@@ -126,24 +126,6 @@ class Util
     return history_date 
   end
   
-  # Subtract a given number of months from a given date.
-  # * +date+ - the date where the months should be subtracted from 
-  # * +amount+ - the number of months that should be subtracted 
-  def Util.subtract_months_from(date, amount)
-    y = date.year
-    m = date.month
-    check_result = date.month - amount
-    if check_result == 0
-      m = 12
-      y = y - 1
-    elsif check_result < 0
-      m = check_result % 12
-      y = y - 1
-    end
-    historical_date = Date.new(y,m,-1)
-    return Util.avoid_weekend(historical_date)
-  end
-  
   # Checks if a date is a sunday or saturday.
   # If so the friday before the weekend is returned
   def Util.avoid_weekend(date)
