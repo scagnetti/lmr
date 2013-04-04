@@ -15,6 +15,11 @@ namespace :ex do
     e.extract_reaction_on_figures(' DE0008469008', Reaction.new)
   end
   
+  task :return_on_equity => :environment do
+    e = OnVistaExtractor.new('DE0007037129','DE0008469008')
+    e.extract_roe(ReturnOnEquity.new)
+  end
+  
   task :roe_stock => :environment do
     e = OnVistaExtractor.new('DE0007037129','DE0008469008')
     e.extract_roe(ReturnOnEquity.new)

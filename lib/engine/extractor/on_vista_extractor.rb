@@ -45,9 +45,9 @@ class OnVistaExtractor < BasicExtractor
 
   # Return the onVista specific index ID
   def get_on_vista_index_id(page)
-    match_obj = page.uri.to_s.match(/ID_NOTATION=(\d+)&?/)
+    match_obj = page.uri.to_s.match(/.*-(\d+)$/)
     if match_obj == nil || match_obj[1] == nil
-      raise DataMiningError, "Could no extract internal index id", caller
+      raise DataMiningError, "Could not extract internal index id", caller
     end
     return match_obj[1]
   end
