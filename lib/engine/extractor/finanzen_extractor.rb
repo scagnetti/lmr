@@ -68,29 +68,37 @@ class FinanzenExtractor < BasicExtractor
     return [opening, closing]
   end 
 
-  public
-
-  # Extract the reaction on the release of quarterly figures
-  def extract_reaction_on_figures(index_isin, reaction)
+  # Extract all release dates of quarterly figures as a list
+  def get_release_dates(quarterly_figure_dates)
     appointment_page = open_sub_page('Termine', 3, 2)
     tag_set = appointment_page.parser().xpath("//h2[contains(.,'vergangene Termine')]/../following-sibling::div//tr")
-    quarterly_figure_dates = Array.new
     if tag_set == nil || tag_set.size() < 2
       raise DataMiningError, "Could no extract release of quarterly figures", caller
       return
     end
     tag_set.each do |tr|
       td_list = tr.xpath('.//td')
-      if td_list.size == 4 && (td_list[0].content() == 'Quartalszahlen')
-        quartal = td_list[1].content()
-        raw_date = td_list[2].content().strip
-        #LOG.debug("1.Spalte: #{td_list[0].content()}")
-        #LOG.debug("2.Spalte: #{td_list[1].content()}")
-        #LOG.debug("3.Spalte: #{td_list[2].content()}")
-        date = Util.add_millennium(raw_date)
-        quarterly_figure_dates << Util.to_t(date)
+      if td_list.size == 4
+        if td_list[0].content() == 'Quartalszahlen'
+          quartal = td_list[1].content()
+          raw_date = td_list[2].content().strip
+          date = Util.add_millennium(raw_date)
+          quarterly_figure_dates << Util.to_t(date)
+        elsif td_list[0].content() == 'Jahresabschluss'
+          raw_date = td_list[2].content().strip
+          date = Util.add_millennium(raw_date)
+          quarterly_figure_dates << Util.to_t(date)
+        end
       end
     end
+  end
+
+  public
+
+  # Extract the reaction on the release of quarterly figures
+  def extract_reaction_on_figures(index_isin, reaction)
+    quarterly_figure_dates = Array.new
+    get_release_dates(quarterly_figure_dates)
     if quarterly_figure_dates.empty?
       raise DataMiningError, "Could no extract release of quarterly figures", caller
       return
