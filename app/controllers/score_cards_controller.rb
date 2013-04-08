@@ -4,7 +4,7 @@ class ScoreCardsController < ApplicationController
   # GET /score_cards
   # GET /score_cards.json
   def index
-    if params[:d] == nil
+    if params[:d] == nil || params[:d] == ''
       @score_cards = ScoreCard.order("total_score DESC").page(params[:page]).per(20)
     else
       d = params[:d].to_date
