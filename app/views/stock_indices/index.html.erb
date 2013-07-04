@@ -1,6 +1,14 @@
-<h1>Listing stock indices</h1>
-
-<table>
+<h1>Available Stock Indices</h1>
+<%= link_to 'Add', new_stock_index_path, {:class => "button-blue"} %>
+<hr>
+<table cellspacing="0">
+	<colgroup>
+    <col width="150">
+    <col width="250">
+    <col width="50">
+    <col width="50">
+    <col width="50">
+  </colgroup>
   <tr>
     <th>Isin</th>
     <th>Name</th>
@@ -19,7 +27,3 @@
   </tr>
 <% end %>
 </table>
-
-<br />
-
-<%= link_to 'New stock_index', new_stock_index_path %>

@@ -1,12 +1,9 @@
 class CreateScoreCards < ActiveRecord::Migration
   def change
     create_table :score_cards do |t|
-      t.string :isin
-      t.string :name
-      t.boolean :financial
+      t.references :share
       t.float :price
       t.integer :total_score, :default => 0
-      t.references :stock_index
       t.references :return_on_equity
       t.references :ebit_margin
       t.references :equity_ratio

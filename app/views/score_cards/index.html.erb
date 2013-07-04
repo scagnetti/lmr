@@ -1,9 +1,10 @@
-<h1>Durchgeführte Auswertungen</h1>
+<h1>Rated Shares</h1>
+<hr>
 <p>
 <%= form_tag(score_cards_path, :method => "get") do %>
-	<%= label_tag(:d, "Datum:") %>
+	<%= label_tag(:d, "Filter List by Date") %>
 	<%= text_field_tag(:d, nil, :class => 'datepicker') %>
-	<%= submit_tag("filter") %>
+	<%= submit_tag("go") %>
 <% end %>
 </p>
 <table cellspacing="0">
@@ -17,8 +18,8 @@
   </colgroup>
   <tr>
   	<th>Score</th>
-    <th>Erstellt</th>
-    <th>Aktie</th>
+    <th>Created</th>
+    <th>Share</th>
     <th>Financial</th>
     <th></th>
     <th></th>
@@ -28,8 +29,8 @@
   <tr>
   	<td align="center"><%= score_card.total_score %></td>
     <td align="center"><%= l score_card.created_at %></td>
-    <td nowrap><%= score_card.name %></td>
-    <td align="center"><%= score_card.financial %></td>
+    <td nowrap><%= score_card.share.name %></td>
+    <td align="center"><%= score_card.share.financial %></td>
     <td align="center"><%= link_to 'Show', score_card %></td>
     <td align="center"><%= link_to 'Destroy', score_card, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>

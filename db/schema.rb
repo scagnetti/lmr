@@ -157,12 +157,9 @@ ActiveRecord::Schema.define(:version => 20130205193650) do
   end
 
   create_table "score_cards", :force => true do |t|
-    t.string   "isin"
-    t.string   "name"
-    t.boolean  "financial"
+    t.integer  "share_id"
     t.float    "price"
     t.integer  "total_score",                     :default => 0
-    t.integer  "stock_index_id"
     t.integer  "return_on_equity_id"
     t.integer  "ebit_margin_id"
     t.integer  "equity_ratio_id"
@@ -180,9 +177,20 @@ ActiveRecord::Schema.define(:version => 20130205193650) do
     t.datetime "updated_at",                                     :null => false
   end
 
+  create_table "shares", :force => true do |t|
+    t.string   "name",                             :null => false
+    t.string   "isin",                             :null => false
+    t.boolean  "financial"
+    t.integer  "size"
+    t.boolean  "active",         :default => true
+    t.integer  "stock_index_id"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+  end
+
   create_table "stock_indices", :force => true do |t|
-    t.string   "isin"
-    t.string   "name"
+    t.string   "isin",       :null => false
+    t.string   "name",       :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

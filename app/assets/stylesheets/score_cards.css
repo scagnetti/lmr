@@ -4,17 +4,5 @@
 *
 */
 
-tr{
-  /*background: none repeat scroll 0 0 rgba(243, 243, 243, 0.85);*/
-  background-color: #F1F1F1;
-}
 
-th{
-	border-bottom: 1px solid #CCC;
-}
-
-td{
-	border-bottom: 1px solid #E5E5E5;
-	height: 2em;
-}
 

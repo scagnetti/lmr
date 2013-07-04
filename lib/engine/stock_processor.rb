@@ -12,19 +12,18 @@ class StockProcessor
   
   # The supplied score_card is populated with the calculated figures.
   def initialize(score_card)
-    LOG.debug("#{self.class}: initialized with ISIN: #{score_card.isin}")
+    LOG.debug("#{self.class}: initialized with ISIN: #{score_card.share.isin}")
     @score_card = score_card
     @extractors = Array.new
-    @extractors << OnVistaExtractor.new(@score_card.isin, @score_card.stock_index.isin)
-    #@extractors << BoerseExtractor.new(@score_card.isin, @score_card.stock_index.isin)
-    @extractors << FinanzenExtractor.new(@score_card.isin, @score_card.stock_index.isin)
+    @extractors << OnVistaExtractor.new(@score_card.share.isin, @score_card.share.stock_index.isin)
+    #@extractors << BoerseExtractor.new(@score_card.share.isin, @score_card.share.stock_index.isin)
+    @extractors << FinanzenExtractor.new(@score_card.share.isin, @score_card.share.stock_index.isin)
   end
 
   public
   
   # Start the evaluation
   def go
-    run_on_all_extractors(@score_card.name) { |e| @score_card.name = e.extract_stock_name()}
     run_on_all_extractors(@score_card.price) { |e| @score_card.price = e.extract_stock_price()}
     
     @score_card.return_on_equity = ReturnOnEquity.new
@@ -71,7 +70,7 @@ class StockProcessor
     
     @score_card.reaction = Reaction.new
     run_on_all_extractors(@score_card.reaction) { |e|
-      e.extract_reaction_on_figures(@score_card.stock_index.isin, @score_card.reaction)
+      e.extract_reaction_on_figures(@score_card.share.stock_index.isin, @score_card.reaction)
       RatingUnit.rate_reaction(@score_card.reaction)
     }
     @score_card.total_score += @score_card.reaction.score

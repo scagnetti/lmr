@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  isin: MyString
+  financial: false
+  size: 1
+
+two:
+  name: MyString
+  isin: MyString
+  financial: false
+  size: 1

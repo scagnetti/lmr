@@ -1,10 +1,16 @@
 Lmr::Application.routes.draw do
+  resources :shares
+
+  match 'shares/enable/:isin/:active' => 'shares#enable'
+  
   resources :score_cards
+
+  match '/score_cards/assess_share/:isin' => 'score_cards#assess_share'
 
   resources :stock_indices
 
-  get "home/index"
-
+  root :to => 'score_cards#index'
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -54,7 +60,6 @@ Lmr::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'score_cards#index'
 
   # See how all your routes lay out with "rake routes"
 

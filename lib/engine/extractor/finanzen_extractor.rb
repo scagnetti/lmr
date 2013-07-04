@@ -123,4 +123,28 @@ class FinanzenExtractor < BasicExtractor
     LOG.debug("#{self.class}: reaction index: #{reaction.index_closing}")
   end
 
+  def extract_insider_deals
+    deals = Array.new
+    insider_trades = open_sub_page('Insidertrades', 1, 0, @stock_page)
+    rows = insider_trades.parser().xpath("//h1[contains(.,'Insidertrades bei ')]/../../div[@class='content']/table//tr")
+    LOG.debug("found #{rows.size} insider deals")
+    rows.each do |row|
+      cells = row.xpath('.//td')
+      if cells.size == 6
+        d = cells[0].content()
+        p = cells[1].content()
+        a = cells[2].content()
+        price = cells[3].content()
+        action = cells[4].content()
+        full_date = Util.add_millenium(d)
+        real_date = Util.to_t(full_date)
+        exp = Util.information_expired(real_date, Util::DAY_IN_SECONDS * 92)
+        if !exp
+          LOG.debug("Datum: #{d}  Meldender: #{p}  Anzahl: #{a}  Kurs: #{price}  Art: #{action}")
+        end
+      end
+    end
+    return deals
+  end
+  
 end

@@ -1,0 +1,37 @@
+<%= form_for(@share) do |f| %>
+  <% if @share.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@share.errors.count, "error") %> prohibited this share from being saved:</h2>
+
+      <ul>
+      <% @share.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :isin %><br />
+    <%= f.text_field :isin %>
+  </div>
+  <div class="field">
+    <%= f.label :size %><br />
+    <%= f.select(:size, options_for_select([['Large Cap', CompanySize::LARGE], ['Mid Cap', CompanySize::MID], ['Small Cap', CompanySize::SMALL]])) %>
+  </div>
+  <div class="field">
+    <%= f.label(I18n.t(:index)) %><br />
+    <%= select_tag(:stock_index, options_from_collection_for_select(StockIndex.all, :id, :name)) %>
+  </div>
+  <div class="field">
+    <%= f.label :financial %><br />
+    <%= f.check_box :financial %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

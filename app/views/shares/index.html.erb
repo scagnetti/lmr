@@ -1,0 +1,43 @@
+<h1>Available Shares</h1>
+
+<%= link_to 'Add', new_share_path, {:class => "button-blue"} %>
+<hr>
+
+<table cellspacing="0">
+	<colgroup>
+		<col width="10">
+    <col width="150">
+    <col width="250">
+    <col width="250">
+    <col width="250">
+    <col width="50">
+    <col width="50">
+    <col width="50">
+    <col width="50">
+  </colgroup>
+  <tr>
+  	<th>Active</th>
+  	<th>Isin</th>
+    <th>Name</th>
+    <th>Financial</th>
+    <th>Size</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @shares.each do |share| %>
+  <tr>
+  	<td><%= check_box_tag 'share', share.isin, share.active, {:onchange => "window.location=#{assemble_url(share)};"} %></td>
+  	<td><%= share.isin %></td>
+    <td><%= share.name %></td>
+    <td><%= share.financial %></td>
+    <td><%= to_readable_comp_size(share.size) %></td>
+    <td><%= link_to 'Show', share %></td>
+    <td><%= link_to 'Edit', edit_share_path(share) %></td>
+    <td><%= link_to 'Destroy', share, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Check', "/score_cards/assess_share/#{share.isin}", :method => :put %></td>
+  </tr>
+<% end %>
+</table>

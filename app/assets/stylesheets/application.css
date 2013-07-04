@@ -25,10 +25,34 @@ body {
 	overflow-y: scroll;
 }
 
+hr {
+	color: #CCC;
+	background-color: #CCC;
+	border-top-color: #CCC;
+	height: 1px;
+}
+
 h1 {
+	display: inline;
 	margin: 0;
 	color: #777;
+	margin-right: 15px;
+	/*border-bottom: 1px solid #CCC;*/
+}
+
+tr{
+  /*background: none repeat scroll 0 0 rgba(243, 243, 243, 0.85);*/
+  background-color: #F1F1F1;
+}
+
+th{
 	border-bottom: 1px solid #CCC;
+}
+
+td{
+	text-align: center;
+	border-bottom: 1px solid #E5E5E5;
+	height: 2em;
 }
 
 #content {
@@ -97,4 +121,25 @@ h1 {
 #top_nav > ul li a {
 	text-decoration: none;
 	color: #FFFFFF;
+}
+
+.button-blue {
+	  color: #FFFFFF;
+    background-color: #4D90FE;
+    background-image: -moz-linear-gradient(center top , #4D90FE, #4787ED);
+    border-color: #3079ED;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 2px 2px 2px 2px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 11px;
+    font-weight: bold;
+    height: 27px;
+    line-height: 27px;
+    min-width: 54px;
+    padding: 0 8px;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    margin-bottom: 5px;
 }
