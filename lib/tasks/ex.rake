@@ -50,22 +50,14 @@ namespace :ex do
   end
   
   desc "Try to rate all available stocks"
-  task :rate_dax => :environment do
+  task :rate_all => :environment do
     failed = Array.new
     isin_dax = 'DE0008469008'
-    @agent = Mechanize.new
-    @page = @agent.get('http://www.finanzen.net/index/DAX')
-    tag_set = @page.parser().xpath("//h2[.='DAX']/../following-sibling::div/table/tr[position()>1]")
-    tag_set.each do |tr|
-      td_set = tr.xpath("child::node()")
-      content = td_set[0].text()
-      isin = content[-12,12]
-      # puts "Using: #{isin}"
+    shares = Share.where('active' => true)
+    shares.each do |s|
       begin
-        @score_card = ScoreCard.new
-        @score_card.isin = isin
-        @score_card.financial = false
-        @score_card.stock_index = StockIndex.find_by_isin(isin_dax)
+        @score_card = ScoreCard.new()
+        @score_card.share = s
         # Run the algorithm
         stock_processor = StockProcessor.new(@score_card)
         stock_processor.go()
