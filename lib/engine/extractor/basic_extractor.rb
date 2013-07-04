@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'mechanize'
+require 'engine/exceptions/unexpected_html_structure.rb'
 
 # Encapsulate the functionality all extractors have in common.
 class BasicExtractor
@@ -30,6 +31,9 @@ class BasicExtractor
   # * +failure_msg+ - xpath to check if the search was successful
   def perform_search(attribute, regexp, field_name, search_pattern, failure_msg)
     search_form = @start_page.form_with(attribute => regexp)
+    if search_form == nil
+      raise UnexpectedHtmlStructure, "Could not find any form with attribute >>#{attribute}<< matching search pattern >>#{regexp}<<", caller
+    end
     search_form[field_name] = search_pattern
     result = search_form.submit
     failure = result.parser().xpath(failure_msg)

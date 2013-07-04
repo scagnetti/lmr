@@ -21,10 +21,12 @@ class OnVistaExtractor < BasicExtractor
   def initialize(stock_isin, index_isin)
     super(ON_VISTA_URL)
     LOG.debug("#{self.class} initialized with stock: #{stock_isin} and index: #{index_isin}")
-    @stock_page = perform_search("action", '/suche/', "searchValue", stock_isin, SEARCH_FAILURE)
+    @new_stock_page = perform_search("action", 'http://www.onvista.de/suche/', "searchValue", stock_isin, SEARCH_FAILURE)
+    # OnVista apperance changed, but we can follow the link that brings use to the previous apperance
+    @stock_page = @new_stock_page.link_with(:text => 'zur alten Ansicht').click
     @on_vista_id = get_on_vista_stock_id()
     @stock_search_page = @agent.get("#{STOCK_VALUE_SEARCH_URL}#{@on_vista_id}#{HISTORY_TOKEN}")
-    index_page = perform_search("action", '/suche/', "searchValue", index_isin, SEARCH_FAILURE)
+    index_page = perform_search("action", 'http://www.onvista.de/suche/', "searchValue", index_isin, SEARCH_FAILURE)
     on_vista_index_id = get_on_vista_index_id(index_page)
     @index_search_page = @agent.get("#{INDEX_VALUE_SEARCH_URL}#{on_vista_index_id}")
     @key_figures_page = open_sub_page('Kennzahlen', 2, 1)
