@@ -34,25 +34,40 @@ namespace :ex do
     e.extract_equity_ratio(EquityRatio.new)
   end
   
-  desc "Try to add all shares of agiven index"
-  task :add_shares => :environment do
-    @agent = Mechanize.new
-    @page = @agent.get('http://www.finanzen.net/index/DAX')
-    tag_set = @page.parser().xpath("//h2[.='DAX']/../following-sibling::div/table/tr[position()>1]")
-    tag_set.each do |tr|
-      td_set = tr.xpath("child::node()")
-      content = td_set[0].text()
-      isin = content[-12,12]
-      name = td_set[0].xpath("a").first
-      puts "Name #{name.content} ISIN: #{isin}"
-      #TODO Create a share object
+  desc "Add all shares of a given index (ISIN). Default index is DAX."
+  task :add_shares, [:index_isin] => :environment do |t, args|
+    # Set a default value for the parameter
+    args.with_defaults(:index_isin => 'DE0008469008')
+    indices = StockIndex.where('isin' => args[:index_isin])
+    puts "#{indices.class}"
+    if indices.empty?
+      puts "No matching stock index found for '#{args[:index_isin]}'"
+    else
+      puts "Extracting shares for index '#{indices.first.name}'"
+      @agent = Mechanize.new
+      @page = @agent.get('http://www.finanzen.net/index/DAX')
+      tag_set = @page.parser().xpath("//h2[.='DAX']/../following-sibling::div/table/tr[position()>1]")
+      tag_set.each do |tr|
+        td_set = tr.xpath("child::node()")
+        content = td_set[0].text()
+        isin = content[-12,12]
+        name = td_set[0].xpath("a").first
+        puts "Adding #{isin} - #{name.content}"
+        share = Share.new
+        share.name = name.content
+        share.isin = isin
+        share.active = true
+        share.financial = false
+        share.stock_index = indices.first
+        share.size = CompanySize::LARGE
+        share.save
+      end
     end
   end
   
   desc "Try to rate all available stocks"
-  task :rate_all => :environment do
+  task :rate_all => :environment do 
     failed = Array.new
-    isin_dax = 'DE0008469008'
     shares = Share.where('active' => true)
     shares.each do |s|
       begin
@@ -63,13 +78,13 @@ namespace :ex do
         stock_processor.go()
         @score_card.save
       rescue DataMiningError
-        failed << isin
+        failed << s
       end
     end
-    #Show stocks failed to extract reaction on quarterly figures
-    puts "No reaction could be extracted for the following #{failed.size} stocks:"
-    failed.each do |isin|
-      puts "#{isin} - FAILED"
+    #Show stocks with problems
+    puts "For the following share, problems occured during the evaluation:"
+    failed.each do |s|
+      puts "#{s.name} - FAILED"
     end
   end
   
