@@ -178,11 +178,12 @@ ActiveRecord::Schema.define(:version => 20130205193650) do
   end
 
   create_table "shares", :force => true do |t|
+    t.boolean  "active",         :default => true
     t.string   "name",                             :null => false
     t.string   "isin",                             :null => false
     t.boolean  "financial"
     t.integer  "size"
-    t.boolean  "active",         :default => true
+    t.date     "asm"
     t.integer  "stock_index_id"
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false

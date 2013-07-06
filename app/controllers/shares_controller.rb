@@ -2,7 +2,7 @@ class SharesController < ApplicationController
   # GET /shares
   # GET /shares.json
   def index
-    @shares = Share.all
+    @shares = Share.order("name").page(params[:page]).per(25)
 
     respond_to do |format|
       format.html # index.html.erb
