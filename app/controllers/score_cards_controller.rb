@@ -14,6 +14,7 @@ class ScoreCardsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
+      format.xml { render xml: @score_cards }
       format.json { render json: @score_cards }
     end
   end

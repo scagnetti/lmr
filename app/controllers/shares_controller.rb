@@ -18,6 +18,7 @@ class SharesController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @share }
+      format.xml { render xml: @share }
     end
   end
 

@@ -93,7 +93,7 @@ namespace :ex do
     isin_dax = 'DE0008469008'
     @agent = Mechanize.new
     @page = @agent.get('http://www.finanzen.net/index/DAX')
-    tag_set = @page.parser().xpath("//h2[.='DAX']/../following-sibling::div/table/tr[position()>1]")
+    tag_set = @page.parser().xpath("(//h2[.='DAX 30'])[1]/../following-sibling::div/table/tr[position()>1]")
     tag_set.each do |tr|
       td_set = tr.xpath("child::node()")
       content = td_set[0].text()
