@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  occurred: 2013-09-15
+  person: MyString
+  quanity: 1
+  price: 1.5
+  type: 
+  link: MyString
+
+two:
+  occurred: 2013-09-15
+  person: MyString
+  quanity: 1
+  price: 1.5
+  type: 
+  link: MyString

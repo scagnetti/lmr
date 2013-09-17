@@ -19,7 +19,7 @@ class OnVistaExtractor < BasicExtractor
   HISTORY_TOKEN = "#kurshistorie"
   
   def initialize(stock_isin, index_isin)
-    super(ON_VISTA_URL)
+    super(ON_VISTA_URL, stock_isin, index_isin)
     LOG.debug("#{self.class} initialized with stock: #{stock_isin} and index: #{index_isin}")
     @new_stock_page = perform_search("action", 'http://www.onvista.de/suche/', "searchValue", stock_isin, SEARCH_FAILURE)
     # OnVista apperance changed, but we can follow the link that brings use to the previous apperance

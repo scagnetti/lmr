@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130205193650) do
+ActiveRecord::Schema.define(:version => 20130915064946) do
 
   create_table "analysts_opinions", :force => true do |t|
     t.boolean  "succeeded",  :default => true
@@ -71,6 +71,18 @@ ActiveRecord::Schema.define(:version => 20130205193650) do
     t.float    "value"
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
+  end
+
+  create_table "insider_deals", :force => true do |t|
+    t.integer  "share_id"
+    t.date     "occurred"
+    t.string   "person"
+    t.integer  "quantity"
+    t.float    "price"
+    t.integer  "trade_type"
+    t.string   "link"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "momenta", :force => true do |t|

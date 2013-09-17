@@ -1,7 +1,16 @@
 Lmr::Application.routes.draw do
-  resources :shares
+  resources :insider_deals
+
+
+  resources :shares do
+    member do
+      get 'lookup_insider_trades'
+    end
+  end
 
   match 'shares/enable/:isin/:active' => 'shares#enable'
+  
+  # match 'shares/lookup_insider_trades/:isin' => 'shares#lookup_insider_trades'
   
   resources :score_cards
 

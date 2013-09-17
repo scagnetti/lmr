@@ -100,14 +100,20 @@ namespace :ex do
       isin = content[-12,12]
       puts "\nUsing: #{isin}"
       e = FinanzenExtractor.new(isin,' DE0008469008')
-      e.extract_insider_deals()
+      e.extract_insider_deals(Array.new)
     end
   end
   
   task :t => :environment do
     e = FinanzenExtractor.new('DE0007037129',' DE0008469008')
-    e.extract_insider_deals()
+    e.extract_insider_deals(Array.new)
     
+  end
+  
+  desc "Extract the stock price target for DAX members"
+  task :analyst , [:isin] => :environment do |t, args|
+    e = FinanzenExtractor.new(args[:isin],' DE0008469008')
+    e.extract_analysts_opinion(AnalystsOpinion.new)
   end
   
 end

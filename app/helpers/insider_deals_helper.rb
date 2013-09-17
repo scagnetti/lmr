@@ -1,0 +1,2 @@
+module InsiderDealsHelper
+end

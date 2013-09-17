@@ -14,7 +14,7 @@ class FinanzenExtractor < BasicExtractor
   THREE_MONTHS_IN_SECONDS = 60 * 60 * 24 * 31 * 3
 
   def initialize(stock_isin, index_isin)
-    super(FINANZEN_URL)
+    super(FINANZEN_URL, stock_isin, index_isin)
     LOG.debug("#{self.class} initialized with stock: #{stock_isin} and index: #{index_isin}")
     @stock_page = perform_search("action", '/suchergebnis.asp', "frmAktiensucheTextfeld", stock_isin, SEARCH_FAILURE)
     @index_page = perform_search("action", '/suchergebnis.asp', "frmAktiensucheTextfeld", index_isin, SEARCH_FAILURE)
@@ -123,28 +123,98 @@ class FinanzenExtractor < BasicExtractor
     LOG.debug("#{self.class}: reaction index: #{reaction.index_closing}")
   end
 
-  def extract_insider_deals
-    deals = Array.new
+  def extract_insider_deals(results)
     insider_trades = open_sub_page('Insidertrades', 1, 0, @stock_page)
     rows = insider_trades.parser().xpath("//h1[contains(.,'Insidertrades bei ')]/../../div[@class='content']/table//tr")
     LOG.debug("found #{rows.size} insider deals")
+    share = Share.where(:isin => @stock_isin).first
     rows.each do |row|
       cells = row.xpath('.//td')
       if cells.size == 6
+        deal = InsiderDeal.new
+        deal.share = share
         d = cells[0].content()
-        p = cells[1].content()
-        a = cells[2].content()
-        price = cells[3].content()
-        action = cells[4].content()
         full_date = Util.add_millenium(d)
         real_date = Util.to_t(full_date)
+        deal.occurred = real_date
+        deal.person = cells[1].content()
+        deal.quantity = cells[2].content().sub(/\./, '')
+        deal.price =Util.l10n_f(cells[3].content())
+        action = cells[4].content()
+        if action == 'Kauf'
+          deal.trade_type = Transaction::BUY
+        elsif action == 'Verkauf'
+           deal.trade_type = Transaction::SELL
+         else
+           deal.trade_type = Transaction::UNKNOWN
+        end
+        details = cells[5].xpath("a").first.attr('href')
+        deal.link = "#{FINANZEN_URL}#{details[1,details.length-1]}"
+        
+        results << deal
         exp = Util.information_expired(real_date, Util::DAY_IN_SECONDS * 92)
         if !exp
-          LOG.debug("Datum: #{d}  Meldender: #{p}  Anzahl: #{a}  Kurs: #{price}  Art: #{action}")
+          LOG.debug("Datum: #{d}  Meldender: #{deal.person}  Anzahl: #{deal.quantity}  Kurs: #{deal.price}  Art: #{action}")
+          duplicates = InsiderDeal.where(:share_id => share.id, :occurred => deal.occurred, :person => deal.person, :quantity => deal.quantity, :trade_type => deal.trade_type)
+          if duplicates.size == 0
+            deal.save!
+          end
         end
       end
     end
-    return deals
   end
-  
+
+  # Extract the opinion of the analysts (Analystenmeinungen)
+  def extract_analysts_opinion(analysts_opinion)
+    page = open_sub_page("Kursziele", 1, 0, @stock_page)
+    tr_set = page.parser().xpath('(//table)[3]//tr[position()>1]')
+    if tr_set == nil || tr_set.size() < 1
+      raise DataMiningError, "Could not extract analysts opinion", caller
+    else
+      LOG.debug("#{tr_set.size} analysts rated this stock")
+      valid_ratings = Array.new
+      tr_set.each do |tr|
+        # Data extraction
+        td_set = tr.xpath("child::node()")
+        analyst = td_set[0].text()
+        estimated_value = td_set[4].text()
+        raw_date = td_set[6].text()
+        release_date = nil
+        if raw_date.end_with?("Uhr")
+          # Handle scenario where opinion was added today
+          release_date = Time.now
+        else
+          # Release date casting
+          string_date = Util.add_millennium(raw_date)
+          release_date = Util.to_t(string_date)
+        end
+        exp = Util.information_expired(release_date, Util::DAY_IN_SECONDS * 92)
+        if exp
+          #LOG.debug("Expired: #{estimated_value} (released: #{Util.format(release_date)}) Analyst: #{analyst}")
+        else
+          if estimated_value == "-"
+            #LOG.debug("No price for: #{estimated_value} (released: #{Util.format(release_date)}) Analyst: #{analyst}")
+          else
+            LOG.debug("#{estimated_value} (released: #{Util.format(release_date)}) Analyst: #{analyst}")
+            valid_ratings << Util.l10n_f(estimated_value.sub(/€/, ''))
+          end
+        end
+      end
+      
+      avg = 0
+      valid_ratings.each do |rating|
+        avg += rating
+      end
+      LOG.debug("\nAverage value: #{avg / valid_ratings.size}\n")
+      
+      #TODO
+      analysts_opinion.buy = 0
+      analysts_opinion.hold = 0
+      analysts_opinion.sell = 0
+      LOG.debug("#{self.class}: analyst opinion buy: #{analysts_opinion.buy}")
+      LOG.debug("#{self.class}: analyst opinion hold: #{analysts_opinion.hold}")
+      LOG.debug("#{self.class}: analyst opinion sell: #{analysts_opinion.sell}") 
+    end
+  end
+
 end

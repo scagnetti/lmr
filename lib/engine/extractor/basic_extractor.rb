@@ -6,7 +6,9 @@ require 'engine/exceptions/unexpected_html_structure.rb'
 class BasicExtractor
 
   # Set up the HTML pareser, load the web page of the extractor.
-  def initialize(extractor_url)
+  def initialize(extractor_url, stock_isin, index_isin)
+    @stock_isin = stock_isin
+    @index_isin = index_isin
     @agent = Mechanize.new do |agent|
       agent.user_agent_alias = 'Linux Firefox'
       agent.open_timeout=60000
@@ -53,7 +55,7 @@ class BasicExtractor
     links = page.links_with(:text => link_text)
     #puts "Found #{links.size} anchors matching #{link_text}"
     if links == nil || links.size() != result_size
-      raise DataMiningError, "Could not find link containing text >>#{link_text}<<", caller
+      raise DataMiningError, "Found #{links.size} link(s) containing text >>#{link_text}<< but expected #{result_size}", caller
     else
       sub_page = links[link_index].click()
       return sub_page

@@ -1,0 +1,41 @@
+<%= form_for(@insider_deal) do |f| %>
+  <% if @insider_deal.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@insider_deal.errors.count, "error") %> prohibited this insider_deal from being saved:</h2>
+
+      <ul>
+      <% @insider_deal.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :occurred %><br />
+    <%= f.date_select :occurred %>
+  </div>
+  <div class="field">
+    <%= f.label :person %><br />
+    <%= f.text_field :person %>
+  </div>
+  <div class="field">
+    <%= f.label :quanity %><br />
+    <%= f.number_field :quanity %>
+  </div>
+  <div class="field">
+    <%= f.label :price %><br />
+    <%= f.text_field :price %>
+  </div>
+  <div class="field">
+    <%= f.label :type %><br />
+    <%= f.text_field :type %>
+  </div>
+  <div class="field">
+    <%= f.label :link %><br />
+    <%= f.text_field :link %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

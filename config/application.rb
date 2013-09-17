@@ -67,3 +67,9 @@ module CompanySize
     MID = 2
     LARGE = 3
 end
+
+module Transaction
+  SELL = 0
+  BUY = 1
+  UNKNOWN = 2
+end
