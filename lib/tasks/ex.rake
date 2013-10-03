@@ -18,7 +18,8 @@ namespace :ex do
 
   desc "Extract the return on equity (Eigenkapitalrendite)"  
   task :roe_stock => :environment do
-    e = OnVistaExtractor.new('DE0007037129','DE0008469008')
+    # Isin von VW
+    e = OnVistaExtractor.new('DE0007664039','DE0008469008')
     e.extract_roe(ReturnOnEquity.new)
   end
   
@@ -89,7 +90,7 @@ namespace :ex do
   end
   
   desc "Extract known insider deals"
-  task :insider => :environment do
+  task :insider_dax => :environment do
     isin_dax = 'DE0008469008'
     @agent = Mechanize.new
     @page = @agent.get('http://www.finanzen.net/index/DAX')
@@ -99,20 +100,26 @@ namespace :ex do
       content = td_set[0].text()
       isin = content[-12,12]
       puts "\nUsing: #{isin}"
-      e = FinanzenExtractor.new(isin,' DE0008469008')
+      e = FinanzenExtractor.new(isin,'DE0008469008')
       e.extract_insider_deals(Array.new)
     end
   end
   
-  task :t => :environment do
-    e = FinanzenExtractor.new('DE0007037129',' DE0008469008')
+  desc "Extract Insider Deals of the last three months"
+  task :insider, [:isin] => :environment do |t, args|
+    if args[:isin] == nil
+      #Set ISIN default to VW
+      isin = 'DE0007664039'
+    else
+      isin = args[:isin]
+    end
+    e = FinanzenExtractor.new(isin,'DE0008469008')
     e.extract_insider_deals(Array.new)
-    
   end
   
-  desc "Extract the stock price target for DAX members"
-  task :analyst , [:isin] => :environment do |t, args|
-    e = FinanzenExtractor.new(args[:isin],' DE0008469008')
+  desc "Extract Analysts Opinion"
+  task :analyst, [:isin] => :environment do |t, args|
+    e = FinanzenExtractor.new(args[:isin],'DE0008469008')
     e.extract_analysts_opinion(AnalystsOpinion.new)
   end
   

@@ -31,7 +31,7 @@
     <td align="center"><%= l score_card.created_at %></td>
     <td nowrap><%= link_to "#{score_card.share.name}" , score_card.share %></td>
     <td align="center"><%= score_card.share.financial %></td>
-    <td align="center"><%= link_to 'Show', score_card %></td>
+    <td align="center"><%= link_to 'Show Rating', score_card %></td>
     <td align="center"><%= link_to 'Destroy', score_card, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
