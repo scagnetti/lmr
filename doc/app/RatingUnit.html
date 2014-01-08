@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<title>class RatingUnit - Rails Application Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/engine/rating_unit.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">Object
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-c-rate_analysts_opinion">::rate_analysts_opinion</a>
+    
+    <li><a href="#method-c-rate_average_price_earnings_ratio">::rate_average_price_earnings_ratio</a>
+    
+    <li><a href="#method-c-rate_current_price_earnings_ratio">::rate_current_price_earnings_ratio</a>
+    
+    <li><a href="#method-c-rate_ebit_margin">::rate_ebit_margin</a>
+    
+    <li><a href="#method-c-rate_equity_ratio">::rate_equity_ratio</a>
+    
+    <li><a href="#method-c-rate_profit_growth">::rate_profit_growth</a>
+    
+    <li><a href="#method-c-rate_profit_revision">::rate_profit_revision</a>
+    
+    <li><a href="#method-c-rate_reaction">::rate_reaction</a>
+    
+    <li><a href="#method-c-rate_reversal">::rate_reversal</a>
+    
+    <li><a href="#method-c-rate_roe">::rate_roe</a>
+    
+    <li><a href="#method-c-rate_stock_price_dev">::rate_stock_price_dev</a>
+    
+    <li><a href="#method-c-rate_stock_price_dev_half_year">::rate_stock_price_dev_half_year</a>
+    
+    <li><a href="#method-c-rate_stock_price_dev_one_year">::rate_stock_price_dev_one_year</a>
+    
+    <li><a href="#method-c-rate_stock_price_momentum">::rate_stock_price_momentum</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./doc/README_FOR_APP.html">README_FOR_APP</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./AnalystsOpinion.html">AnalystsOpinion</a>
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./AssetValue.html">AssetValue</a>
+  
+    <li><a href="./AveragePriceEarningsRatio.html">AveragePriceEarningsRatio</a>
+  
+    <li><a href="./BasicExtractor.html">BasicExtractor</a>
+  
+    <li><a href="./BasicIndexParser.html">BasicIndexParser</a>
+  
+    <li><a href="./BoerseExtractor.html">BoerseExtractor</a>
+  
+    <li><a href="./CurrentPriceEarningsRatio.html">CurrentPriceEarningsRatio</a>
+  
+    <li><a href="./DataMiningError.html">DataMiningError</a>
+  
+    <li><a href="./DaxIndexParser.html">DaxIndexParser</a>
+  
+    <li><a href="./DowIndexParser.html">DowIndexParser</a>
+  
+    <li><a href="./EbitMargin.html">EbitMargin</a>
+  
+    <li><a href="./EquityRatio.html">EquityRatio</a>
+  
+    <li><a href="./FinanzenExtractor.html">FinanzenExtractor</a>
+  
+    <li><a href="./HomeController.html">HomeController</a>
+  
+    <li><a href="./HomeHelper.html">HomeHelper</a>
+  
+    <li><a href="./IndicesHelper.html">IndicesHelper</a>
+  
+    <li><a href="./InsiderDeal.html">InsiderDeal</a>
+  
+    <li><a href="./InsiderDealsController.html">InsiderDealsController</a>
+  
+    <li><a href="./InsiderDealsHelper.html">InsiderDealsHelper</a>
+  
+    <li><a href="./InvalidIsinError.html">InvalidIsinError</a>
+  
+    <li><a href="./Momentum.html">Momentum</a>
+  
+    <li><a href="./OnVistaExtractor.html">OnVistaExtractor</a>
+  
+    <li><a href="./OnVistaIndexValueExtractor.html">OnVistaIndexValueExtractor</a>
+  
+    <li><a href="./OnVistaQuarterlyFiguresExtractor.html">OnVistaQuarterlyFiguresExtractor</a>
+  
+    <li><a href="./OnVistaStockValueExtractor.html">OnVistaStockValueExtractor</a>
+  
+    <li><a href="./ProfitGrowth.html">ProfitGrowth</a>
+  
+    <li><a href="./ProfitRevision.html">ProfitRevision</a>
+  
+    <li><a href="./RatingUnit.html">RatingUnit</a>
+  
+    <li><a href="./Reaction.html">Reaction</a>
+  
+    <li><a href="./ReturnOnEquity.html">ReturnOnEquity</a>
+  
+    <li><a href="./Reversal.html">Reversal</a>
+  
+    <li><a href="./ScoreCard.html">ScoreCard</a>
+  
+    <li><a href="./ScoreCardsController.html">ScoreCardsController</a>
+  
+    <li><a href="./ScoreCardsHelper.html">ScoreCardsHelper</a>
+  
+    <li><a href="./Share.html">Share</a>
+  
+    <li><a href="./SharesController.html">SharesController</a>
+  
+    <li><a href="./SharesHelper.html">SharesHelper</a>
+  
+    <li><a href="./StockIndex.html">StockIndex</a>
+  
+    <li><a href="./StockIndicesController.html">StockIndicesController</a>
+  
+    <li><a href="./StockPriceDevHalfYear.html">StockPriceDevHalfYear</a>
+  
+    <li><a href="./StockPriceDevOneYear.html">StockPriceDevOneYear</a>
+  
+    <li><a href="./StockProcessor.html">StockProcessor</a>
+  
+    <li><a href="./UnexpectedHtmlStructure.html">UnexpectedHtmlStructure</a>
+  
+    <li><a href="./Util.html">Util</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class RatingUnit</h1>
+
+  <div id="description" class="description">
+    
+<p>Capable of rating each figure with -1,0 or +1</p>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-rate_analysts_opinion" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">rate_analysts_opinion</span><span
+            class="method-args">(analysts_opinion)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>TODO: Assess the analysts opinions For large caps:</p>
+<ul><li>
+<p>if the majority says sell we rate +1</p>
+</li><li>
+<p>if the majority says hold we rate 0</p>
+</li><li>
+<p>if the majority says buy we rate -1</p>
+</li></ul>
+          
+
+          
+          <div class="method-source-code" id="rate_analysts_opinion-source">
+            <pre><span class="ruby-comment"># File lib/engine/rating_unit.rb, line 81</span>
+<span class="ruby-keyword">def</span> <span class="ruby-constant">RatingUnit</span>.<span class="ruby-identifier">rate_analysts_opinion</span>(<span class="ruby-identifier">analysts_opinion</span>)
+  <span class="ruby-identifier">all</span> = <span class="ruby-identifier">analysts_opinion</span>.<span class="ruby-identifier">buy</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">analysts_opinion</span>.<span class="ruby-identifier">hold</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">analysts_opinion</span>.<span class="ruby-identifier">sell</span>
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;RatingUnit: Total opinions: #{all}&quot;</span>)
+  <span class="ruby-identifier">buy</span> = <span class="ruby-identifier">analysts_opinion</span>.<span class="ruby-identifier">buy</span>.<span class="ruby-identifier">to_f</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">all</span>
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;RatingUnit: buy in percent: #{buy}&quot;</span>)
+  <span class="ruby-identifier">hold</span> = <span class="ruby-identifier">analysts_opinion</span>.<span class="ruby-identifier">hold</span>.<span class="ruby-identifier">to_f</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">all</span>
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;RatingUnit: hold in percent: #{hold}&quot;</span>)
+  <span class="ruby-identifier">sell</span> = <span class="ruby-identifier">analysts_opinion</span>.<span class="ruby-identifier">sell</span>.<span class="ruby-identifier">to_f</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">all</span>
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;RatingUnit: sell in percent: #{sell}&quot;</span>)
+  <span class="ruby-keyword">case</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-identifier">buy</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">hold</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">buy</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">sell</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">-1</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-identifier">hold</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">buy</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">hold</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">sell</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">0</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-identifier">sell</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">buy</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">sell</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">hold</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">1</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">-1</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">analysts_opinion</span>.<span class="ruby-identifier">score</span> = <span class="ruby-identifier">score</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- rate_analysts_opinion-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- rate_analysts_opinion-method -->
+
+    
+      <div id="method-c-rate_average_price_earnings_ratio" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">rate_average_price_earnings_ratio</span><span
+            class="method-args">(per)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Assess the average price earnings ratio value</p>
+<ul><li>
+<p>per the average price earnings ratio</p>
+</li></ul>
+          
+
+          
+          <div class="method-source-code" id="rate_average_price_earnings_ratio-source">
+            <pre><span class="ruby-comment"># File lib/engine/rating_unit.rb, line 47</span>
+<span class="ruby-keyword">def</span> <span class="ruby-constant">RatingUnit</span>.<span class="ruby-identifier">rate_average_price_earnings_ratio</span>(<span class="ruby-identifier">per</span>)
+  <span class="ruby-identifier">sum</span> = <span class="ruby-identifier">per</span>.<span class="ruby-identifier">value_three_years_ago</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">per</span>.<span class="ruby-identifier">value_two_years_ago</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">per</span>.<span class="ruby-identifier">value_last_year</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">per</span>.<span class="ruby-identifier">value_this_year</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">per</span>.<span class="ruby-identifier">value_next_year</span>
+  <span class="ruby-identifier">avg</span> = <span class="ruby-identifier">sum</span> <span class="ruby-operator">/</span> <span class="ruby-value">5</span>
+  <span class="ruby-keyword">case</span> 
+  <span class="ruby-keyword">when</span> <span class="ruby-identifier">avg</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">12</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">1</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-identifier">avg</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">16</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">-1</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">0</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">per</span>.<span class="ruby-identifier">average</span> = <span class="ruby-identifier">avg</span>
+  <span class="ruby-identifier">per</span>.<span class="ruby-identifier">score</span> = <span class="ruby-identifier">score</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- rate_average_price_earnings_ratio-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- rate_average_price_earnings_ratio-method -->
+
+    
+      <div id="method-c-rate_current_price_earnings_ratio" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">rate_current_price_earnings_ratio</span><span
+            class="method-args">(per)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Assess the current price earnings ratio value</p>
+<ul><li>
+<p>per the current price earnings ratio</p>
+</li></ul>
+          
+
+          
+          <div class="method-source-code" id="rate_current_price_earnings_ratio-source">
+            <pre><span class="ruby-comment"># File lib/engine/rating_unit.rb, line 64</span>
+<span class="ruby-keyword">def</span> <span class="ruby-constant">RatingUnit</span>.<span class="ruby-identifier">rate_current_price_earnings_ratio</span>(<span class="ruby-identifier">per</span>)
+  <span class="ruby-keyword">case</span> 
+  <span class="ruby-keyword">when</span> <span class="ruby-identifier">per</span>.<span class="ruby-identifier">value</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">12</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">1</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-identifier">per</span>.<span class="ruby-identifier">value</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">16</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">-1</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">0</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">per</span>.<span class="ruby-identifier">score</span> = <span class="ruby-identifier">score</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- rate_current_price_earnings_ratio-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- rate_current_price_earnings_ratio-method -->
+
+    
+      <div id="method-c-rate_ebit_margin" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">rate_ebit_margin</span><span
+            class="method-args">(ebit_margin)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Assess the ebit margin value</p>
+          
+
+          
+          <div class="method-source-code" id="rate_ebit_margin-source">
+            <pre><span class="ruby-comment"># File lib/engine/rating_unit.rb, line 20</span>
+<span class="ruby-keyword">def</span> <span class="ruby-constant">RatingUnit</span>.<span class="ruby-identifier">rate_ebit_margin</span>(<span class="ruby-identifier">ebit_margin</span>)
+  <span class="ruby-keyword">case</span> 
+  <span class="ruby-keyword">when</span> <span class="ruby-identifier">ebit_margin</span>.<span class="ruby-identifier">value</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">12</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">1</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-identifier">ebit_margin</span>.<span class="ruby-identifier">value</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">6</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">-1</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">0</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">ebit_margin</span>.<span class="ruby-identifier">score</span> = <span class="ruby-identifier">score</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- rate_ebit_margin-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- rate_ebit_margin-method -->
+
+    
+      <div id="method-c-rate_equity_ratio" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">rate_equity_ratio</span><span
+            class="method-args">(equity_ratio)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Assess the equity ratio value</p>
+          
+
+          
+          <div class="method-source-code" id="rate_equity_ratio-source">
+            <pre><span class="ruby-comment"># File lib/engine/rating_unit.rb, line 33</span>
+<span class="ruby-keyword">def</span> <span class="ruby-constant">RatingUnit</span>.<span class="ruby-identifier">rate_equity_ratio</span>(<span class="ruby-identifier">equity_ratio</span>)
+  <span class="ruby-keyword">case</span> 
+  <span class="ruby-keyword">when</span> <span class="ruby-identifier">equity_ratio</span>.<span class="ruby-identifier">value</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">25</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">1</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-identifier">equity_ratio</span>.<span class="ruby-identifier">value</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">15</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">-1</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">0</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">equity_ratio</span>.<span class="ruby-identifier">score</span> = <span class="ruby-identifier">score</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- rate_equity_ratio-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- rate_equity_ratio-method -->
+
+    
+      <div id="method-c-rate_profit_growth" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">rate_profit_growth</span><span
+            class="method-args">(profit_growth)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Assess the profit growth</p>
+          
+
+          
+          <div class="method-source-code" id="rate_profit_growth-source">
+            <pre><span class="ruby-comment"># File lib/engine/rating_unit.rb, line 230</span>
+<span class="ruby-keyword">def</span> <span class="ruby-constant">RatingUnit</span>.<span class="ruby-identifier">rate_profit_growth</span>(<span class="ruby-identifier">profit_growth</span>)
+  <span class="ruby-identifier">profit_growth</span>.<span class="ruby-identifier">perf</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">perf</span>(<span class="ruby-identifier">profit_growth</span>.<span class="ruby-identifier">value_next_year</span>, <span class="ruby-identifier">profit_growth</span>.<span class="ruby-identifier">value_this_year</span>)
+  <span class="ruby-keyword">case</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-identifier">profit_growth</span>.<span class="ruby-identifier">perf</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">5</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">1</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-identifier">profit_growth</span>.<span class="ruby-identifier">perf</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">-5</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">-1</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">0</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">profit_growth</span>.<span class="ruby-identifier">score</span> = <span class="ruby-identifier">score</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- rate_profit_growth-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- rate_profit_growth-method -->
+
+    
+      <div id="method-c-rate_profit_revision" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">rate_profit_revision</span><span
+            class="method-args">(profit_revision)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Assess the profit revision value</p>
+          
+
+          
+          <div class="method-source-code" id="rate_profit_revision-source">
+            <pre><span class="ruby-comment"># File lib/engine/rating_unit.rb, line 123</span>
+<span class="ruby-keyword">def</span> <span class="ruby-constant">RatingUnit</span>.<span class="ruby-identifier">rate_profit_revision</span>(<span class="ruby-identifier">profit_revision</span>)
+  <span class="ruby-identifier">u</span> = <span class="ruby-identifier">profit_revision</span>.<span class="ruby-identifier">up</span>
+  <span class="ruby-identifier">e</span> = <span class="ruby-identifier">profit_revision</span>.<span class="ruby-identifier">equal</span>
+  <span class="ruby-identifier">d</span> = <span class="ruby-identifier">profit_revision</span>.<span class="ruby-identifier">down</span>
+  <span class="ruby-keyword">case</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-identifier">u</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">u</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">d</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">1</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-identifier">e</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">u</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">e</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">d</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">0</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-identifier">d</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">u</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">d</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">-1</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-identifier">u</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">e</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">e</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">d</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">0</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-identifier">u</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">e</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">u</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">d</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">0</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-identifier">u</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">d</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">0</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">-1</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">profit_revision</span>.<span class="ruby-identifier">score</span> = <span class="ruby-identifier">score</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- rate_profit_revision-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- rate_profit_revision-method -->
+
+    
+      <div id="method-c-rate_reaction" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">rate_reaction</span><span
+            class="method-args">(reaction)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Assess the reaction on the release of quarterly figures</p>
+          
+
+          
+          <div class="method-source-code" id="rate_reaction-source">
+            <pre><span class="ruby-comment"># File lib/engine/rating_unit.rb, line 104</span>
+<span class="ruby-keyword">def</span> <span class="ruby-constant">RatingUnit</span>.<span class="ruby-identifier">rate_reaction</span>(<span class="ruby-identifier">reaction</span>)
+  <span class="ruby-identifier">stock_performance</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">perf</span>(<span class="ruby-identifier">reaction</span>.<span class="ruby-identifier">price_closing</span>, <span class="ruby-identifier">reaction</span>.<span class="ruby-identifier">price_opening</span>)
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;RatingUnit - stock performance: #{stock_performance}&quot;</span>)
+  <span class="ruby-identifier">index_performance</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">perf</span>(<span class="ruby-identifier">reaction</span>.<span class="ruby-identifier">index_closing</span>, <span class="ruby-identifier">reaction</span>.<span class="ruby-identifier">index_opening</span>)
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;RatingUnit - index performance: #{index_performance}&quot;</span>)
+  <span class="ruby-identifier">diff</span> = <span class="ruby-identifier">stock_performance</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">index_performance</span>
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;RatingUnit - performance diff: #{diff}&quot;</span>)
+  <span class="ruby-keyword">case</span> 
+  <span class="ruby-keyword">when</span> <span class="ruby-identifier">diff</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">1</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-identifier">diff</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">-1</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">-1</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">0</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">reaction</span>.<span class="ruby-identifier">score</span> = <span class="ruby-identifier">score</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- rate_reaction-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- rate_reaction-method -->
+
+    
+      <div id="method-c-rate_reversal" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">rate_reversal</span><span
+            class="method-args">(reversal)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Assess the three month reversal</p>
+          
+
+          
+          <div class="method-source-code" id="rate_reversal-source">
+            <pre><span class="ruby-comment"># File lib/engine/rating_unit.rb, line 209</span>
+<span class="ruby-keyword">def</span> <span class="ruby-constant">RatingUnit</span>.<span class="ruby-identifier">rate_reversal</span>(<span class="ruby-identifier">reversal</span>)
+  <span class="ruby-comment"># Stock performance</span>
+  <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">value_perf_three_months_ago</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">perf</span>(<span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">value_three_months_ago</span>, <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">value_four_months_ago</span>) 
+  <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">value_perf_two_months_ago</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">perf</span>(<span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">value_two_months_ago</span>, <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">value_three_months_ago</span>)
+  <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">value_perf_one_month_ago</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">perf</span>(<span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">value_one_month_ago</span>, <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">value_three_months_ago</span>)
+  <span class="ruby-comment"># Index performance</span>
+  <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">index_perf_three_months_ago</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">perf</span>(<span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">index_three_months_ago</span>, <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">index_four_months_ago</span>)
+  <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">index_perf_two_months_ago</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">perf</span>(<span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">index_two_months_ago</span>, <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">index_three_months_ago</span>)
+  <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">index_perf_one_month_ago</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">perf</span>(<span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">index_one_month_ago</span>, <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">index_two_months_ago</span>)
+  <span class="ruby-keyword">case</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">value_perf_three_months_ago</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">index_perf_three_months_ago</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">value_perf_two_months_ago</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">index_perf_two_months_ago</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">value_perf_one_month_ago</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">index_perf_one_month_ago</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">1</span> 
+  <span class="ruby-keyword">when</span> <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">value_perf_three_months_ago</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">index_perf_three_months_ago</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">value_perf_two_months_ago</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">index_perf_two_months_ago</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">value_perf_one_month_ago</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">index_perf_one_month_ago</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">-1</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">0</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">score</span> = <span class="ruby-identifier">score</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- rate_reversal-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- rate_reversal-method -->
+
+    
+      <div id="method-c-rate_roe" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">rate_roe</span><span
+            class="method-args">(return_on_equity)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Assess the return on equity value</p>
+          
+
+          
+          <div class="method-source-code" id="rate_roe-source">
+            <pre><span class="ruby-comment"># File lib/engine/rating_unit.rb, line 7</span>
+<span class="ruby-keyword">def</span> <span class="ruby-constant">RatingUnit</span>.<span class="ruby-identifier">rate_roe</span>(<span class="ruby-identifier">return_on_equity</span>)
+  <span class="ruby-keyword">case</span> 
+  <span class="ruby-keyword">when</span> <span class="ruby-identifier">return_on_equity</span>.<span class="ruby-identifier">value</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">20</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">1</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-identifier">return_on_equity</span>.<span class="ruby-identifier">value</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">10</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">-1</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">0</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">return_on_equity</span>.<span class="ruby-identifier">score</span> = <span class="ruby-identifier">score</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- rate_roe-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- rate_roe-method -->
+
+    
+      <div id="method-c-rate_stock_price_dev" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">rate_stock_price_dev</span><span
+            class="method-args">(past, now)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="rate_stock_price_dev-source">
+            <pre><span class="ruby-comment"># File lib/engine/rating_unit.rb, line 180</span>
+<span class="ruby-keyword">def</span> <span class="ruby-constant">RatingUnit</span>.<span class="ruby-identifier">rate_stock_price_dev</span>(<span class="ruby-identifier">past</span>, <span class="ruby-identifier">now</span>)
+  <span class="ruby-identifier">perf</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">perf</span>(<span class="ruby-identifier">now</span>, <span class="ruby-identifier">past</span>)
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;RatingUnit - #{past} half year ago -&gt; today #{now} - half year performance: #{perf}%&quot;</span>)
+  <span class="ruby-keyword">case</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-identifier">perf</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">5</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-value">1</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-identifier">perf</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">-5</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-value">-1</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-value">0</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- rate_stock_price_dev-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- rate_stock_price_dev-method -->
+
+    
+      <div id="method-c-rate_stock_price_dev_half_year" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">rate_stock_price_dev_half_year</span><span
+            class="method-args">(stock_price_dev_half_year)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Assess the half year stock price development</p>
+          
+
+          
+          <div class="method-source-code" id="rate_stock_price_dev_half_year-source">
+            <pre><span class="ruby-comment"># File lib/engine/rating_unit.rb, line 147</span>
+<span class="ruby-keyword">def</span> <span class="ruby-constant">RatingUnit</span>.<span class="ruby-identifier">rate_stock_price_dev_half_year</span>(<span class="ruby-identifier">stock_price_dev_half_year</span>)
+  <span class="ruby-identifier">now</span> = <span class="ruby-identifier">stock_price_dev_half_year</span>.<span class="ruby-identifier">compare</span>
+  <span class="ruby-identifier">past</span> = <span class="ruby-identifier">stock_price_dev_half_year</span>.<span class="ruby-identifier">value</span>
+  <span class="ruby-identifier">perf</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">perf</span>(<span class="ruby-identifier">now</span>, <span class="ruby-identifier">past</span>)
+  <span class="ruby-keyword">case</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-identifier">perf</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">5</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">1</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-identifier">perf</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">-5</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">-1</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">0</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">stock_price_dev_half_year</span>.<span class="ruby-identifier">perf</span> = <span class="ruby-identifier">perf</span>
+  <span class="ruby-identifier">stock_price_dev_half_year</span>.<span class="ruby-identifier">score</span> = <span class="ruby-identifier">score</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- rate_stock_price_dev_half_year-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- rate_stock_price_dev_half_year-method -->
+
+    
+      <div id="method-c-rate_stock_price_dev_one_year" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">rate_stock_price_dev_one_year</span><span
+            class="method-args">(stock_price_dev_one_year)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Assess the one year stock price development</p>
+          
+
+          
+          <div class="method-source-code" id="rate_stock_price_dev_one_year-source">
+            <pre><span class="ruby-comment"># File lib/engine/rating_unit.rb, line 164</span>
+<span class="ruby-keyword">def</span> <span class="ruby-constant">RatingUnit</span>.<span class="ruby-identifier">rate_stock_price_dev_one_year</span>(<span class="ruby-identifier">stock_price_dev_one_year</span>)
+  <span class="ruby-identifier">now</span> = <span class="ruby-identifier">stock_price_dev_one_year</span>.<span class="ruby-identifier">compare</span>
+  <span class="ruby-identifier">past</span> = <span class="ruby-identifier">stock_price_dev_one_year</span>.<span class="ruby-identifier">value</span>
+  <span class="ruby-identifier">perf</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">perf</span>(<span class="ruby-identifier">now</span>, <span class="ruby-identifier">past</span>)
+  <span class="ruby-keyword">case</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-identifier">perf</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">5</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">1</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-identifier">perf</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">-5</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">-1</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">0</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">stock_price_dev_one_year</span>.<span class="ruby-identifier">perf</span> = <span class="ruby-identifier">perf</span>
+  <span class="ruby-identifier">stock_price_dev_one_year</span>.<span class="ruby-identifier">score</span> = <span class="ruby-identifier">score</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- rate_stock_price_dev_one_year-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- rate_stock_price_dev_one_year-method -->
+
+    
+      <div id="method-c-rate_stock_price_momentum" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">rate_stock_price_momentum</span><span
+            class="method-args">(momentum)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Assess the stock price momentum</p>
+          
+
+          
+          <div class="method-source-code" id="rate_stock_price_momentum-source">
+            <pre><span class="ruby-comment"># File lib/engine/rating_unit.rb, line 194</span>
+<span class="ruby-keyword">def</span> <span class="ruby-constant">RatingUnit</span>.<span class="ruby-identifier">rate_stock_price_momentum</span>(<span class="ruby-identifier">momentum</span>)
+  <span class="ruby-identifier">half_year</span> = <span class="ruby-identifier">momentum</span>.<span class="ruby-identifier">stock_price_dev_half_year</span>.<span class="ruby-identifier">score</span>
+  <span class="ruby-identifier">one_year</span> = <span class="ruby-identifier">momentum</span>.<span class="ruby-identifier">stock_price_dev_one_year</span>.<span class="ruby-identifier">score</span>
+  <span class="ruby-keyword">case</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-identifier">half_year</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">one_year</span> <span class="ruby-operator">==</span> <span class="ruby-value">-1</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">one_year</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>)
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">1</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-identifier">half_year</span> <span class="ruby-operator">==</span> <span class="ruby-value">-1</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">one_year</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">one_year</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>)
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">-1</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-value">0</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">momentum</span>.<span class="ruby-identifier">score</span> = <span class="ruby-identifier">score</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- rate_stock_price_momentum-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- rate_stock_price_momentum-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

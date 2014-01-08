@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<title>class FinanzenExtractor - Rails Application Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/engine/extractor/finanzen_extractor.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link"><a href="BasicExtractor.html">BasicExtractor</a>
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-c-new">::new</a>
+    
+    <li><a href="#method-i-extract_analysts_opinion">#extract_analysts_opinion</a>
+    
+    <li><a href="#method-i-extract_insider_deals">#extract_insider_deals</a>
+    
+    <li><a href="#method-i-extract_reaction_on_figures">#extract_reaction_on_figures</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./doc/README_FOR_APP.html">README_FOR_APP</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./AnalystsOpinion.html">AnalystsOpinion</a>
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./AssetValue.html">AssetValue</a>
+  
+    <li><a href="./AveragePriceEarningsRatio.html">AveragePriceEarningsRatio</a>
+  
+    <li><a href="./BasicExtractor.html">BasicExtractor</a>
+  
+    <li><a href="./BasicIndexParser.html">BasicIndexParser</a>
+  
+    <li><a href="./BoerseExtractor.html">BoerseExtractor</a>
+  
+    <li><a href="./CurrentPriceEarningsRatio.html">CurrentPriceEarningsRatio</a>
+  
+    <li><a href="./DataMiningError.html">DataMiningError</a>
+  
+    <li><a href="./DaxIndexParser.html">DaxIndexParser</a>
+  
+    <li><a href="./DowIndexParser.html">DowIndexParser</a>
+  
+    <li><a href="./EbitMargin.html">EbitMargin</a>
+  
+    <li><a href="./EquityRatio.html">EquityRatio</a>
+  
+    <li><a href="./FinanzenExtractor.html">FinanzenExtractor</a>
+  
+    <li><a href="./HomeController.html">HomeController</a>
+  
+    <li><a href="./HomeHelper.html">HomeHelper</a>
+  
+    <li><a href="./IndicesHelper.html">IndicesHelper</a>
+  
+    <li><a href="./InsiderDeal.html">InsiderDeal</a>
+  
+    <li><a href="./InsiderDealsController.html">InsiderDealsController</a>
+  
+    <li><a href="./InsiderDealsHelper.html">InsiderDealsHelper</a>
+  
+    <li><a href="./InvalidIsinError.html">InvalidIsinError</a>
+  
+    <li><a href="./Momentum.html">Momentum</a>
+  
+    <li><a href="./OnVistaExtractor.html">OnVistaExtractor</a>
+  
+    <li><a href="./OnVistaIndexValueExtractor.html">OnVistaIndexValueExtractor</a>
+  
+    <li><a href="./OnVistaQuarterlyFiguresExtractor.html">OnVistaQuarterlyFiguresExtractor</a>
+  
+    <li><a href="./OnVistaStockValueExtractor.html">OnVistaStockValueExtractor</a>
+  
+    <li><a href="./ProfitGrowth.html">ProfitGrowth</a>
+  
+    <li><a href="./ProfitRevision.html">ProfitRevision</a>
+  
+    <li><a href="./RatingUnit.html">RatingUnit</a>
+  
+    <li><a href="./Reaction.html">Reaction</a>
+  
+    <li><a href="./ReturnOnEquity.html">ReturnOnEquity</a>
+  
+    <li><a href="./Reversal.html">Reversal</a>
+  
+    <li><a href="./ScoreCard.html">ScoreCard</a>
+  
+    <li><a href="./ScoreCardsController.html">ScoreCardsController</a>
+  
+    <li><a href="./ScoreCardsHelper.html">ScoreCardsHelper</a>
+  
+    <li><a href="./Share.html">Share</a>
+  
+    <li><a href="./SharesController.html">SharesController</a>
+  
+    <li><a href="./SharesHelper.html">SharesHelper</a>
+  
+    <li><a href="./StockIndex.html">StockIndex</a>
+  
+    <li><a href="./StockIndicesController.html">StockIndicesController</a>
+  
+    <li><a href="./StockPriceDevHalfYear.html">StockPriceDevHalfYear</a>
+  
+    <li><a href="./StockPriceDevOneYear.html">StockPriceDevOneYear</a>
+  
+    <li><a href="./StockProcessor.html">StockProcessor</a>
+  
+    <li><a href="./UnexpectedHtmlStructure.html">UnexpectedHtmlStructure</a>
+  
+    <li><a href="./Util.html">Util</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class FinanzenExtractor</h1>
+
+  <div id="description" class="description">
+    
+<p>This class has the capability to extract allor at least a part of the
+information neccessary to evaluate a stock against the rules defined by
+Susan Levermann from the Boerse web site.</p>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <!-- Constants -->
+    <section id="constants-list" class="section">
+      <h3 class="section-header">Constants</h3>
+      <dl>
+      
+        <dt id="FINANZEN_URL">FINANZEN_URL
+        
+        <dd class="description">
+        
+      
+        <dt id="INDEX_SUCCESS_VALUE">INDEX_SUCCESS_VALUE
+        
+        <dd class="description">
+        
+      
+        <dt id="INDEX_SUCCESS_XPATH">INDEX_SUCCESS_XPATH
+        
+        <dd class="description">
+        
+      
+        <dt id="SEARCH_FAILURE">SEARCH_FAILURE
+        
+        <dd class="description">
+        
+      
+        <dt id="STOCK_SUCCESS_VALUE">STOCK_SUCCESS_VALUE
+        
+        <dd class="description">
+        
+      
+        <dt id="STOCK_SUCCESS_XPATH">STOCK_SUCCESS_XPATH
+        
+        <dd class="description">
+        
+      
+        <dt id="THREE_MONTHS_IN_SECONDS">THREE_MONTHS_IN_SECONDS
+        
+        <dd class="description">
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(share)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/engine/extractor/finanzen_extractor.rb, line 18</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">share</span>)
+  <span class="ruby-keyword">super</span>(<span class="ruby-constant">FINANZEN_URL</span>, <span class="ruby-identifier">share</span>)
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class} initialized with stock: #{stock_isin} and index: #{index_isin}&quot;</span>)
+  <span class="ruby-comment">#TODO update!</span>
+  <span class="ruby-ivar">@stock_page</span> = <span class="ruby-identifier">perform_search</span>(<span class="ruby-string">&quot;action&quot;</span>, <span class="ruby-string">'/suchergebnis.asp'</span>, <span class="ruby-string">&quot;frmAktiensucheTextfeld&quot;</span>, <span class="ruby-identifier">stock_isin</span>, <span class="ruby-constant">STOCK_SUCCESS_XPATH</span>, <span class="ruby-constant">STOCK_SUCCESS_VALUE</span>)
+  <span class="ruby-ivar">@index_page</span> = <span class="ruby-identifier">perform_search</span>(<span class="ruby-string">&quot;action&quot;</span>, <span class="ruby-string">'/suchergebnis.asp'</span>, <span class="ruby-string">&quot;frmAktiensucheTextfeld&quot;</span>, <span class="ruby-identifier">index_isin</span>, <span class="ruby-constant">INDEX_SUCCESS_XPATH</span>, <span class="ruby-constant">INDEX_SUCCESS_VALUE</span>)
+  <span class="ruby-ivar">@historical_stock_page</span> = <span class="ruby-identifier">open_sub_page</span>(<span class="ruby-string">'Historisch'</span>, <span class="ruby-value">2</span>, <span class="ruby-value">1</span>, <span class="ruby-ivar">@stock_page</span>)
+  <span class="ruby-ivar">@historical_index_page</span> = <span class="ruby-identifier">open_sub_page</span>(<span class="ruby-string">'Historisch'</span>, <span class="ruby-value">1</span>, <span class="ruby-value">0</span>, <span class="ruby-ivar">@index_page</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- new-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- new-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-extract_analysts_opinion" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">extract_analysts_opinion</span><span
+            class="method-args">(analysts_opinion)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Extract the opinion of the analysts (Analystenmeinungen)</p>
+          
+
+          
+          <div class="method-source-code" id="extract_analysts_opinion-source">
+            <pre><span class="ruby-comment"># File lib/engine/extractor/finanzen_extractor.rb, line 171</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_analysts_opinion</span>(<span class="ruby-identifier">analysts_opinion</span>)
+  <span class="ruby-identifier">page</span> = <span class="ruby-identifier">open_sub_page</span>(<span class="ruby-string">&quot;Kursziele&quot;</span>, <span class="ruby-value">1</span>, <span class="ruby-value">0</span>, <span class="ruby-ivar">@stock_page</span>)
+  <span class="ruby-identifier">tr_set</span> = <span class="ruby-identifier">page</span>.<span class="ruby-identifier">parser</span>().<span class="ruby-identifier">xpath</span>(<span class="ruby-string">'(//table)[3]//tr[position()&gt;1]'</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">tr_set</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">tr_set</span>.<span class="ruby-identifier">size</span>() <span class="ruby-operator">&lt;</span> <span class="ruby-value">1</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">DataMiningError</span>, <span class="ruby-string">&quot;Could not extract analysts opinion&quot;</span>, <span class="ruby-identifier">caller</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{tr_set.size} analysts rated this stock&quot;</span>)
+    <span class="ruby-identifier">valid_ratings</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+    <span class="ruby-identifier">tr_set</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">tr</span><span class="ruby-operator">|</span>
+      <span class="ruby-comment"># Data extraction</span>
+      <span class="ruby-identifier">td_set</span> = <span class="ruby-identifier">tr</span>.<span class="ruby-identifier">xpath</span>(<span class="ruby-string">&quot;child::node()&quot;</span>)
+      <span class="ruby-identifier">analyst</span> = <span class="ruby-identifier">td_set</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">text</span>()
+      <span class="ruby-identifier">estimated_value</span> = <span class="ruby-identifier">td_set</span>[<span class="ruby-value">4</span>].<span class="ruby-identifier">text</span>()
+      <span class="ruby-identifier">raw_date</span> = <span class="ruby-identifier">td_set</span>[<span class="ruby-value">6</span>].<span class="ruby-identifier">text</span>()
+      <span class="ruby-identifier">release_date</span> = <span class="ruby-keyword">nil</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">raw_date</span>.<span class="ruby-identifier">end_with?</span>(<span class="ruby-string">&quot;Uhr&quot;</span>)
+        <span class="ruby-comment"># Handle scenario where opinion was added today</span>
+        <span class="ruby-identifier">release_date</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-comment"># Release date casting</span>
+        <span class="ruby-identifier">string_date</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">add_millennium</span>(<span class="ruby-identifier">raw_date</span>)
+        <span class="ruby-identifier">release_date</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">to_t</span>(<span class="ruby-identifier">string_date</span>)
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-identifier">exp</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">information_expired</span>(<span class="ruby-identifier">release_date</span>, <span class="ruby-constant">Util</span><span class="ruby-operator">::</span><span class="ruby-constant">DAY_IN_SECONDS</span> * <span class="ruby-value">92</span>)
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">exp</span>
+        <span class="ruby-comment">#LOG.debug(&quot;Expired: #{estimated_value} (released: #{Util.format(release_date)}) Analyst: #{analyst}&quot;)</span>
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">estimated_value</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;-&quot;</span>
+          <span class="ruby-comment">#LOG.debug(&quot;No price for: #{estimated_value} (released: #{Util.format(release_date)}) Analyst: #{analyst}&quot;)</span>
+        <span class="ruby-keyword">else</span>
+          <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{estimated_value} (released: #{Util.format(release_date)}) Analyst: #{analyst}&quot;</span>)
+          <span class="ruby-identifier">valid_ratings</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">l10n_f</span>(<span class="ruby-identifier">estimated_value</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-regexp">/€/</span>, <span class="ruby-string">''</span>))
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+    
+    <span class="ruby-identifier">avg</span> = <span class="ruby-value">0</span>
+    <span class="ruby-identifier">valid_ratings</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">rating</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">avg</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">rating</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;\nAverage value: #{avg / valid_ratings.size}\n&quot;</span>)
+    
+    <span class="ruby-comment">#TODO</span>
+    <span class="ruby-identifier">analysts_opinion</span>.<span class="ruby-identifier">buy</span> = <span class="ruby-value">0</span>
+    <span class="ruby-identifier">analysts_opinion</span>.<span class="ruby-identifier">hold</span> = <span class="ruby-value">0</span>
+    <span class="ruby-identifier">analysts_opinion</span>.<span class="ruby-identifier">sell</span> = <span class="ruby-value">0</span>
+    <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: analyst opinion buy: #{analysts_opinion.buy}&quot;</span>)
+    <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: analyst opinion hold: #{analysts_opinion.hold}&quot;</span>)
+    <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: analyst opinion sell: #{analysts_opinion.sell}&quot;</span>) 
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- extract_analysts_opinion-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- extract_analysts_opinion-method -->
+
+    
+      <div id="method-i-extract_insider_deals" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">extract_insider_deals</span><span
+            class="method-args">(results)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="extract_insider_deals-source">
+            <pre><span class="ruby-comment"># File lib/engine/extractor/finanzen_extractor.rb, line 129</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_insider_deals</span>(<span class="ruby-identifier">results</span>)
+  <span class="ruby-identifier">insider_trades</span> = <span class="ruby-identifier">open_sub_page</span>(<span class="ruby-string">'Insidertrades'</span>, <span class="ruby-value">1</span>, <span class="ruby-value">0</span>, <span class="ruby-ivar">@stock_page</span>)
+  <span class="ruby-identifier">rows</span> = <span class="ruby-identifier">insider_trades</span>.<span class="ruby-identifier">parser</span>().<span class="ruby-identifier">xpath</span>(<span class="ruby-string">&quot;//h1[contains(.,'Insidertrades bei ')]/../../div[@class='content']/table//tr&quot;</span>)
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;found #{rows.size} insider deals&quot;</span>)
+  <span class="ruby-identifier">share</span> = <span class="ruby-constant">Share</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:isin</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@stock_isin</span>).<span class="ruby-identifier">first</span>
+  <span class="ruby-identifier">rows</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">row</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">cells</span> = <span class="ruby-identifier">row</span>.<span class="ruby-identifier">xpath</span>(<span class="ruby-string">'.//td'</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">cells</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">6</span>
+      <span class="ruby-identifier">deal</span> = <span class="ruby-constant">InsiderDeal</span>.<span class="ruby-identifier">new</span>
+      <span class="ruby-identifier">deal</span>.<span class="ruby-identifier">share</span> = <span class="ruby-identifier">share</span>
+      <span class="ruby-identifier">d</span> = <span class="ruby-identifier">cells</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">content</span>()
+      <span class="ruby-identifier">full_date</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">add_millenium</span>(<span class="ruby-identifier">d</span>)
+      <span class="ruby-identifier">real_date</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">to_t</span>(<span class="ruby-identifier">full_date</span>)
+      <span class="ruby-identifier">deal</span>.<span class="ruby-identifier">occurred</span> = <span class="ruby-identifier">real_date</span>
+      <span class="ruby-identifier">deal</span>.<span class="ruby-identifier">person</span> = <span class="ruby-identifier">cells</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">content</span>()
+      <span class="ruby-identifier">deal</span>.<span class="ruby-identifier">quantity</span> = <span class="ruby-identifier">cells</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">content</span>().<span class="ruby-identifier">sub</span>(<span class="ruby-regexp">/\./</span>, <span class="ruby-string">''</span>)
+      <span class="ruby-identifier">deal</span>.<span class="ruby-identifier">price</span> =<span class="ruby-constant">Util</span>.<span class="ruby-identifier">l10n_f</span>(<span class="ruby-identifier">cells</span>[<span class="ruby-value">3</span>].<span class="ruby-identifier">content</span>())
+      <span class="ruby-identifier">action</span> = <span class="ruby-identifier">cells</span>[<span class="ruby-value">4</span>].<span class="ruby-identifier">content</span>()
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">action</span> <span class="ruby-operator">==</span> <span class="ruby-string">'Kauf'</span>
+        <span class="ruby-identifier">deal</span>.<span class="ruby-identifier">trade_type</span> = <span class="ruby-constant">Transaction</span><span class="ruby-operator">::</span><span class="ruby-constant">BUY</span>
+      <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">action</span> <span class="ruby-operator">==</span> <span class="ruby-string">'Verkauf'</span>
+         <span class="ruby-identifier">deal</span>.<span class="ruby-identifier">trade_type</span> = <span class="ruby-constant">Transaction</span><span class="ruby-operator">::</span><span class="ruby-constant">SELL</span>
+       <span class="ruby-keyword">else</span>
+         <span class="ruby-identifier">deal</span>.<span class="ruby-identifier">trade_type</span> = <span class="ruby-constant">Transaction</span><span class="ruby-operator">::</span><span class="ruby-constant">UNKNOWN</span>
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-identifier">details</span> = <span class="ruby-identifier">cells</span>[<span class="ruby-value">5</span>].<span class="ruby-identifier">xpath</span>(<span class="ruby-string">&quot;a&quot;</span>).<span class="ruby-identifier">first</span>.<span class="ruby-identifier">attr</span>(<span class="ruby-string">'href'</span>)
+      <span class="ruby-identifier">deal</span>.<span class="ruby-identifier">link</span> = <span class="ruby-node">&quot;#{FINANZEN_URL}#{details[1,details.length-1]}&quot;</span>
+      
+      <span class="ruby-identifier">results</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">deal</span>
+      <span class="ruby-identifier">exp</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">information_expired</span>(<span class="ruby-identifier">real_date</span>, <span class="ruby-constant">Util</span><span class="ruby-operator">::</span><span class="ruby-constant">DAY_IN_SECONDS</span> * <span class="ruby-value">92</span>)
+      <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">exp</span>
+        <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Datum: #{d}  Meldender: #{deal.person}  Anzahl: #{deal.quantity}  Kurs: #{deal.price}  Art: #{action}&quot;</span>)
+        <span class="ruby-identifier">duplicates</span> = <span class="ruby-constant">InsiderDeal</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:share_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">share</span>.<span class="ruby-identifier">id</span>, <span class="ruby-value">:occurred</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">deal</span>.<span class="ruby-identifier">occurred</span>, <span class="ruby-value">:person</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">deal</span>.<span class="ruby-identifier">person</span>, <span class="ruby-value">:quantity</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">deal</span>.<span class="ruby-identifier">quantity</span>, <span class="ruby-value">:trade_type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">deal</span>.<span class="ruby-identifier">trade_type</span>)
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">duplicates</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+          <span class="ruby-identifier">deal</span>.<span class="ruby-identifier">save!</span>
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- extract_insider_deals-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- extract_insider_deals-method -->
+
+    
+      <div id="method-i-extract_reaction_on_figures" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">extract_reaction_on_figures</span><span
+            class="method-args">(reaction)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Extract the reaction on the release of quarterly figures</p>
+          
+
+          
+          <div class="method-source-code" id="extract_reaction_on_figures-source">
+            <pre><span class="ruby-comment"># File lib/engine/extractor/finanzen_extractor.rb, line 102</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_reaction_on_figures</span>(<span class="ruby-identifier">reaction</span>)
+  <span class="ruby-identifier">quarterly_figure_dates</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-identifier">get_release_dates</span>(<span class="ruby-identifier">quarterly_figure_dates</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">quarterly_figure_dates</span>.<span class="ruby-identifier">empty?</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">DataMiningError</span>, <span class="ruby-string">&quot;Could no extract release of quarterly figures&quot;</span>, <span class="ruby-identifier">caller</span>
+    <span class="ruby-keyword">return</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Latest release date for quarterly figures: #{Util.format(quarterly_figure_dates.sort.last)}&quot;</span>)
+  <span class="ruby-identifier">diff</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">quarterly_figure_dates</span>.<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">last</span> 
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">diff</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">0</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">diff</span> <span class="ruby-operator">&gt;</span> <span class="ruby-constant">THREE_MONTHS_IN_SECONDS</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">DataMiningError</span>, <span class="ruby-string">&quot;Could no extract release of quarterly figures (date too old or in future)&quot;</span>, <span class="ruby-identifier">caller</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">reaction</span>.<span class="ruby-identifier">release_date</span> = <span class="ruby-identifier">quarterly_figure_dates</span>.<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">last</span>
+  <span class="ruby-comment"># Get the value of the stock when quarterly figures where published</span>
+  <span class="ruby-identifier">stock_opening_closing</span> = <span class="ruby-identifier">extract_stock_value_on</span>(<span class="ruby-identifier">reaction</span>.<span class="ruby-identifier">release_date</span>)
+  <span class="ruby-identifier">reaction</span>.<span class="ruby-identifier">price_opening</span> = <span class="ruby-identifier">stock_opening_closing</span>[<span class="ruby-value">0</span>]
+  <span class="ruby-identifier">reaction</span>.<span class="ruby-identifier">price_closing</span> = <span class="ruby-identifier">stock_opening_closing</span>[<span class="ruby-value">1</span>]
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: reaction stock: #{reaction.price_opening}&quot;</span>)
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: reaction stock: #{reaction.price_closing}&quot;</span>)
+  <span class="ruby-comment"># Get the value of the index when quaterly figures where published</span>
+  <span class="ruby-identifier">index_opening_closing</span> = <span class="ruby-identifier">extract_index_value_on</span>(<span class="ruby-identifier">reaction</span>.<span class="ruby-identifier">release_date</span>)
+  <span class="ruby-identifier">reaction</span>.<span class="ruby-identifier">index_opening</span> = <span class="ruby-identifier">index_opening_closing</span>[<span class="ruby-value">0</span>]
+  <span class="ruby-identifier">reaction</span>.<span class="ruby-identifier">index_closing</span> = <span class="ruby-identifier">index_opening_closing</span>[<span class="ruby-value">1</span>]
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: reaction index: #{reaction.index_opening}&quot;</span>)
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: reaction index: #{reaction.index_closing}&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- extract_reaction_on_figures-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- extract_reaction_on_figures-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

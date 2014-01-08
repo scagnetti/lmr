@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+dax:
+  isin: DE0008469008
+  name: DAX
+
+dow:
+  isin: US2605661048
+  name: DOW

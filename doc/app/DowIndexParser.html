@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<title>class DowIndexParser - Rails Application Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/engine/parser/dow_index_parser.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link"><a href="BasicIndexParser.html">BasicIndexParser</a>
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-c-new">::new</a>
+    
+    <li><a href="#method-i-get_dow_entries">#get_dow_entries</a>
+    
+    <li><a href="#method-i-process_dow_entries">#process_dow_entries</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./doc/README_FOR_APP.html">README_FOR_APP</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./AnalystsOpinion.html">AnalystsOpinion</a>
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./AssetValue.html">AssetValue</a>
+  
+    <li><a href="./AveragePriceEarningsRatio.html">AveragePriceEarningsRatio</a>
+  
+    <li><a href="./BasicExtractor.html">BasicExtractor</a>
+  
+    <li><a href="./BasicIndexParser.html">BasicIndexParser</a>
+  
+    <li><a href="./BoerseExtractor.html">BoerseExtractor</a>
+  
+    <li><a href="./CurrentPriceEarningsRatio.html">CurrentPriceEarningsRatio</a>
+  
+    <li><a href="./DataMiningError.html">DataMiningError</a>
+  
+    <li><a href="./DaxIndexParser.html">DaxIndexParser</a>
+  
+    <li><a href="./DowIndexParser.html">DowIndexParser</a>
+  
+    <li><a href="./EbitMargin.html">EbitMargin</a>
+  
+    <li><a href="./EquityRatio.html">EquityRatio</a>
+  
+    <li><a href="./FinanzenExtractor.html">FinanzenExtractor</a>
+  
+    <li><a href="./HomeController.html">HomeController</a>
+  
+    <li><a href="./HomeHelper.html">HomeHelper</a>
+  
+    <li><a href="./IndicesHelper.html">IndicesHelper</a>
+  
+    <li><a href="./InsiderDeal.html">InsiderDeal</a>
+  
+    <li><a href="./InsiderDealsController.html">InsiderDealsController</a>
+  
+    <li><a href="./InsiderDealsHelper.html">InsiderDealsHelper</a>
+  
+    <li><a href="./InvalidIsinError.html">InvalidIsinError</a>
+  
+    <li><a href="./Momentum.html">Momentum</a>
+  
+    <li><a href="./OnVistaExtractor.html">OnVistaExtractor</a>
+  
+    <li><a href="./OnVistaIndexValueExtractor.html">OnVistaIndexValueExtractor</a>
+  
+    <li><a href="./OnVistaQuarterlyFiguresExtractor.html">OnVistaQuarterlyFiguresExtractor</a>
+  
+    <li><a href="./OnVistaStockValueExtractor.html">OnVistaStockValueExtractor</a>
+  
+    <li><a href="./ProfitGrowth.html">ProfitGrowth</a>
+  
+    <li><a href="./ProfitRevision.html">ProfitRevision</a>
+  
+    <li><a href="./RatingUnit.html">RatingUnit</a>
+  
+    <li><a href="./Reaction.html">Reaction</a>
+  
+    <li><a href="./ReturnOnEquity.html">ReturnOnEquity</a>
+  
+    <li><a href="./Reversal.html">Reversal</a>
+  
+    <li><a href="./ScoreCard.html">ScoreCard</a>
+  
+    <li><a href="./ScoreCardsController.html">ScoreCardsController</a>
+  
+    <li><a href="./ScoreCardsHelper.html">ScoreCardsHelper</a>
+  
+    <li><a href="./Share.html">Share</a>
+  
+    <li><a href="./SharesController.html">SharesController</a>
+  
+    <li><a href="./SharesHelper.html">SharesHelper</a>
+  
+    <li><a href="./StockIndex.html">StockIndex</a>
+  
+    <li><a href="./StockIndicesController.html">StockIndicesController</a>
+  
+    <li><a href="./StockPriceDevHalfYear.html">StockPriceDevHalfYear</a>
+  
+    <li><a href="./StockPriceDevOneYear.html">StockPriceDevOneYear</a>
+  
+    <li><a href="./StockProcessor.html">StockProcessor</a>
+  
+    <li><a href="./UnexpectedHtmlStructure.html">UnexpectedHtmlStructure</a>
+  
+    <li><a href="./Util.html">Util</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class DowIndexParser</h1>
+
+  <div id="description" class="description">
+    
+<p>require ‘engine/parser/dow_index_parser.rb’ This class is capable of
+parsing the Dow Jones (DOW) index at the onVista homepage, create a <a
+href="Share.html">Share</a> object for each entry and save the populated
+object to the database.</p>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <!-- Constants -->
+    <section id="constants-list" class="section">
+      <h3 class="section-header">Constants</h3>
+      <dl>
+      
+        <dt id="URL_DOW">URL_DOW
+        
+        <dd class="description">
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/engine/parser/dow_index_parser.rb, line 14</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>()
+  <span class="ruby-keyword">super</span>()
+  <span class="ruby-ivar">@stock_index</span> = <span class="ruby-constant">StockIndex</span>.<span class="ruby-identifier">where</span>(<span class="ruby-string">&quot;name LIKE ?&quot;</span>, <span class="ruby-string">&quot;DOW&quot;</span>).<span class="ruby-identifier">first</span>
+  <span class="ruby-identifier">stock_listing</span> = <span class="ruby-identifier">get_entries_of_index</span>(<span class="ruby-constant">URL_DOW</span>, <span class="ruby-value">30</span>)
+  <span class="ruby-identifier">process_dow_entries</span>(<span class="ruby-identifier">stock_listing</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- new-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- new-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-get_dow_entries" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_dow_entries</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_dow_entries-source">
+            <pre><span class="ruby-comment"># File lib/engine/parser/dow_index_parser.rb, line 23</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_dow_entries</span>
+  <span class="ruby-identifier">page</span> = <span class="ruby-ivar">@agent</span>.<span class="ruby-identifier">get</span>(<span class="ruby-constant">URL_DOW</span>)
+  <span class="ruby-identifier">tr_set</span> = <span class="ruby-identifier">page</span>.<span class="ruby-identifier">parser</span>().<span class="ruby-identifier">xpath</span>(<span class="ruby-string">&quot;(//table)[5]//tr[(position() &gt; 2)]&quot;</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">tr_set</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">tr_set</span>.<span class="ruby-identifier">size</span>() <span class="ruby-operator">!=</span> <span class="ruby-value">30</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">DataMiningError</span>, <span class="ruby-string">&quot;Could not extract dow entries&quot;</span>, <span class="ruby-identifier">caller</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: Found #{tr_set.size()} entries.&quot;</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">tr_set</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_dow_entries-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_dow_entries-method -->
+
+    
+      <div id="method-i-process_dow_entries" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">process_dow_entries</span><span
+            class="method-args">(stock_listing)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="process_dow_entries-source">
+            <pre><span class="ruby-comment"># File lib/engine/parser/dow_index_parser.rb, line 34</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">process_dow_entries</span>(<span class="ruby-identifier">stock_listing</span>)
+  <span class="ruby-identifier">stock_listing</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">row</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">share</span> = <span class="ruby-identifier">create_share</span>()
+    <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;DEBUG: #{row.content()}&quot;</span>)
+    <span class="ruby-identifier">td_set</span> = <span class="ruby-identifier">row</span>.<span class="ruby-identifier">xpath</span>(<span class="ruby-string">&quot;td&quot;</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">td_set</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">td_set</span>.<span class="ruby-identifier">size</span>() <span class="ruby-operator">!=</span> <span class="ruby-value">9</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">DataMiningError</span>, <span class="ruby-string">&quot;Row did't have the expected number of 9 cells&quot;</span>, <span class="ruby-identifier">caller</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: Content of third cell #{td_set[2].content()}&quot;</span>)
+    <span class="ruby-comment"># Remove UNICODE white space</span>
+    <span class="ruby-identifier">raw_stock_exchange</span> = <span class="ruby-identifier">td_set</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">content</span>().<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">/[[:space:]]/</span>, <span class="ruby-string">''</span>)
+    <span class="ruby-identifier">share</span>.<span class="ruby-identifier">stock_exchange</span> = <span class="ruby-identifier">map_stock_exchange</span>(<span class="ruby-identifier">raw_stock_exchange</span>)
+    <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: Assigned stock exchange: #{share.stock_exchange}&quot;</span>)
+    <span class="ruby-comment">#Extract link to stock page</span>
+    <span class="ruby-identifier">stock_link</span> = <span class="ruby-identifier">td_set</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">xpath</span>(<span class="ruby-string">&quot;a&quot;</span>).<span class="ruby-identifier">first</span>.<span class="ruby-identifier">attr</span>(<span class="ruby-string">&quot;href&quot;</span>)
+    <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: Following link: #{stock_link}.&quot;</span>)
+    <span class="ruby-identifier">extract_data_from_stock_page</span>(<span class="ruby-identifier">stock_link</span>, <span class="ruby-identifier">share</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">share</span>.<span class="ruby-identifier">save</span>
+      <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: Create share with ID #{share.id} successfully!&quot;</span>)
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: Failed to save share #{share.name}!&quot;</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- process_dow_entries-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- process_dow_entries-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+
