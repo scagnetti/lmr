@@ -1,61 +1,75 @@
-<div>
+<div class="row">
 	<%= render 'score', :score => @score_card.reversal.score %>
-	Dreimonatsreversal: <img src="/help.png" title="Perf. in jedem Mt. < DAX | ansonsten | Perf. in jedem Mt. > DAX">
-  <% if @score_card.reversal.succeeded %>
-	 <br>
-	 <table border="1">
-	   <colgroup>
-	     <col width="150">
-       <col width="100">
-       <col width="100">
-       <col width="100">
-       <col width="100">
-    </colgroup>
-	 	<tr>
-	 		<th></th>
-	 		<th><%= @score_card.reversal.four_months_ago %></th>
-	 		<th><%= @score_card.reversal.three_months_ago %></th>
-	 		<th><%= @score_card.reversal.two_months_ago %></th>
-	 		<th><%= @score_card.reversal.one_month_ago %></th>
-	 	</tr>
-	 	<tr>
-	 		<td>Aktienkurs</td>
-	 		<td><%= @score_card.reversal.value_four_months_ago %></td>
-	 		<td><%= @score_card.reversal.value_three_months_ago %></td>
-	 		<td><%= @score_card.reversal.value_two_months_ago %></td>
-	 		<td><%= @score_card.reversal.value_one_month_ago %></td>
-	 	</tr>
-	 	<tr>
-	 		<td>Indexpunkte</td>
-	 		<td><%= @score_card.reversal.index_four_months_ago %></td>
-	 		<td><%= @score_card.reversal.index_three_months_ago %></td>
-	 		<td><%= @score_card.reversal.index_two_months_ago %></td>
-	 		<td><%= @score_card.reversal.index_one_month_ago %></td>
-	 	</tr>
-	 	<tr>
-	 		<td>Aktienperformance</td>
-	 		<td></td>
-			<td><%= @score_card.reversal.value_perf_three_months_ago %></td>
-			<td><%= @score_card.reversal.value_perf_two_months_ago %></td>
-			<td><%= @score_card.reversal.value_perf_one_month_ago %></td>
-	 	</tr>
-	 	<tr>
-	 		<td>Indexperformance</td>
-	 		<td></td>
-			<td><%= @score_card.reversal.index_perf_three_months_ago %></td>
-			<td><%= @score_card.reversal.index_perf_two_months_ago %></td>
-			<td><%= @score_card.reversal.index_perf_one_month_ago %></td>
-	 	</tr>
-	 </table>
+	<div class="col-md-3">
+		Dreimonatsreversal: <img src="/help.png" title="Perf. in jedem Mt. < DAX | ansonsten | Perf. in jedem Mt. > DAX">
+	</div>
+	<% if @score_card.reversal.succeeded %>
+		<div class="col-md-2 col-md-offset-4">
+			<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#reversal">
+  			Show
+			</button>			
+		</div>
 	<% else %>
 		<%= render 'failed' %>
 	<% end %>
 </div>
 
-
-  	
-  	
-  	
-
-
-
+<div class="modal fade" id="reversal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" id="reversalLabel">Extracted Values</h4>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered">
+					 <colgroup>
+					   <col width="150">
+					   <col width="100">
+					   <col width="100">
+					   <col width="100">
+					   <col width="100">
+					</colgroup>
+					<tr>
+						<th></th>
+						<th><%= @score_card.reversal.four_months_ago %></th>
+						<th><%= @score_card.reversal.three_months_ago %></th>
+						<th><%= @score_card.reversal.two_months_ago %></th>
+						<th><%= @score_card.reversal.one_month_ago %></th>
+					</tr>
+					<tr>
+						<td>Aktienkurs</td>
+						<td><%= @score_card.reversal.value_four_months_ago %></td>
+						<td><%= @score_card.reversal.value_three_months_ago %></td>
+						<td><%= @score_card.reversal.value_two_months_ago %></td>
+						<td><%= @score_card.reversal.value_one_month_ago %></td>
+					</tr>
+					<tr>
+						<td>Indexpunkte</td>
+						<td><%= @score_card.reversal.index_four_months_ago %></td>
+						<td><%= @score_card.reversal.index_three_months_ago %></td>
+						<td><%= @score_card.reversal.index_two_months_ago %></td>
+						<td><%= @score_card.reversal.index_one_month_ago %></td>
+					</tr>
+					<tr>
+						<td>Aktienperformance</td>
+						<td></td>
+						<td><%= @score_card.reversal.value_perf_three_months_ago %></td>
+						<td><%= @score_card.reversal.value_perf_two_months_ago %></td>
+						<td><%= @score_card.reversal.value_perf_one_month_ago %></td>
+					</tr>
+					<tr>
+						<td>Indexperformance</td>
+						<td></td>
+						<td><%= @score_card.reversal.index_perf_three_months_ago %></td>
+						<td><%= @score_card.reversal.index_perf_two_months_ago %></td>
+						<td><%= @score_card.reversal.index_perf_one_month_ago %></td>
+					</tr>
+			  </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

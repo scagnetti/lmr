@@ -1,11 +1,16 @@
-<div>
+<div class="row">
 	<%= render 'score', :score => @score_card.equity_ratio.score %>
-  Eigenkapitalquote LJ: <img src="/help.png" title="> 25% | 25% - 15% | < 15%">
-  <% if @score_card.equity_ratio.succeeded %>
-		<br>
-		&nbsp;&nbsp;Jahr: <%= @score_card.equity_ratio.last_year %><br>
-		&nbsp;&nbsp;Wert: <%= @score_card.equity_ratio.value %>%
-	<% else %>%
+	<div class="col-md-3">
+		Eigenkapitalquote LJ: <img src="/help.png" title="> 25% | 25% - 15% | < 15%">
+	</div>
+	<% if @score_card.equity_ratio.succeeded %>
+		<div class="col-md-2">
+			Value: <%= @score_card.equity_ratio.value %>%
+		</div>
+		<div class="col-md-2">
+			Year: <%= @score_card.equity_ratio.last_year %>
+		</div>
+	<% else %>
 		<%= render 'failed' %>
 	<% end %>
 </div>

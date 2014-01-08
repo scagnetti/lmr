@@ -3,3 +3,8 @@
 $(function() {
   $('.datepicker').datepicker({ dateFormat: "yy-mm-dd" });
 });
+
+$(function() {
+	$('#roe_info').tooltip();
+});
+

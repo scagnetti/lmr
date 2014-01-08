@@ -12,19 +12,23 @@ class StockProcessor
   
   # The supplied score_card is populated with the calculated figures.
   def initialize(score_card)
-    LOG.debug("#{self.class}: initialized with ISIN: #{score_card.share.isin}")
+    LOG.info("#{self.class}: Evaluating share: #{score_card.share.name}")
     @score_card = score_card
     @extractors = Array.new
-    @extractors << OnVistaExtractor.new(@score_card.share.isin, @score_card.share.stock_index.isin)
-    #@extractors << BoerseExtractor.new(@score_card.share.isin, @score_card.share.stock_index.isin)
-    @extractors << FinanzenExtractor.new(@score_card.share.isin, @score_card.share.stock_index.isin)
+    @extractors << OnVistaExtractor.new(@score_card.share)
+    #@extractors << BoerseExtractor.new(@score_card.share)
+    #@extractors << FinanzenExtractor.new(@score_card.share)
   end
 
   public
   
   # Start the evaluation
   def go
-    run_on_all_extractors(@score_card.price) { |e| @score_card.price = e.extract_stock_price()}
+    run_on_all_extractors(@score_card.price) { |e| 
+      result = e.extract_stock_price()
+      @score_card.price = result['price']
+      @score_card.currency = result['currency']
+    }
     
     @score_card.return_on_equity = ReturnOnEquity.new
     run_on_all_extractors(@score_card.return_on_equity) { |e|
@@ -70,7 +74,7 @@ class StockProcessor
     
     @score_card.reaction = Reaction.new
     run_on_all_extractors(@score_card.reaction) { |e|
-      e.extract_reaction_on_figures(@score_card.share.stock_index.isin, @score_card.reaction)
+      e.extract_reaction_on_figures(@score_card.reaction)
       RatingUnit.rate_reaction(@score_card.reaction)
     }
     @score_card.total_score += @score_card.reaction.score
@@ -83,6 +87,7 @@ class StockProcessor
     @score_card.total_score += @score_card.profit_revision.score
     
     @score_card.stock_price_dev_half_year = StockPriceDevHalfYear.new
+    # Compare with the current price of the stock
     @score_card.stock_price_dev_half_year.compare = @score_card.price
     run_on_all_extractors(@score_card.stock_price_dev_half_year) { |e|
       e.extract_stock_price_dev_half_year(@score_card.stock_price_dev_half_year)
@@ -91,6 +96,7 @@ class StockProcessor
     @score_card.total_score += @score_card.stock_price_dev_half_year.score
     
     @score_card.stock_price_dev_one_year = StockPriceDevOneYear.new
+    # Compare with the current price of the stock
     @score_card.stock_price_dev_one_year.compare = @score_card.price
     run_on_all_extractors(@score_card.stock_price_dev_one_year) { |e|
       e.extract_stock_price_dev_one_year(@score_card.stock_price_dev_one_year)

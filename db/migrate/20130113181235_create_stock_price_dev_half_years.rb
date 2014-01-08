@@ -6,6 +6,7 @@ class CreateStockPriceDevHalfYears < ActiveRecord::Migration
       t.text :error_msg
       t.float :compare
       t.float :value
+      t.date :historical_date
       t.float :perf
 
       t.timestamps

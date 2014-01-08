@@ -12,9 +12,10 @@ class BoerseExtractor < BasicExtractor
   
   SEARCH_FAILURE = "//div[contains(.,'Leider konnten wir keine Wertpapiere für Ihre Anfrage finden')]"
 
-  def initialize(stock_isin, index_isin)
-    super(BOERSE_URL, stock_isin, index_isin)
+  def initialize(share)
+    super(BOERSE_URL, share)
     LOG.debug("#{self.class}: initialized")
+    #TODO update!
     @stock_page = perform_search("action", '/suche/', "search", stock_isin, SEARCH_FAILURE)
   end
 

@@ -1,7 +1,31 @@
-<p id="notice"><%= notice %></p>
-<h2>Rating for: <%= @score_card.share.name %> (ISIN: <%= @score_card.share.isin %>)</h4>
-<h4>Current Price: <%= @score_card.price %> | Compare-Index: <%= @score_card.share.stock_index.name %> | Financial: <%= @score_card.share.financial %></h3>
-<h3>Score: <%= @score_card.total_score %></h5>
+<% if notice != nil %>
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+		  <div class="alert alert-success alert-dismissable">
+		  	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		  	<strong>Info:</strong> <%= notice %>
+		  </div>
+		</div>
+	</div>
+<% end %>
+
+<div class="row">
+	<div class="col-md-12">
+		<h1>Rating for <%= @score_card.share.name %> <small>ISIN: <%= @score_card.share.isin %></small></h1>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<h2><small>Created: <%= I18n.l(@score_card.created_at) %> | Price: <%= @score_card.price %> | Compare-Index: <%= @score_card.share.stock_index.name %> | Financial: <%= @score_card.share.financial %></small></h2>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<h3>Score: <%= @score_card.total_score %></h3>
+	</div>
+</div>
 
 <%= render 'roe' %><br>
 <%= render 'ebit_margin' %><br>

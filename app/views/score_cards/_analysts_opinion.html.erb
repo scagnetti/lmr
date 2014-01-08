@@ -1,11 +1,18 @@
-<div>
+<div class="row">
 	<%= render 'score', :score => @score_card.analysts_opinion.score %>
-	Analystenmeinungen: <img src="/help.png" title="negativ | neutral | positiv">
-  <% if @score_card.analysts_opinion.succeeded %>
-	 <br>
-		&nbsp;&nbsp;Kaufen: <%= @score_card.analysts_opinion.buy %><br>
-		&nbsp;&nbsp;Halten: <%= @score_card.analysts_opinion.hold %><br>
-		&nbsp;&nbsp;Verkaufen: <%= @score_card.analysts_opinion.sell %>
+	<div class="col-md-3">
+		Analystenmeinungen: <img src="/help.png" title="negativ | neutral | positiv">
+	</div>
+	<% if @score_card.analysts_opinion.succeeded %>
+		<div class="col-md-2">
+			Buy: <%= @score_card.analysts_opinion.buy %>
+		</div>
+		<div class="col-md-2">
+			Hold: <%= @score_card.analysts_opinion.hold %>
+		</div>
+		<div class="col-md-2">
+			Sell: <%= @score_card.analysts_opinion.sell %>			
+		</div>
 	<% else %>
 		<%= render 'failed' %>
 	<% end %>

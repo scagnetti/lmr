@@ -1,19 +1,59 @@
-<div>
+<div class="row">
 	<%= render 'score', :score => @score_card.reaction.score %>
-	Reaktion auf Quartalszahlen: <img src="/help.png" title="positiv | zwischen -1% und +1% | negativ">
-  <% if @score_card.reaction.succeeded %>
-	 <br>
-		&nbsp;&nbsp;Veröffentlicht am: <%= @score_card.reaction.release_date %><br>
-  	&nbsp;&nbsp;Aktie-Öffnungskurs: <%= @score_card.reaction.price_opening %><br>
-  	&nbsp;&nbsp;Aktie-Schlusskurs: <%= @score_card.reaction.price_closing %><br>
-  	&nbsp;&nbsp;Index-Öffnungskurs: <%= @score_card.reaction.index_opening %><br>
-  	&nbsp;&nbsp;Index-Schlusskurs: <%= @score_card.reaction.index_closing %>
+	<div class="col-md-3">
+		Reaktion auf Quartalszahlen: <img src="/help.png" title="positiv | zwischen -1% und +1% | negativ">
+	</div>
+	<% if @score_card.reaction.succeeded %>
+		<div class="col-md-2">
+			Perf.-Share: <%= @score_card.reaction.share_perf %>
+		</div>
+	 <div class="col-md-2">
+			Perf.-Index: <%= @score_card.reaction.index_perf %>
+		</div>
+		<div class="col-md-2">
+			<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#reaction">
+  			Show
+			</button>
+		</div>
 	<% else %>
 		<%= render 'failed' %>
 	<% end %>
 </div>
 
-
-
-
-
+<div class="modal fade" id="reaction" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" id="reactionLabel">Reaction on publication (<%= @score_card.reaction.release_date %>)</h4>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered">
+			    <colgroup>
+			      <col width="60">
+		        <col width="60">
+		        <col width="60">
+		      </colgroup>
+					<tr>
+						<th></th>
+						<th>Opening</th>
+						<th>Closing</th>
+					</tr>
+					<tr>
+						<td>Share</td>
+						<td><%= @score_card.reaction.price_opening %></td>
+						<td><%= @score_card.reaction.price_closing %></td>
+					</tr>
+					<tr>
+						<td>Index</td>
+						<td><%= @score_card.reaction.index_opening %></td>
+						<td><%= @score_card.reaction.index_closing %></td>
+					</tr>
+				</table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

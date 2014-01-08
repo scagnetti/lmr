@@ -1,13 +1,21 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-one:
-  name: MyString
-  isin: MyString
+adidas:
+  name: Adidas
+  isin: DE000A1EWWW0
+  active: true
   financial: false
-  size: 1
+  size: <%= CompanySize::LARGE %>
+  stock_exchange: <%= StockExchange::TRADEGATE %>
+  currency: EUR
+  stock_index: dax
 
-two:
-  name: MyString
-  isin: MyString
+cisco:
+  name: Cisco
+  isin: US17275R1023
+  active: true
   financial: false
-  size: 1
+  size: <%= CompanySize::LARGE %>
+  stock_exchange: <%= StockExchange::NASDAQ %>
+  currency: USD
+  stock_index: dow

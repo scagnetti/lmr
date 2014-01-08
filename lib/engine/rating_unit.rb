@@ -104,8 +104,10 @@ class RatingUnit
   def RatingUnit.rate_reaction(reaction)
     stock_performance = Util.perf(reaction.price_closing, reaction.price_opening)
     LOG.debug("RatingUnit - stock performance: #{stock_performance}")
+    reaction.share_perf = stock_performance
     index_performance = Util.perf(reaction.index_closing, reaction.index_opening)
     LOG.debug("RatingUnit - index performance: #{index_performance}")
+    reaction.index_perf = index_performance
     diff = stock_performance - index_performance
     LOG.debug("RatingUnit - performance diff: #{diff}")
     case 
@@ -121,26 +123,38 @@ class RatingUnit
   
   # Assess the profit revision value
   def RatingUnit.rate_profit_revision(profit_revision)
-    u = profit_revision.up
-    e = profit_revision.equal
-    d = profit_revision.down
+    ## Deprecated see OnVistaExtractor.extract_profit_revision(...)
+    # u = profit_revision.up
+    # e = profit_revision.equal
+    # d = profit_revision.down
+    # case
+    # when u > e && u > d
+      # score = 1
+    # when e > u && e > d
+      # score = 0
+    # when d > u && d > e
+      # score = -1
+    # when u == e && e == d
+      # score = 0
+    # when u == e || u > d
+      # score = 0
+    # when u == d
+      # score = 0
+    # else
+      # score = -1
+    # end
+    # profit_revision.score = score
+    
     case
-    when u > e && u > d
-      score = 1
-    when e > u && e > d
-      score = 0
-    when d > u && d > e
-      score = -1
-    when u == e && e == d
-      score = 0
-    when u == e || u > d
-      score = 0
-    when u == d
-      score = 0
+    when profit_revision.up = 1
+      profit_revision.score = 1
+    when profit_revision.equal = 1
+      profit_revision.score = 0
+    when profit_revision.down = 1
+      profit_revision.score = -1
     else
-      score = -1
+      profit_revision.score = -1
     end
-    profit_revision.score = score
   end
   
   # Assess the half year stock price development
@@ -177,19 +191,6 @@ class RatingUnit
     stock_price_dev_one_year.score = score
   end
   
-    def RatingUnit.rate_stock_price_dev(past, now)
-    perf = Util.perf(now, past)
-    LOG.debug("RatingUnit - #{past} half year ago -> today #{now} - half year performance: #{perf}%")
-    case
-    when perf > 5
-      return 1
-    when perf < -5
-      return -1
-    else
-      return 0
-    end
-  end
-  
   # Assess the stock price momentum
   def RatingUnit.rate_stock_price_momentum(momentum)
     half_year = momentum.stock_price_dev_half_year.score
@@ -210,7 +211,7 @@ class RatingUnit
     # Stock performance
     reversal.value_perf_three_months_ago = Util.perf(reversal.value_three_months_ago, reversal.value_four_months_ago) 
     reversal.value_perf_two_months_ago = Util.perf(reversal.value_two_months_ago, reversal.value_three_months_ago)
-    reversal.value_perf_one_month_ago = Util.perf(reversal.value_one_month_ago, reversal.value_three_months_ago)
+    reversal.value_perf_one_month_ago = Util.perf(reversal.value_one_month_ago, reversal.value_two_months_ago)
     # Index performance
     reversal.index_perf_three_months_ago = Util.perf(reversal.index_three_months_ago, reversal.index_four_months_ago)
     reversal.index_perf_two_months_ago = Util.perf(reversal.index_two_months_ago, reversal.index_three_months_ago)

@@ -9,15 +9,19 @@ require 'engine/exceptions/invalid_isin_error.rb'
 class FinanzenExtractor < BasicExtractor
 
   FINANZEN_URL = "http://www.finanzen.net/"
-  
+  STOCK_SUCCESS_XPATH = "//div[@class='breadcrumb']/a"
+  STOCK_SUCCESS_VALUE = "Aktien"
+  INDEX_SUCCESS_XPATH = "//div[@class='breadcrumb']/a"
+  INDEX_SUCCESS_VALUE = "Indizes"
   SEARCH_FAILURE = "//div[contains(.,'Keine Ergebnisse')]"
   THREE_MONTHS_IN_SECONDS = 60 * 60 * 24 * 31 * 3
 
-  def initialize(stock_isin, index_isin)
-    super(FINANZEN_URL, stock_isin, index_isin)
+  def initialize(share)
+    super(FINANZEN_URL, share)
     LOG.debug("#{self.class} initialized with stock: #{stock_isin} and index: #{index_isin}")
-    @stock_page = perform_search("action", '/suchergebnis.asp', "frmAktiensucheTextfeld", stock_isin, SEARCH_FAILURE)
-    @index_page = perform_search("action", '/suchergebnis.asp', "frmAktiensucheTextfeld", index_isin, SEARCH_FAILURE)
+    #TODO update!
+    @stock_page = perform_search("action", '/suchergebnis.asp', "frmAktiensucheTextfeld", stock_isin, STOCK_SUCCESS_XPATH, STOCK_SUCCESS_VALUE)
+    @index_page = perform_search("action", '/suchergebnis.asp', "frmAktiensucheTextfeld", index_isin, INDEX_SUCCESS_XPATH, INDEX_SUCCESS_VALUE)
     @historical_stock_page = open_sub_page('Historisch', 2, 1, @stock_page)
     @historical_index_page = open_sub_page('Historisch', 1, 0, @index_page)
   end
@@ -96,7 +100,7 @@ class FinanzenExtractor < BasicExtractor
   public
 
   # Extract the reaction on the release of quarterly figures
-  def extract_reaction_on_figures(index_isin, reaction)
+  def extract_reaction_on_figures(reaction)
     quarterly_figure_dates = Array.new
     get_release_dates(quarterly_figure_dates)
     if quarterly_figure_dates.empty?

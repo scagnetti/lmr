@@ -1,9 +1,11 @@
-<% if score == 1 %>
-  <span class="pos">+1</span>
-<% elsif score == 0 %>
-  <span class="neutral">0</span>
-<% elsif score == -1%>
-	<span class="neg">-1</span>
-<% else %>
-  <span class="neg">?</span>
-<% end %>
+<div class="col-md-1">
+	<% if score == 1 %>
+		<span class="label label-success">+1</span>
+	<% elsif score == 0 %>
+	  <span class="label label-warning">&nbsp0&nbsp</span>
+	<% elsif score == -1%>
+		<span class="label label-danger">-1</span>
+	<% else %>
+	  <span class="label label-danger">?</span>
+	<% end %>
+</div>

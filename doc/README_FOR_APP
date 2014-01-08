@@ -1,2 +1,11 @@
-Use this README file to introduce your application and point to useful places in the API for learning more.
-Run "rake doc:app" to generate API documentation for your models, controllers, helpers, and libraries.
+=TODOs
+
+===Run "rake doc:app" to generate this API documentation.
+
+* All price or value calculations should also return a representing date
+* Redo evaluation inside the RatingUnit and write good tests
+* Handle public holiday and weekends
+* Replace all Time objects with date objects
+
+=== Nice to know
+* Quarterly figures for US stocks: http://quicktake.morningstar.com/StockNet/SECDocuments.aspx?Symbol=MMM&Country=usa

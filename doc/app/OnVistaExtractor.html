@@ -72,6 +72,20 @@
     
     <li><a href="#method-c-new">::new</a>
     
+    <li><a href="#method-i-extract_analysts_opinion">#extract_analysts_opinion</a>
+    
+    <li><a href="#method-i-extract_average_price_earnings_ratio">#extract_average_price_earnings_ratio</a>
+    
+    <li><a href="#method-i-extract_current_price_earnings_ratio">#extract_current_price_earnings_ratio</a>
+    
+    <li><a href="#method-i-extract_ebit_margin">#extract_ebit_margin</a>
+    
+    <li><a href="#method-i-extract_equity_ratio">#extract_equity_ratio</a>
+    
+    <li><a href="#method-i-extract_profit_growth">#extract_profit_growth</a>
+    
+    <li><a href="#method-i-extract_profit_revision">#extract_profit_revision</a>
+    
     <li><a href="#method-i-extract_reaction_on_figures">#extract_reaction_on_figures</a>
     
     <li><a href="#method-i-extract_roe">#extract_roe</a>
@@ -79,6 +93,12 @@
     <li><a href="#method-i-extract_stock_name">#extract_stock_name</a>
     
     <li><a href="#method-i-extract_stock_price">#extract_stock_price</a>
+    
+    <li><a href="#method-i-extract_stock_price_dev_half_year">#extract_stock_price_dev_half_year</a>
+    
+    <li><a href="#method-i-extract_stock_price_dev_one_year">#extract_stock_price_dev_one_year</a>
+    
+    <li><a href="#method-i-extract_three_month_reversal">#extract_three_month_reversal</a>
     
   </ul>
 </nav>
@@ -101,21 +121,35 @@
 
   <ul class="link-list">
   
-    <li><a href="./Analyst.html">Analyst</a>
+    <li><a href="./AnalystsOpinion.html">AnalystsOpinion</a>
   
     <li><a href="./ApplicationController.html">ApplicationController</a>
   
     <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
   
+    <li><a href="./AssetValue.html">AssetValue</a>
+  
+    <li><a href="./AveragePriceEarningsRatio.html">AveragePriceEarningsRatio</a>
+  
     <li><a href="./BasicExtractor.html">BasicExtractor</a>
+  
+    <li><a href="./BasicIndexParser.html">BasicIndexParser</a>
   
     <li><a href="./BoerseExtractor.html">BoerseExtractor</a>
   
+    <li><a href="./CurrentPriceEarningsRatio.html">CurrentPriceEarningsRatio</a>
+  
     <li><a href="./DataMiningError.html">DataMiningError</a>
   
-    <li><a href="./Ebit.html">Ebit</a>
+    <li><a href="./DaxIndexParser.html">DaxIndexParser</a>
   
-    <li><a href="./Equity.html">Equity</a>
+    <li><a href="./DowIndexParser.html">DowIndexParser</a>
+  
+    <li><a href="./EbitMargin.html">EbitMargin</a>
+  
+    <li><a href="./EquityRatio.html">EquityRatio</a>
+  
+    <li><a href="./FinanzenExtractor.html">FinanzenExtractor</a>
   
     <li><a href="./HomeController.html">HomeController</a>
   
@@ -123,19 +157,35 @@
   
     <li><a href="./IndicesHelper.html">IndicesHelper</a>
   
+    <li><a href="./InsiderDeal.html">InsiderDeal</a>
+  
+    <li><a href="./InsiderDealsController.html">InsiderDealsController</a>
+  
+    <li><a href="./InsiderDealsHelper.html">InsiderDealsHelper</a>
+  
     <li><a href="./InvalidIsinError.html">InvalidIsinError</a>
+  
+    <li><a href="./Momentum.html">Momentum</a>
   
     <li><a href="./OnVistaExtractor.html">OnVistaExtractor</a>
   
+    <li><a href="./OnVistaIndexValueExtractor.html">OnVistaIndexValueExtractor</a>
+  
     <li><a href="./OnVistaQuarterlyFiguresExtractor.html">OnVistaQuarterlyFiguresExtractor</a>
   
-    <li><a href="./OnVistaValueExtractor.html">OnVistaValueExtractor</a>
+    <li><a href="./OnVistaStockValueExtractor.html">OnVistaStockValueExtractor</a>
   
-    <li><a href="./Per.html">Per</a>
+    <li><a href="./ProfitGrowth.html">ProfitGrowth</a>
+  
+    <li><a href="./ProfitRevision.html">ProfitRevision</a>
+  
+    <li><a href="./RatingUnit.html">RatingUnit</a>
   
     <li><a href="./Reaction.html">Reaction</a>
   
     <li><a href="./ReturnOnEquity.html">ReturnOnEquity</a>
+  
+    <li><a href="./Reversal.html">Reversal</a>
   
     <li><a href="./ScoreCard.html">ScoreCard</a>
   
@@ -143,11 +193,23 @@
   
     <li><a href="./ScoreCardsHelper.html">ScoreCardsHelper</a>
   
+    <li><a href="./Share.html">Share</a>
+  
+    <li><a href="./SharesController.html">SharesController</a>
+  
+    <li><a href="./SharesHelper.html">SharesHelper</a>
+  
     <li><a href="./StockIndex.html">StockIndex</a>
   
     <li><a href="./StockIndicesController.html">StockIndicesController</a>
   
+    <li><a href="./StockPriceDevHalfYear.html">StockPriceDevHalfYear</a>
+  
+    <li><a href="./StockPriceDevOneYear.html">StockPriceDevOneYear</a>
+  
     <li><a href="./StockProcessor.html">StockProcessor</a>
+  
+    <li><a href="./UnexpectedHtmlStructure.html">UnexpectedHtmlStructure</a>
   
     <li><a href="./Util.html">Util</a>
   
@@ -182,12 +244,42 @@ OnVista web site.</p>
       <h3 class="section-header">Constants</h3>
       <dl>
       
+        <dt id="CURRENCY">CURRENCY
+        
+        <dd class="description">
+        
+      
         <dt id="ON_VISTA_URL">ON_VISTA_URL
         
         <dd class="description">
         
       
-        <dt id="SEARCH_FAILURE">SEARCH_FAILURE
+        <dt id="PRICE">PRICE
+        
+        <dd class="description">
+        
+      
+        <dt id="SUCCESS_VALUE_INDEX">SUCCESS_VALUE_INDEX
+        
+        <dd class="description">
+        
+      
+        <dt id="SUCCESS_VALUE_STOCK">SUCCESS_VALUE_STOCK
+        
+        <dd class="description">
+        
+      
+        <dt id="SUCCESS_XPATH">SUCCESS_XPATH
+        
+        <dd class="description">
+        
+      
+        <dt id="VALUE">VALUE
+        
+        <dd class="description">
+        
+      
+        <dt id="YEAR">YEAR
         
         <dd class="description">
         
@@ -196,6 +288,39 @@ OnVista web site.</p>
     </section>
     
 
+    
+    <!-- Attributes -->
+    <section id="attribute-method-details" class="method-section section">
+      <h3 class="section-header">Attributes</h3>
+
+      
+      <div id="attribute-i-index_value_extractor" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">index_value_extractor</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-stock_value_extractor" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">stock_value_extractor</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+    </section><!-- attribute-method-details -->
     
 
     <!-- Methods -->
@@ -208,7 +333,7 @@ OnVista web site.</p>
         
         <div class="method-heading">
           <span class="method-name">new</span><span
-            class="method-args">(isin)</span>
+            class="method-args">(share)</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
         
@@ -220,11 +345,21 @@ OnVista web site.</p>
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/engine/extractor/on_vista_extractor.rb, line 15</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">isin</span>)
-  <span class="ruby-keyword">super</span>(<span class="ruby-constant">ON_VISTA_URL</span>, <span class="ruby-identifier">isin</span>)
-  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;OnVistaExtractor initialized.&quot;</span>)
-  <span class="ruby-ivar">@stock_page</span> = <span class="ruby-identifier">perform_search</span>(<span class="ruby-identifier">isin</span>, <span class="ruby-string">&quot;action&quot;</span>, <span class="ruby-string">'/suche/'</span>, <span class="ruby-string">&quot;SEARCH_VALUE&quot;</span>, <span class="ruby-constant">SEARCH_FAILURE</span>)
+            <pre><span class="ruby-comment"># File lib/engine/extractor/on_vista_extractor.rb, line 24</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">share</span>)
+  <span class="ruby-keyword">super</span>(<span class="ruby-constant">ON_VISTA_URL</span>, <span class="ruby-identifier">share</span>)
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: Open OnVista with share: #{share.name} (#{share.isin}) and stock index: #{share.stock_index.name} (#{share.stock_index.isin})&quot;</span>)
+  <span class="ruby-ivar">@stock_page</span> = <span class="ruby-identifier">perform_search</span>(<span class="ruby-string">&quot;action&quot;</span>, <span class="ruby-string">'http://www.onvista.de/suche/'</span>, <span class="ruby-string">&quot;searchValue&quot;</span>, <span class="ruby-identifier">share</span>.<span class="ruby-identifier">isin</span>, <span class="ruby-constant">SUCCESS_XPATH</span>, <span class="ruby-constant">SUCCESS_VALUE_STOCK</span>)
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: Loaded content of: #{@stock_page.uri.to_s}&quot;</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">using_right_stock_exchange?</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">false</span>
+    <span class="ruby-identifier">switch_stock_exchange</span>()
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-ivar">@stock_value_extractor</span> = <span class="ruby-constant">OnVistaStockValueExtractor</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@agent</span>, <span class="ruby-ivar">@stock_page</span>, <span class="ruby-ivar">@share</span>.<span class="ruby-identifier">stock_exchange</span>)
+  <span class="ruby-identifier">index_page</span> = <span class="ruby-identifier">perform_search</span>(<span class="ruby-string">&quot;action&quot;</span>, <span class="ruby-string">'http://www.onvista.de/suche/'</span>, <span class="ruby-string">&quot;searchValue&quot;</span>, <span class="ruby-identifier">share</span>.<span class="ruby-identifier">stock_index</span>.<span class="ruby-identifier">isin</span>, <span class="ruby-constant">SUCCESS_XPATH</span>, <span class="ruby-constant">SUCCESS_VALUE_INDEX</span>)
+  <span class="ruby-ivar">@index_value_extractor</span> = <span class="ruby-constant">OnVistaIndexValueExtractor</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@agent</span>, <span class="ruby-identifier">index_page</span>)
+  <span class="ruby-ivar">@key_figures_page</span> = <span class="ruby-identifier">open_sub_page</span>(<span class="ruby-string">'Fundamental'</span>, <span class="ruby-value">1</span>, <span class="ruby-value">0</span>)
+  <span class="ruby-ivar">@end_of_business_year</span> = <span class="ruby-identifier">extract_end_of_business_year</span>()
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: Initialization successful&quot;</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- new-source -->
           
@@ -242,29 +377,359 @@ OnVista web site.</p>
       <h3 class="section-header">Public Instance Methods</h3>
 
     
-      <div id="method-i-extract_reaction_on_figures" class="method-detail ">
+      <div id="method-i-extract_analysts_opinion" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">extract_reaction_on_figures</span><span
-            class="method-args">(index_isin)</span>
+          <span class="method-name">extract_analysts_opinion</span><span
+            class="method-args">(analysts_opinion)</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
         
 
         <div class="method-description">
           
-          <p>Extract the reaction on the release of quarterly figures</p>
+          <p>Extract the opinion of the analysts (Analystenmeinungen) ruby -I test
+test/integration/extract_analysts_opinion_test.rb</p>
+          
+
+          
+          <div class="method-source-code" id="extract_analysts_opinion-source">
+            <pre><span class="ruby-comment"># File lib/engine/extractor/on_vista_extractor.rb, line 294</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_analysts_opinion</span>(<span class="ruby-identifier">analysts_opinion</span>)
+  <span class="ruby-identifier">analyzer_page</span> = <span class="ruby-identifier">open_sub_page</span>(<span class="ruby-string">&quot;Analyzer&quot;</span>, <span class="ruby-value">1</span>, <span class="ruby-value">0</span>)
+  <span class="ruby-identifier">tag_set</span> = <span class="ruby-identifier">analyzer_page</span>.<span class="ruby-identifier">parser</span>().<span class="ruby-identifier">xpath</span>(<span class="ruby-string">&quot;//td[@class='BALKEN']&quot;</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">tag_set</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">tag_set</span>.<span class="ruby-identifier">size</span>() <span class="ruby-operator">!=</span> <span class="ruby-value">5</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">DataMiningError</span>, <span class="ruby-string">&quot;Could not extract analysts opinion&quot;</span>, <span class="ruby-identifier">caller</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">analysts_opinion</span>.<span class="ruby-identifier">buy</span> = <span class="ruby-identifier">tag_set</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">inner_text</span>().<span class="ruby-identifier">strip</span>().<span class="ruby-identifier">to_i</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">tag_set</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">inner_text</span>().<span class="ruby-identifier">strip</span>().<span class="ruby-identifier">to_i</span>
+    <span class="ruby-identifier">analysts_opinion</span>.<span class="ruby-identifier">hold</span> = <span class="ruby-identifier">tag_set</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">inner_text</span>().<span class="ruby-identifier">strip</span>().<span class="ruby-identifier">to_i</span>
+    <span class="ruby-identifier">analysts_opinion</span>.<span class="ruby-identifier">sell</span> = <span class="ruby-identifier">tag_set</span>[<span class="ruby-value">3</span>].<span class="ruby-identifier">inner_text</span>().<span class="ruby-identifier">strip</span>().<span class="ruby-identifier">to_i</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">tag_set</span>[<span class="ruby-value">4</span>].<span class="ruby-identifier">inner_text</span>().<span class="ruby-identifier">strip</span>().<span class="ruby-identifier">to_i</span>
+    <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: analyst opinion buy: #{analysts_opinion.buy}&quot;</span>)
+    <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: analyst opinion hold: #{analysts_opinion.hold}&quot;</span>)
+    <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: analyst opinion sell: #{analysts_opinion.sell}&quot;</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- extract_analysts_opinion-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- extract_analysts_opinion-method -->
+
+    
+      <div id="method-i-extract_average_price_earnings_ratio" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">extract_average_price_earnings_ratio</span><span
+            class="method-args">(average_price_earnings_ratio)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Extract the average price earnings ratio (KGV 5 Jahre) ruby -I test
+test/integration/extract_average_price_earnings_test.rb</p>
+          
+
+          
+          <div class="method-source-code" id="extract_average_price_earnings_ratio-source">
+            <pre><span class="ruby-comment"># File lib/engine/extractor/on_vista_extractor.rb, line 266</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_average_price_earnings_ratio</span>(<span class="ruby-identifier">average_price_earnings_ratio</span>)
+  <span class="ruby-identifier">figure</span> = <span class="ruby-string">&quot;KGV 5 Jahre&quot;</span>
+  <span class="ruby-identifier">years_xpath</span> = <span class="ruby-string">&quot;(//th[contains(.,'Gewinn')])[1]/following-sibling::th&quot;</span>
+  <span class="ruby-identifier">values_xpath</span> = <span class="ruby-string">&quot;//td[.='KGV']/following-sibling::td&quot;</span>
+  <span class="ruby-identifier">years</span> = <span class="ruby-identifier">extract_years_of_publication_for</span>(<span class="ruby-identifier">figure</span>, <span class="ruby-identifier">years_xpath</span>, <span class="ruby-value">7</span>)
+  <span class="ruby-identifier">values</span> = <span class="ruby-identifier">extract_values_for</span>(<span class="ruby-identifier">figure</span>, <span class="ruby-identifier">values_xpath</span>, <span class="ruby-value">7</span>)
+
+  <span class="ruby-identifier">average_price_earnings_ratio</span>.<span class="ruby-identifier">next_year</span> = <span class="ruby-identifier">years</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">to_i</span>
+  <span class="ruby-identifier">average_price_earnings_ratio</span>.<span class="ruby-identifier">this_year</span> = <span class="ruby-identifier">years</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">to_i</span>
+  <span class="ruby-identifier">average_price_earnings_ratio</span>.<span class="ruby-identifier">last_year</span> = <span class="ruby-identifier">years</span>[<span class="ruby-value">3</span>].<span class="ruby-identifier">to_i</span>
+  <span class="ruby-identifier">average_price_earnings_ratio</span>.<span class="ruby-identifier">two_years_ago</span> = <span class="ruby-identifier">years</span>[<span class="ruby-value">4</span>].<span class="ruby-identifier">to_i</span>
+  <span class="ruby-identifier">average_price_earnings_ratio</span>.<span class="ruby-identifier">three_years_ago</span> = <span class="ruby-identifier">years</span>[<span class="ruby-value">5</span>].<span class="ruby-identifier">to_i</span>
+  
+  <span class="ruby-identifier">average_price_earnings_ratio</span>.<span class="ruby-identifier">value_next_year</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">l10n_f</span>(<span class="ruby-identifier">values</span>[<span class="ruby-value">0</span>])
+  <span class="ruby-identifier">average_price_earnings_ratio</span>.<span class="ruby-identifier">value_this_year</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">l10n_f</span>(<span class="ruby-identifier">values</span>[<span class="ruby-value">1</span>])
+  <span class="ruby-identifier">average_price_earnings_ratio</span>.<span class="ruby-identifier">value_last_year</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">l10n_f</span>(<span class="ruby-identifier">values</span>[<span class="ruby-value">2</span>])
+  <span class="ruby-identifier">average_price_earnings_ratio</span>.<span class="ruby-identifier">value_two_years_ago</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">l10n_f</span>(<span class="ruby-identifier">values</span>[<span class="ruby-value">3</span>])
+  <span class="ruby-identifier">average_price_earnings_ratio</span>.<span class="ruby-identifier">value_three_years_ago</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">l10n_f</span>(<span class="ruby-identifier">values</span>[<span class="ruby-value">4</span>])
+
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: Price earnings ratio (KGV) #{average_price_earnings_ratio.next_year}: #{average_price_earnings_ratio.value_next_year}&quot;</span>)
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: Price earnings ratio (KGV) #{average_price_earnings_ratio.this_year}: #{average_price_earnings_ratio.value_this_year}&quot;</span>)
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: Price earnings ratio (KGV) #{average_price_earnings_ratio.last_year}: #{average_price_earnings_ratio.value_last_year}&quot;</span>)
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: Price earnings ratio (KGV) #{average_price_earnings_ratio.two_years_ago}: #{average_price_earnings_ratio.value_two_years_ago}&quot;</span>)
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: Price earnings ratio (KGV) #{average_price_earnings_ratio.three_years_ago}: #{average_price_earnings_ratio.value_three_years_ago}&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- extract_average_price_earnings_ratio-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- extract_average_price_earnings_ratio-method -->
+
+    
+      <div id="method-i-extract_current_price_earnings_ratio" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">extract_current_price_earnings_ratio</span><span
+            class="method-args">(current_price_earnings_ratio)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Extract the current price earnings ratio (KGV) ruby -I test
+test/integration/extract_current_price_earnings_test.rb</p>
+          
+
+          
+          <div class="method-source-code" id="extract_current_price_earnings_ratio-source">
+            <pre><span class="ruby-comment"># File lib/engine/extractor/on_vista_extractor.rb, line 252</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_current_price_earnings_ratio</span>(<span class="ruby-identifier">current_price_earnings_ratio</span>)
+  <span class="ruby-identifier">figure</span> = <span class="ruby-string">&quot;KGV aktuell&quot;</span>
+  <span class="ruby-identifier">years_xpath</span> = <span class="ruby-string">&quot;(//th[contains(.,'Gewinn')])[1]/following-sibling::th&quot;</span>
+  <span class="ruby-identifier">values_xpath</span> = <span class="ruby-string">&quot;//td[.='KGV']/following-sibling::td&quot;</span>
+  <span class="ruby-identifier">years</span> = <span class="ruby-identifier">extract_years_of_publication_for</span>(<span class="ruby-identifier">figure</span>, <span class="ruby-identifier">years_xpath</span>, <span class="ruby-value">7</span>)
+  <span class="ruby-identifier">values</span> = <span class="ruby-identifier">extract_values_for</span>(<span class="ruby-identifier">figure</span>, <span class="ruby-identifier">values_xpath</span>, <span class="ruby-value">7</span>)
+  <span class="ruby-identifier">result</span> = <span class="ruby-identifier">find_value_for_current_year</span>(<span class="ruby-identifier">figure</span>, <span class="ruby-identifier">years</span>, <span class="ruby-identifier">values</span>)
+  <span class="ruby-identifier">current_price_earnings_ratio</span>.<span class="ruby-identifier">value</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">l10n_f</span>(<span class="ruby-identifier">result</span>[<span class="ruby-constant">VALUE</span>])
+  <span class="ruby-identifier">current_price_earnings_ratio</span>.<span class="ruby-identifier">this_year</span> = <span class="ruby-identifier">result</span>[<span class="ruby-constant">YEAR</span>]
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: Current price earnings ratio (KGV) #{current_price_earnings_ratio.this_year}: #{current_price_earnings_ratio.value}&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- extract_current_price_earnings_ratio-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- extract_current_price_earnings_ratio-method -->
+
+    
+      <div id="method-i-extract_ebit_margin" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">extract_ebit_margin</span><span
+            class="method-args">(ebit_margin)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Extract EBIT-Margin ruby -I test test/integration/extract_ebit_test.rb</p>
+          
+
+          
+          <div class="method-source-code" id="extract_ebit_margin-source">
+            <pre><span class="ruby-comment"># File lib/engine/extractor/on_vista_extractor.rb, line 223</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_ebit_margin</span>(<span class="ruby-identifier">ebit_margin</span>)
+  <span class="ruby-identifier">figure</span> = <span class="ruby-string">&quot;EBIT-Marge&quot;</span>
+  <span class="ruby-identifier">years_xpath</span> = <span class="ruby-string">&quot;(//th[contains(.,'Rentabilit')])[2]/following-sibling::th[position() &gt; 3]&quot;</span>
+  <span class="ruby-identifier">values_xpath</span> = <span class="ruby-string">&quot;//td[.='EBIT-Marge']/following-sibling::td[position() &gt; 3]&quot;</span>
+  <span class="ruby-identifier">years</span> = <span class="ruby-identifier">extract_years_of_publication_for</span>(<span class="ruby-identifier">figure</span>, <span class="ruby-identifier">years_xpath</span>, <span class="ruby-value">4</span>)
+  <span class="ruby-identifier">values</span> = <span class="ruby-identifier">extract_values_for</span>(<span class="ruby-identifier">figure</span>, <span class="ruby-identifier">values_xpath</span>, <span class="ruby-value">4</span>)
+  <span class="ruby-identifier">result</span> = <span class="ruby-identifier">find_most_recent</span>(<span class="ruby-identifier">figure</span>, <span class="ruby-identifier">years</span>, <span class="ruby-identifier">values</span>)
+  <span class="ruby-identifier">ebit_margin</span>.<span class="ruby-identifier">value</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">l10n_f</span>(<span class="ruby-identifier">result</span>[<span class="ruby-constant">VALUE</span>])
+  <span class="ruby-identifier">ebit_margin</span>.<span class="ruby-identifier">last_year</span> = <span class="ruby-identifier">result</span>[<span class="ruby-constant">YEAR</span>]
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: Ebit-Marge LJ(#{ebit_margin.last_year}): #{ebit_margin.value}&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- extract_ebit_margin-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- extract_ebit_margin-method -->
+
+    
+      <div id="method-i-extract_equity_ratio" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">extract_equity_ratio</span><span
+            class="method-args">(equity_ratio)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Extract equity ratio (Eigenkapitalquote) ruby -I test
+test/integration/extract_equity_ratio_test.rb</p>
+          
+
+          
+          <div class="method-source-code" id="extract_equity_ratio-source">
+            <pre><span class="ruby-comment"># File lib/engine/extractor/on_vista_extractor.rb, line 238</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_equity_ratio</span>(<span class="ruby-identifier">equity_ratio</span>)
+  <span class="ruby-identifier">figure</span> = <span class="ruby-string">&quot;Eigenkapitalquote&quot;</span>
+  <span class="ruby-identifier">years_xpath</span> = <span class="ruby-string">&quot;(//th[contains(.,'Bilanz')])[2]/following-sibling::th[position() &gt; 3]&quot;</span>
+  <span class="ruby-identifier">values_xpath</span> = <span class="ruby-string">&quot;//td[.='Eigenkapitalquote']/following-sibling::td[position() &gt; 3]&quot;</span>
+  <span class="ruby-identifier">years</span> = <span class="ruby-identifier">extract_years_of_publication_for</span>(<span class="ruby-identifier">figure</span>, <span class="ruby-identifier">years_xpath</span>, <span class="ruby-value">4</span>)
+  <span class="ruby-identifier">values</span> = <span class="ruby-identifier">extract_values_for</span>(<span class="ruby-identifier">figure</span>, <span class="ruby-identifier">values_xpath</span>, <span class="ruby-value">4</span>)
+  <span class="ruby-identifier">result</span> = <span class="ruby-identifier">find_most_recent</span>(<span class="ruby-identifier">figure</span>, <span class="ruby-identifier">years</span>, <span class="ruby-identifier">values</span>)
+  <span class="ruby-identifier">equity_ratio</span>.<span class="ruby-identifier">value</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">l10n_f</span>(<span class="ruby-identifier">result</span>[<span class="ruby-constant">VALUE</span>])
+  <span class="ruby-identifier">equity_ratio</span>.<span class="ruby-identifier">last_year</span> = <span class="ruby-identifier">result</span>[<span class="ruby-constant">YEAR</span>]
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: Eigenkapitalquote LJ(#{equity_ratio.last_year}): #{equity_ratio.value}&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- extract_equity_ratio-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- extract_equity_ratio-method -->
+
+    
+      <div id="method-i-extract_profit_growth" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">extract_profit_growth</span><span
+            class="method-args">(profit_growth)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Extract profit growth (Gewinnwachstum) ruby -I test
+test/integration/extract_profit_growth_test.rb</p>
+          
+
+          
+          <div class="method-source-code" id="extract_profit_growth-source">
+            <pre><span class="ruby-comment"># File lib/engine/extractor/on_vista_extractor.rb, line 430</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_profit_growth</span>(<span class="ruby-identifier">profit_growth</span>)
+  <span class="ruby-identifier">figure</span> = <span class="ruby-string">&quot;Gewinnwachstum&quot;</span>
+  <span class="ruby-identifier">years_xpath</span> = <span class="ruby-string">&quot;(//th[contains(.,'Gewinn')])[1]/following-sibling::th&quot;</span>
+  <span class="ruby-identifier">values_xpath</span> = <span class="ruby-string">&quot;//td[.='Gewinn pro Aktie in EUR']/following-sibling::td&quot;</span>
+  <span class="ruby-identifier">years</span> = <span class="ruby-identifier">extract_years_of_publication_for</span>(<span class="ruby-identifier">figure</span>, <span class="ruby-identifier">years_xpath</span>, <span class="ruby-value">7</span>)
+  <span class="ruby-identifier">values</span> = <span class="ruby-identifier">extract_values_for</span>(<span class="ruby-identifier">figure</span>, <span class="ruby-identifier">values_xpath</span>, <span class="ruby-value">7</span>)
+  <span class="ruby-identifier">value_this_year</span> = <span class="ruby-identifier">find_value_for_current_year</span>(<span class="ruby-identifier">figure</span>, <span class="ruby-identifier">years</span>, <span class="ruby-identifier">values</span>)
+  <span class="ruby-identifier">year_of_interest</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">year</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+  <span class="ruby-identifier">value_next_year</span> = <span class="ruby-identifier">find_value_for_given_year</span>(<span class="ruby-identifier">figure</span>, <span class="ruby-identifier">year_of_interest</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-identifier">years</span>, <span class="ruby-identifier">values</span>) 
+  <span class="ruby-identifier">profit_growth</span>.<span class="ruby-identifier">value_this_year</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">l10n_f</span>(<span class="ruby-identifier">value_this_year</span>[<span class="ruby-constant">VALUE</span>])
+  <span class="ruby-identifier">profit_growth</span>.<span class="ruby-identifier">value_next_year</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">l10n_f</span>(<span class="ruby-identifier">value_next_year</span>[<span class="ruby-constant">VALUE</span>])
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: Profit growth this year: #{profit_growth.value_this_year}&quot;</span>)
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: Profit growth next year: #{profit_growth.value_next_year}&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- extract_profit_growth-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- extract_profit_growth-method -->
+
+    
+      <div id="method-i-extract_profit_revision" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">extract_profit_revision</span><span
+            class="method-args">(profit_revision)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Extract the revision of estimated profits ruby -I test
+test/integration/extract_profit_revision_test.rb</p>
+          
+
+          
+          <div class="method-source-code" id="extract_profit_revision-source">
+            <pre><span class="ruby-comment"># File lib/engine/extractor/on_vista_extractor.rb, line 330</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_profit_revision</span>(<span class="ruby-identifier">profit_revision</span>)
+  <span class="ruby-comment">## This way doesn't work with american shares like DOW, because no values are found</span>
+  <span class="ruby-comment"># analyzer_page = open_sub_page(&quot;Analyzer&quot;, 1, 0)</span>
+  <span class="ruby-comment"># tag_set = analyzer_page.parser().xpath(&quot;//th[.='Revisionen der Empfehlung der letzten 3 Monate']/../../../tbody/tr/td[2]&quot;)</span>
+  <span class="ruby-comment"># if tag_set == nil || tag_set.size() != 3</span>
+    <span class="ruby-comment"># raise DataMiningError, &quot;Could not extract profit revision&quot;, caller</span>
+  <span class="ruby-comment"># else</span>
+    <span class="ruby-comment"># profit_revision.up = tag_set[0].inner_text().strip().to_i</span>
+    <span class="ruby-comment"># profit_revision.equal = tag_set[1].inner_text().strip().to_i</span>
+    <span class="ruby-comment"># profit_revision.down = tag_set[2].inner_text().strip().to_i</span>
+    <span class="ruby-comment"># LOG.debug(&quot;#{self.class}: profit revision up: #{profit_revision.up}&quot;)</span>
+    <span class="ruby-comment"># LOG.debug(&quot;#{self.class}: profit revision equal: #{profit_revision.equal}&quot;)</span>
+    <span class="ruby-comment"># LOG.debug(&quot;#{self.class}: profit revision down: #{profit_revision.down}&quot;)</span>
+  <span class="ruby-comment"># end</span>
+  <span class="ruby-comment"># This way works also with american shares like DOW</span>
+  <span class="ruby-identifier">tag_set</span> = <span class="ruby-ivar">@stock_page</span>.<span class="ruby-identifier">parser</span>().<span class="ruby-identifier">xpath</span>(<span class="ruby-string">&quot;//th[contains(.,'Revidierte Gewinnprognose')]/following-sibling::td[1]/span[1]&quot;</span>)
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">DataMiningError</span>, <span class="ruby-string">&quot;Could not extract profit revision&quot;</span>, <span class="ruby-identifier">caller</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">tag_set</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">tag_set</span>.<span class="ruby-identifier">size</span>() <span class="ruby-operator">!=</span> <span class="ruby-value">1</span>
+  <span class="ruby-identifier">assessment</span> = <span class="ruby-identifier">tag_set</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">attr</span>(<span class="ruby-string">'class'</span>)
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: profit revision: #{assessment}&quot;</span>)
+  <span class="ruby-keyword">case</span> <span class="ruby-identifier">assessment</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;KAUFEN&quot;</span>
+    <span class="ruby-identifier">profit_revision</span>.<span class="ruby-identifier">up</span> = <span class="ruby-value">1</span>
+    <span class="ruby-identifier">profit_revision</span>.<span class="ruby-identifier">equal</span> = <span class="ruby-value">0</span>
+    <span class="ruby-identifier">profit_revision</span>.<span class="ruby-identifier">down</span> = <span class="ruby-value">0</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;HALTEN&quot;</span>
+    <span class="ruby-identifier">profit_revision</span>.<span class="ruby-identifier">up</span> = <span class="ruby-value">0</span>
+    <span class="ruby-identifier">profit_revision</span>.<span class="ruby-identifier">equal</span> = <span class="ruby-value">1</span>
+    <span class="ruby-identifier">profit_revision</span>.<span class="ruby-identifier">down</span> = <span class="ruby-value">0</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;VERKAUFEN&quot;</span>
+    <span class="ruby-identifier">profit_revision</span>.<span class="ruby-identifier">up</span> = <span class="ruby-value">0</span>
+    <span class="ruby-identifier">profit_revision</span>.<span class="ruby-identifier">equal</span> = <span class="ruby-value">0</span>
+    <span class="ruby-identifier">profit_revision</span>.<span class="ruby-identifier">down</span> = <span class="ruby-value">1</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">DataMiningError</span>, <span class="ruby-node">&quot;Don't know how to interpret profit revision: #{assessment}&quot;</span>, <span class="ruby-identifier">caller</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: profit revision up: #{profit_revision.up}&quot;</span>)
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: profit revision equal: #{profit_revision.equal}&quot;</span>)
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: profit revision down: #{profit_revision.down}&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- extract_profit_revision-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- extract_profit_revision-method -->
+
+    
+      <div id="method-i-extract_reaction_on_figures" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">extract_reaction_on_figures</span><span
+            class="method-args">(reaction)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Extract the reaction on the release of quarterly figures ruby -I test
+test/integration/extract_reaction_on_figures_test.rb</p>
           
 
           
           <div class="method-source-code" id="extract_reaction_on_figures-source">
-            <pre><span class="ruby-comment"># File lib/engine/extractor/on_vista_extractor.rb, line 84</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_reaction_on_figures</span>(<span class="ruby-identifier">index_isin</span>)
-  <span class="ruby-identifier">index_page</span> = <span class="ruby-identifier">perform_search</span>(<span class="ruby-identifier">index_isin</span>, <span class="ruby-string">&quot;action&quot;</span>, <span class="ruby-string">'/suche/'</span>, <span class="ruby-string">&quot;SEARCH_VALUE&quot;</span>, <span class="ruby-constant">SEARCH_FAILURE</span>)
-  <span class="ruby-ivar">@on_vista_index_id</span> = <span class="ruby-identifier">get_index_id</span>(<span class="ruby-identifier">index_page</span>)
-  <span class="ruby-ivar">@on_vista_id</span> = <span class="ruby-identifier">get_stock_id</span>(<span class="ruby-ivar">@stock_page</span>)
-  <span class="ruby-identifier">figuresExtractor</span> = <span class="ruby-constant">OnVistaQuarterlyFiguresExtractor</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@agent</span>, <span class="ruby-ivar">@score_card</span>, <span class="ruby-ivar">@on_vista_id</span>, <span class="ruby-ivar">@on_vista_index_id</span>)
-  <span class="ruby-keyword">return</span> <span class="ruby-identifier">figuresExtractor</span>.<span class="ruby-identifier">go</span>()
+            <pre><span class="ruby-comment"># File lib/engine/extractor/on_vista_extractor.rb, line 311</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_reaction_on_figures</span>(<span class="ruby-identifier">reaction</span>)
+  <span class="ruby-identifier">figuresExtractor</span> = <span class="ruby-constant">OnVistaQuarterlyFiguresExtractor</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@stock_page</span>)
+  <span class="ruby-identifier">reaction</span>.<span class="ruby-identifier">release_date</span> = <span class="ruby-identifier">figuresExtractor</span>.<span class="ruby-identifier">extract_release_date</span>()
+  <span class="ruby-comment"># Get the value of the stock when quarterly figures where published</span>
+  <span class="ruby-identifier">asset_value</span> = <span class="ruby-ivar">@stock_value_extractor</span>.<span class="ruby-identifier">extract_stock_value_on</span>(<span class="ruby-identifier">reaction</span>.<span class="ruby-identifier">release_date</span>)
+  <span class="ruby-identifier">reaction</span>.<span class="ruby-identifier">price_opening</span> = <span class="ruby-identifier">asset_value</span>.<span class="ruby-identifier">opening</span>()
+  <span class="ruby-identifier">reaction</span>.<span class="ruby-identifier">price_closing</span> = <span class="ruby-identifier">asset_value</span>.<span class="ruby-identifier">closing</span>()
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: reaction stock: #{reaction.price_opening}&quot;</span>)
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: reaction stock: #{reaction.price_closing}&quot;</span>)
+  <span class="ruby-comment"># Get the value of the index when quaterly figures where published</span>
+  <span class="ruby-identifier">asset_value</span> = <span class="ruby-ivar">@index_value_extractor</span>.<span class="ruby-identifier">extract_index_value_on</span>(<span class="ruby-identifier">reaction</span>.<span class="ruby-identifier">release_date</span>)
+  <span class="ruby-identifier">reaction</span>.<span class="ruby-identifier">index_opening</span> = <span class="ruby-identifier">asset_value</span>.<span class="ruby-identifier">opening</span>()
+  <span class="ruby-identifier">reaction</span>.<span class="ruby-identifier">index_closing</span> = <span class="ruby-identifier">asset_value</span>.<span class="ruby-identifier">closing</span>()
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: reaction index: #{reaction.index_opening}&quot;</span>)
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: reaction index: #{reaction.index_closing}&quot;</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- extract_reaction_on_figures-source -->
           
@@ -280,34 +745,30 @@ OnVista web site.</p>
         
         <div class="method-heading">
           <span class="method-name">extract_roe</span><span
-            class="method-args">()</span>
+            class="method-args">(return_on_equity)</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
         
 
         <div class="method-description">
           
-          <p>Extract the Return on <a href="Equity.html">Equity</a> (RoE) in German:
-Eigenkapitalrendite</p>
+          <p>Extract Return on Equity (RoE) in German: Eigenkapitalrendite ruby -I test
+test/integration/extract_roe_test.rb</p>
           
 
           
           <div class="method-source-code" id="extract_roe-source">
-            <pre><span class="ruby-comment"># File lib/engine/extractor/on_vista_extractor.rb, line 67</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_roe</span>()
-  <span class="ruby-identifier">key_figures_page</span> = <span class="ruby-identifier">open_sub_page</span>(<span class="ruby-string">'Kennzahlen'</span>, <span class="ruby-value">2</span>, <span class="ruby-value">1</span>)
-  <span class="ruby-identifier">roe</span> = <span class="ruby-value">1000</span>
-  <span class="ruby-identifier">tag_set</span> = <span class="ruby-identifier">key_figures_page</span>.<span class="ruby-identifier">parser</span>().<span class="ruby-identifier">xpath</span>(<span class="ruby-string">&quot;//td[.='Eigenkapitalrendite in %']/following-sibling::td&quot;</span>)
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">tag_set</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">tag_set</span>.<span class="ruby-identifier">size</span>() <span class="ruby-operator">!=</span> <span class="ruby-value">3</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-constant">DataMiningError</span>, <span class="ruby-string">&quot;Could not extract RoE&quot;</span>, <span class="ruby-identifier">caller</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">raw_roe</span> = <span class="ruby-identifier">tag_set</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">content</span>().<span class="ruby-identifier">strip</span>()
-    <span class="ruby-identifier">raise</span> <span class="ruby-constant">DataMiningError</span>, <span class="ruby-string">&quot;Could not extract RoE&quot;</span>, <span class="ruby-identifier">caller</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">raw_roe</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;n.a.&quot;</span>
-    <span class="ruby-identifier">roe</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">l10n_f</span>(<span class="ruby-identifier">raw_roe</span>)
-    <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;RoE LJ: #{roe}&quot;</span>)
-  <span class="ruby-keyword">end</span>
-  <span class="ruby-identifier">return_on_equity</span> = <span class="ruby-constant">ReturnOnEquity</span>.<span class="ruby-identifier">new</span>
-  <span class="ruby-identifier">return_on_equity</span>.<span class="ruby-identifier">value</span> = <span class="ruby-identifier">roe</span>
+            <pre><span class="ruby-comment"># File lib/engine/extractor/on_vista_extractor.rb, line 208</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_roe</span>(<span class="ruby-identifier">return_on_equity</span>)
+  <span class="ruby-identifier">figure</span> = <span class="ruby-string">&quot;Eigenkapitalrendite&quot;</span>
+  <span class="ruby-identifier">years_xpath</span> = <span class="ruby-string">&quot;(//th[contains(.,'Rentabilit')])[2]/following-sibling::th[position() &gt; 3]&quot;</span>
+  <span class="ruby-identifier">values_xpath</span> = <span class="ruby-string">&quot;//td[.='Eigenkapitalrendite']/following-sibling::td[position() &gt; 3]&quot;</span>
+  <span class="ruby-identifier">years</span> = <span class="ruby-identifier">extract_years_of_publication_for</span>(<span class="ruby-identifier">figure</span>, <span class="ruby-identifier">years_xpath</span>, <span class="ruby-value">4</span>)
+  <span class="ruby-identifier">values</span> = <span class="ruby-identifier">extract_values_for</span>(<span class="ruby-identifier">figure</span>, <span class="ruby-identifier">values_xpath</span>, <span class="ruby-value">4</span>)
+  <span class="ruby-identifier">result</span> = <span class="ruby-identifier">find_most_recent</span>(<span class="ruby-identifier">figure</span>, <span class="ruby-identifier">years</span>, <span class="ruby-identifier">values</span>)
+  <span class="ruby-identifier">return_on_equity</span>.<span class="ruby-identifier">value</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">l10n_f</span>(<span class="ruby-identifier">result</span>[<span class="ruby-constant">VALUE</span>])
+  <span class="ruby-identifier">return_on_equity</span>.<span class="ruby-identifier">last_year</span> = <span class="ruby-identifier">result</span>[<span class="ruby-constant">YEAR</span>]
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: RoE LJ(#{return_on_equity.last_year}): #{return_on_equity.value}&quot;</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- extract_roe-source -->
           
@@ -335,11 +796,12 @@ Eigenkapitalrendite</p>
 
           
           <div class="method-source-code" id="extract_stock_name-source">
-            <pre><span class="ruby-comment"># File lib/engine/extractor/on_vista_extractor.rb, line 44</span>
+            <pre><span class="ruby-comment"># File lib/engine/extractor/on_vista_extractor.rb, line 178</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_stock_name</span>()
-  <span class="ruby-identifier">scan_result</span> = <span class="ruby-ivar">@stock_page</span>.<span class="ruby-identifier">title</span>().<span class="ruby-identifier">split</span>(<span class="ruby-regexp">%r-/</span>)
+  <span class="ruby-identifier">scan_result</span> = <span class="ruby-ivar">@stock_page</span>.<span class="ruby-identifier">title</span>().<span class="ruby-identifier">split</span>(<span class="ruby-regexp">/\|/</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">scan_result</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-identifier">scan_result</span>[<span class="ruby-value">0</span>]
+    <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: Stock name: #{scan_result[0]}&quot;</span>)
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">scan_result</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">strip</span>()
   <span class="ruby-keyword">else</span>
     <span class="ruby-identifier">raise</span> <span class="ruby-constant">DataMiningError</span>, <span class="ruby-string">&quot;Search result was not a stock page!&quot;</span>, <span class="ruby-identifier">caller</span> 
   <span class="ruby-keyword">end</span>
@@ -370,17 +832,17 @@ Eigenkapitalrendite</p>
 
           
           <div class="method-source-code" id="extract_stock_price-source">
-            <pre><span class="ruby-comment"># File lib/engine/extractor/on_vista_extractor.rb, line 54</span>
+            <pre><span class="ruby-comment"># File lib/engine/extractor/on_vista_extractor.rb, line 189</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_stock_price</span>()
   <span class="ruby-identifier">price_now</span> = <span class="ruby-value">-1</span>
-  <span class="ruby-identifier">tag_set</span> = <span class="ruby-ivar">@stock_page</span>.<span class="ruby-identifier">parser</span>().<span class="ruby-identifier">xpath</span>(<span class="ruby-string">&quot;//span[@class='KURSRICHTUNG']/following-sibling::span&quot;</span>)
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">tag_set</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">tag_set</span>.<span class="ruby-identifier">size</span>() <span class="ruby-operator">!=</span> <span class="ruby-value">1</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-constant">DataMiningError</span>, <span class="ruby-string">&quot;Could no extract current stock price&quot;</span>, <span class="ruby-identifier">caller</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">raw_price_now</span> = <span class="ruby-identifier">tag_set</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">content</span>()
-    <span class="ruby-identifier">price_now</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">l10n_f</span>(<span class="ruby-identifier">raw_price_now</span>)
-  <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">return</span> <span class="ruby-identifier">price_now</span>
+  <span class="ruby-identifier">currency</span> = <span class="ruby-string">'not set'</span>
+  <span class="ruby-identifier">tag_set</span> = <span class="ruby-ivar">@stock_page</span>.<span class="ruby-identifier">parser</span>().<span class="ruby-identifier">xpath</span>(<span class="ruby-string">&quot;//ul[@class='KURSDATEN']/li[1]/span&quot;</span>)
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">DataMiningError</span>, <span class="ruby-string">&quot;Could no extract current stock price&quot;</span>, <span class="ruby-identifier">caller</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">tag_set</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">tag_set</span>.<span class="ruby-identifier">size</span>() <span class="ruby-operator">!=</span> <span class="ruby-value">2</span>
+  <span class="ruby-identifier">raw_price_now</span> = <span class="ruby-identifier">tag_set</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">content</span>().<span class="ruby-identifier">strip</span>()
+  <span class="ruby-identifier">currency</span> = <span class="ruby-identifier">tag_set</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">content</span>().<span class="ruby-identifier">strip</span>()
+  <span class="ruby-identifier">price_now</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">l10n_f</span>(<span class="ruby-identifier">raw_price_now</span>)
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: Stock price: #{price_now} #{currency}&quot;</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-constant">Hash</span>[<span class="ruby-constant">PRICE</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">price_now</span>, <span class="ruby-constant">CURRENCY</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">currency</span>]
 <span class="ruby-keyword">end</span></pre>
           </div><!-- extract_stock_price-source -->
           
@@ -392,6 +854,139 @@ Eigenkapitalrendite</p>
       </div><!-- extract_stock_price-method -->
 
     
+      <div id="method-i-extract_stock_price_dev_half_year" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">extract_stock_price_dev_half_year</span><span
+            class="method-args">(stock_price_dev_half_year)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Extract the stock price development for the last half year ruby -I test
+test/integration/extract_stock_price_dev_half_year_test.rb</p>
+          
+
+          
+          <div class="method-source-code" id="extract_stock_price_dev_half_year-source">
+            <pre><span class="ruby-comment"># File lib/engine/extractor/on_vista_extractor.rb, line 372</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_stock_price_dev_half_year</span>(<span class="ruby-identifier">stock_price_dev_half_year</span>)
+  <span class="ruby-identifier">half_a_year_ago</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">step_back_in_time</span>(<span class="ruby-value">183</span>, <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>)
+  <span class="ruby-identifier">stock_price_dev_half_year</span>.<span class="ruby-identifier">historical_date</span> = <span class="ruby-identifier">half_a_year_ago</span> 
+  <span class="ruby-identifier">asset_value</span> = <span class="ruby-ivar">@stock_value_extractor</span>.<span class="ruby-identifier">extract_stock_value_on</span>(<span class="ruby-identifier">half_a_year_ago</span>)
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: stock value 6 months ago (#{Util.format(half_a_year_ago)}): #{asset_value.closing()}&quot;</span>)
+  <span class="ruby-identifier">stock_price_dev_half_year</span>.<span class="ruby-identifier">value</span> = <span class="ruby-identifier">asset_value</span>.<span class="ruby-identifier">closing</span>()
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- extract_stock_price_dev_half_year-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- extract_stock_price_dev_half_year-method -->
+
+    
+      <div id="method-i-extract_stock_price_dev_one_year" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">extract_stock_price_dev_one_year</span><span
+            class="method-args">(stock_price_dev_one_year)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Extract the stock price development for the last year ruby -I test
+test/integration/extract_stock_price_dev_one_year_test.rb</p>
+          
+
+          
+          <div class="method-source-code" id="extract_stock_price_dev_one_year-source">
+            <pre><span class="ruby-comment"># File lib/engine/extractor/on_vista_extractor.rb, line 382</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_stock_price_dev_one_year</span>(<span class="ruby-identifier">stock_price_dev_one_year</span>)
+  <span class="ruby-identifier">one_year_ago</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">step_back_in_time</span>(<span class="ruby-value">365</span>, <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>)
+  <span class="ruby-identifier">stock_price_dev_one_year</span>.<span class="ruby-identifier">historical_date</span> = <span class="ruby-identifier">one_year_ago</span>
+  <span class="ruby-identifier">asset_value</span> = <span class="ruby-ivar">@stock_value_extractor</span>.<span class="ruby-identifier">extract_stock_value_on</span>(<span class="ruby-identifier">one_year_ago</span>)
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: stock value 1 year ago (#{Util.format(one_year_ago)}): #{asset_value.closing}&quot;</span>)
+  <span class="ruby-identifier">stock_price_dev_one_year</span>.<span class="ruby-identifier">value</span> = <span class="ruby-identifier">asset_value</span>.<span class="ruby-identifier">closing</span>()
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- extract_stock_price_dev_one_year-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- extract_stock_price_dev_one_year-method -->
+
+    
+      <div id="method-i-extract_three_month_reversal" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">extract_three_month_reversal</span><span
+            class="method-args">(reversal)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Extract the stock price and the index value for the last four months ruby
+-I test test/integration/extract_three_month_reversal_test.rb</p>
+          
+
+          
+          <div class="method-source-code" id="extract_three_month_reversal-source">
+            <pre><span class="ruby-comment"># File lib/engine/extractor/on_vista_extractor.rb, line 392</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_three_month_reversal</span>(<span class="ruby-identifier">reversal</span>)
+  <span class="ruby-identifier">historical_date</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">avoid_weekend</span>(<span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span> <span class="ruby-operator">-</span> <span class="ruby-value">4</span>.<span class="ruby-identifier">months</span>)
+  <span class="ruby-identifier">asset_value</span> = <span class="ruby-ivar">@stock_value_extractor</span>.<span class="ruby-identifier">extract_stock_value_on</span>(<span class="ruby-identifier">historical_date</span>)
+  <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">value_four_months_ago</span> = <span class="ruby-identifier">asset_value</span>.<span class="ruby-identifier">closing</span>()
+  <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">four_months_ago</span> = <span class="ruby-identifier">asset_value</span>.<span class="ruby-identifier">representing_date</span>()
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: Stock price four months ago (#{reversal.four_months_ago}): #{reversal.value_four_months_ago}&quot;</span>)
+  <span class="ruby-identifier">historical_date</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">avoid_weekend</span>(<span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span> <span class="ruby-operator">-</span> <span class="ruby-value">3</span>.<span class="ruby-identifier">months</span>)
+  <span class="ruby-identifier">asset_value</span> = <span class="ruby-ivar">@stock_value_extractor</span>.<span class="ruby-identifier">extract_stock_value_on</span>(<span class="ruby-identifier">historical_date</span>)
+  <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">value_three_months_ago</span> = <span class="ruby-identifier">asset_value</span>.<span class="ruby-identifier">closing</span>()
+  <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">three_months_ago</span> = <span class="ruby-identifier">asset_value</span>.<span class="ruby-identifier">representing_date</span>()
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: Stock price three months ago (#{reversal.three_months_ago}): #{reversal.value_three_months_ago}&quot;</span>)
+  <span class="ruby-identifier">historical_date</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">avoid_weekend</span>(<span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span> <span class="ruby-operator">-</span> <span class="ruby-value">2</span>.<span class="ruby-identifier">months</span>)
+  <span class="ruby-identifier">asset_value</span> = <span class="ruby-ivar">@stock_value_extractor</span>.<span class="ruby-identifier">extract_stock_value_on</span>(<span class="ruby-identifier">historical_date</span>)
+  <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">value_two_months_ago</span> = <span class="ruby-identifier">asset_value</span>.<span class="ruby-identifier">closing</span>()
+  <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">two_months_ago</span> = <span class="ruby-identifier">asset_value</span>.<span class="ruby-identifier">representing_date</span>()
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: Stock price two months ago (#{reversal.two_months_ago}): #{reversal.value_two_months_ago}&quot;</span>)
+  <span class="ruby-identifier">historical_date</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">avoid_weekend</span>(<span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>.<span class="ruby-identifier">month</span>)
+  <span class="ruby-identifier">asset_value</span> = <span class="ruby-ivar">@stock_value_extractor</span>.<span class="ruby-identifier">extract_stock_value_on</span>(<span class="ruby-identifier">historical_date</span>)
+  <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">value_one_month_ago</span> = <span class="ruby-identifier">asset_value</span>.<span class="ruby-identifier">closing</span>()
+  <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">one_month_ago</span> = <span class="ruby-identifier">asset_value</span>.<span class="ruby-identifier">representing_date</span>()
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: Stock price one month ago (#{reversal.one_month_ago}): #{reversal.value_one_month_ago}&quot;</span>)
+  <span class="ruby-comment"># Calculate the values for the corresponding index at the same dates</span>
+  <span class="ruby-identifier">asset_value</span> = <span class="ruby-ivar">@index_value_extractor</span>.<span class="ruby-identifier">extract_index_value_on</span>(<span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">four_months_ago</span>)
+  <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">index_four_months_ago</span> = <span class="ruby-identifier">asset_value</span>.<span class="ruby-identifier">closing</span>()
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: Index four months ago (#{reversal.four_months_ago}): #{reversal.index_four_months_ago}&quot;</span>)
+  <span class="ruby-identifier">asset_value</span> = <span class="ruby-ivar">@index_value_extractor</span>.<span class="ruby-identifier">extract_index_value_on</span>(<span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">three_months_ago</span>)
+  <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">index_three_months_ago</span> = <span class="ruby-identifier">asset_value</span>.<span class="ruby-identifier">closing</span>()
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: Index three months ago (#{reversal.three_months_ago}): #{reversal.index_three_months_ago}&quot;</span>)
+  <span class="ruby-identifier">asset_value</span> = <span class="ruby-ivar">@index_value_extractor</span>.<span class="ruby-identifier">extract_index_value_on</span>(<span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">two_months_ago</span>)
+  <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">index_two_months_ago</span> = <span class="ruby-identifier">asset_value</span>.<span class="ruby-identifier">closing</span>()
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: Index two months ago (#{reversal.two_months_ago}): #{reversal.index_two_months_ago}&quot;</span>)
+  <span class="ruby-identifier">asset_value</span> = <span class="ruby-ivar">@index_value_extractor</span>.<span class="ruby-identifier">extract_index_value_on</span>(<span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">one_month_ago</span>)
+  <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">index_one_month_ago</span> = <span class="ruby-identifier">asset_value</span>.<span class="ruby-identifier">closing</span>()
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: Index one month ago (#{reversal.one_month_ago}): #{reversal.index_one_month_ago}&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- extract_three_month_reversal-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- extract_three_month_reversal-method -->
+
+    
     </section><!-- public-instance-method-details -->
   
   </section><!-- 5Buntitled-5D -->
@@ -401,7 +996,7 @@ Eigenkapitalrendite</p>
 
 <footer id="validator-badges">
   <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
-  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
   <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
 </footer>
 

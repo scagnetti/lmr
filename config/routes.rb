@@ -8,7 +8,7 @@ Lmr::Application.routes.draw do
     end
   end
 
-  match 'shares/enable/:isin/:active' => 'shares#enable'
+  match 'shares/perform_action_on_selection' => 'shares#perform_action_on_selection', via: [:post]
   
   # match 'shares/lookup_insider_trades/:isin' => 'shares#lookup_insider_trades'
   

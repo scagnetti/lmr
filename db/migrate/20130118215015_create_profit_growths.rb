@@ -4,8 +4,8 @@ class CreateProfitGrowths < ActiveRecord::Migration
       t.boolean :succeeded, :default => true
       t.integer :score, :default => -1
       t.text :error_msg
-      t.date :this_year
-      t.date :next_year
+      t.integer :this_year
+      t.integer :next_year
       t.float :value_this_year
       t.float :value_next_year
       t.float :perf

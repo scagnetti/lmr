@@ -73,3 +73,25 @@ module Transaction
   BUY = 1
   UNKNOWN = 2
 end
+
+module StockExchange
+  TRADEGATE = 'Tradegate'
+  NYSE = 'NYSE'
+  NASDAQ = 'Nasdaq'
+  XETRA = 'Xetra'
+  ALL = [TRADEGATE, NYSE, NASDAQ, XETRA]
+end
+
+module Currency
+  USD = 'USD'
+  EUR = 'EUR'
+end
+
+module EscapedCharacters
+  SPACE = '&nbsp;'
+  AMPERSAND = '&amp;'
+  LESS_THEN = '&lt;'
+  GREATER_THEN = '&gt;'
+  QUOTATION = '&quot;'
+  HTML = [SPACE, AMPERSAND, LESS_THEN, GREATER_THEN, QUOTATION]
+end

@@ -1,40 +1,50 @@
-<h1>Rated Shares</h1>
-<hr>
-<p>
-<%= form_tag(score_cards_path, :method => "get") do %>
-	<%= label_tag(:d, "Filter List by Date") %>
-	<%= text_field_tag(:d, nil, :class => 'datepicker') %>
-	<%= submit_tag("go") %>
-<% end %>
-</p>
-<table cellspacing="0">
-  <colgroup>
-    <col width="60">
-    <col width="200">
-    <col width="400">
-    <col width="60">
-    <col width="80">
-    <col width="80">
-  </colgroup>
-  <tr>
-  	<th>Score</th>
-    <th>Created</th>
-    <th>Share</th>
-    <th>Financial</th>
-    <th></th>
-    <th></th>
-  </tr>
+<div class="row">
+	<div class="col-md-12">
+		<h1>Score Cards</h1>
+	</div>
+</div>
 
-<% @score_cards.each do |score_card| %>
-  <tr>
-  	<td align="center"><%= score_card.total_score %></td>
-    <td align="center"><%= l score_card.created_at %></td>
-    <td nowrap><%= link_to "#{score_card.share.name}" , score_card.share %></td>
-    <td align="center"><%= score_card.share.financial %></td>
-    <td align="center"><%= link_to 'Show Rating', score_card %></td>
-    <td align="center"><%= link_to 'Destroy', score_card, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
+<%= form_tag(score_cards_path, {:method => "get", :class => "form-horizontal"}) do %>
+	<div class="form-group">
+		<%= label_tag(:d, "Filter list by date", :class => "col-sm-2 control-label") %>
+		<div class="col-sm-6">
+			<%= text_field_tag(:d, nil, :class => "form-control datepicker") %>
+		</div>
+		<%= submit_tag("Apply", :class => "col-sm-1 btn btn-primary") %>
+	</div>
 <% end %>
-</table>
-<br />
-<%= paginate @score_cards %>
+
+<div class="row">
+	<div class="col-md-12">
+		<table class="table table-hover">
+		  <colgroup>
+		    <col width="60">
+		    <col width="200">
+		    <col width="400">
+		    <col width="60">
+		    <col width="80">
+		    <col width="80">
+		  </colgroup>
+		  <tr>
+		  	<th>Score</th>
+		    <th>Created</th>
+		    <th>Share</th>
+		    <th>Financial</th>
+		    <th></th>
+		    <th></th>
+		  </tr>
+			<% @score_cards.each do |score_card| %>
+			  <tr>
+			  	<td><%= score_card.total_score %></td>
+			    <td><%= l score_card.created_at %></td>
+			    <td nowrap><%= link_to "#{score_card.share.name}" , score_card.share %></td>
+			    <td><%= score_card.share.financial %></td>
+			    <td><%= link_to 'Show Rating', score_card %></td>
+			    <td><%= link_to 'Destroy', score_card, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+			  </tr>
+			<% end %>
+		</table>
+		<br />
+		<%= paginate @score_cards %>
+	</div>
+</div>

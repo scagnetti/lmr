@@ -1,37 +1,57 @@
-<div>
+<div class="row">
 	<%= render 'score', :score => @score_card.average_price_earnings_ratio.score %>
-  KGV 5 Jahre: <img src="/help.png" title="< 12 | 12 - 16 | > 16">
-  <% if @score_card.average_price_earnings_ratio.succeeded %>
-		<br>
-		&nbsp;&nbsp;Durchschnittswert: <%= @score_card.average_price_earnings_ratio.average %>
-    <table border="1">
-	    <colgroup>
-	      <col width="60">
-        <col width="60">
-        <col width="60">
-        <col width="60">
-        <col width="60">
-      </colgroup>
-			<tr>
-				<th><%= @score_card.average_price_earnings_ratio.three_years_ago %></th>
-				<th><%= @score_card.average_price_earnings_ratio.two_years_ago %></th>
-				<th><%= @score_card.average_price_earnings_ratio.last_year %></th>
-				<th><%= @score_card.average_price_earnings_ratio.this_year %></th>
-				<th><%= @score_card.average_price_earnings_ratio.next_year %></th>
-			</tr>
-			<tr>
-				<td><%= @score_card.average_price_earnings_ratio.value_three_years_ago %></td>
-				<td><%= @score_card.average_price_earnings_ratio.value_two_years_ago %></td>
-				<td><%= @score_card.average_price_earnings_ratio.value_last_year %></td>
-				<td><%= @score_card.average_price_earnings_ratio.value_this_year %></td>
-				<td><%= @score_card.average_price_earnings_ratio.value_next_year %></td>
-			</tr>
-		</table>
-	<% else %>%
+	<div class="col-md-3">
+		KGV 5 Jahre: <img src="/help.png" title="< 12 | 12 - 16 | > 16">
+	</div>
+	<% if @score_card.average_price_earnings_ratio.succeeded %>
+		<div class="col-md-2">
+			Value: <%= @score_card.average_price_earnings_ratio.average %>
+		</div>
+		<div class="col-md-2 col-md-offset-2">
+			<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#perAvg">
+  			Show
+			</button>
+		</div>
+	<% else %>
 		<%= render 'failed' %>
 	<% end %>
 </div>
 
-
-
-  	
+<div class="modal fade" id="perAvg" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" id="perAvgLabel">Extracted Values</h4>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered">
+			    <colgroup>
+			      <col width="60">
+		        <col width="60">
+		        <col width="60">
+		        <col width="60">
+		        <col width="60">
+		      </colgroup>
+					<tr>
+						<th><%= @score_card.average_price_earnings_ratio.three_years_ago %></th>
+						<th><%= @score_card.average_price_earnings_ratio.two_years_ago %></th>
+						<th><%= @score_card.average_price_earnings_ratio.last_year %></th>
+						<th><%= @score_card.average_price_earnings_ratio.this_year %></th>
+						<th><%= @score_card.average_price_earnings_ratio.next_year %></th>
+					</tr>
+					<tr>
+						<td><%= @score_card.average_price_earnings_ratio.value_three_years_ago %></td>
+						<td><%= @score_card.average_price_earnings_ratio.value_two_years_ago %></td>
+						<td><%= @score_card.average_price_earnings_ratio.value_last_year %></td>
+						<td><%= @score_card.average_price_earnings_ratio.value_this_year %></td>
+						<td><%= @score_card.average_price_earnings_ratio.value_next_year %></td>
+					</tr>
+				</table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

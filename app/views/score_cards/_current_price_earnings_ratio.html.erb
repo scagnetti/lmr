@@ -1,11 +1,16 @@
-<div>
+<div class="row">
 	<%= render 'score', :score => @score_card.current_price_earnings_ratio.score %>
-  KGV aktuell: <img src="/help.png" title="< 12 | 12 - 16 | > 16">
-  <% if @score_card.current_price_earnings_ratio.succeeded %>
-		<br>
-		&nbsp;&nbsp;Jahr: <%= @score_card.current_price_earnings_ratio.this_year %><br>
-		&nbsp;&nbsp;Wert: <%= @score_card.current_price_earnings_ratio.value %>
-	<% else %>%
+	<div class="col-md-3">
+		KGV aktuell: <img src="/help.png" title="< 12 | 12 - 16 | > 16">
+	</div>
+	<% if @score_card.current_price_earnings_ratio.succeeded %>
+		<div class="col-md-2">
+			Value: <%= @score_card.current_price_earnings_ratio.value %>
+		</div>
+		<div class="col-md-2">
+			Year: <%= @score_card.current_price_earnings_ratio.this_year %>
+		</div>
+	<% else %>
 		<%= render 'failed' %>
 	<% end %>
 </div>

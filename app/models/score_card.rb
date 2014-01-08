@@ -1,6 +1,6 @@
 # Contains all extracted data for a certain stock
 class ScoreCard < ActiveRecord::Base
-  attr_accessible :price, :share
+  attr_accessible :price, :currency, :share
   belongs_to :share
   belongs_to :return_on_equity
   belongs_to :reaction

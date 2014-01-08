@@ -85,11 +85,22 @@ class SharesController < ApplicationController
     end
   end
   
-  def enable
-    @share = Share.where(:isin => params[:isin]).first
-    @share.active = params[:active] == "true"
-    @share.save
-    redirect_to shares_url
+  def perform_action_on_selection
+    activate = nil
+    if params[:enable_button]
+      activate = true  
+    elsif params[:disable_button]
+      activate = false
+    else
+      redirect_to shares_url
+    end
+    shares_to_enable = params[:selection]
+    shares_to_enable.each do |isin|
+      @share = Share.where(" isin = ?", isin).first
+      @share.active = activate
+      @share.save
+    end
+    redirect_to :back
   end
   
   def lookup_insider_trades

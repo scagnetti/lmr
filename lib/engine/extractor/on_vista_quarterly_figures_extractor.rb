@@ -3,91 +3,84 @@ require 'engine/util'
 # Extracts the latest date and the reaction when quarterly figures were released for a given stock
 class OnVistaQuarterlyFiguresExtractor
 
-  ON_VISTA_APPOINTMENT_URL = 'http://www.onvista.de/aktien/profil.html?ID_OSI='
-  THREE_MONTHS_IN_SECONDS = 60 * 60 * 24 * 31 * 3
-  # Spelling differs on onVista sometimes: "Quartal>>s<<zahlen" or "Quartalzahlen"
-  SEARCH_PATTERN_ONE = "//td[contains(., 'Quartal')]/preceding-sibling::td"
+  SEARCH_URL_PREFIX = "http://www.onvista.de/aktien/dividendenkalender.html?tab=company&cid=id_placeholder&y=year_placeholder"
+  EVENTS_WHITE_LIST = ['Ergebnisberichte', 'Unternehmenskonferenzen', 'Hauptversammlung']
   SEARCH_PATTERN_TWO = "//td[contains(., 'Halbjahresabschluss')]/preceding-sibling::td"
   SEARCH_PATTERN_THREE = "//td[contains(., 'ffentlichung des 9-Monats-Berichtes')]/preceding-sibling::td"
 
   # Load the profile page for a certain stock with the internal onVista sock id 
-  def initialize(agent, on_vista_stock_id)
-    LOG.debug("#{self.class}: initialized")
-    @appointment_page = agent.get("#{ON_VISTA_APPOINTMENT_URL}#{on_vista_stock_id}")
+  def initialize(agent, stock_page)
+    @stock_page = stock_page
+    @appointment_page = @stock_page.link_with(:text => /Profil\/Termine/).click
+    url_with_id = @appointment_page.link_with(:text => /\sWeitere Termine des Unternehmens\s/).href
+    # Extract ID (e.g. http://www.onvista.de/aktien/dividendenkalender.html?tab=company&cid=46644)
+    match_obj = url_with_id.match(/.*cid=(\d+)$/)
+    if match_obj == nil || match_obj[1] == nil
+      raise DataMiningError, "Could not extract onVista specific stock id", caller
+    end
+    share_id = match_obj[1]
+    LOG.debug("#{self.class}: OnVista specific stock id: #{share_id}")
+    @search_url = SEARCH_URL_PREFIX.sub("id_placeholder", share_id)
+    # search for release date back to this year
+    last_year = (Time.now.year - 1).to_s
+    @search_url = @search_url.sub("year_placeholder", last_year)
+    LOG.debug("#{self.class}: Using search URL: #{@search_url}")
+    # Delete
+    @extended_appointment_page = agent.get(@search_url) 
+    LOG.info("#{self.class}: Initialization successful")
   end
   
   # Extract the value of the stock and the value of the index
   # when the quarterly figures were released.
+  # http://www.onvista.de/aktien/dividendenkalender.html?tab=company&cid=46827&y=2013
   def extract_release_date()
-    raw_dates = get_release_dates()
-    casted_dates = convert_to_time(raw_dates)
-    release_date = get_latest(casted_dates, THREE_MONTHS_IN_SECONDS)
-    if release_date == Time.at(0)
-      # No release date in the 3 month interval, this is a serious problem
-      raise DataMiningError, "Could not find quarterly figures within 3 months", caller
+    dates = Array.new
+    events = Array.new
+    tag_set = @extended_appointment_page.parser().xpath("(//table)[2]//following-sibling::tr[position()>1]")
+    raise DataMiningError, "Could nos extract any release dates for quarterly figures", caller if tag_set.nil? || tag_set.size() < 1
+    tag_set.each do |tr|
+      # This is neccesary to remove HTML escaped whitespace: &nbsp;
+      nbsp = Nokogiri::HTML(EscapedCharacters::SPACE).text
+      raw_date = tr.xpath("td[1]").first().content().sub(nbsp,'').strip()
+      raw_event = tr.xpath("td[3]").first().content().strip()
+      date = Util.to_t(raw_date)
+      
+      # Make sure date is in the past and the event is in the white list
+      if date < Time.now && EVENTS_WHITE_LIST.include?(raw_event)
+        dates << date
+        events << raw_event
+      end
     end
+    # For debugging only
+    #for i in 0..dates.size-1
+    #  LOG.debug("#{self.class}: Date: #{dates[i]}, Event: #{events[i]}")
+    #end
+    release_date = get_latest(dates)
+    LOG.debug("#{self.class}: Last release date: #{release_date}")
     return release_date
   end
   
   private
 
-  # Extract all release dates of quarterly figures as a list
-  def get_release_dates()
-    appointments = Array.new
-    # First try
-    tag_set = @appointment_page.parser().xpath(SEARCH_PATTERN_ONE)
-    add_content(tag_set, appointments)
-    
-    tag_set = @appointment_page.parser().xpath(SEARCH_PATTERN_TWO)
-    add_content(tag_set, appointments)
-    
-    tag_set = @appointment_page.parser().xpath(SEARCH_PATTERN_THREE)
-    add_content(tag_set, appointments)
-    
-    if appointments.size() == 0
-      LOG.info "#{self.class}: Could not find any quarterly figures"
-    end
-
-    return appointments
-  end
-
-  def convert_to_time(dates)
-    casted_dates = Array.new
-    dates.each do |date|
-      casted_dates << Util.to_t(date)
-    end
-    return casted_dates
-  end
-
-  def add_content(tag_set, appointments)
-    if tag_set != nil && tag_set.size() > 0
-      tag_set.each do |tag|
-        LOG.debug("#{self.class}: Quarterly figures released at: #{tag.content()}")
-        appointments << tag.content()
-      end
-    end
-    return appointments
-  end
-
-  # Check for the latest date which is in the past but newer than a certain threshold
-  def get_latest(dates, threshold)
+  # Check for the last date when quaterly figures where published.
+  # The date must be newer than 100 days to be valid.
+  # +dates+ - the release dates found for the stock
+  def get_latest(dates)
     now = Time.now()
     latest = Time.at(0)
     dates.each do |date|
-      diff = now - date
-      if diff > 0
-        # We are only interested when the date is in the past
-        #LOG.debug "Datum #{t.strftime('%Y-%m-%d')} liegt in der Vergangenheit"
-        # Check if the information is newer than 3 months
-        if diff < threshold
-          #LOG.debug "Datum #{t.strftime('%Y-%m-%d')} ist noch keine drei Monate her"
-          if date > latest
-            latest = date
-          end
+      days_ago = Util.days_between(date, now)
+      if days_ago < 100
+        #LOG.debug "Datum #{t.strftime('%Y-%m-%d')} ist noch keine drei Monate her"
+        # Check if the current date is newer than the last one we found
+        if date > latest
+          latest = date
         end
-      else
-        #LOG.debug "Datum #{t.strftime('%Y-%m-%d')} liegt in der Zukunft"
       end
+    end
+    if latest == Time.at(0)
+      # No release date in the last 100 days, this is a serious problem
+      raise DataMiningError, "Could not find quarterly figures within 100 days", caller
     end
     return latest
   end

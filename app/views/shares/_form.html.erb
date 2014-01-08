@@ -32,9 +32,14 @@
     <%= f.check_box :financial %>
   </div>
   <div class="field">
-    <%= f.label :asm %><br />
-    <%= f.date_select :asm %>
+    <%= f.label :currency %><br />
+    <%= f.select :currency, options_for_select([['USD', Currency::USD], ['EUR', Currency::EUR]]) %>
   </div>
+  <div class="field">
+    <%= f.label :stock_exchange %><br />
+    <%= f.select :stock_exchange, options_for_select(StockExchange::ALL) %>
+  </div>
+  <br>
   <div class="actions">
     <%= f.submit %>
   </div>

@@ -238,4 +238,28 @@ class Util
     end
   end
 
+  # Checks a given string for the ocurence of an html escaped pattern
+  # * +text+ - the string to be checked
+  def Util.contains_escaped_html_sequence?(text)
+    found_token = nil
+    EscapedCharacters::HTML.each do |token|
+      if text.include?(token)
+        found_token = token
+        break
+      end
+    end
+    return found_token
+  end
+  
+  # Calculates the number of days between two time objects
+  # * +date_one+ - the first time object (must be before the second argument)
+  # * +date_two+ - the second time object (must be after the first argument)
+  def Util.days_between(date_one, date_two)
+    if date_one > date_two
+      raise RuntimeError, "First date argument must be before second date argument", caller
+    end
+    days = (date_two - date_one).to_i / (24*60*60)
+    return days
+  end
+
 end

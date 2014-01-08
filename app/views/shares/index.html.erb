@@ -1,36 +1,55 @@
-<h1>Available Shares</h1>
+<div class="row">
+	<div class="col-md-12">
+		<h1>Available Shares</h1>
+	</div>
+</div>
 
-<%= link_to 'Add', new_share_path, {:class => "button-blue"} %>
-<hr>
+<div class="row">
+	<div class="col-md-1">
+		<%= link_to 'Add', new_share_path, {:class => "btn btn-primary"} %>
+	</div>
+</div>
 
-<table cellspacing="0">
-	<colgroup>
-		<col width="10">
-    <col width="150">
-    <col width="250">
-    <col width="100">
-    <col width="200">
-    <col width="50">
-  </colgroup>
-  <tr>
-  	<th>Active</th>
-  	<th>Isin</th>
-    <th>Name</th>
-    <th>Financial</th>
-    <th>Size</th>
-    <th></th>
-  </tr>
+<br>
 
-<% @shares.each do |share| %>
-  <tr>
-  	<td><%= check_box_tag 'share', share.isin, share.active, {:onchange => "window.location=#{assemble_url(share)};"} %></td>
-  	<td><%= share.isin %></td>
-    <td><%= link_to share.name, share %></td>
-    <td><%= share.financial %></td>
-    <td><%= to_readable_comp_size(share.size) %></td>
-    <td><%= link_to 'Rate', "/score_cards/assess_share/#{share.isin}", :method => :put %></td>
-  </tr>
+<div class="row">
+	<div class="col-md-3">
+		<%= paginate @shares %>
+	</div>
+</div>
+
+<%= form_tag("shares/perform_action_on_selection") do %>
+	<%= submit_tag("Enable", :name => 'enable_button', :class => "col-md-1") %>
+  <%= submit_tag("Disable", :name => 'disable_button', :class => "col-md-1") %>
+	<div class="row">
+		<div class="col-md-12">
+			<br>
+			<table class="table table-hover">
+				<colgroup>
+					<col width="120">
+			    <col width="100">
+			    <col width="200">
+			    <col width="100">
+			    <col width="200">
+			    <col width="50">
+			  </colgroup>
+			  <tr>
+			  	<th>Selection</th>
+			  	<th>Active</th>
+			  	<th>Isin</th>
+			    <th>Name</th>
+			    <th></th>
+			  </tr>
+				<% @shares.each do |share| %>
+				  <tr>
+				  	<td><%= check_box_tag 'selection[]', share.isin %></td>
+				  	<td><%= share.active %></td>
+				  	<td><%= share.isin %></td>
+				    <td><%= link_to share.name, share %></td>
+				    <td><%= link_to 'Rate', "/score_cards/assess_share/#{share.isin}", {:method => :put, :class => "btn btn-primary btn-xs"} %></td>
+				  </tr>
+				<% end %>
+			</table>
+		</div>
+	</div>
 <% end %>
-</table>
-
-<%= paginate @shares %>

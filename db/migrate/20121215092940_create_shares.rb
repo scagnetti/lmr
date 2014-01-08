@@ -6,7 +6,8 @@ class CreateShares < ActiveRecord::Migration
       t.string :isin, :null => false, :uniqueness => true
       t.boolean :financial
       t.integer :size
-      t.date :asm #annual stockholders meeting (Hauptversammlung)
+      t.string :stock_exchange # Which stock exchange should be used?
+      t.string :currency # In which currency should the rating be conducted
       t.references :stock_index
 
       t.timestamps

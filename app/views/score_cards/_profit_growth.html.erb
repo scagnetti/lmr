@@ -1,11 +1,18 @@
-<div>
+<div class="row">
 	<%= render 'score', :score => @score_card.profit_growth.score %>
-	Gewinnwachstum: <img src="/help.png" title="EPS AJ < EPS NJ | zwischen -5% und +5% | EPS AJ > EPS NJ">
-  <% if @score_card.profit_growth.succeeded %>
-	 <br>
-		&nbsp;&nbsp;Diese Jahr (<%= @score_card.profit_growth.this_year %>): <%= @score_card.profit_growth.value_this_year %><br>
-		&nbsp;&nbsp;Nächstes Jahr (<%= @score_card.profit_growth.next_year %>): <%= @score_card.profit_growth.value_next_year %><br>
-		&nbsp;&nbsp;Performance: <%= @score_card.profit_growth.perf %><br>
+	<div class="col-md-3">
+		Gewinnwachstum: <img src="/help.png" title="EPS AJ < EPS NJ | zwischen -5% und +5% | EPS AJ > EPS NJ">
+	</div>
+	<% if @score_card.profit_growth.succeeded %>
+		<div class="col-md-2">
+			Performance: <%= @score_card.profit_growth.perf %>
+		</div>
+		<div class="col-md-2">
+			this year (<%= @score_card.profit_growth.this_year %>): <%= @score_card.profit_growth.value_this_year %>
+		</div>
+		<div class="col-md-3">
+			next year (<%= @score_card.profit_growth.next_year %>): <%= @score_card.profit_growth.value_next_year %>
+		</div>
 	<% else %>
 		<%= render 'failed' %>
 	<% end %>

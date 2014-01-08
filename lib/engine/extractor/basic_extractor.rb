@@ -6,23 +6,25 @@ require 'engine/exceptions/unexpected_html_structure.rb'
 class BasicExtractor
 
   # Set up the HTML pareser, load the web page of the extractor.
-  def initialize(extractor_url, stock_isin, index_isin)
-    @stock_isin = stock_isin
-    @index_isin = index_isin
+  def initialize(extractor_url, share)
+    @share = share
     @agent = Mechanize.new do |agent|
       agent.user_agent_alias = 'Linux Firefox'
       agent.open_timeout=60000
       agent.read_timeout=60000
+      # agent.set_proxy('127.0.0.1', 9150)
       # agent.follow_meta_refresh = true
       # Comment in to make use of TOR
       #if RAILS_ENV == 'production'
       #  LOG.debug('Using proxy configuration for TOR')
       #  agent.set_proxy('127.0.0.1', 8118)
       #else
-        LOG.info('TOR is disabled')
+      # LOG.info('TOR is disabled')
       #end
     end
     @start_page = @agent.get(extractor_url)
+    #Test
+    #@agent.get("http://h1611578.stratoserver.net/shares")
   end
 
   # Search for a given ISIN.
@@ -30,17 +32,18 @@ class BasicExtractor
   # * +regexp+ - the value of the xpath attribute
   # * +field_name+ - the name of the field inside the from
   # * +search_pattern+ - the pattern to search for
-  # * +failure_msg+ - xpath to check if the search was successful
-  def perform_search(attribute, regexp, field_name, search_pattern, failure_msg)
+  # * +success_xpath+ - xpath to check if the search was successful
+  # * +success_value+ - value to check if the search was successful
+  def perform_search(attribute, regexp, field_name, search_pattern, success_xpath, success_value)
     search_form = @start_page.form_with(attribute => regexp)
     if search_form == nil
       raise UnexpectedHtmlStructure, "Could not find any form with attribute >>#{attribute}<< matching search pattern >>#{regexp}<<", caller
     end
     search_form[field_name] = search_pattern
     result = search_form.submit
-    failure = result.parser().xpath(failure_msg)
-    if failure != nil && failure.size() > 0
-      raise InvalidIsin, "Could not find stock page with supplied ISIN: #{search_pattern}", caller
+    success_indicator = result.parser().xpath(success_xpath)
+    if success_indicator.nil? || success_indicator.first().nil? || success_indicator.first().content().strip() != success_value
+      raise InvalidIsinError, "Could not find stock page with supplied ISIN: #{search_pattern}", caller
     else
       return result
     end 
@@ -103,7 +106,7 @@ class BasicExtractor
   end
 
   # Extract the reaction on the release of quarterly figures
-  def extract_reaction_on_figures(index_isin, reaction)
+  def extract_reaction_on_figures(reaction)
     raise DataMiningError, "Could not extract Reaction", caller
   end
 

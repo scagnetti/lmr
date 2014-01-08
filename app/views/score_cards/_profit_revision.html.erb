@@ -1,11 +1,18 @@
-<div>
+<div class="row">
 	<%= render 'score', :score => @score_card.profit_revision.score %>
-	Gewinnrevisionen: <img src="/help.png" title="steigend | zwischen -5% und +5% | fallend">
-  <% if @score_card.profit_revision.succeeded %>
-	 <br>
-		&nbsp;&nbsp;Heraufstufungen: <%= @score_card.profit_revision.up %><br>
-		&nbsp;&nbsp;Bestätigungen: <%= @score_card.profit_revision.equal %><br>
-		&nbsp;&nbsp;Herabstufungen: <%= @score_card.profit_revision.down %>
+	<div class="col-md-3">
+		Gewinnrevisionen: <img src="/help.png" title="steigend | zwischen -5% und +5% | fallend">
+	</div>
+	<% if @score_card.profit_revision.succeeded %>
+		<div class="col-md-2">
+			Heraufstufungen: <%= @score_card.profit_revision.up %>
+		</div>
+		<div class="col-md-2">
+			Bestätigungen: <%= @score_card.profit_revision.equal %>
+		</div>
+		<div class="col-md-2">
+			Herabstufungen: <%= @score_card.profit_revision.down %>
+		</div>
 	<% else %>
 		<%= render 'failed' %>
 	<% end %>

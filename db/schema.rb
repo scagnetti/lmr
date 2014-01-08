@@ -99,8 +99,8 @@ ActiveRecord::Schema.define(:version => 20130915064946) do
     t.boolean  "succeeded",       :default => true
     t.integer  "score",           :default => -1
     t.text     "error_msg"
-    t.date     "this_year"
-    t.date     "next_year"
+    t.integer  "this_year"
+    t.integer  "next_year"
     t.float    "value_this_year"
     t.float    "value_next_year"
     t.float    "perf"
@@ -128,6 +128,8 @@ ActiveRecord::Schema.define(:version => 20130915064946) do
     t.float    "price_closing"
     t.float    "index_opening"
     t.float    "index_closing"
+    t.float    "share_perf"
+    t.float    "index_perf"
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
   end
@@ -171,6 +173,7 @@ ActiveRecord::Schema.define(:version => 20130915064946) do
   create_table "score_cards", :force => true do |t|
     t.integer  "share_id"
     t.float    "price"
+    t.string   "currency"
     t.integer  "total_score",                     :default => 0
     t.integer  "return_on_equity_id"
     t.integer  "ebit_margin_id"
@@ -195,7 +198,8 @@ ActiveRecord::Schema.define(:version => 20130915064946) do
     t.string   "isin",                             :null => false
     t.boolean  "financial"
     t.integer  "size"
-    t.date     "asm"
+    t.string   "stock_exchange"
+    t.string   "currency"
     t.integer  "stock_index_id"
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
@@ -209,25 +213,27 @@ ActiveRecord::Schema.define(:version => 20130915064946) do
   end
 
   create_table "stock_price_dev_half_years", :force => true do |t|
-    t.boolean  "succeeded",  :default => true
-    t.integer  "score",      :default => -1
+    t.boolean  "succeeded",       :default => true
+    t.integer  "score",           :default => -1
     t.text     "error_msg"
     t.float    "compare"
     t.float    "value"
+    t.date     "historical_date"
     t.float    "perf"
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
   end
 
   create_table "stock_price_dev_one_years", :force => true do |t|
-    t.boolean  "succeeded",  :default => true
-    t.integer  "score",      :default => -1
+    t.boolean  "succeeded",       :default => true
+    t.integer  "score",           :default => -1
     t.text     "error_msg"
     t.float    "compare"
     t.float    "value"
+    t.date     "historical_date"
     t.float    "perf"
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
   end
 
 end

@@ -1,10 +1,15 @@
-<div>
+<div class="row">
 	<%= render 'score', :score => @score_card.return_on_equity.score %>
-	RoE LJ: <img src="/help.png" title="> 20% | 20% - 10% | < 10%">
-  <% if @score_card.return_on_equity.succeeded %>
-	 <br>
-		&nbsp;&nbsp;Jahr: <%= @score_card.return_on_equity.last_year %><br>
-		&nbsp;&nbsp;Wert: <%= @score_card.return_on_equity.value %>%
+	<div class="col-md-3">
+		RoE LJ <span id="roe_info" class="glyphicon glyphicon-question-sign" data-original-title="> 20% | 20% - 10% | < 10%"></span>
+	</div>
+	<% if @score_card.return_on_equity.succeeded %>
+		<div class="col-md-2">
+			Value: <%= @score_card.return_on_equity.value %>%
+		</div>
+		<div class="col-md-2">
+			Year: <%= @score_card.return_on_equity.last_year %>
+		</div>
 	<% else %>
 		<%= render 'failed' %>
 	<% end %>

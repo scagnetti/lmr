@@ -9,6 +9,8 @@ class CreateReactions < ActiveRecord::Migration
       t.float :price_closing
       t.float :index_opening
       t.float :index_closing
+      t.float :share_perf
+      t.float :index_perf
 
       t.timestamps
     end
