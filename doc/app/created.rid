@@ -1,13 +1,11 @@
-Fri, 03 Jan 2014 20:44:06 +0100
-doc/README_FOR_APP	Fri, 03 Jan 2014 20:43:55 +0100
+Fri, 10 Jan 2014 15:20:01 +0100
+doc/README_FOR_APP	Fri, 10 Jan 2014 11:40:44 +0100
 app/controllers/application_controller.rb	Tue, 19 Feb 2013 21:49:58 +0100
-app/controllers/home_controller.rb	Tue, 19 Feb 2013 21:49:58 +0100
 app/controllers/insider_deals_controller.rb	Sun, 15 Sep 2013 08:49:47 +0200
 app/controllers/score_cards_controller.rb	Sat, 20 Jul 2013 18:01:53 +0200
-app/controllers/shares_controller.rb	Sun, 24 Nov 2013 01:01:39 +0100
+app/controllers/shares_controller.rb	Mon, 06 Jan 2014 12:32:13 +0100
 app/controllers/stock_indices_controller.rb	Tue, 19 Feb 2013 21:49:58 +0100
 app/helpers/application_helper.rb	Sat, 13 Apr 2013 21:10:09 +0200
-app/helpers/home_helper.rb	Tue, 19 Feb 2013 21:49:58 +0100
 app/helpers/indices_helper.rb	Tue, 19 Feb 2013 21:49:58 +0100
 app/helpers/insider_deals_helper.rb	Sun, 15 Sep 2013 08:49:47 +0200
 app/helpers/score_cards_helper.rb	Tue, 19 Feb 2013 21:49:58 +0100
@@ -32,17 +30,17 @@ app/models/stock_price_dev_one_year.rb	Fri, 03 Jan 2014 12:57:01 +0100
 lib/engine/exceptions/data_mining_error.rb	Tue, 19 Feb 2013 21:49:58 +0100
 lib/engine/exceptions/invalid_isin_error.rb	Tue, 19 Feb 2013 21:49:58 +0100
 lib/engine/exceptions/unexpected_html_structure.rb	Thu, 04 Jul 2013 19:35:56 +0200
-lib/engine/extractor/basic_extractor.rb	Sat, 30 Nov 2013 18:09:12 +0100
+lib/engine/extractor/basic_extractor.rb	Fri, 10 Jan 2014 11:58:27 +0100
 lib/engine/extractor/boerse_extractor.rb	Sat, 30 Nov 2013 14:48:04 +0100
 lib/engine/extractor/finanzen_extractor.rb	Sat, 30 Nov 2013 14:48:54 +0100
-lib/engine/extractor/on_vista_extractor.rb	Fri, 03 Jan 2014 20:43:15 +0100
-lib/engine/extractor/on_vista_index_value_extractor.rb	Fri, 03 Jan 2014 15:55:46 +0100
-lib/engine/extractor/on_vista_quarterly_figures_extractor.rb	Mon, 28 Oct 2013 17:44:22 +0100
+lib/engine/extractor/on_vista_extractor.rb	Tue, 07 Jan 2014 19:07:05 +0100
+lib/engine/extractor/on_vista_index_value_extractor.rb	Mon, 06 Jan 2014 14:25:00 +0100
+lib/engine/extractor/on_vista_quarterly_figures_extractor.rb	Tue, 07 Jan 2014 16:59:28 +0100
 lib/engine/extractor/on_vista_stock_value_extractor.rb	Fri, 03 Jan 2014 15:58:28 +0100
 lib/engine/parser/basic_index_parser.rb	Thu, 12 Dec 2013 19:45:15 +0100
 lib/engine/parser/dax_index_parser.rb	Tue, 31 Dec 2013 17:36:30 +0100
 lib/engine/parser/dow_index_parser.rb	Thu, 12 Dec 2013 19:41:32 +0100
-lib/engine/rating_unit.rb	Tue, 31 Dec 2013 17:28:49 +0100
-lib/engine/stock_processor.rb	Sat, 30 Nov 2013 14:59:17 +0100
+lib/engine/rating_unit.rb	Tue, 07 Jan 2014 18:26:40 +0100
+lib/engine/stock_processor.rb	Tue, 07 Jan 2014 14:20:48 +0100
 lib/engine/types/asset_value.rb	Fri, 03 Jan 2014 19:20:53 +0100
 lib/engine/util.rb	Fri, 03 Jan 2014 13:36:05 +0100

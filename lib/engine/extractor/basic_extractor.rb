@@ -12,7 +12,6 @@ class BasicExtractor
       agent.user_agent_alias = 'Linux Firefox'
       agent.open_timeout=60000
       agent.read_timeout=60000
-      # agent.set_proxy('127.0.0.1', 9150)
       # agent.follow_meta_refresh = true
       # Comment in to make use of TOR
       #if RAILS_ENV == 'production'
@@ -23,8 +22,6 @@ class BasicExtractor
       #end
     end
     @start_page = @agent.get(extractor_url)
-    #Test
-    #@agent.get("http://h1611578.stratoserver.net/shares")
   end
 
   # Search for a given ISIN.

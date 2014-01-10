@@ -127,10 +127,6 @@
   
     <li><a href="./FinanzenExtractor.html">FinanzenExtractor</a>
   
-    <li><a href="./HomeController.html">HomeController</a>
-  
-    <li><a href="./HomeHelper.html">HomeHelper</a>
-  
     <li><a href="./IndicesHelper.html">IndicesHelper</a>
   
     <li><a href="./InsiderDeal.html">InsiderDeal</a>
@@ -297,7 +293,7 @@ stock</p>
 
           
           <div class="method-source-code" id="extract_index_value_on-source">
-            <pre><span class="ruby-comment"># File lib/engine/extractor/on_vista_index_value_extractor.rb, line 25</span>
+            <pre><span class="ruby-comment"># File lib/engine/extractor/on_vista_index_value_extractor.rb, line 26</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_index_value_on</span>(<span class="ruby-identifier">historical_date</span>)
   <span class="ruby-comment"># FIXME should be set to the extracted value, not the wanted</span>
   <span class="ruby-identifier">av</span> = <span class="ruby-constant">AssetValue</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">historical_date</span>)
@@ -347,8 +343,9 @@ stock</p>
             <pre><span class="ruby-comment"># File lib/engine/extractor/on_vista_index_value_extractor.rb, line 15</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">get_on_vista_index_id</span>(<span class="ruby-identifier">index_page</span>)
   <span class="ruby-identifier">match_obj</span> = <span class="ruby-identifier">index_page</span>.<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/.*-(\d+)$/</span>)
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: page URI: #{index_page.uri.to_s}&quot;</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">match_obj</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">match_obj</span>[<span class="ruby-value">1</span>] <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-constant">DataMiningError</span>, <span class="ruby-string">&quot;Could not extract internal index id&quot;</span>, <span class="ruby-identifier">caller</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">DataMiningError</span>, <span class="ruby-string">&quot;Could not extract onVista specific index id&quot;</span>, <span class="ruby-identifier">caller</span>
   <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">match_obj</span>[<span class="ruby-value">1</span>]
 <span class="ruby-keyword">end</span></pre>

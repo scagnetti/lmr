@@ -125,10 +125,6 @@
   
     <li><a href="./FinanzenExtractor.html">FinanzenExtractor</a>
   
-    <li><a href="./HomeController.html">HomeController</a>
-  
-    <li><a href="./HomeHelper.html">HomeHelper</a>
-  
     <li><a href="./IndicesHelper.html">IndicesHelper</a>
   
     <li><a href="./InsiderDeal.html">InsiderDeal</a>
@@ -232,6 +228,11 @@ released for a given stock</p>
         <dd class="description">
         
       
+        <dt id="SEARCH_URL_PREFIX">SEARCH_URL_PREFIX
+        
+        <dd class="description">
+        
+      
       </dl>
     </section>
     
@@ -248,7 +249,7 @@ released for a given stock</p>
         
         <div class="method-heading">
           <span class="method-name">new</span><span
-            class="method-args">(stock_page)</span>
+            class="method-args">(agent, stock_page)</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
         
@@ -260,12 +261,26 @@ released for a given stock</p>
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/engine/extractor/on_vista_quarterly_figures_extractor.rb, line 11</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">stock_page</span>)
-  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: initialized&quot;</span>)
+            <pre><span class="ruby-comment"># File lib/engine/extractor/on_vista_quarterly_figures_extractor.rb, line 12</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">stock_page</span>)
   <span class="ruby-ivar">@stock_page</span> = <span class="ruby-identifier">stock_page</span>
   <span class="ruby-ivar">@appointment_page</span> = <span class="ruby-ivar">@stock_page</span>.<span class="ruby-identifier">link_with</span>(<span class="ruby-value">:text</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-regexp">/Profil\/Termine/</span>).<span class="ruby-identifier">click</span>
-  <span class="ruby-ivar">@extended_appointment_page</span> = <span class="ruby-ivar">@appointment_page</span>.<span class="ruby-identifier">link_with</span>(<span class="ruby-value">:text</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-regexp">/\sWeitere Termine des Unternehmens\s/</span>).<span class="ruby-identifier">click</span>
+  <span class="ruby-identifier">url_with_id</span> = <span class="ruby-ivar">@appointment_page</span>.<span class="ruby-identifier">link_with</span>(<span class="ruby-value">:text</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-regexp">/\sWeitere Termine des Unternehmens\s/</span>).<span class="ruby-identifier">href</span>
+  <span class="ruby-comment"># Extract ID (e.g. http://www.onvista.de/aktien/dividendenkalender.html?tab=company&amp;cid=46644)</span>
+  <span class="ruby-identifier">match_obj</span> = <span class="ruby-identifier">url_with_id</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/.*cid=(\d+)$/</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">match_obj</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">match_obj</span>[<span class="ruby-value">1</span>] <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">DataMiningError</span>, <span class="ruby-string">&quot;Could not extract onVista specific stock id&quot;</span>, <span class="ruby-identifier">caller</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">share_id</span> = <span class="ruby-identifier">match_obj</span>[<span class="ruby-value">1</span>]
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: OnVista specific stock id: #{share_id}&quot;</span>)
+  <span class="ruby-ivar">@search_url</span> = <span class="ruby-constant">SEARCH_URL_PREFIX</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-string">&quot;id_placeholder&quot;</span>, <span class="ruby-identifier">share_id</span>)
+  <span class="ruby-comment"># search for release date back to this year</span>
+  <span class="ruby-identifier">last_year</span> = (<span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">year</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>).<span class="ruby-identifier">to_s</span>
+  <span class="ruby-ivar">@search_url</span> = <span class="ruby-ivar">@search_url</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-string">&quot;year_placeholder&quot;</span>, <span class="ruby-identifier">last_year</span>)
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{self.class}: Using search URL: #{@search_url}&quot;</span>)
+  <span class="ruby-comment"># Delete</span>
+  <span class="ruby-ivar">@extended_appointment_page</span> = <span class="ruby-identifier">agent</span>.<span class="ruby-identifier">get</span>(<span class="ruby-ivar">@search_url</span>) 
+  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;#{self.class}: Initialization successful&quot;</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- new-source -->
           
@@ -295,16 +310,18 @@ released for a given stock</p>
         <div class="method-description">
           
           <p>Extract the value of the stock and the value of the index when the
-quarterly figures were released.</p>
+quarterly figures were released. <a
+href="http://www.onvista.de/aktien/dividendenkalender.html?tab=company&cid=46827&y=2013">www.onvista.de/aktien/dividendenkalender.html?tab=company&cid=46827&y=2013</a></p>
           
 
           
           <div class="method-source-code" id="extract_release_date-source">
-            <pre><span class="ruby-comment"># File lib/engine/extractor/on_vista_quarterly_figures_extractor.rb, line 20</span>
+            <pre><span class="ruby-comment"># File lib/engine/extractor/on_vista_quarterly_figures_extractor.rb, line 36</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_release_date</span>()
   <span class="ruby-identifier">dates</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
   <span class="ruby-identifier">events</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
   <span class="ruby-identifier">tag_set</span> = <span class="ruby-ivar">@extended_appointment_page</span>.<span class="ruby-identifier">parser</span>().<span class="ruby-identifier">xpath</span>(<span class="ruby-string">&quot;(//table)[2]//following-sibling::tr[position()&gt;1]&quot;</span>)
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">DataMiningError</span>, <span class="ruby-string">&quot;Could nos extract any release dates for quarterly figures&quot;</span>, <span class="ruby-identifier">caller</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">tag_set</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">tag_set</span>.<span class="ruby-identifier">size</span>() <span class="ruby-operator">&lt;</span> <span class="ruby-value">1</span>
   <span class="ruby-identifier">tag_set</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">tr</span><span class="ruby-operator">|</span>
     <span class="ruby-comment"># This is neccesary to remove HTML escaped whitespace: &amp;nbsp;</span>
     <span class="ruby-identifier">nbsp</span> = <span class="ruby-constant">Nokogiri</span><span class="ruby-operator">::</span><span class="ruby-constant">HTML</span>(<span class="ruby-constant">EscapedCharacters</span><span class="ruby-operator">::</span><span class="ruby-constant">SPACE</span>).<span class="ruby-identifier">text</span>

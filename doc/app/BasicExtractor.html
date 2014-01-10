@@ -155,10 +155,6 @@
   
     <li><a href="./FinanzenExtractor.html">FinanzenExtractor</a>
   
-    <li><a href="./HomeController.html">HomeController</a>
-  
-    <li><a href="./HomeHelper.html">HomeHelper</a>
-  
     <li><a href="./IndicesHelper.html">IndicesHelper</a>
   
     <li><a href="./InsiderDeal.html">InsiderDeal</a>
@@ -269,9 +265,6 @@
             <pre><span class="ruby-comment"># File lib/engine/extractor/basic_extractor.rb, line 9</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">extractor_url</span>, <span class="ruby-identifier">share</span>)
   <span class="ruby-ivar">@share</span> = <span class="ruby-identifier">share</span>
-  <span class="ruby-comment">#@stock_isin = stock_isin</span>
-  <span class="ruby-comment">#@index_isin = index_isin</span>
-  <span class="ruby-comment">#@stock_exchange = stock_exchange</span>
   <span class="ruby-ivar">@agent</span> = <span class="ruby-constant">Mechanize</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">agent</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">agent</span>.<span class="ruby-identifier">user_agent_alias</span> = <span class="ruby-string">'Linux Firefox'</span>
     <span class="ruby-identifier">agent</span>.<span class="ruby-identifier">open_timeout</span>=<span class="ruby-value">60000</span>
@@ -319,7 +312,7 @@
 
           
           <div class="method-source-code" id="extract_analysts_opinion-source">
-            <pre><span class="ruby-comment"># File lib/engine/extractor/basic_extractor.rb, line 104</span>
+            <pre><span class="ruby-comment"># File lib/engine/extractor/basic_extractor.rb, line 101</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_analysts_opinion</span>(<span class="ruby-identifier">analysts_opinion</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">DataMiningError</span>, <span class="ruby-string">&quot;Could not extract analysts opinion&quot;</span>, <span class="ruby-identifier">caller</span>
 <span class="ruby-keyword">end</span></pre>
@@ -349,7 +342,7 @@
 
           
           <div class="method-source-code" id="extract_average_price_earnings_ratio-source">
-            <pre><span class="ruby-comment"># File lib/engine/extractor/basic_extractor.rb, line 99</span>
+            <pre><span class="ruby-comment"># File lib/engine/extractor/basic_extractor.rb, line 96</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_average_price_earnings_ratio</span>(<span class="ruby-identifier">average_price_earnings_ratio</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">DataMiningError</span>, <span class="ruby-string">&quot;Could not extract average price earnings ratio (KGV5)&quot;</span>, <span class="ruby-identifier">caller</span>
 <span class="ruby-keyword">end</span></pre>
@@ -379,7 +372,7 @@
 
           
           <div class="method-source-code" id="extract_current_price_earnings_ratio-source">
-            <pre><span class="ruby-comment"># File lib/engine/extractor/basic_extractor.rb, line 94</span>
+            <pre><span class="ruby-comment"># File lib/engine/extractor/basic_extractor.rb, line 91</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_current_price_earnings_ratio</span>(<span class="ruby-identifier">current_price_earnings_ratio</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">DataMiningError</span>, <span class="ruby-string">&quot;Could not extract current price earnings ratio (KGV)&quot;</span>, <span class="ruby-identifier">caller</span>
 <span class="ruby-keyword">end</span></pre>
@@ -409,7 +402,7 @@
 
           
           <div class="method-source-code" id="extract_ebit_margin-source">
-            <pre><span class="ruby-comment"># File lib/engine/extractor/basic_extractor.rb, line 84</span>
+            <pre><span class="ruby-comment"># File lib/engine/extractor/basic_extractor.rb, line 81</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_ebit_margin</span>(<span class="ruby-identifier">ebit_margin</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">DataMiningError</span>, <span class="ruby-string">&quot;Could not extract EBIT-Margin&quot;</span>, <span class="ruby-identifier">caller</span>
 <span class="ruby-keyword">end</span></pre>
@@ -439,7 +432,7 @@
 
           
           <div class="method-source-code" id="extract_equity_ratio-source">
-            <pre><span class="ruby-comment"># File lib/engine/extractor/basic_extractor.rb, line 89</span>
+            <pre><span class="ruby-comment"># File lib/engine/extractor/basic_extractor.rb, line 86</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_equity_ratio</span>(<span class="ruby-identifier">equity_ratio</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">DataMiningError</span>, <span class="ruby-string">&quot;Could not extract equity ration (Eigenkapitalquote)&quot;</span>, <span class="ruby-identifier">caller</span>
 <span class="ruby-keyword">end</span></pre>
@@ -469,7 +462,7 @@
 
           
           <div class="method-source-code" id="extract_profit_revision-source">
-            <pre><span class="ruby-comment"># File lib/engine/extractor/basic_extractor.rb, line 114</span>
+            <pre><span class="ruby-comment"># File lib/engine/extractor/basic_extractor.rb, line 111</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_profit_revision</span>(<span class="ruby-identifier">profit_revision</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">DataMiningError</span>, <span class="ruby-string">&quot;Could not extract profit revision&quot;</span>, <span class="ruby-identifier">caller</span>
 <span class="ruby-keyword">end</span></pre>
@@ -499,7 +492,7 @@
 
           
           <div class="method-source-code" id="extract_proft_growth-source">
-            <pre><span class="ruby-comment"># File lib/engine/extractor/basic_extractor.rb, line 130</span>
+            <pre><span class="ruby-comment"># File lib/engine/extractor/basic_extractor.rb, line 127</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_proft_growth</span>(<span class="ruby-identifier">profit_growth</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">DataMiningError</span>, <span class="ruby-string">&quot;Could not extract EPS values for profit growth&quot;</span>, <span class="ruby-identifier">caller</span>
 <span class="ruby-keyword">end</span></pre>
@@ -529,7 +522,7 @@
 
           
           <div class="method-source-code" id="extract_reaction_on_figures-source">
-            <pre><span class="ruby-comment"># File lib/engine/extractor/basic_extractor.rb, line 109</span>
+            <pre><span class="ruby-comment"># File lib/engine/extractor/basic_extractor.rb, line 106</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_reaction_on_figures</span>(<span class="ruby-identifier">reaction</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">DataMiningError</span>, <span class="ruby-string">&quot;Could not extract Reaction&quot;</span>, <span class="ruby-identifier">caller</span>
 <span class="ruby-keyword">end</span></pre>
@@ -559,7 +552,7 @@
 
           
           <div class="method-source-code" id="extract_roe-source">
-            <pre><span class="ruby-comment"># File lib/engine/extractor/basic_extractor.rb, line 79</span>
+            <pre><span class="ruby-comment"># File lib/engine/extractor/basic_extractor.rb, line 76</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_roe</span>(<span class="ruby-identifier">return_on_equity</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">DataMiningError</span>, <span class="ruby-string">&quot;Could not extract RoE&quot;</span>, <span class="ruby-identifier">caller</span>
 <span class="ruby-keyword">end</span></pre>
@@ -589,7 +582,7 @@
 
           
           <div class="method-source-code" id="extract_stock_name-source">
-            <pre><span class="ruby-comment"># File lib/engine/extractor/basic_extractor.rb, line 69</span>
+            <pre><span class="ruby-comment"># File lib/engine/extractor/basic_extractor.rb, line 66</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_stock_name</span>()
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">DataMiningError</span>, <span class="ruby-string">&quot;Could not extract name&quot;</span>, <span class="ruby-identifier">caller</span> 
 <span class="ruby-keyword">end</span></pre>
@@ -619,7 +612,7 @@
 
           
           <div class="method-source-code" id="extract_stock_price-source">
-            <pre><span class="ruby-comment"># File lib/engine/extractor/basic_extractor.rb, line 74</span>
+            <pre><span class="ruby-comment"># File lib/engine/extractor/basic_extractor.rb, line 71</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_stock_price</span>()
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">DataMiningError</span>, <span class="ruby-string">&quot;Could not extract price&quot;</span>, <span class="ruby-identifier">caller</span>
 <span class="ruby-keyword">end</span></pre>
@@ -649,7 +642,7 @@
 
           
           <div class="method-source-code" id="extract_stock_price_dev_half_year-source">
-            <pre><span class="ruby-comment"># File lib/engine/extractor/basic_extractor.rb, line 118</span>
+            <pre><span class="ruby-comment"># File lib/engine/extractor/basic_extractor.rb, line 115</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_stock_price_dev_half_year</span>(<span class="ruby-identifier">stock_price_dev_half_year</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">DataMiningError</span>, <span class="ruby-string">&quot;Could not extract stock price development half year&quot;</span>, <span class="ruby-identifier">caller</span>
 <span class="ruby-keyword">end</span></pre>
@@ -679,7 +672,7 @@
 
           
           <div class="method-source-code" id="extract_stock_price_dev_one_year-source">
-            <pre><span class="ruby-comment"># File lib/engine/extractor/basic_extractor.rb, line 122</span>
+            <pre><span class="ruby-comment"># File lib/engine/extractor/basic_extractor.rb, line 119</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_stock_price_dev_one_year</span>(<span class="ruby-identifier">stock_price_dev_one_year</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">DataMiningError</span>, <span class="ruby-string">&quot;Could not extract stock price development one year&quot;</span>, <span class="ruby-identifier">caller</span>
 <span class="ruby-keyword">end</span></pre>
@@ -709,7 +702,7 @@
 
           
           <div class="method-source-code" id="extract_three_month_reversal-source">
-            <pre><span class="ruby-comment"># File lib/engine/extractor/basic_extractor.rb, line 126</span>
+            <pre><span class="ruby-comment"># File lib/engine/extractor/basic_extractor.rb, line 123</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_three_month_reversal</span>(<span class="ruby-identifier">reversal</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">DataMiningError</span>, <span class="ruby-string">&quot;Could not extract three months reversal&quot;</span>, <span class="ruby-identifier">caller</span>
 <span class="ruby-keyword">end</span></pre>
@@ -748,7 +741,7 @@
 
           
           <div class="method-source-code" id="open_sub_page-source">
-            <pre><span class="ruby-comment"># File lib/engine/extractor/basic_extractor.rb, line 57</span>
+            <pre><span class="ruby-comment"># File lib/engine/extractor/basic_extractor.rb, line 54</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">open_sub_page</span>(<span class="ruby-identifier">link_text</span>, <span class="ruby-identifier">result_size</span>, <span class="ruby-identifier">link_index</span>, <span class="ruby-identifier">page</span>=<span class="ruby-ivar">@stock_page</span>)
   <span class="ruby-identifier">links</span> = <span class="ruby-identifier">page</span>.<span class="ruby-identifier">links_with</span>(<span class="ruby-value">:text</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">link_text</span>)
   <span class="ruby-comment">#puts &quot;Found #{links.size} anchors matching #{link_text}&quot;</span>
@@ -798,7 +791,7 @@
 
           
           <div class="method-source-code" id="perform_search-source">
-            <pre><span class="ruby-comment"># File lib/engine/extractor/basic_extractor.rb, line 37</span>
+            <pre><span class="ruby-comment"># File lib/engine/extractor/basic_extractor.rb, line 34</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">perform_search</span>(<span class="ruby-identifier">attribute</span>, <span class="ruby-identifier">regexp</span>, <span class="ruby-identifier">field_name</span>, <span class="ruby-identifier">search_pattern</span>, <span class="ruby-identifier">success_xpath</span>, <span class="ruby-identifier">success_value</span>)
   <span class="ruby-identifier">search_form</span> = <span class="ruby-ivar">@start_page</span>.<span class="ruby-identifier">form_with</span>(<span class="ruby-identifier">attribute</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">regexp</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">search_form</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>

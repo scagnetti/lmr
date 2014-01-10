@@ -226,4 +226,13 @@ namespace :ex do
     e.extract_insider_deals(Array.new)
   end
   
+  desc "Test tor proxy"
+  task :tor => :environment do
+    @agent = Mechanize.new do |agent|
+      agent.user_agent_alias = 'Linux Firefox'
+      agent.set_proxy('127.0.0.1', 8118)
+    end
+    page = @agent.get("http://h1611578.stratoserver.net/shares")
+  end
+  
 end

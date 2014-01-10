@@ -90,8 +90,6 @@
     
     <li><a href="#method-c-rate_roe">::rate_roe</a>
     
-    <li><a href="#method-c-rate_stock_price_dev">::rate_stock_price_dev</a>
-    
     <li><a href="#method-c-rate_stock_price_dev_half_year">::rate_stock_price_dev_half_year</a>
     
     <li><a href="#method-c-rate_stock_price_dev_one_year">::rate_stock_price_dev_one_year</a>
@@ -148,10 +146,6 @@
     <li><a href="./EquityRatio.html">EquityRatio</a>
   
     <li><a href="./FinanzenExtractor.html">FinanzenExtractor</a>
-  
-    <li><a href="./HomeController.html">HomeController</a>
-  
-    <li><a href="./HomeHelper.html">HomeHelper</a>
   
     <li><a href="./IndicesHelper.html">IndicesHelper</a>
   
@@ -476,7 +470,7 @@
 
           
           <div class="method-source-code" id="rate_profit_growth-source">
-            <pre><span class="ruby-comment"># File lib/engine/rating_unit.rb, line 230</span>
+            <pre><span class="ruby-comment"># File lib/engine/rating_unit.rb, line 231</span>
 <span class="ruby-keyword">def</span> <span class="ruby-constant">RatingUnit</span>.<span class="ruby-identifier">rate_profit_growth</span>(<span class="ruby-identifier">profit_growth</span>)
   <span class="ruby-identifier">profit_growth</span>.<span class="ruby-identifier">perf</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">perf</span>(<span class="ruby-identifier">profit_growth</span>.<span class="ruby-identifier">value_next_year</span>, <span class="ruby-identifier">profit_growth</span>.<span class="ruby-identifier">value_this_year</span>)
   <span class="ruby-keyword">case</span>
@@ -515,28 +509,40 @@
 
           
           <div class="method-source-code" id="rate_profit_revision-source">
-            <pre><span class="ruby-comment"># File lib/engine/rating_unit.rb, line 123</span>
+            <pre><span class="ruby-comment"># File lib/engine/rating_unit.rb, line 125</span>
 <span class="ruby-keyword">def</span> <span class="ruby-constant">RatingUnit</span>.<span class="ruby-identifier">rate_profit_revision</span>(<span class="ruby-identifier">profit_revision</span>)
-  <span class="ruby-identifier">u</span> = <span class="ruby-identifier">profit_revision</span>.<span class="ruby-identifier">up</span>
-  <span class="ruby-identifier">e</span> = <span class="ruby-identifier">profit_revision</span>.<span class="ruby-identifier">equal</span>
-  <span class="ruby-identifier">d</span> = <span class="ruby-identifier">profit_revision</span>.<span class="ruby-identifier">down</span>
+  <span class="ruby-comment">## Deprecated see OnVistaExtractor.extract_profit_revision(...)</span>
+  <span class="ruby-comment"># u = profit_revision.up</span>
+  <span class="ruby-comment"># e = profit_revision.equal</span>
+  <span class="ruby-comment"># d = profit_revision.down</span>
+  <span class="ruby-comment"># case</span>
+  <span class="ruby-comment"># when u &gt; e &amp;&amp; u &gt; d</span>
+    <span class="ruby-comment"># score = 1</span>
+  <span class="ruby-comment"># when e &gt; u &amp;&amp; e &gt; d</span>
+    <span class="ruby-comment"># score = 0</span>
+  <span class="ruby-comment"># when d &gt; u &amp;&amp; d &gt; e</span>
+    <span class="ruby-comment"># score = -1</span>
+  <span class="ruby-comment"># when u == e &amp;&amp; e == d</span>
+    <span class="ruby-comment"># score = 0</span>
+  <span class="ruby-comment"># when u == e || u &gt; d</span>
+    <span class="ruby-comment"># score = 0</span>
+  <span class="ruby-comment"># when u == d</span>
+    <span class="ruby-comment"># score = 0</span>
+  <span class="ruby-comment"># else</span>
+    <span class="ruby-comment"># score = -1</span>
+  <span class="ruby-comment"># end</span>
+  <span class="ruby-comment"># profit_revision.score = score</span>
+  
   <span class="ruby-keyword">case</span>
-  <span class="ruby-keyword">when</span> <span class="ruby-identifier">u</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">u</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">d</span>
-    <span class="ruby-identifier">score</span> = <span class="ruby-value">1</span>
-  <span class="ruby-keyword">when</span> <span class="ruby-identifier">e</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">u</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">e</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">d</span>
-    <span class="ruby-identifier">score</span> = <span class="ruby-value">0</span>
-  <span class="ruby-keyword">when</span> <span class="ruby-identifier">d</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">u</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">d</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-    <span class="ruby-identifier">score</span> = <span class="ruby-value">-1</span>
-  <span class="ruby-keyword">when</span> <span class="ruby-identifier">u</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">e</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">e</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">d</span>
-    <span class="ruby-identifier">score</span> = <span class="ruby-value">0</span>
-  <span class="ruby-keyword">when</span> <span class="ruby-identifier">u</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">e</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">u</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">d</span>
-    <span class="ruby-identifier">score</span> = <span class="ruby-value">0</span>
-  <span class="ruby-keyword">when</span> <span class="ruby-identifier">u</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">d</span>
-    <span class="ruby-identifier">score</span> = <span class="ruby-value">0</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-identifier">profit_revision</span>.<span class="ruby-identifier">up</span> = <span class="ruby-value">1</span>
+    <span class="ruby-identifier">profit_revision</span>.<span class="ruby-identifier">score</span> = <span class="ruby-value">1</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-identifier">profit_revision</span>.<span class="ruby-identifier">equal</span> = <span class="ruby-value">1</span>
+    <span class="ruby-identifier">profit_revision</span>.<span class="ruby-identifier">score</span> = <span class="ruby-value">0</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-identifier">profit_revision</span>.<span class="ruby-identifier">down</span> = <span class="ruby-value">1</span>
+    <span class="ruby-identifier">profit_revision</span>.<span class="ruby-identifier">score</span> = <span class="ruby-value">-1</span>
   <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">score</span> = <span class="ruby-value">-1</span>
+    <span class="ruby-identifier">profit_revision</span>.<span class="ruby-identifier">score</span> = <span class="ruby-value">-1</span>
   <span class="ruby-keyword">end</span>
-  <span class="ruby-identifier">profit_revision</span>.<span class="ruby-identifier">score</span> = <span class="ruby-identifier">score</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- rate_profit_revision-source -->
           
@@ -568,8 +574,10 @@
 <span class="ruby-keyword">def</span> <span class="ruby-constant">RatingUnit</span>.<span class="ruby-identifier">rate_reaction</span>(<span class="ruby-identifier">reaction</span>)
   <span class="ruby-identifier">stock_performance</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">perf</span>(<span class="ruby-identifier">reaction</span>.<span class="ruby-identifier">price_closing</span>, <span class="ruby-identifier">reaction</span>.<span class="ruby-identifier">price_opening</span>)
   <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;RatingUnit - stock performance: #{stock_performance}&quot;</span>)
+  <span class="ruby-identifier">reaction</span>.<span class="ruby-identifier">share_perf</span> = <span class="ruby-identifier">stock_performance</span>
   <span class="ruby-identifier">index_performance</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">perf</span>(<span class="ruby-identifier">reaction</span>.<span class="ruby-identifier">index_closing</span>, <span class="ruby-identifier">reaction</span>.<span class="ruby-identifier">index_opening</span>)
   <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;RatingUnit - index performance: #{index_performance}&quot;</span>)
+  <span class="ruby-identifier">reaction</span>.<span class="ruby-identifier">index_perf</span> = <span class="ruby-identifier">index_performance</span>
   <span class="ruby-identifier">diff</span> = <span class="ruby-identifier">stock_performance</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">index_performance</span>
   <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;RatingUnit - performance diff: #{diff}&quot;</span>)
   <span class="ruby-keyword">case</span> 
@@ -608,12 +616,12 @@
 
           
           <div class="method-source-code" id="rate_reversal-source">
-            <pre><span class="ruby-comment"># File lib/engine/rating_unit.rb, line 209</span>
+            <pre><span class="ruby-comment"># File lib/engine/rating_unit.rb, line 210</span>
 <span class="ruby-keyword">def</span> <span class="ruby-constant">RatingUnit</span>.<span class="ruby-identifier">rate_reversal</span>(<span class="ruby-identifier">reversal</span>)
   <span class="ruby-comment"># Stock performance</span>
   <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">value_perf_three_months_ago</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">perf</span>(<span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">value_three_months_ago</span>, <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">value_four_months_ago</span>) 
   <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">value_perf_two_months_ago</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">perf</span>(<span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">value_two_months_ago</span>, <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">value_three_months_ago</span>)
-  <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">value_perf_one_month_ago</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">perf</span>(<span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">value_one_month_ago</span>, <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">value_three_months_ago</span>)
+  <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">value_perf_one_month_ago</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">perf</span>(<span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">value_one_month_ago</span>, <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">value_two_months_ago</span>)
   <span class="ruby-comment"># Index performance</span>
   <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">index_perf_three_months_ago</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">perf</span>(<span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">index_three_months_ago</span>, <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">index_four_months_ago</span>)
   <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">index_perf_two_months_ago</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">perf</span>(<span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">index_two_months_ago</span>, <span class="ruby-identifier">reversal</span>.<span class="ruby-identifier">index_three_months_ago</span>)
@@ -676,45 +684,6 @@
       </div><!-- rate_roe-method -->
 
     
-      <div id="method-c-rate_stock_price_dev" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">rate_stock_price_dev</span><span
-            class="method-args">(past, now)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-
-          
-          <div class="method-source-code" id="rate_stock_price_dev-source">
-            <pre><span class="ruby-comment"># File lib/engine/rating_unit.rb, line 180</span>
-<span class="ruby-keyword">def</span> <span class="ruby-constant">RatingUnit</span>.<span class="ruby-identifier">rate_stock_price_dev</span>(<span class="ruby-identifier">past</span>, <span class="ruby-identifier">now</span>)
-  <span class="ruby-identifier">perf</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">perf</span>(<span class="ruby-identifier">now</span>, <span class="ruby-identifier">past</span>)
-  <span class="ruby-constant">LOG</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;RatingUnit - #{past} half year ago -&gt; today #{now} - half year performance: #{perf}%&quot;</span>)
-  <span class="ruby-keyword">case</span>
-  <span class="ruby-keyword">when</span> <span class="ruby-identifier">perf</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">5</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-value">1</span>
-  <span class="ruby-keyword">when</span> <span class="ruby-identifier">perf</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">-5</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-value">-1</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-value">0</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- rate_stock_price_dev-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- rate_stock_price_dev-method -->
-
-    
       <div id="method-c-rate_stock_price_dev_half_year" class="method-detail ">
         
         <div class="method-heading">
@@ -731,7 +700,7 @@
 
           
           <div class="method-source-code" id="rate_stock_price_dev_half_year-source">
-            <pre><span class="ruby-comment"># File lib/engine/rating_unit.rb, line 147</span>
+            <pre><span class="ruby-comment"># File lib/engine/rating_unit.rb, line 161</span>
 <span class="ruby-keyword">def</span> <span class="ruby-constant">RatingUnit</span>.<span class="ruby-identifier">rate_stock_price_dev_half_year</span>(<span class="ruby-identifier">stock_price_dev_half_year</span>)
   <span class="ruby-identifier">now</span> = <span class="ruby-identifier">stock_price_dev_half_year</span>.<span class="ruby-identifier">compare</span>
   <span class="ruby-identifier">past</span> = <span class="ruby-identifier">stock_price_dev_half_year</span>.<span class="ruby-identifier">value</span>
@@ -773,7 +742,7 @@
 
           
           <div class="method-source-code" id="rate_stock_price_dev_one_year-source">
-            <pre><span class="ruby-comment"># File lib/engine/rating_unit.rb, line 164</span>
+            <pre><span class="ruby-comment"># File lib/engine/rating_unit.rb, line 178</span>
 <span class="ruby-keyword">def</span> <span class="ruby-constant">RatingUnit</span>.<span class="ruby-identifier">rate_stock_price_dev_one_year</span>(<span class="ruby-identifier">stock_price_dev_one_year</span>)
   <span class="ruby-identifier">now</span> = <span class="ruby-identifier">stock_price_dev_one_year</span>.<span class="ruby-identifier">compare</span>
   <span class="ruby-identifier">past</span> = <span class="ruby-identifier">stock_price_dev_one_year</span>.<span class="ruby-identifier">value</span>
@@ -815,7 +784,7 @@
 
           
           <div class="method-source-code" id="rate_stock_price_momentum-source">
-            <pre><span class="ruby-comment"># File lib/engine/rating_unit.rb, line 194</span>
+            <pre><span class="ruby-comment"># File lib/engine/rating_unit.rb, line 195</span>
 <span class="ruby-keyword">def</span> <span class="ruby-constant">RatingUnit</span>.<span class="ruby-identifier">rate_stock_price_momentum</span>(<span class="ruby-identifier">momentum</span>)
   <span class="ruby-identifier">half_year</span> = <span class="ruby-identifier">momentum</span>.<span class="ruby-identifier">stock_price_dev_half_year</span>.<span class="ruby-identifier">score</span>
   <span class="ruby-identifier">one_year</span> = <span class="ruby-identifier">momentum</span>.<span class="ruby-identifier">stock_price_dev_one_year</span>.<span class="ruby-identifier">score</span>
