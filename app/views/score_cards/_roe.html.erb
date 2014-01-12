@@ -1,7 +1,7 @@
 <div class="row">
 	<%= render 'score', :score => @score_card.return_on_equity.score %>
 	<div class="col-md-3">
-		RoE LJ <span id="roe_info" class="glyphicon glyphicon-question-sign" data-original-title="> 20% | 20% - 10% | < 10%"></span>
+		RoE LJ <span id="roe_info" class="glyphicon glyphicon-info-sign" data-original-title="> 20% | 20% - 10% | < 10%"></span>
 	</div>
 	<% if @score_card.return_on_equity.succeeded %>
 		<div class="col-md-2">

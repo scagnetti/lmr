@@ -14,12 +14,12 @@ class BasicExtractor
       agent.read_timeout=60000
       # agent.follow_meta_refresh = true
       # Comment in to make use of TOR
-      #if RAILS_ENV == 'production'
-      #  LOG.debug('Using proxy configuration for TOR')
-      #  agent.set_proxy('127.0.0.1', 8118)
-      #else
-      # LOG.info('TOR is disabled')
-      #end
+      if Rails.env == 'production'
+       LOG.debug('Using proxy configuration for TOR')
+       agent.set_proxy('127.0.0.1', 8118)
+      else
+      LOG.info('TOR is disabled')
+      end
     end
     @start_page = @agent.get(extractor_url)
   end

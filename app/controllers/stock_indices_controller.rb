@@ -76,7 +76,7 @@ class StockIndicesController < ApplicationController
     @stock_index.destroy
 
     respond_to do |format|
-      format.html { redirect_to indices_url }
+      format.html { redirect_to stock_indices_url }
       format.json { head :no_content }
     end
   end

@@ -1,0 +1,12 @@
+<div id="mychart"></div>
+
+<%= javascript_tag do %>
+	$.getScript("http://yui.yahooapis.com/3.13.0/build/yui/yui-min.js", function(){
+	
+	  YUI().use('charts', function (Y) { 
+	    var myDataValues = [<%= raw(get_dates()) %>, <%= raw(get_scores()) %>];
+	    var mychart = new Y.Chart({dataProvider:myDataValues, render:"#mychart"});
+	  });
+	
+	});
+<% end %>

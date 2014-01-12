@@ -1,65 +1,73 @@
-<%= link_to 'Show All', shares_path(), {:class => "btn btn-primary"} %> 
-<%= link_to 'Edit', edit_share_path(@share), {:class => "btn btn-primary"} %> 
-<%= link_to 'Destroy', @share, {:class => "btn btn-primary"}, method: :delete, data: { confirm: 'Are you sure?' } %> 
-<%= link_to 'Lookup Insider Deals', lookup_insider_trades_share_path(@share), {:class => "btn btn-primary"} %> 
-<%= link_to 'Rate This Share', "/score_cards/assess_share/#{@share.isin}", {:class => "btn btn-primary"}, :method => :put %>
-<br>
-<br>
-<h1>Share</h1>
-<br>
-
-<p id="notice"><%= notice %></p>
-
-<p>
-  Name:
-  <%= @share.name %> 
-</p>
-
-<p>
-  Isin:
-  <%= @share.isin %>
-</p>
-
-<p>
-  Financial:
-  <%= @share.financial %>
-</p>
-
-<p>
-  Size:
-  <%= to_readable_comp_size(@share.size) %>
-</p>
-
-<p>
-  Currency:
-  <%= @share.currency %>
-</p>
-
-<p>
-  Stock Exchange:
-  <%= @share.stock_exchange %>
-</p>
-
-Insider Deals:
-<% @share.insider_deals.each do |deal| %>
-<div>
-		<span>Trade Type: <%= deal.trade_type %></span>&nbsp;
-  	<span>Occurred: <%= deal.occurred %></span>&nbsp;
-  	<span>Person: <%= deal.person %></span>&nbsp;
-		<span>Quantity: <%= deal.quantity %></span>&nbsp;
-		<span>Price <%= deal.price %></span>&nbsp;
-		<span>Total: <%= deal.quantity * deal.price %></span>
-		<span><%= link_to('Details', deal.link) %></span>
+<div class="row">
+	<div class="col-md-12">
+		<ol class="breadcrumb">
+		  <li><%= link_to 'Shares', shares_path() %></li>
+		  <li class="active">Show</li>
+		</ol>
+	</div>
 </div>
-<% end %>
-<br>
 
-<br>
-Ratings:
-<% @share.score_cards.each do |score_card| %>
-<div>
-		<span><%= Util.format_date_time(score_card.created_at) %> Total Score: <%= link_to(score_card.total_score, score_card) %></span>
-</div>
+<% if notice != nil %>
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+		  <div class="alert alert-success alert-dismissable">
+		  	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		  	<strong><%= notice %></strong>
+		  </div>
+		</div>
+	</div>
 <% end %>
 
-<div id="mychart"></div>
+<div class="row">
+	<div class="col-md-12">
+		<h1>Share
+			<small>
+				<%= link_to(edit_share_path(@share)) do %>
+					<span class="glyphicon glyphicon-edit"></span>
+				<% end %>
+			</small>
+		</h1>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-2">
+		<%= link_to 'Lookup Insider Deals', lookup_insider_trades_share_path(@share), {:class => "btn btn-primary"} %>
+	</div>
+	<div class="col-md-2">
+		<%= link_to 'Rate This Share', "/score_cards/assess_share/#{@share.isin}", {:class => "btn btn-primary"}, :method => :put %>
+	</div>
+</div>
+<br>
+<div class="row">
+	<div class="col-md-5">
+		<h2>Name: <%= @share.name %></h2>
+		<h2><small>Isin: <%= @share.isin %></small></h2>
+		<h2><small>Financial: <%= @share.financial %></small></h2>
+		<h2><small>Size: <%= to_readable_comp_size(@share.size) %></small></h2>
+		<h2><small>Currency: <%= @share.currency %></small></h2>
+		<h2><small>Stock Exchange: <%= @share.stock_exchange %></small></h2>
+
+		<h3>Insider Deals:</h3>
+		<% @share.insider_deals.each do |deal| %>
+			<div>
+					<span>Trade Type: <%= deal.trade_type %></span>&nbsp;
+			  	<span>Occurred: <%= deal.occurred %></span>&nbsp;
+			  	<span>Person: <%= deal.person %></span>&nbsp;
+					<span>Quantity: <%= deal.quantity %></span>&nbsp;
+					<span>Price <%= deal.price %></span>&nbsp;
+					<span>Total: <%= deal.quantity * deal.price %></span>
+					<span><%= link_to('Details', deal.link) %></span>
+			</div>
+		<% end %>
+	</div>
+	<div class="col-md-7">
+		Ratings:
+		<% @share.score_cards.each do |score_card| %>
+			<div>
+					<span><%= Util.format_date_time(score_card.created_at) %> Total Score: <%= link_to(score_card.total_score, score_card) %></span>
+			</div>
+		<% end %>
+		<%= render 'chart' %>
+	</div>
+</div>

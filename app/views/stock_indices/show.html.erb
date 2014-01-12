@@ -1,18 +1,50 @@
-<%= link_to 'Show All', stock_indices_path, {:class => "btn btn-primary"} %>
-<%= link_to 'Edit', edit_stock_index_path(@stock_index), {:class => "btn btn-primary"} %></td>
-<%= link_to 'Destroy', @stock_index, {:class => "btn btn-primary"}, method: :delete, data: { confirm: 'Are you sure?' } %>
-<br>
-<br>
-<h1>Stock Index</h1>
-<br>
-<p id="notice"><%= notice %></p>
+<div class="row">
+	<div class="col-md-12">
+		<ol class="breadcrumb">
+		  <li><%= link_to 'Stock Indices', stock_indices_path %></li>
+		  <li class="active">Show</li>
+		</ol>
+	</div>
+</div>
 
-<p>
-  <b>Isin:</b>
-  <%= @stock_index.isin %>
-</p>
+<% if notice != nil %>
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+		  <div class="alert alert-success alert-dismissable">
+		  	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		  	<strong><%= notice %></strong>
+		  </div>
+		</div>
+	</div>
+<% end %>
 
-<p>
-  <b>Name:</b>
-  <%= @stock_index.name %>
-</p>
+<div class="row">
+	<div class="col-md-12">
+		<h1>Stock Index
+			<small>
+				<%= link_to(edit_stock_index_path(@stock_index)) do %>
+		  		<span class="glyphicon glyphicon-edit"></span>
+				<% end %>
+			</small>
+		</h1>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-1">
+		<h2><small>Name:</small></h2>
+	</div>
+	<div class="col-md-3">
+		<h2><small><%= @stock_index.name %></small></h2>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-1">
+		<h2><small>ISIN:</small></h2>
+	</div>
+	<div class="col-md-3">
+		<h2><small><%= @stock_index.isin %></small></h2>
+	</div>
+</div>
+

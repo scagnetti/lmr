@@ -1,26 +1,30 @@
+<% if @stock_index.errors.any? %>
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+		  <div class="alert alert-danger alert-dismissable">
+		  	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		  	<strong><%= pluralize(@stock_index.errors.count, "error") %> prohibited this index from being saved:</strong>
+		  	<ul>
+	      	<% @stock_index.errors.full_messages.each do |msg| %>
+	        <li><%= msg %></li>
+	      	<% end %>
+	      </ul>
+		  </div>
+		</div>
+	</div>
+<% end %>
+
 <%= form_for(@stock_index) do |f| %>
-  <% if @stock_index.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@stock_index.errors.count, "error") %> prohibited this index from being saved:</h2>
-
-      <ul>
-      <% @stock_index.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
+  <div class="form-group">
     <%= f.label :isin %><br />
-    <%= f.text_field :isin %>
+    <%= f.text_field :isin, :class => "form-control" %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :name %><br />
-    <%= f.text_field :name %>
+    <%= f.text_field :name, :class => "form-control" %>
   </div>
   <br>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :class => "btn btn-default" %>
   </div>
 <% end %>

@@ -1,31 +1,43 @@
-<%= link_to 'Add', new_stock_index_path, {:class => "btn btn-primary"} %>
-<br>
-<br>
-<h1>Available Stock Indices</h1>
-<br>
-<table class="table table-hover">
-	<colgroup>
-    <col width="150">
-    <col width="250">
-    <col width="50">
-    <col width="50">
-    <col width="50">
-  </colgroup>
-  <tr>
-    <th>Isin</th>
-    <th>Name</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<div class="row">
+	<div class="col-md-12">
+		<ol class="breadcrumb">
+		  <li class="active">Stock Indices</li>
+		</ol>
+	</div>
+</div>
 
-<% @stock_indices.each do |stock_index| %>
-  <tr>
-    <td><%= stock_index.isin %></td>
-    <td><%= stock_index.name %></td>
-    <td><%= link_to 'Show', stock_index %></td>
-    <td><%= link_to 'Edit', edit_stock_index_path(stock_index) %></td>
-    <td><%= link_to 'Destroy', stock_index, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
+<div class="row">
+	<div class="col-md-12">
+		<h1>Available Stock Indices <small><%= link_to 'Add', new_stock_index_path, {:class => "btn btn-primary"} %></small></h1>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<table class="table table-hover">
+			<colgroup>
+		    <col width="150">
+		    <col width="250">
+		    <col width="50">
+		    <col width="50">
+		    <col width="50">
+		  </colgroup>
+		  <tr>
+		    <th>Isin</th>
+		    <th>Name</th>
+		    <th></th>
+		    <th></th>
+		    <th></th>
+		  </tr>
+			<% @stock_indices.each do |stock_index| %>
+			  <tr>
+			    <td><%= stock_index.isin %></td>
+			    <td><%= stock_index.name %></td>
+			    <td><%= link_to 'Show', stock_index %></td>
+			    <td><%= link_to 'Edit', edit_stock_index_path(stock_index) %></td>
+			    <td><%= link_to 'Destroy', stock_index, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+			  </tr>
+			<% end %>
+		</table>
+	</div>
+</div>

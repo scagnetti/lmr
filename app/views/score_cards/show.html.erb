@@ -11,22 +11,16 @@
 
 <div class="row">
 	<div class="col-md-12">
-		<h1>Rating for <%= @score_card.share.name %> <small>ISIN: <%= @score_card.share.isin %></small></h1>
+		<h1>Total Score for <%= link_to @score_card.share.name, @score_card.share %> is <span class="<%= highlight(@score_card.total_score) %>"><%= @score_card.total_score %></span></h1>
 	</div>
 </div>
 
 <div class="row">
 	<div class="col-md-12">
-		<h2><small>Created: <%= I18n.l(@score_card.created_at) %> | Price: <%= @score_card.price %> | Compare-Index: <%= @score_card.share.stock_index.name %> | Financial: <%= @score_card.share.financial %></small></h2>
+		<h2><small>Created: <%= I18n.l(@score_card.created_at) %> | Price: <%= @score_card.price %> | ISIN: <%= @score_card.share.isin %></small></h2>
 	</div>
 </div>
-
-<div class="row">
-	<div class="col-md-12">
-		<h3>Score: <%= @score_card.total_score %></h3>
-	</div>
-</div>
-
+<br>
 <%= render 'roe' %><br>
 <%= render 'ebit_margin' %><br>
 <%= render 'equity_ratio' %><br>

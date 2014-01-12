@@ -6,7 +6,8 @@
 * Redo evaluation inside the RatingUnit and write good tests
 * Handle public holiday and weekends
 * Replace all Time objects with date objects
-* Implement special rating of financial shares  
+* Implement special rating of financial shares
+* Update score highlighting for Small Caps and financial values
 
 === Nice to know
 * Quarterly figures for US stocks: http://quicktake.morningstar.com/StockNet/SECDocuments.aspx?Symbol=MMM&Country=usa
