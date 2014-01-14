@@ -18,7 +18,7 @@ class BasicExtractor
        LOG.debug('Using proxy configuration for TOR')
        agent.set_proxy('127.0.0.1', 8118)
       else
-      LOG.info('TOR is disabled')
+        LOG.info('TOR is disabled')
       end
     end
     @start_page = @agent.get(extractor_url)

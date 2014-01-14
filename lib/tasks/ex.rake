@@ -232,7 +232,14 @@ namespace :ex do
       agent.user_agent_alias = 'Linux Firefox'
       agent.set_proxy('127.0.0.1', 8118)
     end
-    page = @agent.get("http://h1611578.stratoserver.net/shares")
+    #url = "http://www.onvista.de/onvista/times+sales/popup/historische-kurse"
+    #params_hash = {:notationId => '256223', :dateStart => '23.10.2013', :interval => 'M1', :assetName => 'Boeing', :exchange => 'NYSE'}
+    #referrer = "http://www.onvista.de/aktien/times+sales/Boeing-Aktie-US0970231058"
+    #headers = {'Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8', 'Accept-Encoding' => 'gzip, deflate', 'Referer' => 'http://www.onvista.de/aktien/times+sales/Boeing-Aktie-US0970231058'}
+    #page = @agent.get(url, params_hash, referrer, headers)
+    url = "http://www.onvista.de/onvista/times+sales/popup/historische-kurse/?notationId=256223&dateStart=23.10.2013&interval=M1&assetName=Boeing&exchange=NYSE"
+    #url = "http://h1611578.stratoserver.net/shares"
+    page = @agent.get(url)
   end
-  
+
 end

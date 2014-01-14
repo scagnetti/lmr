@@ -40,7 +40,7 @@ gem 'rvm-capistrano'
 
 #gem 'ruby-debug-ide', "0.4.17.beta14"
 
-gem 'mechanize'
+gem 'mechanize', '~> 2.6.0'
 
 gem 'thin'
 
