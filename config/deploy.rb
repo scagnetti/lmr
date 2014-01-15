@@ -19,6 +19,11 @@ set :git_shallow_clone, 1
 set :scm_verbose, true
 set :deploy_to, "/home/volker/#{application}"
 set :deploy_via, :export
+# Prevent the script from sking for a password (use private key)
+set :ssh_options, {:forward_agent => true}
+# Prevent the script from asking for a password
+# Only works if the app and git are on the same machine
+# set :deploy_via, :copy
 
 # roles (servers)
 role :web, "#{domain}" 
