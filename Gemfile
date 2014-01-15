@@ -30,9 +30,9 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
 # Deploy with Capistrano
-gem 'capistrano'
+gem 'capistrano', '=2.14.2'
 
-gem 'rvm-capistrano'
+gem 'rvm-capistrano', '=1.2.7'
 
 #gem 'linecache19', "0.5.13"
 
