@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'mechanize'
+require 'engine/extractor/mech_patch.rb'
 require 'engine/exceptions/unexpected_html_structure.rb'
 
 # Encapsulate the functionality all extractors have in common.
