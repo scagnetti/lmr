@@ -4,8 +4,12 @@ class ScoreCardsController < ApplicationController
   # GET /score_cards
   # GET /score_cards.json
   def index
+    #TODO Show only the most current rating for a share
+    # select share_id, price, max(created_at) from score_cards group by share_id order by created_at DESC;
+    # TODO Sort by total_score
     if params[:d] == nil || params[:d] == ''
-      @score_cards = ScoreCard.order("total_score DESC").page(params[:page]).per(20)
+      @score_cards = ScoreCard.group("share_id").having("max(created_at)").page(params[:page]).per(20)
+      #@score_cards = ScoreCard.order("total_score DESC").page(params[:page]).per(20)
     else
       d = params[:d].to_date
       range = d.midnight..(d.midnight + 1.day)
