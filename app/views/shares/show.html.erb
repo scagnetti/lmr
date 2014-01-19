@@ -62,12 +62,6 @@
 		<% end %>
 	</div>
 	<div class="col-md-7">
-		Ratings:
-		<% @share.score_cards.each do |score_card| %>
-			<div>
-					<span><%= Util.format_date_time(score_card.created_at) %> Total Score: <%= link_to(score_card.total_score, score_card) %></span>
-			</div>
-		<% end %>
 		<%= render 'chart' %>
 	</div>
 </div>

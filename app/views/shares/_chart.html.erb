@@ -1,12 +1,72 @@
+<h2>Ratings</h2>
 <div id="mychart"></div>
 
 <%= javascript_tag do %>
 	$.getScript("http://yui.yahooapis.com/3.13.0/build/yui/yui-min.js", function(){
 	
-	  YUI().use('charts', function (Y) { 
-	    var myDataValues = [<%= raw(get_dates()) %>, <%= raw(get_scores()) %>];
-	    var mychart = new Y.Chart({dataProvider:myDataValues, render:"#mychart"});
-	  });
-	
+	  YUI().use('charts', function (Y) {
+	  	
+	    var scoreCardIds = <%= raw(get_score_card_ids()) %>;
+	    var myDataValues = <%= raw(get_chart_data()) %>;
+	    
+	    //Define our axes for the chart. #428BCA
+      var myAxes = {
+        s1:{
+      		keys:["total_score"],
+      		position:"left",
+      		type:"numeric",
+      		minimum: -13,
+      		maximum: 13,
+          labelFunction:
+            function(v, fmt, tooltip) {
+              if (tooltip) {
+                return v.toFixed(4);
+              } else {
+                //return v.toFixed(2);
+                 return Math.round(v);
+              }
+            }
+        },
+
+      dateRange:{
+    		keys:["created_at"],
+    		position:"bottom",
+    		type:"category",
+    		styles:{
+    		  label: {
+    		    rotation:-45,
+    		    margin:{top:5}
+    		  }
+	       }
+        }
+      };
+	    
+			// Instantiate and render the chart
+      var mychart = new Y.Chart({
+        dataProvider: myDataValues,
+        render: "#mychart",
+        axes: myAxes,
+        horizontalGridlines: {
+          styles: {
+            line: {
+              color: "#dad8c9"
+            }
+          }
+        },
+        verticalGridlines: {
+          styles: {
+            line: {
+              color: "#dad8c9"
+            }
+          }
+        }        
+      });
+      
+      // Install a click listener to open related score cards
+      mychart.on('markerEvent:click', function(e) {
+        window.open('../score_cards/' + scoreCardIds[e.index]);
+      });
+    });
+
 	});
 <% end %>

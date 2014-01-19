@@ -8,19 +8,30 @@
 
 <div class="row">
 	<div class="col-md-12">
-		<h1>Latest Score Cards</h1>
+		<h1>Score Cards <small>Newer than two days</small></h1>
 	</div>
 </div>
 
-<%= form_tag(score_cards_path, {:method => "get", :class => "form-horizontal"}) do %>
+<%= form_tag(score_cards_path, {:method => "get", :class => "form-inline"}) do %>
 	<div class="form-group">
-		<%= label_tag(:d, "Filter list by date", :class => "col-sm-2 control-label") %>
-		<div class="col-sm-6">
-			<%= text_field_tag(:d, nil, :class => "form-control datepicker") %>
+		<div class="form-group">
+			<%= label_tag(:d, "Created", :class => "sr-only") %>
+			<%= text_field_tag(:d, nil, {:class => "form-control datepicker", :placeholder => "Created at"}) %>
 		</div>
-		<%= submit_tag("Apply", :class => "col-sm-1 btn btn-primary") %>
+		<div class="form-group">
+			<%= label_tag(:share, "Share", :class => "sr-only") %>
+			<%= text_field_tag(:share, nil, {:class => "form-control", :placeholder => "Share"}) %>
+		</div>
+		<%= submit_tag("Apply", :class => "btn btn-primary") %>
 	</div>
+	
 <% end %>
+
+<div class="row">
+	<div class="col-md-3">
+		<%= paginate @score_cards %>
+	</div>
+</div>
 
 <div class="row">
 	<div class="col-md-12">
@@ -47,12 +58,10 @@
 			    <td><%= l score_card.created_at %></td>
 			    <td nowrap><%= link_to "#{score_card.share.name}" , score_card.share %></td>
 			    <td><%= score_card.share.financial %></td>
-			    <td><%= link_to 'Show Rating', score_card %></td>
+			    <td><%= link_to 'Score Card', score_card %></td>
 			    <td><%= link_to 'Destroy', score_card, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 			  </tr>
 			<% end %>
 		</table>
-		<br />
-		<%= paginate @score_cards %>
 	</div>
 </div>
