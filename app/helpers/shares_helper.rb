@@ -21,7 +21,9 @@ module SharesHelper
   # The dates look like this ["5/1/2010", "5/2/2010", "5/3/2010", "5/4/2010", "5/5/2010"]
   def get_chart_data()
     data = Array.new
-    @share.score_cards.each do |score_card|
+    # Limit to 10 score cards
+    score_cards = @share.score_cards.length > 10 ? @share.score_cards.last(10) : @share.score_cards
+    score_cards.each do |score_card|
       data << {:created_at => I18n.l(score_card.created_at), :total_score => score_card.total_score}
     end
     return data.to_json
@@ -33,7 +35,9 @@ module SharesHelper
   # So we use this table to look up the score card ID
   def get_score_card_ids()
     score_card_ids = Array.new
-    @share.score_cards.each do |score_card|
+    # Limit to 10 score cards
+    score_cards = @share.score_cards.length > 10 ? @share.score_cards.last(10) : @share.score_cards
+    score_cards.each do |score_card|
       score_card_ids << score_card.id
     end
     return score_card_ids
