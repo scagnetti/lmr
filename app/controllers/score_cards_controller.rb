@@ -4,14 +4,13 @@ class ScoreCardsController < ApplicationController
   # GET /score_cards
   # GET /score_cards.json
   def index
-    # Restrict the result set by just fetching the newest entities
-    range = (Time.now.midnight - 1.day)..Time.now.midnight
-    if params[:d] == nil || params[:d] == ''
-      @score_cards = ScoreCard.where(:created_at => range).order("total_score DESC").page(params[:page]).per(20)
+    if params[:share_name]
+      @search_pattern = params[:share_name]
+      @score_cards = ScoreCard.joins(:share).where("shares.name like ?", @search_pattern + "%").order("created_at DESC").page(params[:page]).per(20)
     else
-      d = params[:d].to_date
-      @score_cards = ScoreCard.where(:created_at => range).order("total_score DESC").page(params[:page]).per(20)
+      @score_cards = ScoreCard.order("created_at DESC").page(params[:page]).per(20)  
     end
+    @total_size = ScoreCard.count()
     
     respond_to do |format|
       format.html # index.html.erb

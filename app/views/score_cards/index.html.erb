@@ -8,24 +8,27 @@
 
 <div class="row">
 	<div class="col-md-12">
-		<h1>Score Cards <small>Newer than two days</small></h1>
+		<h1>Score Cards (<%=@total_size%>)</h1>
 	</div>
 </div>
 
+
 <%= form_tag(score_cards_path, {:method => "get", :class => "form-inline"}) do %>
 	<div class="form-group">
+		<!--
 		<div class="form-group">
 			<%= label_tag(:d, "Created", :class => "sr-only") %>
 			<%= text_field_tag(:d, nil, {:class => "form-control datepicker", :placeholder => "Created at"}) %>
 		</div>
+		-->
 		<div class="form-group">
-			<%= label_tag(:share, "Share", :class => "sr-only") %>
-			<%= text_field_tag(:share, nil, {:class => "form-control", :placeholder => "Share"}) %>
+			<%= label_tag(:share_name, "Share", :class => "sr-only") %>
+			<%= text_field_tag(:share_name, @search_pattern, {:class => "form-control", :placeholder => "Share"}) %>
 		</div>
 		<%= submit_tag("Apply", :class => "btn btn-primary") %>
 	</div>
-	
 <% end %>
+<br>
 
 <div class="row">
 	<div class="col-md-3">
