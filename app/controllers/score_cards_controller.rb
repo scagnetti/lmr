@@ -4,13 +4,9 @@ class ScoreCardsController < ApplicationController
   # GET /score_cards
   # GET /score_cards.json
   def index
-    if params[:share_name]
-      @search_pattern = params[:share_name]
-      @score_cards = ScoreCard.joins(:share).where("shares.name like ?", @search_pattern + "%").order("created_at DESC").page(params[:page]).per(20)
-    else
-      @score_cards = ScoreCard.order("created_at DESC").page(params[:page]).per(20)  
-    end
-    @total_size = ScoreCard.count()
+    @share_name = params[:share_name]
+    @created = params[:d]
+    @score_cards = ScoreCard.creation(@created).share_name(@share_name).page(params[:page]).per(20)
     
     respond_to do |format|
       format.html # index.html.erb

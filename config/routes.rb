@@ -1,6 +1,9 @@
 Lmr::Application.routes.draw do
-  resources :insider_deals
 
+  # The priority is based upon order of creation:
+  # first created -> highest priority.
+
+  resources :score_cards
 
   resources :shares do
     member do
@@ -8,21 +11,16 @@ Lmr::Application.routes.draw do
     end
   end
 
-  match 'shares/perform_action_on_selection' => 'shares#perform_action_on_selection', via: [:post]
+  resources :stock_indices
   
-  # match 'shares/lookup_insider_trades/:isin' => 'shares#lookup_insider_trades'
-  
-  resources :score_cards
+  resources :insider_deals
 
   match '/score_cards/assess_share/:isin' => 'score_cards#assess_share'
 
-  resources :stock_indices
-
+  # You can have the root of your site routed with "root"
+  # just remember to delete public/index.html.
   root :to => 'score_cards#index'
   
-  # The priority is based upon order of creation:
-  # first created -> highest priority.
-
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
@@ -66,9 +64,6 @@ Lmr::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-
-  # You can have the root of your site routed with "root"
-  # just remember to delete public/index.html.
 
   # See how all your routes lay out with "rake routes"
 

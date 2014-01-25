@@ -15,4 +15,9 @@ class ScoreCard < ActiveRecord::Base
   belongs_to :momentum
   belongs_to :reversal
   belongs_to :profit_growth
+
+  #scope :created_filter, ->(d) { where("date(created_at) = ?", d) }
+  default_scope order('created_at DESC')
+  scope :creation, lambda { |value| where("date(score_cards.created_at) = ?", value) unless value.blank? }
+  scope :share_name, lambda { |value| joins(:share).where("shares.name like ?", value + "%") unless value.blank? }
 end

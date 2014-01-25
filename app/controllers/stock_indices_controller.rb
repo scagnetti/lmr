@@ -2,7 +2,7 @@ class StockIndicesController < ApplicationController
   # GET /indices
   # GET /indices.json
   def index
-    @stock_indices = StockIndex.all
+    @stock_indices = StockIndex.order("name").page(params[:page]).per(25)
 
     respond_to do |format|
       format.html # index.html.erb

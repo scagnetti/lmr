@@ -4,7 +4,9 @@ class SharesController < ApplicationController
   # GET /shares
   # GET /shares.json
   def index
-    @shares = Share.order("name").page(params[:page]).per(25)
+    #@shares = Share.order("name").page(params[:page]).per(25)
+    @share_name = params[:share_name]
+    @shares = Share.share_name(@share_name).page(params[:page]).per(20)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -84,25 +86,7 @@ class SharesController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
-  def perform_action_on_selection
-    activate = nil
-    if params[:enable_button]
-      activate = true  
-    elsif params[:disable_button]
-      activate = false
-    else
-      redirect_to shares_url
-    end
-    shares_to_enable = params[:selection]
-    shares_to_enable.each do |isin|
-      @share = Share.where(" isin = ?", isin).first
-      @share.active = activate
-      @share.save
-    end
-    redirect_to :back
-  end
-  
+
   def lookup_insider_trades
     @share = Share.find(params[:id])
     results = Array.new

@@ -8,48 +8,61 @@
 
 <div class="row">
 	<div class="col-md-12">
-		<h1>Available Shares <small><%= link_to 'Add', new_share_path, {:class => "btn btn-primary"} %></small></h1>
+		<h1>Available Shares</h1>
 	</div>
 </div>
 
 <div class="row">
-	<div class="col-md-3">
-		<%= paginate @shares %>
+	<div class="col-md-12">
+		<%= form_tag(shares_path, {:method => "get", :name => "search_form", :class => "form-inline"}) do %>
+				<div class="form-group">
+					<%= label_tag(:share_name, "Share", :class => "sr-only") %>
+					<%= text_field_tag(:share_name, @share_name, {:class => "form-control", :placeholder => "Share"}) %>
+				</div>
+				<%= submit_tag("Clear", :name => "clear_form", :type => "reset", :class => "btn btn-default", :data => {clear_form: "dummy"}) %>
+				<%= submit_tag("Apply", :name => "apply_pattern", :class => "btn btn-default") %>
+				<%= link_to 'Add', new_share_path, {:class => "btn btn-default"} %>
+		<% end %>
 	</div>
 </div>
 
-<%= form_tag("shares/perform_action_on_selection") do %>
-	<%= submit_tag("Enable", :name => 'enable_button', :class => "col-md-1") %>
-  <%= submit_tag("Disable", :name => 'disable_button', :class => "col-md-1") %>
-	<div class="row">
-		<div class="col-md-12">
-			<br>
-			<table class="table table-hover">
-				<colgroup>
-					<col width="120">
-			    <col width="100">
-			    <col width="200">
-			    <col width="100">
-			    <col width="200">
-			    <col width="50">
-			  </colgroup>
-			  <tr>
-			  	<th>Selection</th>
-			  	<th>Active</th>
-			  	<th>Isin</th>
-			    <th>Name</th>
-			    <th></th>
-			  </tr>
-				<% @shares.each do |share| %>
-				  <tr>
-				  	<td><%= check_box_tag 'selection[]', share.isin %></td>
-				  	<td><%= share.active %></td>
-				  	<td><%= share.isin %></td>
-				    <td><%= link_to share.name, share %></td>
-				    <td><%= link_to 'Rate', "/score_cards/assess_share/#{share.isin}", {:method => :put, :class => "btn btn-primary btn-xs"} %></td>
-				  </tr>
-				<% end %>
-			</table>
+<div class="row">
+	<div class="col-md-4">
+		<%= paginate @shares %>
+	</div>
+	<div class="col-md-offset-6 col-md-2">
+		<div class="pagination">
+			<%= @shares.offset_value + 1 %> - <%= @shares.offset_value + @shares.length %> of <%= @shares.total_count %>
 		</div>
 	</div>
-<% end %>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<table class="table table-hover">
+			<colgroup>
+				<col width="300">
+		    <col width="200">
+		    <col width="100">
+		    <col width="100">
+		    <col width="100">
+		  </colgroup>
+		  <tr>
+		  	<th>Name</th>
+		  	<th>ISIN</th>
+		    <th>Active</th>
+		    <th></th>
+		    <th></th>
+		  </tr>
+			<% @shares.each do |share| %>
+			  <tr>
+			  	<td><%= link_to share.name, share %></td>
+			  	<td><%= share.isin %></td>
+			    <td><%= share.active %></td>
+			    <td><%= link_to 'Evaluate', "/score_cards/assess_share/#{share.isin}", {:method => :put, :class => "btn btn-primary btn-xs"} %></td>
+			    <td><%= link_to 'Destroy', share, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+			  </tr>
+			<% end %>
+		</table>
+	</div>
+</div>

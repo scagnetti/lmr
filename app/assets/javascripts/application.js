@@ -15,3 +15,10 @@
 //= require jquery_ujs
 //= require_tree .
 //= require twitter/bootstrap
+
+// console.log(getAllMethods($("form")));
+function getAllMethods(object) {
+    return Object.getOwnPropertyNames(object).filter(function(property) {
+        return typeof object[property] == 'function';
+    });
+}

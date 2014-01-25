@@ -8,31 +8,35 @@
 
 <div class="row">
 	<div class="col-md-12">
-		<h1>Score Cards (<%=@total_size%>)</h1>
+		<h1>Available Score Cards</h1>
 	</div>
 </div>
 
-
-<%= form_tag(score_cards_path, {:method => "get", :class => "form-inline"}) do %>
-	<div class="form-group">
-		<!--
-		<div class="form-group">
-			<%= label_tag(:d, "Created", :class => "sr-only") %>
-			<%= text_field_tag(:d, nil, {:class => "form-control datepicker", :placeholder => "Created at"}) %>
-		</div>
-		-->
-		<div class="form-group">
-			<%= label_tag(:share_name, "Share", :class => "sr-only") %>
-			<%= text_field_tag(:share_name, @search_pattern, {:class => "form-control", :placeholder => "Share"}) %>
-		</div>
-		<%= submit_tag("Apply", :class => "btn btn-primary") %>
+<div class="row">
+	<div class="col-md-12">
+		<%= form_tag(score_cards_path, {:method => "get", :name => "search_form", :class => "form-inline"}) do %>
+				<div class="form-group">
+					<%= label_tag(:d, "Created", :class => "sr-only") %>
+					<%= text_field_tag(:d, @created, {:class => "form-control datepicker", :placeholder => "Created at"}) %>
+				</div>
+				<div class="form-group">
+					<%= label_tag(:share_name, "Share", :class => "sr-only") %>
+					<%= text_field_tag(:share_name, @share_name, {:class => "form-control", :placeholder => "Share"}) %>
+				</div>
+				<%= submit_tag("Clear", :name => "clear_form", :type => "reset", :class => "btn btn-default", :data => {clear_form: "dummy"}) %>
+				<%= submit_tag("Apply", :name => "apply_pattern", :class => "btn btn-default") %>
+		<% end %>
 	</div>
-<% end %>
-<br>
+</div>
 
 <div class="row">
-	<div class="col-md-3">
+	<div class="col-md-4">
 		<%= paginate @score_cards %>
+	</div>
+	<div class="col-md-offset-6 col-md-2">
+		<div class="pagination">
+			<%= @score_cards.offset_value + 1 %> - <%= @score_cards.offset_value + @score_cards.length %> of <%= @score_cards.total_count %>
+		</div>
 	</div>
 </div>
 
@@ -41,27 +45,27 @@
 		<table class="table table-hover">
 		  <colgroup>
 		    <col width="60">
-		    <col width="200">
-		    <col width="400">
-		    <col width="60">
-		    <col width="80">
-		    <col width="80">
+		    <col width="180">
+		    <col width="120">
+		    <col width="350">
+		    <col width="100">
+		    <col width="100">
 		  </colgroup>
 		  <tr>
 		  	<th>Score</th>
 		    <th>Created</th>
+		    <th>Show</th>
 		    <th>Share</th>
 		    <th>Financial</th>
-		    <th></th>
 		    <th></th>
 		  </tr>
 			<% @score_cards.each do |score_card| %>
 			  <tr>
 			  	<td><%= score_card.total_score %></td>
 			    <td><%= l score_card.created_at %></td>
+			    <td><%= link_to 'Score Card', score_card %></td>
 			    <td nowrap><%= link_to "#{score_card.share.name}" , score_card.share %></td>
 			    <td><%= score_card.share.financial %></td>
-			    <td><%= link_to 'Score Card', score_card %></td>
 			    <td><%= link_to 'Destroy', score_card, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 			  </tr>
 			<% end %>

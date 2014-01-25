@@ -1,9 +1,16 @@
-<%= link_to 'Show All', shares_path(), {:class => "btn btn-primary"} %> 
-<br>
-<br>
-<h1>Editing share</h1>
-<br>
-<%= render 'form' %>
+<div class="row">
+	<div class="col-md-12">
+		<ol class="breadcrumb">
+		  <li><%= link_to 'Shares', shares_path %></li>
+		  <li class="active">Edit</li>
+		</ol>
+	</div>
+</div>
 
-<%= link_to 'Show', @share %> |
-<%= link_to 'Back', shares_path %>
+<div class="row">
+	<div class="col-md-12">
+		<h1>Edit Share</h1>
+	</div>
+</div>
+
+<%= render 'form' %>

@@ -8,7 +8,24 @@
 
 <div class="row">
 	<div class="col-md-12">
-		<h1>Available Stock Indices <small><%= link_to 'Add', new_stock_index_path, {:class => "btn btn-primary"} %></small></h1>
+		<h1>Available Stock Indices</h1>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<%= link_to 'Add', new_stock_index_path, {:class => "btn btn-default"} %>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-4">
+		<%= paginate @stock_indices %>
+	</div>
+	<div class="col-md-offset-6 col-md-2">
+		<div class="pagination">
+			<%= @stock_indices.offset_value + 1 %> - <%= @stock_indices.offset_value + @stock_indices.length %> of <%= @stock_indices.total_count %>
+		</div>
 	</div>
 </div>
 
@@ -16,25 +33,19 @@
 	<div class="col-md-12">
 		<table class="table table-hover">
 			<colgroup>
-		    <col width="150">
 		    <col width="250">
-		    <col width="50">
-		    <col width="50">
-		    <col width="50">
+		    <col width="150">
+		    <col width="100">
 		  </colgroup>
 		  <tr>
-		    <th>Isin</th>
 		    <th>Name</th>
-		    <th></th>
-		    <th></th>
+		    <th>ISIN</th>
 		    <th></th>
 		  </tr>
 			<% @stock_indices.each do |stock_index| %>
 			  <tr>
+			  	<td><%= link_to stock_index.name, stock_index %></td>
 			    <td><%= stock_index.isin %></td>
-			    <td><%= stock_index.name %></td>
-			    <td><%= link_to 'Show', stock_index %></td>
-			    <td><%= link_to 'Edit', edit_stock_index_path(stock_index) %></td>
 			    <td><%= link_to 'Destroy', stock_index, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 			  </tr>
 			<% end %>
