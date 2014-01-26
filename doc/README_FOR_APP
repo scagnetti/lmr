@@ -7,7 +7,8 @@
 * Handle public holiday and weekends
 * Replace all Time objects with date objects
 * Implement special rating of financial shares
-* Update score highlighting for Small Caps and financial values
+* Implement special rating for small caps
+* Update score highlighting for Small Caps and financial values (see ScoreCardHelper)
 
 === Nice to know
 * Quarterly figures for US stocks: http://quicktake.morningstar.com/StockNet/SECDocuments.aspx?Symbol=MMM&Country=usa

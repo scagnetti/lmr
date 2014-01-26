@@ -10,4 +10,16 @@ module ScoreCardsHelper
     end
   end
   
+  def get_deal_type(code)
+    case code
+    when Transaction::SELL
+      string_repesentation = "Sell"
+    when Transaction::BUY
+      string_repesentation = "Buy"
+    when Transaction::UNKNOWN
+      string_repesentation = "Unknown"
+    else
+      string_repesentation = "Check logic!"
+    end
+  end
 end

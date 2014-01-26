@@ -199,18 +199,25 @@ namespace :ex do
   #===Indsider Deals===
   #====================
   
-  desc "Extract known insider deals inside the DAX index"
-  task :insider_dax => :environment do
-    isin_dax = 'DE0008469008'
-    @agent = Mechanize.new
-    @page = @agent.get('http://www.finanzen.net/index/DAX')
-    tag_set = @page.parser().xpath("(//h2[.='DAX 30'])[1]/../following-sibling::div/table/tr[position()>1]")
-    tag_set.each do |tr|
-      td_set = tr.xpath("child::node()")
-      content = td_set[0].text()
-      isin = content[-12,12]
-      puts "\nUsing: #{isin}"
-      e = FinanzenExtractor.new(isin, INDEX_ISIN, STOCK_EXCHANGE)
+  desc "Extract known insider deals for all share of a given index (DAX by default)"
+  task :insider_index, [:isin] => :environment do |t, args|
+    if args[:isin] == nil
+      # DAX
+      index_isin = "DE0008469008" 
+    else
+      index_isin = args[:isin]
+    end
+    index_shares = Share.joins(:stock_index).where("stock_indices.isin = ?", index_isin)
+    #@agent = Mechanize.new
+    #@page = @agent.get('http://www.finanzen.net/index/DAX')
+    #tag_set = @page.parser().xpath("(//h2[.='DAX 30'])[1]/../following-sibling::div/table/tr[position()>1]")
+    #tag_set.each do |tr|
+    #  td_set = tr.xpath("child::node()")
+    #  content = td_set[0].text()
+    #  isin = content[-12,12]
+    index_shares.each do |share|
+      puts "\nCalculating insider deals for: #{share.name}"
+      e = FinanzenExtractor.new(share)
       e.extract_insider_deals(Array.new)
     end
   end
@@ -218,11 +225,13 @@ namespace :ex do
   desc "Extract DAX Insider Deals of the last three months for a given ISIN"
   task :insider, [:isin] => :environment do |t, args|
     if args[:isin] == nil
-      isin = STOCK_ISIN
+      # Volkswagen
+      isin = "DE0007664039"  
     else
       isin = args[:isin]
     end
-    e = FinanzenExtractor.new(isin, INDEX_ISIN, STOCK_EXCHANGE)
+    share = Share.where("isin = ?", isin).first
+    e = FinanzenExtractor.new(share)
     e.extract_insider_deals(Array.new)
   end
   

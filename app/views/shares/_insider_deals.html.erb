@@ -1,0 +1,29 @@
+<div class="row">
+	<div class="col-md-12">
+		<h3>Insider Deals:</h3>
+		<% if @share.insider_deals.size > 0 %>
+			<table class="table table-hover">
+			  <tr>
+			  	<th>Type</th>
+			  	<th>Occurred</th>
+			    <th>Value</th>
+			    <th>Price</th>
+			    <th>Quantity</th>
+			    <th>Link</th>
+			  </tr>
+				<% @share.insider_deals.each do |deal| %>
+				  <tr>
+				  	<td><%= get_deal_type(deal.trade_type) %></td>
+				  	<td><%= deal.occurred %></td>
+				    <td><%= deal.quantity * deal.price %></td>
+				    <td><%= deal.price %></td>
+				    <td><%= deal.quantity %></td>
+				    <td><%= link_to('Details', deal.link) %></td>
+				  </tr>
+				<% end %>
+			</table>
+		<% else %>
+			<h3><small>No deals found in the last three months.</small></h3>
+		<% end %>
+	</div>
+</div>

@@ -9,19 +9,18 @@ require 'engine/exceptions/invalid_isin_error.rb'
 class FinanzenExtractor < BasicExtractor
 
   FINANZEN_URL = "http://www.finanzen.net/"
-  STOCK_SUCCESS_XPATH = "//div[@class='breadcrumb']/a"
+  STOCK_SUCCESS_XPATH = "//div[@class='breadcrumb']/a[2]"
   STOCK_SUCCESS_VALUE = "Aktien"
-  INDEX_SUCCESS_XPATH = "//div[@class='breadcrumb']/a"
+  INDEX_SUCCESS_XPATH = "//div[@class='breadcrumb']/a[2]"
   INDEX_SUCCESS_VALUE = "Indizes"
   SEARCH_FAILURE = "//div[contains(.,'Keine Ergebnisse')]"
   THREE_MONTHS_IN_SECONDS = 60 * 60 * 24 * 31 * 3
 
   def initialize(share)
     super(FINANZEN_URL, share)
-    LOG.debug("#{self.class} initialized with stock: #{stock_isin} and index: #{index_isin}")
-    #TODO update!
-    @stock_page = perform_search("action", '/suchergebnis.asp', "frmAktiensucheTextfeld", stock_isin, STOCK_SUCCESS_XPATH, STOCK_SUCCESS_VALUE)
-    @index_page = perform_search("action", '/suchergebnis.asp', "frmAktiensucheTextfeld", index_isin, INDEX_SUCCESS_XPATH, INDEX_SUCCESS_VALUE)
+    LOG.debug("#{self.class}: Open finanzen.net with share: #{share.name} (#{share.isin}) and stock index: #{share.stock_index.name} (#{share.stock_index.isin})")
+    @stock_page = perform_search("action", '/suchergebnis.asp', "frmAktiensucheTextfeld", share.isin, STOCK_SUCCESS_XPATH, STOCK_SUCCESS_VALUE)
+    @index_page = perform_search("action", '/suchergebnis.asp', "frmAktiensucheTextfeld", share.stock_index.isin, INDEX_SUCCESS_XPATH, INDEX_SUCCESS_VALUE)
     @historical_stock_page = open_sub_page('Historisch', 2, 1, @stock_page)
     @historical_index_page = open_sub_page('Historisch', 1, 0, @index_page)
   end
@@ -129,9 +128,9 @@ class FinanzenExtractor < BasicExtractor
 
   def extract_insider_deals(results)
     insider_trades = open_sub_page('Insidertrades', 1, 0, @stock_page)
-    rows = insider_trades.parser().xpath("//h1[contains(.,'Insidertrades bei ')]/../../div[@class='content']/table//tr")
+    rows = insider_trades.parser().xpath("//h1[contains(.,'Insidertrades bei ')]/../../div[@class='content']/table//tr[position() > 1]")
     LOG.debug("found #{rows.size} insider deals")
-    share = Share.where(:isin => @stock_isin).first
+    share = Share.where(:isin => @share.isin).first
     rows.each do |row|
       cells = row.xpath('.//td')
       if cells.size == 6
