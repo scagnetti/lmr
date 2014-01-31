@@ -16,8 +16,19 @@ class ScoreCard < ActiveRecord::Base
   belongs_to :reversal
   belongs_to :profit_growth
 
-  #scope :created_filter, ->(d) { where("date(created_at) = ?", d) }
-  default_scope order('created_at DESC')
+  # We are only interested in the latest score card of a share
+  #select * from score_cards where id in (SELECT id from score_cards group by share_id order by score_cards.created_at DESC) order by total_score DESC
+  scope :latest_only, where("score_cards.id in (SELECT id from score_cards group by share_id order by score_cards.created_at DESC)").order("total_score DESC")
+
+  # scope :created_filter, ->(d) { where("date(created_at) = ?", d) }
+  
+  # Can't be used because of latest_only scope
+  # default_scope order('created_at DESC')
+  
+  # Dynamic finders
   scope :creation, lambda { |value| where("date(score_cards.created_at) = ?", value) unless value.blank? }
   scope :share_name, lambda { |value| joins(:share).where("shares.name like ?", value + "%") unless value.blank? }
+  
+  
+  
 end

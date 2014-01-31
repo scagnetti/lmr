@@ -6,7 +6,9 @@ class ScoreCardsController < ApplicationController
   def index
     @share_name = params[:share_name]
     @created = params[:d]
-    @score_cards = ScoreCard.creation(@created).share_name(@share_name).page(params[:page]).per(20)
+    #@score_cards = ScoreCard.creation(@created).share_name(@share_name).page(params[:page]).per(20)
+    #@score_cards = ScoreCard.find_by_sql("select * from score_cards where id in (SELECT id from score_cards group by share_id order by score_cards.created_at DESC) order by total_score DESC")
+    @score_cards = ScoreCard.latest_only.creation(@created).share_name(@share_name).page(params[:page]).per(20)
     
     respond_to do |format|
       format.html # index.html.erb

@@ -1,7 +1,7 @@
 class Share < ActiveRecord::Base
   attr_accessible :financial, :isin, :name, :size, :currency, :stock_exchange
   belongs_to :stock_index
-  has_many :insider_deals
+  has_many :insider_deals, :limit => 20
   has_many :score_cards
   validates :isin, :uniqueness => true
   validates :isin, :length => { :is => 12 , :message => "has to match exactly 12 characters"}

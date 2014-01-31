@@ -21,7 +21,7 @@
 				</div>
 				<div class="form-group">
 					<%= label_tag(:share_name, "Share", :class => "sr-only") %>
-					<%= text_field_tag(:share_name, @share_name, {:class => "form-control", :placeholder => "Share"}) %>
+					<%= text_field_tag(:share_name, @share_name, {:class => "form-control", :placeholder => "Share", :autofocus => "autofocus"}) %>
 				</div>
 				<%= submit_tag("Clear", :name => "clear_form", :type => "reset", :class => "btn btn-default", :data => {clear_form: "dummy"}) %>
 				<%= submit_tag("Apply", :name => "apply_pattern", :class => "btn btn-default") %>
