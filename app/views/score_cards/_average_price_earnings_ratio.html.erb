@@ -1,7 +1,8 @@
 <div class="row">
 	<%= render 'score', :score => @score_card.average_price_earnings_ratio.score %>
 	<div class="col-md-3">
-		KGV 5 Jahre: <img src="/help.png" title="< 12 | 12 - 16 | > 16">
+		KGV 5 Jahre
+		<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="< 12 | 12 - 16 | > 16"></span>
 	</div>
 	<% if @score_card.average_price_earnings_ratio.succeeded %>
 		<div class="col-md-2">
@@ -22,7 +23,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title" id="perAvgLabel">Extracted Values</h4>
+        <h4 class="modal-title" id="perAvgLabel">KGV 5 Jahre</h4>
       </div>
       <div class="modal-body">
         <table class="table table-bordered">

@@ -5,7 +5,7 @@ $(function() {
 });
 
 $(function() {
-	$('#roe_info').tooltip();
+	$('[data-toggle="tooltip"]').tooltip();
 });
 
 $(function() {

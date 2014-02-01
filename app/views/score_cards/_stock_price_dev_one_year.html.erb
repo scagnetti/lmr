@@ -1,7 +1,8 @@
 <div class="row">
 	<%= render 'score', :score => @score_card.stock_price_dev_one_year.score %>
 	<div class="col-md-3">
-		Kurs heute gg. Kurs vor 1 Jahr: <img src="/help.png" title="steigend | zwischen -5% und +5% | fallend">
+		Kurs heute gg. Kurs vor 1 Jahr
+		<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="steigend | zwischen -5% und +5% | fallend"></span>
 	</div>
 	<% if @score_card.stock_price_dev_half_year.succeeded %>
 		<div class="col-md-2">

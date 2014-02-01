@@ -1,7 +1,8 @@
 <div class="row">
 	<%= render 'score', :score => @score_card.equity_ratio.score %>
 	<div class="col-md-3">
-		Eigenkapitalquote LJ: <img src="/help.png" title="> 25% | 25% - 15% | < 15%">
+		Eigenkapitalquote LJ
+		<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="> 25% | 25% - 15% | < 15%"></span>
 	</div>
 	<% if @score_card.equity_ratio.succeeded %>
 		<div class="col-md-2">

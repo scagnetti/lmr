@@ -1,7 +1,8 @@
 <div class="row">
 	<%= render 'score', :score => @score_card.profit_growth.score %>
 	<div class="col-md-3">
-		Gewinnwachstum: <img src="/help.png" title="EPS AJ < EPS NJ | zwischen -5% und +5% | EPS AJ > EPS NJ">
+		Gewinnwachstum
+		<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="EPS AJ < EPS NJ | zwischen -5% und +5% | EPS AJ > EPS NJ"></span>
 	</div>
 	<% if @score_card.profit_growth.succeeded %>
 		<div class="col-md-2">

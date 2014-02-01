@@ -1,7 +1,8 @@
 <div class="row">
 	<%= render 'score', :score => @score_card.profit_revision.score %>
 	<div class="col-md-3">
-		Gewinnrevisionen: <img src="/help.png" title="steigend | zwischen -5% und +5% | fallend">
+		Gewinnrevisionen
+		<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="steigend | zwischen -5% und +5% | fallend"></span>
 	</div>
 	<% if @score_card.profit_revision.succeeded %>
 		<div class="col-md-2">

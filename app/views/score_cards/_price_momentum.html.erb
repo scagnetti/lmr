@@ -1,7 +1,8 @@
 <div class="row">
 	<%= render 'score', :score => @score_card.momentum.score %>
 	<div class="col-md-3">
-		Kursmomentum steigend: <img src="/help.png" title="">
+		Kursmomentum steigend
+		<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="TODO"></span>
 	</div>
 	<% if @score_card.momentum.succeeded %>
 		<div class="col-md-2">

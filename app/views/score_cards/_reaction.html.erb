@@ -1,14 +1,15 @@
 <div class="row">
 	<%= render 'score', :score => @score_card.reaction.score %>
 	<div class="col-md-3">
-		Reaktion auf Quartalszahlen: <img src="/help.png" title="positiv | zwischen -1% und +1% | negativ">
+		Reaktion auf Quartalszahlen
+		<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="positiv | zwischen -1% und +1% | negativ"></span>
 	</div>
 	<% if @score_card.reaction.succeeded %>
 		<div class="col-md-2">
-			Perf.-Share: <%= @score_card.reaction.share_perf %>
+			Share-Perf: <%= @score_card.reaction.share_perf %>
 		</div>
 	 <div class="col-md-2">
-			Perf.-Index: <%= @score_card.reaction.index_perf %>
+			Index-Perf: <%= @score_card.reaction.index_perf %>
 		</div>
 		<div class="col-md-2">
 			<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#reaction">
@@ -36,18 +37,23 @@
 		      </colgroup>
 					<tr>
 						<th></th>
-						<th>Opening</th>
-						<th>Closing</th>
+						<th>Share</th>
+						<th>Index</th>
 					</tr>
 					<tr>
-						<td>Share</td>
+						<td>Opening</td>
 						<td><%= @score_card.reaction.price_opening %></td>
-						<td><%= @score_card.reaction.price_closing %></td>
+						<td><%= @score_card.reaction.index_opening %></td>
 					</tr>
 					<tr>
-						<td>Index</td>
-						<td><%= @score_card.reaction.index_opening %></td>
+						<td>Closing</td>
+						<td><%= @score_card.reaction.price_closing %></td>
 						<td><%= @score_card.reaction.index_closing %></td>
+					</tr>
+					<tr>
+						<td>Perf</td>
+						<td><%= @score_card.reaction.share_perf %></td>
+						<td><%= @score_card.reaction.index_perf %></td>
 					</tr>
 				</table>
       </div>

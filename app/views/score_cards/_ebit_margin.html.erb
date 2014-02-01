@@ -1,7 +1,8 @@
 <div class="row">
 	<%= render 'score', :score => @score_card.ebit_margin.score %>
 	<div class="col-md-3">
-		EBIT-Marge LJ: <img src="/help.png" title="> 12% | 12% - 6% | < 6%">
+		EBIT-Marge LJ
+		<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="> 12% | 12% - 6% | < 6%"></span>
 	</div>
 	<% if @score_card.ebit_margin.succeeded %>
 		<div class="col-md-2">
