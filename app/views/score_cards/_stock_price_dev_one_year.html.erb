@@ -6,13 +6,13 @@
 	</div>
 	<% if @score_card.stock_price_dev_half_year.succeeded %>
 		<div class="col-md-2">
-			Performance: <%= @score_card.stock_price_dev_one_year.perf %>
+			Performance: <%= @score_card.stock_price_dev_one_year.perf %>%
 		</div>
 		<div class="col-md-2">
-			Kurs heute: <%= @score_card.price %>
+			Price today: <%= @score_card.price %>
 		</div>
 		<div class="col-md-3">
-			Kurs vor einem Jahr: <%= @score_card.stock_price_dev_one_year.value %>
+			Price one year ago: <%= @score_card.stock_price_dev_one_year.value %>
 		</div>
 	<% else %>
 		<%= render 'failed' %>

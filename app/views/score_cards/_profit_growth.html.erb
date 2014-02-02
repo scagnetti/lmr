@@ -6,13 +6,13 @@
 	</div>
 	<% if @score_card.profit_growth.succeeded %>
 		<div class="col-md-2">
-			Performance: <%= @score_card.profit_growth.perf %>
+			Performance: <%= @score_card.profit_growth.perf %>%
 		</div>
 		<div class="col-md-2">
-			this year (<%= @score_card.profit_growth.this_year %>): <%= @score_card.profit_growth.value_this_year %>
+			This year (<%= @score_card.profit_growth.this_year %>): <%= @score_card.profit_growth.value_this_year %>
 		</div>
 		<div class="col-md-3">
-			next year (<%= @score_card.profit_growth.next_year %>): <%= @score_card.profit_growth.value_next_year %>
+			Next year (<%= @score_card.profit_growth.next_year %>): <%= @score_card.profit_growth.value_next_year %>
 		</div>
 	<% else %>
 		<%= render 'failed' %>

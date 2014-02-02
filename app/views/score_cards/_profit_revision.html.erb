@@ -6,13 +6,13 @@
 	</div>
 	<% if @score_card.profit_revision.succeeded %>
 		<div class="col-md-2">
-			Heraufstufungen: <%= @score_card.profit_revision.up %>
+			Upgrade: <%= @score_card.profit_revision.up %>
 		</div>
 		<div class="col-md-2">
-			Bestätigungen: <%= @score_card.profit_revision.equal %>
+			Confirmation: <%= @score_card.profit_revision.equal %>
 		</div>
 		<div class="col-md-2">
-			Herabstufungen: <%= @score_card.profit_revision.down %>
+			Downgrade: <%= @score_card.profit_revision.down %>
 		</div>
 	<% else %>
 		<%= render 'failed' %>
