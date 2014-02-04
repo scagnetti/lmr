@@ -262,4 +262,26 @@ class Util
     return days
   end
 
+  # Check for the last date in a given array of dates.
+  # The date must be newer than 100 days to be valid.
+  # +dates+ - an array of unsorted dates
+  def Util.get_latest(dates)
+    now = Time.now()
+    latest = Time.at(0)
+    dates.each do |date|
+      days_ago = Util.days_between(date, now)
+      if days_ago < 100
+        #LOG.debug "Datum #{t.strftime('%Y-%m-%d')} ist noch keine drei Monate her"
+        # Check if the current date is newer than the last one we found
+        if date > latest
+          latest = date
+        end
+      end
+    end
+    if latest == Time.at(0)
+      # None of the given dates is newer than 100 days, this is a serious problem
+      raise RuntimeError, "Could not find a date newer than 100 days", caller
+    end
+    return latest
+  end
 end

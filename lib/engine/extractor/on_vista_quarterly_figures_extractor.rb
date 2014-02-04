@@ -37,7 +37,7 @@ class OnVistaQuarterlyFiguresExtractor
     dates = Array.new
     events = Array.new
     tag_set = @extended_appointment_page.parser().xpath("(//table)[2]//following-sibling::tr[position()>1]")
-    raise DataMiningError, "Could nos extract any release dates for quarterly figures", caller if tag_set.nil? || tag_set.size() < 1
+    raise DataMiningError, "Could not extract any release dates for quarterly figures", caller if tag_set.nil? || tag_set.size() < 1
     tag_set.each do |tr|
       # This is neccesary to remove HTML escaped whitespace: &nbsp;
       nbsp = Nokogiri::HTML(EscapedCharacters::SPACE).text
@@ -55,34 +55,14 @@ class OnVistaQuarterlyFiguresExtractor
     #for i in 0..dates.size-1
     #  LOG.debug("#{self.class}: Date: #{dates[i]}, Event: #{events[i]}")
     #end
-    release_date = get_latest(dates)
-    LOG.debug("#{self.class}: Last release date: #{release_date}")
+    begin
+      release_date = Util.get_latest(dates)
+      LOG.debug("#{self.class}: Last release date: #{release_date}")
+    rescue RuntimeError => e
+      LOG.warn("#{self.class}: #{e.to_s}")
+      raise DataMiningError, "Could not find any quaterly figures for the last 100 days", caller
+    end
     return release_date
-  end
-  
-  private
-
-  # Check for the last date when quaterly figures where published.
-  # The date must be newer than 100 days to be valid.
-  # +dates+ - the release dates found for the stock
-  def get_latest(dates)
-    now = Time.now()
-    latest = Time.at(0)
-    dates.each do |date|
-      days_ago = Util.days_between(date, now)
-      if days_ago < 100
-        #LOG.debug "Datum #{t.strftime('%Y-%m-%d')} ist noch keine drei Monate her"
-        # Check if the current date is newer than the last one we found
-        if date > latest
-          latest = date
-        end
-      end
-    end
-    if latest == Time.at(0)
-      # No release date in the last 100 days, this is a serious problem
-      raise DataMiningError, "Could not find quarterly figures within 100 days", caller
-    end
-    return latest
   end
 
 end

@@ -16,8 +16,8 @@ class StockProcessor
     @score_card = score_card
     @extractors = Array.new
     @extractors << OnVistaExtractor.new(@score_card.share)
+    @extractors << FinanzenExtractor.new(@score_card.share)
     #@extractors << BoerseExtractor.new(@score_card.share)
-    #@extractors << FinanzenExtractor.new(@score_card.share)
   end
 
   public

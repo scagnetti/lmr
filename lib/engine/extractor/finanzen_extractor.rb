@@ -15,6 +15,7 @@ class FinanzenExtractor < BasicExtractor
   INDEX_SUCCESS_VALUE = "Indizes"
   SEARCH_FAILURE = "//div[contains(.,'Keine Ergebnisse')]"
   THREE_MONTHS_IN_SECONDS = 60 * 60 * 24 * 31 * 3
+  EXCHANGE_MAP = { "Nasdaq" => "NAS", "Tradegate" => "TGT", "Xetra" => "XETRA", "NYSE" => "NYSE"}
 
   def initialize(share)
     super(FINANZEN_URL, share)
@@ -32,7 +33,7 @@ class FinanzenExtractor < BasicExtractor
       form.dtTag1 = date.day
       form.dtMonat1 = date.month
       form.dtJahr1 = date.year
-      
+      form.fields.last.value = EXCHANGE_MAP[@share.stock_exchange]
       form.dtTag2 = date.day
       form.dtMonat2 = date.month
       form.dtJahr2 = date.year
@@ -54,7 +55,6 @@ class FinanzenExtractor < BasicExtractor
       form.dtTag1 = date.day
       form.dtMonat1 = date.month
       form.dtJahr1 = date.year
-      
       form.dtTag2 = date.day
       form.dtMonat2 = date.month
       form.dtJahr2 = date.year
@@ -72,10 +72,11 @@ class FinanzenExtractor < BasicExtractor
   end 
 
   # Extract all release dates of quarterly figures as a list
-  def get_release_dates(quarterly_figure_dates)
+  def get_release_dates()
+    release_dates = Array.new
     appointment_page = open_sub_page('Termine', 3, 2)
-    tag_set = appointment_page.parser().xpath("//h2[contains(.,'vergangene Termine')]/../following-sibling::div//tr")
-    if tag_set == nil || tag_set.size() < 2
+    tag_set = appointment_page.parser().xpath("//h2[contains(.,'vergangene Termine')]/../following-sibling::div//tr[position() > 1]")
+    if tag_set == nil || tag_set.size() < 1
       raise DataMiningError, "Could no extract release of quarterly figures", caller
       return
     end
@@ -86,32 +87,30 @@ class FinanzenExtractor < BasicExtractor
           quartal = td_list[1].content()
           raw_date = td_list[2].content().strip
           date = Util.add_millennium(raw_date)
-          quarterly_figure_dates << Util.to_t(date)
+          release_dates << Util.to_t(date)
         elsif td_list[0].content() == 'Jahresabschluss'
           raw_date = td_list[2].content().strip
           date = Util.add_millennium(raw_date)
-          quarterly_figure_dates << Util.to_t(date)
+          release_dates << Util.to_t(date)
         end
       end
     end
+    return release_dates
   end
 
   public
 
   # Extract the reaction on the release of quarterly figures
   def extract_reaction_on_figures(reaction)
-    quarterly_figure_dates = Array.new
-    get_release_dates(quarterly_figure_dates)
-    if quarterly_figure_dates.empty?
-      raise DataMiningError, "Could no extract release of quarterly figures", caller
-      return
+    dates = get_release_dates()
+    begin
+      release_date = Util.get_latest(dates)
+      LOG.debug("#{self.class}: Last release date: #{release_date}")
+    rescue RuntimeError => e
+      LOG.warn("#{self.class}: #{e.to_s}")
+      raise DataMiningError, "Could not find any quaterly figures for the last 100 days", caller
     end
-    LOG.debug("Latest release date for quarterly figures: #{Util.format(quarterly_figure_dates.sort.last)}")
-    diff = Time.now - quarterly_figure_dates.sort.last 
-    if diff < 0 || diff > THREE_MONTHS_IN_SECONDS
-      raise DataMiningError, "Could no extract release of quarterly figures (date too old or in future)", caller
-    end
-    reaction.release_date = quarterly_figure_dates.sort.last
+    reaction.release_date = release_date
     # Get the value of the stock when quarterly figures where published
     stock_opening_closing = extract_stock_value_on(reaction.release_date)
     reaction.price_opening = stock_opening_closing[0]
@@ -124,6 +123,51 @@ class FinanzenExtractor < BasicExtractor
     reaction.index_closing = index_opening_closing[1]
     LOG.debug("#{self.class}: reaction index: #{reaction.index_opening}")
     LOG.debug("#{self.class}: reaction index: #{reaction.index_closing}")
+  end
+
+  # Extract the opinion of the analysts (Analystenmeinungen)
+  def extract_analysts_opinion(analysts_opinion)
+    analysts_opinion.buy = 0
+    analysts_opinion.hold = 0
+    analysts_opinion.sell = 0
+    page = open_sub_page("Kursziele", 1, 0, @stock_page)
+    tr_set = page.parser().xpath('(//table)[3]//tr[position()>1]')
+    if tr_set == nil || tr_set.size() < 1
+      raise DataMiningError, "Could not extract analysts opinion", caller
+    end
+    LOG.debug("#{self.class}: #{tr_set.size} analysts rated this stock")
+    tr_set.each do |tr|
+      # Data extraction
+      td_set = tr.xpath("child::node()")
+      analyst = td_set[0].text()
+      raw_date = td_set[6].text()
+      release_date = nil
+      if raw_date.end_with?("Uhr")
+        # Handle scenario where opinion was added today
+        release_date = Time.now
+      else
+        # Release date casting
+        string_date = Util.add_millennium(raw_date)
+        release_date = Util.to_t(string_date)
+      end
+      exp = Util.information_expired(release_date, Util::DAY_IN_SECONDS * 92)
+      if exp
+        LOG.debug("Rating of #{analyst} expired (released: #{Util.format(release_date)})")
+      else
+        buy = tr.xpath("td[2][@class = 'background_green_white']").size()
+        hold = tr.xpath("td[3][@class = 'background_yellow']").size()
+        sell = tr.xpath("td[4][@class = 'background_red_white']").size()
+        LOG.debug("#{self.class}: Analyst #{analyst} says buy") if buy > 0
+        LOG.debug("#{self.class}: Analyst #{analyst} says hold") if hold > 0
+        LOG.debug("#{self.class}: Analyst #{analyst} says sell") if sell > 0
+        analysts_opinion.buy = analysts_opinion.buy + buy
+        analysts_opinion.hold = analysts_opinion.hold + hold
+        analysts_opinion.sell = analysts_opinion.sell + sell
+      end
+    end
+    LOG.debug("#{self.class}: analyst opinion buy: #{analysts_opinion.buy}")
+    LOG.debug("#{self.class}: analyst opinion hold: #{analysts_opinion.hold}")
+    LOG.debug("#{self.class}: analyst opinion sell: #{analysts_opinion.sell}")
   end
 
   def extract_insider_deals(results)
@@ -164,59 +208,6 @@ class FinanzenExtractor < BasicExtractor
           end
         end
       end
-    end
-  end
-
-  # Extract the opinion of the analysts (Analystenmeinungen)
-  def extract_analysts_opinion(analysts_opinion)
-    page = open_sub_page("Kursziele", 1, 0, @stock_page)
-    tr_set = page.parser().xpath('(//table)[3]//tr[position()>1]')
-    if tr_set == nil || tr_set.size() < 1
-      raise DataMiningError, "Could not extract analysts opinion", caller
-    else
-      LOG.debug("#{tr_set.size} analysts rated this stock")
-      valid_ratings = Array.new
-      tr_set.each do |tr|
-        # Data extraction
-        td_set = tr.xpath("child::node()")
-        analyst = td_set[0].text()
-        estimated_value = td_set[4].text()
-        raw_date = td_set[6].text()
-        release_date = nil
-        if raw_date.end_with?("Uhr")
-          # Handle scenario where opinion was added today
-          release_date = Time.now
-        else
-          # Release date casting
-          string_date = Util.add_millennium(raw_date)
-          release_date = Util.to_t(string_date)
-        end
-        exp = Util.information_expired(release_date, Util::DAY_IN_SECONDS * 92)
-        if exp
-          #LOG.debug("Expired: #{estimated_value} (released: #{Util.format(release_date)}) Analyst: #{analyst}")
-        else
-          if estimated_value == "-"
-            #LOG.debug("No price for: #{estimated_value} (released: #{Util.format(release_date)}) Analyst: #{analyst}")
-          else
-            LOG.debug("#{estimated_value} (released: #{Util.format(release_date)}) Analyst: #{analyst}")
-            valid_ratings << Util.l10n_f(estimated_value.sub(/€/, ''))
-          end
-        end
-      end
-      
-      avg = 0
-      valid_ratings.each do |rating|
-        avg += rating
-      end
-      LOG.debug("\nAverage value: #{avg / valid_ratings.size}\n")
-      
-      #TODO
-      analysts_opinion.buy = 0
-      analysts_opinion.hold = 0
-      analysts_opinion.sell = 0
-      LOG.debug("#{self.class}: analyst opinion buy: #{analysts_opinion.buy}")
-      LOG.debug("#{self.class}: analyst opinion hold: #{analysts_opinion.hold}")
-      LOG.debug("#{self.class}: analyst opinion sell: #{analysts_opinion.sell}") 
     end
   end
 

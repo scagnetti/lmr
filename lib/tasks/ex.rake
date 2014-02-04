@@ -77,7 +77,7 @@ namespace :ex do
     e.extract_average_price_earnings_ratio(AveragePriceEarningsRatio.new)
   end
 
-  desc "Extract Analysts Opinion"
+  desc "Extract Analysts Opinion (onVista)"
   task :analyst, [:isin] => :environment do |t, args|
     isin = args[:isin]
     s = Share.where("name like ?", 'Volk%').first
@@ -85,10 +85,25 @@ namespace :ex do
     e.extract_analysts_opinion(AnalystsOpinion.new)
   end
   
-  desc "Extract the reaction on quarterly figures"
-  task :reaction => :environment do
+  desc "Extract Analysts Opinion (finanzen)"
+  task :analyst_fin, [:isin] => :environment do |t, args|
+    isin = args[:isin]
     s = Share.where("name like ?", 'Volk%').first
+    e = FinanzenExtractor.new(s)
+    e.extract_analysts_opinion(AnalystsOpinion.new)
+  end
+  
+  desc "Extract the reaction on quarterly figures (onVista)"
+  task :reaction => :environment do
+    s = Share.where("name like ?", 'Coca%').first
     e = OnVistaExtractor.new(s)
+    e.extract_reaction_on_figures(Reaction.new)
+  end
+  
+  desc "Extract the reaction on quarterly figures (finanzen)"
+  task :reaction_fin => :environment do
+    s = Share.where("name like ?", 'Goo%').first
+    e = FinanzenExtractor.new(s)
     e.extract_reaction_on_figures(Reaction.new)
   end
 
