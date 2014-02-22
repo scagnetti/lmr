@@ -2,13 +2,17 @@
 
 ===Run "rake doc:app" to generate this API documentation.
 
-* All price or value calculations should also return a representing date
 * Redo evaluation inside the RatingUnit and write good tests
+* Check financial flags for all shares in productive DB
+* Reaction on quaterly figures: Extract closing value from day before instead of opening value
 * Handle public holiday and weekends
 * Replace all Time objects with date objects
-* Implement special rating of financial shares
-* Implement special rating for small caps
+* All price or value calculations should also return a representing date
 * Update score highlighting for Small Caps and financial values (see ScoreCardHelper)
+* Adapt Tooltips for financial and small shares
+* Care about ScoreCards.index -> StockProcessor and errors that can occur here
+* Enhance rating units to check dates (like last year) and success flag (must be set to true)
+
 
 === Nice to know
 * Quarterly figures for US stocks: http://quicktake.morningstar.com/StockNet/SECDocuments.aspx?Symbol=MMM&Country=usa

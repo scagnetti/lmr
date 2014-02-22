@@ -1,16 +1,31 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-positive:
+many_analysts_sell:
   buy: 1
   hold: 3
   sell: 6
 
-neutral:
+many_analysts_tie:
   buy: 2
   hold: 10
   sell: 5
-  
-negative:
+
+many_analysts_buy:  
   buy: 10
   hold: 6
   sell: 4
+
+few_analysts_sell:
+  buy: 0
+  hold: 1
+  sell: 2
+
+few_analysts_tie:
+  buy: 0
+  hold: 2
+  sell: 1
+  
+few_analysts_buy:
+  buy: 2
+  hold: 1
+  sell: 0

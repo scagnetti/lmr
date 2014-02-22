@@ -28,7 +28,8 @@
 			</small>
 		</h1>
 		
-		<%= link_to 'Evaluate', "/score_cards/assess_share/#{@share.isin}", {:class => "btn btn-default"}, :method => :put %>
+		<%= link_to 'Evaluate', "/score_cards/assess_share/#{@share.isin}",
+					{:method => :put, :class => "btn btn-default", "data-toggle" => "modal", "data-target" => "#busyScreen"} %>
 		<%= link_to 'Lookup Insider Deals', lookup_insider_trades_share_path(@share), {:class => "btn btn-default"} %>
 
 		<h2><small>Isin: <%= @share.isin %></small></h2>
@@ -43,5 +44,5 @@
 </div>
 
 <%= render 'insider_deals' %>
-
+<%= render 'busy_screen' %>
 

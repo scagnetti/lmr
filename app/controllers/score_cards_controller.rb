@@ -46,7 +46,8 @@ class ScoreCardsController < ApplicationController
     @score_card.share = share
     # Run the algorithm
     stock_processor = StockProcessor.new(@score_card)
-    stock_processor.go()
+    stock_processor.run_extraction()
+    stock_processor.run_rating()
     
     respond_to do |format|
       if @score_card.save

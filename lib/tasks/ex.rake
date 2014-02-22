@@ -123,7 +123,7 @@ namespace :ex do
 
   #======================================================
   #===Deprecated way of populating Share database     ===
-  #===The Stock Exchangs has to be set individualy!   ===
+  #===The stock exchange has to be set individualy!   ===
   #======================================================
   desc "Add all shares of a given index (ISIN) to databse. Default index is DAX."
   task :add_shares, [:index_isin] => :environment do |t, args|
@@ -161,23 +161,17 @@ namespace :ex do
   
   desc "Try to rate a specific share"
   task :rate_one => :environment do 
-    failed = Array.new
-    s = Share.where("isin = ?", "US0970231058").first
+    s = Share.where("isin = ?", "US0378331005").first
     score_card = ScoreCard.new()
     score_card.share = s
     begin
       # Run the algorithm
       stock_processor = StockProcessor.new(score_card)
-      stock_processor.go()
+      stock_processor.run_extraction()
+      stock_processor.run_rating()
       score_card.save
     rescue DataMiningError
-      failed << s
-    end
-
-    #Show stocks with problems
-    puts "For the following share, problems occured during the evaluation:"
-    failed.each do |f|
-      puts "#{f.name} - FAILED"
+      puts "#{s.name} - FAILED"
     end
   end
   
@@ -192,7 +186,8 @@ namespace :ex do
         score_card.share = s
         # Run the algorithm
         stock_processor = StockProcessor.new(score_card)
-        stock_processor.go()
+        stock_processor.run_extraction()
+        stock_processor.run_rating()
         score_card.save
       rescue DataMiningError
         failed << s
@@ -202,7 +197,7 @@ namespace :ex do
     diff_seconds = t2 - t1
     min = diff_seconds / 60
     sec = diff_seconds % 60
-    puts "The evaluation tool #{min} minutes and #{sec} seconds"
+    puts "The evaluation took #{min} minutes and #{sec} seconds"
     #Show stocks with problems
     puts "For the following shares, problems occured during the evaluation:"
     failed.each do |s|

@@ -1,13 +1,16 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+# There is only one rule for all types of companies (small/large and financial)
 
 positive:
-  last_year: 2012
+  last_year: <%= Time.now.year - 1 %>
   value: 28
+  succeeded: true
 
 neutral:
-  last_year: 2012
+  last_year: <%= Time.now.year - 1 %>
   value: 16
+  succeeded: true
 
 negative:
-  last_year: 2012
+  last_year: <%= Time.now.year - 1 %>
   value: 8
+  succeeded: true

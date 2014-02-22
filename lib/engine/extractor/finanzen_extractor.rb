@@ -131,7 +131,11 @@ class FinanzenExtractor < BasicExtractor
     analysts_opinion.hold = 0
     analysts_opinion.sell = 0
     page = open_sub_page("Kursziele", 1, 0, @stock_page)
-    tr_set = page.parser().xpath('(//table)[3]//tr[position()>1]')
+    heading = page.parser().xpath("//div/h2[contains(.,'Diese Analysten')]")
+    if heading == nil || heading.size() != 1
+      raise DataMiningError, "Could not extract analysts opinion", caller
+    end
+    tr_set = page.parser().xpath("(//table)[3]//tr[position()>1]")
     if tr_set == nil || tr_set.size() < 1
       raise DataMiningError, "Could not extract analysts opinion", caller
     end

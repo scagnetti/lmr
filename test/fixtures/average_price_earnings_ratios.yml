@@ -1,37 +1,40 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 positive:
-  three_years_ago: 2010
-  two_years_ago: 2011
-  last_year: 2012
-  this_year: 2013
-  next_year: 2014
+  three_years_ago: <%= Time.now.year - 3 %>
+  two_years_ago: <%= Time.now.year - 2 %>
+  last_year: <%= Time.now.year - 1 %>
+  this_year: <%= Time.now.year %>
+  next_year: <%= Time.now.year + 1 %>
   value_three_years_ago: 10
   value_two_years_ago: 9
   value_last_year: 8
   value_this_year: 11
   value_next_year: 10
+  succeeded: true
 
 neutral:
-  three_years_ago: 2010
-  two_years_ago: 2011
-  last_year: 2012
-  this_year: 2013
-  next_year: 2014
+  three_years_ago: <%= Time.now.year - 3 %>
+  two_years_ago: <%= Time.now.year - 2 %>
+  last_year: <%= Time.now.year - 1 %>
+  this_year: <%= Time.now.year %>
+  next_year: <%= Time.now.year + 1 %>
   value_three_years_ago: 12
   value_two_years_ago: 14
   value_last_year: 16
   value_this_year: 15
   value_next_year: 14
+  succeeded: true
 
 negative:
-  three_years_ago: 2010
-  two_years_ago: 2011
-  last_year: 2012
-  this_year: 2013
-  next_year: 2014
+  three_years_ago: <%= Time.now.year - 3 %>
+  two_years_ago: <%= Time.now.year - 2 %>
+  last_year: <%= Time.now.year - 1 %>
+  this_year: <%= Time.now.year %>
+  next_year: <%= Time.now.year + 1 %>
   value_three_years_ago: 18
   value_two_years_ago: 20
   value_last_year: 16
   value_this_year: 18
   value_next_year: 18
+  succeeded: true

@@ -1,2 +1,8 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
+score_card_adidas:
+  share: adidas
+  price: 85.45
+  currency: <%= Currency::EUR %>
+  total_score: 
+  # TODO complete

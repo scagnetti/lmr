@@ -1,13 +1,16 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 positive:
-  last_year: 2012
+  last_year: <%= Time.now.year - 1 %>
   value: 16
+  succeeded: true
 
 neutral:
-  last_year: 2012
+  last_year: <%= Time.now.year - 1 %>
   value: 12
-
+  succeeded: true
+  
 negative:
-  last_year: 2012
+  last_year: <%= Time.now.year - 1 %>
   value: 4
+  succeeded: true
