@@ -7,6 +7,7 @@ class LargeCapFinancialRatingUnit < LargeCapRatingUnit
   # Assess the ebit margin value
   def rate_ebit_margin(ebit_margin)
     ebit_margin.score = 0
+    return 0
   end
   
   # Assess the equity ratio value
@@ -20,6 +21,7 @@ class LargeCapFinancialRatingUnit < LargeCapRatingUnit
       score = 0
     end
     equity_ratio.score = score
+    return score
   end
   
   # Assess the analysts opinions
@@ -47,6 +49,7 @@ class LargeCapFinancialRatingUnit < LargeCapRatingUnit
       score = -1
     end
     analysts_opinion.score = score
+    return score
   end
   
   # Assess the three month reversal
@@ -60,14 +63,19 @@ class LargeCapFinancialRatingUnit < LargeCapRatingUnit
     reversal.index_perf_two_months_ago = Util.perf(reversal.index_two_months_ago, reversal.index_three_months_ago)
     reversal.index_perf_one_month_ago = Util.perf(reversal.index_one_month_ago, reversal.index_two_months_ago)
     case
-    when reversal.value_perf_three_months_ago < reversal.index_perf_three_months_ago && reversal.value_perf_two_months_ago < reversal.index_perf_two_months_ago && reversal.value_perf_one_month_ago < reversal.index_perf_one_month_ago
+    when reversal.value_perf_three_months_ago < reversal.index_perf_three_months_ago &&
+      reversal.value_perf_two_months_ago < reversal.index_perf_two_months_ago &&
+      reversal.value_perf_one_month_ago < reversal.index_perf_one_month_ago
       score = 1 
-    when reversal.value_perf_three_months_ago > reversal.index_perf_three_months_ago && reversal.value_perf_two_months_ago > reversal.index_perf_two_months_ago && reversal.value_perf_one_month_ago > reversal.index_perf_one_month_ago
+    when reversal.value_perf_three_months_ago > reversal.index_perf_three_months_ago &&
+      reversal.value_perf_two_months_ago > reversal.index_perf_two_months_ago &&
+      reversal.value_perf_one_month_ago > reversal.index_perf_one_month_ago
       score = -1
     else
       score = 0
     end
     reversal.score = score
+    return score
   end
 
 end

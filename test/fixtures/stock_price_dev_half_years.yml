@@ -1,0 +1,41 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+positive:
+  historical_date: <%= Time.now.months_ago(6) %>
+  compare: 20
+  value: 16 #+20%
+  succeeded: true
+
+neutral:
+  historical_date: <%= Time.now.months_ago(6) %>
+  compare: 20
+  value: 19.5 #+2,5%
+  succeeded: true
+  
+negative:
+  historical_date: <%= Time.now.months_ago(6) %>
+  compare: 20
+  value: 22 #-10%
+  succeeded: true
+
+# These fixtures are use for testing of the momentum rule
+dev_hy_pos:
+  historical_date: <%= Time.now.months_ago(6) %>
+  compare: 20
+  value: 16 #+20%
+  succeeded: true
+  score: 1
+ 
+dev_hy_neutral:
+  historical_date: <%= Time.now.months_ago(6) %>
+  compare: 20
+  value: 19.5 #+2,5%
+  succeeded: true
+  score: 0
+ 
+dev_hy_neg:
+  historical_date: <%= Time.now.months_ago(6) %>
+  compare: 20
+  value: 22 #-10%
+  succeeded: true
+  score: -1

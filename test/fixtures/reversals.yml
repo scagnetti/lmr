@@ -1,0 +1,56 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+positive:
+  four_months_ago: <%= Time.now.months_ago(4) %>
+  value_four_months_ago: 5
+  index_four_months_ago: 5
+    
+  three_months_ago: <%= Time.now.months_ago(3) %>
+  value_three_months_ago: 9
+  index_three_months_ago: 10
+    
+  two_months_ago: <%= Time.now.months_ago(2) %>
+  value_two_months_ago: 18
+  index_two_months_ago: 20
+    
+  one_month_ago: <%= Time.now.months_ago(1) %>
+  value_one_month_ago: 36
+  index_one_month_ago: 40
+  
+  succeeded: true
+
+neutral:
+  four_months_ago: <%= Time.now.months_ago(4) %>
+  value_four_months_ago: 5
+  index_four_months_ago: 5
+    
+  three_months_ago: <%= Time.now.months_ago(3) %>
+  value_three_months_ago: 10
+  index_three_months_ago: 9
+    
+  two_months_ago: <%= Time.now.months_ago(2) %>
+  value_two_months_ago: 18
+  index_two_months_ago: 20
+    
+  one_month_ago: <%= Time.now.months_ago(1) %>
+  value_one_month_ago: 36
+  index_one_month_ago: 40
+  succeeded: true
+
+negative:
+  four_months_ago: <%= Time.now.months_ago(4) %>
+  value_four_months_ago: 5
+  index_four_months_ago: 5
+    
+  three_months_ago: <%= Time.now.months_ago(3) %>
+  value_three_months_ago: 10
+  index_three_months_ago: 9
+    
+  two_months_ago: <%= Time.now.months_ago(2) %>
+  value_two_months_ago: 20
+  index_two_months_ago: 18
+    
+  one_month_ago: <%= Time.now.months_ago(1) %>
+  value_one_month_ago: 40
+  index_one_month_ago: 38
+  succeeded: true

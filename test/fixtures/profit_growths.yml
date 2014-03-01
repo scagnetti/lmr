@@ -1,0 +1,22 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+positive:
+  this_year: <%= Time.now.year %>
+  next_year: <%= Time.now.year + 1 %>
+  value_this_year: 3
+  value_next_year: 4 #+33%
+  succeeded: true
+
+neutral:
+  this_year: <%= Time.now.year %>
+  next_year: <%= Time.now.year + 1 %>
+  value_this_year: 3
+  value_next_year: 3.1 #+3.3%
+  succeeded: true
+  
+negative:
+  this_year: <%= Time.now.year %>
+  next_year: <%= Time.now.year + 1 %>
+  value_this_year: 4
+  value_next_year: 3 #-25%
+  succeeded: true

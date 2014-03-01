@@ -1,11 +1,16 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-one:
-  succeeded: false
-  score: 1
-  error_msg: MyText
+positive:
+  succeeded: true
+  stock_price_dev_half_year: dev_hy_pos
+  stock_price_dev_one_year: dev_oy_neutral
 
-two:
-  succeeded: false
-  score: 1
-  error_msg: MyText
+neutral:
+  succeeded: true
+  stock_price_dev_half_year: dev_hy_neutral
+  stock_price_dev_one_year: dev_oy_pos
+    
+negative:
+  succeeded: true
+  stock_price_dev_half_year: dev_hy_neg
+  stock_price_dev_one_year: dev_oy_neutral

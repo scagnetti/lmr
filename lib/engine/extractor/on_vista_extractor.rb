@@ -161,7 +161,7 @@ class OnVistaExtractor < BasicExtractor
   def find_value_for_given_year(figure, year_of_interest, years, values)
     raise DataMiningError, "Could not extract >>#{figure}<<, because years differ from values in size", caller if years.size != values.size
     i = years.index(year_of_interest)
-    raise DataMiningError, "Could not extract >>#{figure}<<, because year of interest (#{year_of_interest}) could not be found in #{cleaned_years.to_s}", caller if i.nil?
+    raise DataMiningError, "Could not extract >>#{figure}<<, because year of interest (#{year_of_interest}) could not be found in #{years.to_s}", caller if i.nil?
     year = years[i]
     value = values[i]
     return Hash[YEAR => year, VALUE => value]

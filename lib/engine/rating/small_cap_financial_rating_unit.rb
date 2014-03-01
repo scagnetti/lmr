@@ -7,6 +7,7 @@ class SmallCapFinancialRatingUnit < SmallCapRatingUnit
   # Assess the ebit margin value
   def rate_ebit_margin(ebit_margin)
     ebit_margin.score = 0
+    return 0
   end
   
   # Assess the equity ratio value
@@ -20,6 +21,7 @@ class SmallCapFinancialRatingUnit < SmallCapRatingUnit
       score = 0
     end
     equity_ratio.score = score
+    return score
   end
   
   # Assess the analysts opinions. If there are less than five analysts
@@ -58,11 +60,13 @@ class SmallCapFinancialRatingUnit < SmallCapRatingUnit
       score = -1
     end
     analysts_opinion.score = score
+    return score
   end
   
   # Assess the three month reversal
   def rate_reversal(reversal)
     reversal.score = 0
+    return 0
   end
   
 end

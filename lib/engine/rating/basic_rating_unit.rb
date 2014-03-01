@@ -13,6 +13,7 @@ class BasicRatingUnit
       score = 0
     end
     return_on_equity.score = score
+    return score
   end
   
   # Assess the ebit margin value
@@ -42,6 +43,7 @@ class BasicRatingUnit
     end
     per.average = avg
     per.score = score
+    return score
   end
   
   # Assess the current price earnings ratio value
@@ -56,6 +58,7 @@ class BasicRatingUnit
       score = 0
     end
     per.score = score
+    return score
   end
   
   # Assess the analysts opinions
@@ -83,6 +86,7 @@ class BasicRatingUnit
       score = 0
     end
     reaction.score = score
+    return score
   end
   
   # Assess the profit revision value
@@ -110,15 +114,17 @@ class BasicRatingUnit
     # profit_revision.score = score
     
     case
-    when profit_revision.up = 1
-      profit_revision.score = 1
-    when profit_revision.equal = 1
-      profit_revision.score = 0
-    when profit_revision.down = 1
-      profit_revision.score = -1
+    when profit_revision.up == 1
+      score = 1
+    when profit_revision.equal == 1
+      score = 0
+    when profit_revision.down == 1
+      score = -1
     else
-      profit_revision.score = -1
+      score = -1
     end
+    profit_revision.score = score
+    return score
   end
   
   # Assess the half year stock price development
@@ -136,6 +142,7 @@ class BasicRatingUnit
     end
     stock_price_dev_half_year.perf = perf
     stock_price_dev_half_year.score = score
+    return score
   end
   
   # Assess the one year stock price development
@@ -153,6 +160,7 @@ class BasicRatingUnit
     end
     stock_price_dev_one_year.perf = perf
     stock_price_dev_one_year.score = score
+    return score
   end
   
   # Assess the stock price momentum
@@ -168,6 +176,7 @@ class BasicRatingUnit
       score = 0
     end
     momentum.score = score
+    return score
   end
   
   # Assess the three month reversal
@@ -187,5 +196,6 @@ class BasicRatingUnit
       score = 0
     end
     profit_growth.score = score
+    return score
   end
 end
