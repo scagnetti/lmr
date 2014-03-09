@@ -1,31 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Lmr</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stock Rating</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <%= stylesheet_link_tag "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+	<div role="navigation" class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <div class="navbar-brand"><span class="glyphicon glyphicon-stats"></span> Stock Rating</div>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li class=<%= check_place(score_cards_path, request.fullpath)%>><%= link_to 'Score Cards', score_cards_path %></li>
+          <li class=<%= check_place(shares_path, request.fullpath)%>><%= link_to 'Shares', shares_path %></li>
+          <li class=<%= check_place(stock_indices_path, request.fullpath)%>><%= link_to 'Stock Indices', stock_indices_path %></li>
+        </ul>
+      </div>
+    </div>
+  </div>
 	<div id="content" class="container">
-		<div class="row">
-			<div class="col-md-12">
-				<div id="top_nav">
-					<%= image_tag("bar_graph_small.png") %>
-					<ul>
-						<li class=<%= check_place(score_cards_path, request.fullpath)%>><%= link_to 'Score Cards', score_cards_path %></li>
-						<li class=<%= check_place(shares_path, request.fullpath)%>><%= link_to 'Shares', shares_path %></li>
-						<li class=<%= check_place(stock_indices_path, request.fullpath)%>><%= link_to 'Stock Indices', stock_indices_path %></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-
 		<%= yield %>
-		
 	</div>
-
 </body>
 </html>

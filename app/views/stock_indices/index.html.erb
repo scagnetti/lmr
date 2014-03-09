@@ -1,54 +1,43 @@
 <div class="row">
-	<div class="col-md-12">
-		<ol class="breadcrumb">
-		  <li class="active">Stock Indices</li>
-		</ol>
+	<div class="col-xs-12 col-md-12">
+		<h1>Stock Indices</h1>
 	</div>
 </div>
 
 <div class="row">
-	<div class="col-md-12">
-		<h1>Available Stock Indices</h1>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-md-12">
+	<div class="col-xs-12 col-md-12">
 		<%= link_to 'Add', new_stock_index_path, {:class => "btn btn-default"} %>
 	</div>
 </div>
 
 <div class="row">
-	<div class="col-md-4">
+	<div class="col-xs-6 col-md-4">
 		<%= paginate @stock_indices %>
 	</div>
-	<div class="col-md-offset-6 col-md-2">
-		<div class="pagination">
+	<div class="col-xs-6 col-md-offset-6 col-md-2">
+		<div class="pull-right pagination">
 			<%= @stock_indices.offset_value + 1 %> - <%= @stock_indices.offset_value + @stock_indices.length %> of <%= @stock_indices.total_count %>
 		</div>
 	</div>
 </div>
 
 <div class="row">
-	<div class="col-md-12">
-		<table class="table table-hover">
-			<colgroup>
-		    <col width="250">
-		    <col width="150">
-		    <col width="100">
-		  </colgroup>
-		  <tr>
-		    <th>Name</th>
-		    <th>ISIN</th>
-		    <th></th>
-		  </tr>
-			<% @stock_indices.each do |stock_index| %>
+	<div class="col-xs-12 col-md-12">
+		<div class="table-responsive">
+			<table class="table table-hover">
 			  <tr>
-			  	<td><%= link_to stock_index.name, stock_index %></td>
-			    <td><%= stock_index.isin %></td>
-			    <td><%= link_to 'Destroy', stock_index, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+			    <th>Name</th>
+			    <th>ISIN</th>
+			    <th></th>
 			  </tr>
-			<% end %>
-		</table>
+				<% @stock_indices.each do |stock_index| %>
+				  <tr>
+				  	<td><%= link_to stock_index.name, stock_index %></td>
+				    <td><%= stock_index.isin %></td>
+				    <td><%= link_to 'Destroy', stock_index, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+				  </tr>
+				<% end %>
+			</table>
+		</div>
 	</div>
 </div>

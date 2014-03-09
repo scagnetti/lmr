@@ -1,14 +1,14 @@
 <div class="row">
 	<%= render 'score', :score => @score_card.momentum.score %>
-	<div class="col-md-3">
+	<div class="col-xs-11 col-md-3">
 		Kursmomentum steigend
 		<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="TODO"></span>
 	</div>
 	<% if @score_card.momentum.succeeded %>
-		<div class="col-md-2">
+		<div class="col-xs-6 col-md-2">
 			Half year ago: <%= @score_card.momentum.stock_price_dev_half_year.score %>
 		</div>
-		<div class="col-md-2">
+		<div class="col-xs-6 col-md-2">
 			One year ago: <%= @score_card.momentum.stock_price_dev_one_year.score %>
 		</div>
 	<% else %>

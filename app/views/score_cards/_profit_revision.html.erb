@@ -1,17 +1,17 @@
 <div class="row">
 	<%= render 'score', :score => @score_card.profit_revision.score %>
-	<div class="col-md-3">
+	<div class="col-xs-11 col-md-3">
 		Gewinnrevisionen
 		<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="steigend | zwischen -5% und +5% | fallend"></span>
 	</div>
 	<% if @score_card.profit_revision.succeeded %>
-		<div class="col-md-2">
+		<div class="col-xs-4 col-md-2">
 			Upgrade: <%= @score_card.profit_revision.up %>
 		</div>
-		<div class="col-md-2">
+		<div class="col-xs-4 col-md-2">
 			Confirmation: <%= @score_card.profit_revision.equal %>
 		</div>
-		<div class="col-md-2">
+		<div class="col-xs-4 col-md-2">
 			Downgrade: <%= @score_card.profit_revision.down %>
 		</div>
 	<% else %>

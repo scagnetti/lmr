@@ -1,17 +1,17 @@
 <div class="row">
 	<%= render 'score', :score => @score_card.profit_growth.score %>
-	<div class="col-md-3">
+	<div class="col-xs-11 col-md-3">
 		Gewinnwachstum
 		<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="EPS AJ < EPS NJ | zwischen -5% und +5% | EPS AJ > EPS NJ"></span>
 	</div>
 	<% if @score_card.profit_growth.succeeded %>
-		<div class="col-md-2">
+		<div class="col-xs-4 col-md-2">
 			Performance: <%= @score_card.profit_growth.perf %>%
 		</div>
-		<div class="col-md-2">
+		<div class="col-xs-4 col-md-2">
 			This year (<%= @score_card.profit_growth.this_year %>): <%= @score_card.profit_growth.value_this_year %>
 		</div>
-		<div class="col-md-3">
+		<div class="col-xs-4 col-md-3">
 			Next year (<%= @score_card.profit_growth.next_year %>): <%= @score_card.profit_growth.value_next_year %>
 		</div>
 	<% else %>

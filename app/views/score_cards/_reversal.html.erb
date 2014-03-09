@@ -1,11 +1,11 @@
 <div class="row">
 	<%= render 'score', :score => @score_card.reversal.score %>
-	<div class="col-md-3">
+	<div class="col-xs-11 col-md-3">
 		Dreimonatsreversal
 		<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="Perf. in jedem Mt. < DAX | ansonsten | Perf. in jedem Mt. > DAX"></span>
 	</div>
 	<% if @score_card.reversal.succeeded %>
-		<div class="col-md-2">
+		<div class="col-xs-12 col-md-2">
 			<button class="btn btn-default btn-xs" data-toggle="modal" data-target="#reversal">
   			Show
 			</button>			

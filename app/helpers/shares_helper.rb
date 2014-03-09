@@ -42,4 +42,34 @@ module SharesHelper
     end
     return score_card_ids
   end
+
+  # Get the data for display with chart.js
+  def get_data_for_chartjs()
+    data = Hash.new
+    labels = Array.new
+    values = Array.new
+    data_set = Hash.new
+    data_sets = Array.new
+    data_sets << data_set
+    
+    data["labels"] = labels
+    data["datasets"] = data_sets
+    
+    data_set["fillColor"] = "rgba(151,187,205,0.5)"
+    data_set["strokeColor"] = "rgba(151,187,205,1)"
+    data_set["pointColor"] = "rgba(151,187,205,1)"
+    data_set["pointStrokeColor"] = "#fff"
+    data_set["data"] = values
+    
+    data_sets << data_set
+    
+    # Limit to 10 score cards
+    score_cards = @share.score_cards.length > 10 ? @share.score_cards.last(10) : @share.score_cards
+    score_cards.each do |score_card|
+      labels << I18n.l(score_card.created_at)
+      values << score_card.total_score
+    end
+    return data.to_json
+  end
+
 end

@@ -1,13 +1,13 @@
 <div class="row">
 	<%= render 'score', :score => @score_card.return_on_equity.score %>
-	<div class="col-md-3">
+	<div class="col-xs-11 col-md-3">
 		RoE LJ <span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="> 20% | 20% - 10% | < 10%"></span>
 	</div>
 	<% if @score_card.return_on_equity.succeeded %>
-		<div class="col-md-2">
+		<div class="col-xs-6 col-md-2">
 			Value: <%= @score_card.return_on_equity.value %>%
 		</div>
-		<div class="col-md-2">
+		<div class="col-xs-6 col-md-2">
 			Year: <%= @score_card.return_on_equity.last_year %>
 		</div>
 	<% else %>

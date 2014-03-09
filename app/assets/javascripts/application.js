@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery.ui.all
 //= require jquery_ujs
+//= require Chart.min.js
 //= require_tree .
 //= require twitter/bootstrap
 

@@ -1,72 +1,22 @@
 <h2>Ratings</h2>
-<div id="mychart"></div>
+
+<canvas id="myChart" width="600" height="400"></canvas>
 
 <%= javascript_tag do %>
-	$.getScript("http://yui.yahooapis.com/3.13.0/build/yui/yui-min.js", function(){
 	
-	  YUI().use('charts', function (Y) {
-	  	
-	    var scoreCardIds = <%= raw(get_score_card_ids()) %>;
-	    var myDataValues = <%= raw(get_chart_data()) %>;
+	    var data = <%= raw(get_data_for_chartjs()) %>;
+	    var options = {
+	    	bezierCurve : false,
+	      scaleOverride : true,
+	      //Number - The number of steps in a hard coded scale
+	      scaleSteps : 13,
+	      //Number - The value jump in the hard coded scale
+	      scaleStepWidth : 2,
+	      //Number - The scale starting value
+	      scaleStartValue : -13
+	    }
 	    
-	    //Define our axes for the chart. #428BCA
-      var myAxes = {
-        s1:{
-      		keys:["total_score"],
-      		position:"left",
-      		type:"numeric",
-      		minimum: -13,
-      		maximum: 13,
-          labelFunction:
-            function(v, fmt, tooltip) {
-              if (tooltip) {
-                return v.toFixed(4);
-              } else {
-                //return v.toFixed(2);
-                 return Math.round(v);
-              }
-            }
-        },
-
-      dateRange:{
-    		keys:["created_at"],
-    		position:"bottom",
-    		type:"category",
-    		styles:{
-    		  label: {
-    		    rotation:-45,
-    		    margin:{top:5}
-    		  }
-	       }
-        }
-      };
+	    var ctx = document.getElementById("myChart").getContext("2d");
+	    var myNewChart = new Chart(ctx).Line(data, options);
 	    
-			// Instantiate and render the chart
-      var mychart = new Y.Chart({
-        dataProvider: myDataValues,
-        render: "#mychart",
-        axes: myAxes,
-        horizontalGridlines: {
-          styles: {
-            line: {
-              color: "#dad8c9"
-            }
-          }
-        },
-        verticalGridlines: {
-          styles: {
-            line: {
-              color: "#dad8c9"
-            }
-          }
-        }        
-      });
-      
-      // Install a click listener to open related score cards
-      mychart.on('markerEvent:click', function(e) {
-        window.open('../score_cards/' + scoreCardIds[e.index]);
-      });
-    });
-
-	});
 <% end %>

@@ -7,7 +7,7 @@ module ApplicationHelper
     if url.start_with?(link)
       return "active"
     else
-      return "inactive"
+      return ""
     end
   end
 

@@ -2,9 +2,10 @@
 
 ===Run "rake doc:app" to generate this API documentation.
 
+* Reaction on quaterly figures: Extract closing value from day before instead of opening value
+* Rethink extraction and rating of profit revision 
 * Redo evaluation inside the RatingUnit and write good tests
 * Check financial flags for all shares in productive DB
-* Reaction on quaterly figures: Extract closing value from day before instead of opening value
 * Handle public holiday and weekends
 * Replace all Time objects with date objects
 * All price or value calculations should also return a representing date
@@ -16,3 +17,4 @@
 
 === Nice to know
 * Quarterly figures for US stocks: http://quicktake.morningstar.com/StockNet/SECDocuments.aspx?Symbol=MMM&Country=usa
+* Samsung S3 Display: 720 x 1.280 Pixel
