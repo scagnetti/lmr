@@ -6,7 +6,7 @@
 	</div>
 	<% if @score_card.stock_price_dev_half_year.succeeded %>
 		<div class="col-xs-4 col-md-2">
-			Performance: <%= @score_card.stock_price_dev_one_year.perf %>%
+			Performance: <%= number_with_precision @score_card.stock_price_dev_one_year.perf, :precision => 2 %>%
 		</div>
 		<div class="col-xs-4 col-md-2">
 			Price today: <%= @score_card.price %>

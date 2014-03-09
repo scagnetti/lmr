@@ -1,4 +1,4 @@
 class Reaction < ActiveRecord::Base
-  attr_accessible :index_closing, :index_opening, :price_closing, :price_opening, :release_date
+  attr_accessible :index_after, :index_before, :price_after, :price_before, :release_date, :before, :after
   has_many :score_cards
 end

@@ -101,29 +101,30 @@ class FinanzenExtractor < BasicExtractor
   public
 
   # Extract the reaction on the release of quarterly figures
-  def extract_reaction_on_figures(reaction)
-    dates = get_release_dates()
-    begin
-      release_date = Util.get_latest(dates)
-      LOG.debug("#{self.class}: Last release date: #{release_date}")
-    rescue RuntimeError => e
-      LOG.warn("#{self.class}: #{e.to_s}")
-      raise DataMiningError, "Could not find any quaterly figures for the last 100 days", caller
-    end
-    reaction.release_date = release_date
-    # Get the value of the stock when quarterly figures where published
-    stock_opening_closing = extract_stock_value_on(reaction.release_date)
-    reaction.price_opening = stock_opening_closing[0]
-    reaction.price_closing = stock_opening_closing[1]
-    LOG.debug("#{self.class}: reaction stock: #{reaction.price_opening}")
-    LOG.debug("#{self.class}: reaction stock: #{reaction.price_closing}")
-    # Get the value of the index when quaterly figures where published
-    index_opening_closing = extract_index_value_on(reaction.release_date)
-    reaction.index_opening = index_opening_closing[0]
-    reaction.index_closing = index_opening_closing[1]
-    LOG.debug("#{self.class}: reaction index: #{reaction.index_opening}")
-    LOG.debug("#{self.class}: reaction index: #{reaction.index_closing}")
-  end
+  # TODO rework: onVista extractor uses already the values from on day before and one day after the release date!
+  # def extract_reaction_on_figures(reaction)
+    # dates = get_release_dates()
+    # begin
+      # release_date = Util.get_latest(dates)
+      # LOG.debug("#{self.class}: Last release date: #{release_date}")
+    # rescue RuntimeError => e
+      # LOG.warn("#{self.class}: #{e.to_s}")
+      # raise DataMiningError, "Could not find any quaterly figures for the last 100 days", caller
+    # end
+    # reaction.release_date = release_date
+    # # Get the value of the stock when quarterly figures where published
+    # stock_opening_closing = extract_stock_value_on(reaction.release_date)
+    # reaction.price_opening = stock_opening_closing[0]
+    # reaction.price_closing = stock_opening_closing[1]
+    # LOG.debug("#{self.class}: reaction stock: #{reaction.price_opening}")
+    # LOG.debug("#{self.class}: reaction stock: #{reaction.price_closing}")
+    # # Get the value of the index when quaterly figures where published
+    # index_opening_closing = extract_index_value_on(reaction.release_date)
+    # reaction.index_opening = index_opening_closing[0]
+    # reaction.index_closing = index_opening_closing[1]
+    # LOG.debug("#{self.class}: reaction index: #{reaction.index_opening}")
+    # LOG.debug("#{self.class}: reaction index: #{reaction.index_closing}")
+  # end
 
   # Extract the opinion of the analysts (Analystenmeinungen)
   def extract_analysts_opinion(analysts_opinion)

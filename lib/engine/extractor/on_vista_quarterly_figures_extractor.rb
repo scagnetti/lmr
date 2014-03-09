@@ -42,11 +42,11 @@ class OnVistaQuarterlyFiguresExtractor
       # This is neccesary to remove HTML escaped whitespace: &nbsp;
       nbsp = Nokogiri::HTML(EscapedCharacters::SPACE).text
       raw_date = tr.xpath("td[1]").first().content().sub(nbsp,'').strip()
+      #LOG.debug("#{self.class}: Adding release date: #{raw_date}")
       raw_event = tr.xpath("td[3]").first().content().strip()
-      date = Util.to_t(raw_date)
-      
+      date = Util.to_date_time(raw_date)
       # Make sure date is in the past and the event is in the white list
-      if date < Time.now && EVENTS_WHITE_LIST.include?(raw_event)
+      if date < DateTime.now && EVENTS_WHITE_LIST.include?(raw_event)
         dates << date
         events << raw_event
       end
@@ -65,4 +65,34 @@ class OnVistaQuarterlyFiguresExtractor
     return release_date
   end
 
+  # To figure out the reaction of the market look at dates
+  # one day before and one day after the release date
+  # TODO handle dates wehen the sock exchange has closed
+  def calc_compare_dates(release_date)
+    if release_date.monday?
+      # Go to last workday, which is a Friday
+      before = release_date.prev_day(3)
+    else
+      before = release_date.prev_day()
+    end
+    LOG.debug("#{self.class}: Before release date: #{before}")
+    if release_date.friday?
+      after = release_date.next_day(3)
+    else
+      after = release_date.next_day()
+    end
+    LOG.debug("#{self.class}: After release date: #{after}")
+    return [before, after]
+  end
+  
+  # Extract newest release date, before and after date for comparison
+  def extract()
+    release = extract_release_date()
+    before_after = calc_compare_dates(release)
+    dates = Hash.new
+    dates['release'] = release
+    dates['before'] = before_after[0]
+    dates['after'] = before_after[1]
+    return dates
+  end
 end

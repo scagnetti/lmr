@@ -35,6 +35,21 @@ class Util
     end
   end
   
+  # Convert a given date pattern like 28.01.1948 (dd.MM.yyyy) into a date time object.
+  def Util.to_date_time(date)
+    match = date.match(/^(\d{2})\.(\d{2})\.(\d{4})$/)
+    if match == nil || match.size != 4
+      raise RuntimeError, "Could not parse >>#{date}<< to a date time object", caller
+    else
+      # Skipp leading zeros
+      year = match[3].to_i
+      month = match[2].sub(/^0/,'').to_i
+      day = match[1].sub(/^0/,'').to_i
+      # puts "year: #{year}, month: #{month}, day: #{day}"
+      return DateTime.new(year, month, day)
+    end
+  end
+  
   # Checks if a given information is older than a certain threshold (in seconds).
   def Util.information_expired(date, threshold)
     raise "Couldn't validate age of information because the given date is nil" if date.nil?
@@ -262,7 +277,7 @@ class Util
     return days
   end
 
-  # Check for the last date in a given array of dates.
+  # Search for the newes date in a given array of dates.
   # The date must be newer than 100 days to be valid.
   # +dates+ - an array of unsorted dates
   def Util.get_latest(dates)

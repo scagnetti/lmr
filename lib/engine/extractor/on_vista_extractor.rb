@@ -315,19 +315,26 @@ class OnVistaExtractor < BasicExtractor
   # ruby -I test test/integration/extract_reaction_on_figures_test.rb
   def extract_reaction_on_figures(reaction)
     figuresExtractor = OnVistaQuarterlyFiguresExtractor.new(@agent, @stock_page)
-    reaction.release_date = figuresExtractor.extract_release_date()
-    # Get the value of the stock when quarterly figures where published
-    asset_value = @stock_value_extractor.extract_stock_value_on(reaction.release_date)
-    reaction.price_opening = asset_value.opening()
-    reaction.price_closing = asset_value.closing()
-    LOG.debug("#{self.class}: reaction stock: #{reaction.price_opening}")
-    LOG.debug("#{self.class}: reaction stock: #{reaction.price_closing}")
-    # Get the value of the index when quaterly figures where published
-    asset_value = @index_value_extractor.extract_index_value_on(reaction.release_date)
-    reaction.index_opening = asset_value.opening()
-    reaction.index_closing = asset_value.closing()
-    LOG.debug("#{self.class}: reaction index: #{reaction.index_opening}")
-    LOG.debug("#{self.class}: reaction index: #{reaction.index_closing}")
+    dates = figuresExtractor.extract()
+    reaction.release_date = dates['release']
+    reaction.before = dates['before']
+    reaction.after = dates['after']
+    # Get the value of the stock one day before the quarterly figures where published
+    asset_value = @stock_value_extractor.extract_stock_value_on(reaction.before)
+    reaction.price_before = asset_value.closing()
+    LOG.debug("#{self.class}: Stock price one day before release: #{reaction.price_before}")
+    # Get the value of the stock one day after the quarterly figures where published
+    asset_value = @stock_value_extractor.extract_stock_value_on(reaction.after)
+    reaction.price_after = asset_value.closing()
+    LOG.debug("#{self.class}: Stock price one day after release: #{reaction.price_after}")
+    # Get the value of the index one day before the quaterly figures where published
+    asset_value = @index_value_extractor.extract_index_value_on(reaction.before)
+    reaction.index_before = asset_value.closing()
+    LOG.debug("#{self.class}: Index value one day before release: #{reaction.index_before}")
+    # Get the value of the index one day after the quaterly figures where published
+    asset_value = @index_value_extractor.extract_index_value_on(reaction.after)
+    reaction.index_after = asset_value.closing()
+    LOG.debug("#{self.class}: Index value one day after release: #{reaction.index_after}")
   end
 
   # Extract the revision of estimated profits

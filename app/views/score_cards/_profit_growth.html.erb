@@ -6,7 +6,7 @@
 	</div>
 	<% if @score_card.profit_growth.succeeded %>
 		<div class="col-xs-4 col-md-2">
-			Performance: <%= @score_card.profit_growth.perf %>%
+			Performance: <%= number_with_precision @score_card.profit_growth.perf, :precision => 2 %>%
 		</div>
 		<div class="col-xs-4 col-md-2">
 			This year (<%= @score_card.profit_growth.this_year %>): <%= @score_card.profit_growth.value_this_year %>

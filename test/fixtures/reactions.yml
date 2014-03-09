@@ -1,20 +1,20 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 positive:
-  price_opening: 33.1
-  price_closing: 33.97 #+2.6%
-  index_opening: 7156.34
-  index_closing: 7101.92 #-0.7%
+  price_before: 33.1
+  price_after: 33.97 #+2.6%
+  index_before: 7156.34
+  index_after: 7101.92 #-0.7%
 
 neutral:
-  price_opening: 32.5
-  price_closing: 33.1 #+1.8%
-  index_opening: 7156.34
-  index_closing: 7227.9 #+0.9%
+  price_before: 32.5
+  price_after: 33.1 #+1.8%
+  index_before: 7156.34
+  index_after: 7227.9 #+0.9%
 
 negative:
-  price_opening: 33.1
-  price_closing: 30.97 #-6.4%
-  index_opening: 7156.34
-  index_closing: 7101.92 #-0.7
+  price_before: 33.1
+  price_after: 30.97 #-6.4%
+  index_before: 7156.34
+  index_after: 7101.92 #-0.7
   

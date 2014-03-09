@@ -10,7 +10,7 @@ require 'engine/rating/rating_service.rb'
 # If there are less than 5 analysts watching the rating is inverted
 # ruby -I test test/unit/analysts_opinion_test.rb
 class AnalystsOpinionTest < ActiveSupport::TestCase
-#=================
+  #=================
   #=Large companies=
   #=================
   test "large cap positive" do

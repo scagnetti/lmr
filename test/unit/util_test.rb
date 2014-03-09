@@ -1,5 +1,6 @@
 require 'test_helper'
 
+# ruby -I test test/unit/util_test.rb
 class UtilTest < ActiveSupport::TestCase
   
   NEW_SPACE_TOKEN = 'check&nbsp;this'

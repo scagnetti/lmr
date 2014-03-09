@@ -6,10 +6,10 @@
 	</div>
 	<% if @score_card.reaction.succeeded %>
 		<div class="col-xs-4 col-md-2">
-			Share-Perf: <%= @score_card.reaction.share_perf %>
+			Value: <%= number_with_precision (@score_card.reaction.share_perf - @score_card.reaction.index_perf), :precision => 2 %>%
 		</div>
-	 <div class="col-xs-4 col-md-2">
-			Index-Perf: <%= @score_card.reaction.index_perf %>
+		<div class="col-xs-4 col-md-2">
+			relative to <%= @score_card.share.stock_index.name %>
 		</div>
 		<div class="col-xs-4 col-md-2">
 			<button class="btn btn-default btn-xs" data-toggle="modal" data-target="#reaction">
@@ -26,7 +26,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title" id="reactionLabel">Reaction on publication (<%= @score_card.reaction.release_date %>)</h4>
+        <h4 class="modal-title" id="reactionLabel">Reaction on Publication (<%= @score_card.reaction.release_date %>)</h4>
       </div>
       <div class="modal-body">
         <table class="table table-bordered">
@@ -41,17 +41,17 @@
 						<th>Index</th>
 					</tr>
 					<tr>
-						<td>Opening</td>
-						<td><%= @score_card.reaction.price_opening %></td>
-						<td><%= @score_card.reaction.index_opening %></td>
+						<td>Before (<%= l @score_card.reaction.before %>)</td>
+						<td><%= @score_card.reaction.price_before %></td>
+						<td><%= @score_card.reaction.index_before %></td>
 					</tr>
 					<tr>
-						<td>Closing</td>
-						<td><%= @score_card.reaction.price_closing %></td>
-						<td><%= @score_card.reaction.index_closing %></td>
+						<td>After (<%= l @score_card.reaction.after %>)</td>
+						<td><%= @score_card.reaction.price_after %></td>
+						<td><%= @score_card.reaction.index_after %></td>
 					</tr>
 					<tr>
-						<td>Perf</td>
+						<td>Performance</td>
 						<td><%= @score_card.reaction.share_perf %></td>
 						<td><%= @score_card.reaction.index_perf %></td>
 					</tr>

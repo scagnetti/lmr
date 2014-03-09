@@ -120,18 +120,20 @@ ActiveRecord::Schema.define(:version => 20130915064946) do
   end
 
   create_table "reactions", :force => true do |t|
-    t.boolean  "succeeded",     :default => true
-    t.integer  "score",         :default => -1
+    t.boolean  "succeeded",    :default => true
+    t.integer  "score",        :default => -1
     t.text     "error_msg"
     t.date     "release_date"
-    t.float    "price_opening"
-    t.float    "price_closing"
-    t.float    "index_opening"
-    t.float    "index_closing"
+    t.date     "before"
+    t.date     "after"
+    t.float    "price_before"
+    t.float    "price_after"
+    t.float    "index_before"
+    t.float    "index_after"
     t.float    "share_perf"
     t.float    "index_perf"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
   end
 
   create_table "return_on_equities", :force => true do |t|

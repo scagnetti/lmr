@@ -1,5 +1,6 @@
 require 'test_helper'
 require 'engine/extractor/on_vista_extractor.rb'
+require 'engine/types/asset_value.rb'
 
 # ruby -I test test/unit/index_value_test.rb
 class IndexValueTest < ActiveSupport::TestCase
@@ -17,15 +18,15 @@ class IndexValueTest < ActiveSupport::TestCase
     
     s = Share.where("name like ?", 'Coca%').first
     e = OnVistaExtractor.new(s)
-    open_closing = e.index_value_extractor.extract_index_value_on(DOW_DATE)
-    assert(open_closing[0] == DOW_OPENING, "Extracted stock value (#{open_closing[0]}) doesn't match expected value (#{DOW_OPENING})")
-    assert(open_closing[1] == DOW_CLOSING, "Extracted stock value (#{open_closing[1]}) doesn't match expected value (#{DOW_CLOSING})")
+    asset_value = e.index_value_extractor.extract_index_value_on(DOW_DATE)
+    assert(asset_value.opening() == DOW_OPENING, "Extracted stock value (#{asset_value.opening()}) doesn't match expected value (#{DOW_OPENING})")
+    assert(asset_value.closing() == DOW_CLOSING, "Extracted stock value (#{asset_value.closing()}) doesn't match expected value (#{DOW_CLOSING})")
     
     s = Share.where("name like ?", 'Volk%').first
     e = OnVistaExtractor.new(s)
-    open_closing = e.index_value_extractor.extract_index_value_on(DAX_COLA_DATE)
-    assert(open_closing[0] == DAX_COLA_OPENING, "Extracted stock value (#{open_closing[0]}) doesn't match expected value (#{DAX_COLA_OPENING})")
-    assert(open_closing[1] == DAX_COLA_CLOSING, "Extracted stock value (#{open_closing[1]}) doesn't match expected value (#{DAX_COLA_CLOSING})")
+    asset_value = e.index_value_extractor.extract_index_value_on(DAX_COLA_DATE)
+    assert(asset_value.opening() == DAX_COLA_OPENING, "Extracted stock value (#{asset_value.opening()}) doesn't match expected value (#{DAX_COLA_OPENING})")
+    assert(asset_value.closing() == DAX_COLA_CLOSING, "Extracted stock value (#{asset_value.closing()}) doesn't match expected value (#{DAX_COLA_CLOSING})")
   end
   
 end

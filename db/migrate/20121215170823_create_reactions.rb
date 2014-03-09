@@ -5,10 +5,12 @@ class CreateReactions < ActiveRecord::Migration
       t.integer :score, :default => -1
       t.text :error_msg
       t.date :release_date
-      t.float :price_opening
-      t.float :price_closing
-      t.float :index_opening
-      t.float :index_closing
+      t.date :before
+      t.date :after
+      t.float :price_before
+      t.float :price_after
+      t.float :index_before
+      t.float :index_after
       t.float :share_perf
       t.float :index_perf
 
