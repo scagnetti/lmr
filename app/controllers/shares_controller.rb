@@ -90,10 +90,8 @@ class SharesController < ApplicationController
   def lookup_insider_trades
     @share = Share.find(params[:id])
     results = Array.new
-    e = FinanzenExtractor.new(@share.isin, @share.stock_index.isin)
+    e = FinanzenExtractor.new(@share)
     e.extract_insider_deals(results)
-    
-    
     redirect_to @share, notice: 'Looked up insider trades successfully.'
   end
 end
