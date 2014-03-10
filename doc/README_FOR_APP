@@ -1,16 +1,14 @@
 =TODOs
 
 ===Run "rake doc:app" to generate this API documentation.
-
-* Reaction on quaterly figures: Extract closing value from day before instead of opening value
+* Update score highlighting for Small Caps and financial values (see ScoreCardHelper)
+* Adapt Tooltips for financial and small shares
+* Run insider deal calc for all shares
 * Rethink extraction and rating of profit revision 
-* Redo evaluation inside the RatingUnit and write good tests
 * Check financial flags for all shares in productive DB
 * Handle public holiday and weekends
 * Replace all Time objects with date objects
 * All price or value calculations should also return a representing date
-* Update score highlighting for Small Caps and financial values (see ScoreCardHelper)
-* Adapt Tooltips for financial and small shares
 * Care about ScoreCards.index -> StockProcessor and errors that can occur here
 * Enhance rating units to check dates (like last year) and success flag (must be set to true)
 

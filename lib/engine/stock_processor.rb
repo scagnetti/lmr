@@ -105,26 +105,26 @@ class StockProcessor
   # Applies the rating rules on the extracted figures
   def run_rating
     LOG.info("#{self.class}: Starting rating process for share: #{@score_card.share.name}")
-    @rating_unit.rate_roe(@score_card.return_on_equity)
-    @rating_unit.rate_ebit_margin(@score_card.ebit_margin)
-    @rating_unit.rate_equity_ratio(@score_card.equity_ratio)
-    @rating_unit.rate_current_price_earnings_ratio(@score_card.current_price_earnings_ratio)
-    @rating_unit.rate_average_price_earnings_ratio(@score_card.average_price_earnings_ratio)
-    @rating_unit.rate_analysts_opinion(@score_card.analysts_opinion)
-    @rating_unit.rate_reaction(@score_card.reaction)
-    @rating_unit.rate_profit_revision(@score_card.profit_revision)
+    @rating_unit.rate_roe(@score_card.return_on_equity) if @score_card.return_on_equity.succeeded
+    @rating_unit.rate_ebit_margin(@score_card.ebit_margin) if @score_card.ebit_margin.succeeded
+    @rating_unit.rate_equity_ratio(@score_card.equity_ratio) if @score_card.equity_ratio.succeeded
+    @rating_unit.rate_current_price_earnings_ratio(@score_card.current_price_earnings_ratio) if @score_card.current_price_earnings_ratio.succeeded
+    @rating_unit.rate_average_price_earnings_ratio(@score_card.average_price_earnings_ratio) if @score_card.average_price_earnings_ratio.succeeded
+    @rating_unit.rate_analysts_opinion(@score_card.analysts_opinion) if @score_card.analysts_opinion.succeeded
+    @rating_unit.rate_reaction(@score_card.reaction) if @score_card.reaction.succeeded
+    @rating_unit.rate_profit_revision(@score_card.profit_revision) if @score_card.profit_revision.succeeded
     # Note: Compare the extracted price with the current price of the stock
     @score_card.stock_price_dev_half_year.compare = @score_card.price
-    @rating_unit.rate_stock_price_dev_half_year(@score_card.stock_price_dev_half_year)
+    @rating_unit.rate_stock_price_dev_half_year(@score_card.stock_price_dev_half_year) if @score_card.stock_price_dev_half_year.succeeded
     # Note: Compare the extracted price with the current price of the stock
     @score_card.stock_price_dev_one_year.compare = @score_card.price
-    @rating_unit.rate_stock_price_dev_one_year(@score_card.stock_price_dev_one_year)
+    @rating_unit.rate_stock_price_dev_one_year(@score_card.stock_price_dev_one_year) if @score_card.stock_price_dev_one_year.succeeded
     # Note: We need to know the stock price development for past half and complete year
     @score_card.momentum.stock_price_dev_half_year = @score_card.stock_price_dev_half_year
     @score_card.momentum.stock_price_dev_one_year = @score_card.stock_price_dev_one_year
-    @rating_unit.rate_stock_price_momentum(@score_card.momentum)
-    @rating_unit.rate_reversal(@score_card.reversal)
-    @rating_unit.rate_profit_growth(@score_card.profit_growth)
+    @rating_unit.rate_stock_price_momentum(@score_card.momentum) if @score_card.momentum.succeeded
+    @rating_unit.rate_reversal(@score_card.reversal) if @score_card.reversal.succeeded
+    @rating_unit.rate_profit_growth(@score_card.profit_growth) if @score_card.profit_growth.succeeded
     
     # Sum up the single scores to the total score
     @score_card.total_score += @score_card.return_on_equity.score
