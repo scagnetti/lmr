@@ -6,7 +6,7 @@
 * Run insider deal calc for all shares
 * Rethink extraction and rating of profit revision 
 * Check financial flags for all shares in productive DB
-* Handle public holiday and weekends
+* Handle public holiday (Util.calc_compare_dates)
 * Replace all Time objects with date objects
 * All price or value calculations should also return a representing date
 * Care about ScoreCards.index -> StockProcessor and errors that can occur here

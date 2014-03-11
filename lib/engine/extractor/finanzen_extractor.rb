@@ -45,8 +45,8 @@ class FinanzenExtractor < BasicExtractor
     LOG.debug("#{self.class}: Found historical stock value for date #{tag_set[0].content()}")  
     LOG.debug("#{self.class}: Opening value #{tag_set[1].content()}")
     LOG.debug("#{self.class}: Closing value #{tag_set[2].content()}")
-    opening = Util.l10n_f(tag_set[1].content().strip())
-    closing = Util.l10n_f(tag_set[2].content().strip())
+    opening = Util.l10n_f_k(tag_set[1].content().strip())
+    closing = Util.l10n_f_k(tag_set[2].content().strip())
     return [opening, closing]
   end
 
@@ -87,11 +87,11 @@ class FinanzenExtractor < BasicExtractor
           quartal = td_list[1].content()
           raw_date = td_list[2].content().strip
           date = Util.add_millennium(raw_date)
-          release_dates << Util.to_t(date)
+          release_dates << Util.to_date_time(date)
         elsif td_list[0].content() == 'Jahresabschluss'
           raw_date = td_list[2].content().strip
           date = Util.add_millennium(raw_date)
-          release_dates << Util.to_t(date)
+          release_dates << Util.to_date_time(date)
         end
       end
     end
@@ -101,30 +101,34 @@ class FinanzenExtractor < BasicExtractor
   public
 
   # Extract the reaction on the release of quarterly figures
-  # TODO rework: onVista extractor uses already the values from on day before and one day after the release date!
-  # def extract_reaction_on_figures(reaction)
-    # dates = get_release_dates()
-    # begin
-      # release_date = Util.get_latest(dates)
-      # LOG.debug("#{self.class}: Last release date: #{release_date}")
-    # rescue RuntimeError => e
-      # LOG.warn("#{self.class}: #{e.to_s}")
-      # raise DataMiningError, "Could not find any quaterly figures for the last 100 days", caller
-    # end
-    # reaction.release_date = release_date
-    # # Get the value of the stock when quarterly figures where published
-    # stock_opening_closing = extract_stock_value_on(reaction.release_date)
-    # reaction.price_opening = stock_opening_closing[0]
-    # reaction.price_closing = stock_opening_closing[1]
-    # LOG.debug("#{self.class}: reaction stock: #{reaction.price_opening}")
-    # LOG.debug("#{self.class}: reaction stock: #{reaction.price_closing}")
-    # # Get the value of the index when quaterly figures where published
-    # index_opening_closing = extract_index_value_on(reaction.release_date)
-    # reaction.index_opening = index_opening_closing[0]
-    # reaction.index_closing = index_opening_closing[1]
-    # LOG.debug("#{self.class}: reaction index: #{reaction.index_opening}")
-    # LOG.debug("#{self.class}: reaction index: #{reaction.index_closing}")
-  # end
+  def extract_reaction_on_figures(reaction)
+    dates = get_release_dates()
+    begin
+      release_date = Util.get_latest(dates)
+      LOG.debug("#{self.class}: Last release date: #{release_date}")
+    rescue RuntimeError => e
+      LOG.warn("#{self.class}: #{e.to_s}")
+      raise DataMiningError, "Could not find any quaterly figures for the last 100 days", caller
+    end
+    before_after = Util.calc_compare_dates(release_date)
+    reaction.release_date = release_date
+    reaction.before = before_after[0]
+    reaction.after = before_after[1]
+    # Get the value of the stock when quarterly figures where published
+    stock_opening_closing = extract_stock_value_on(reaction.before)
+    reaction.price_before = stock_opening_closing[1]
+    LOG.debug("#{self.class}: Stock price one day before release: #{reaction.price_before}")
+    stock_opening_closing = extract_stock_value_on(reaction.after)
+    reaction.price_after = stock_opening_closing[1]
+    LOG.debug("#{self.class}: Stock price one day after release: #{reaction.price_after}")
+    # Get the value of the index when quaterly figures where published
+    index_opening_closing = extract_index_value_on(reaction.before)
+    reaction.index_before = index_opening_closing[1]
+    LOG.debug("#{self.class}: Index value one day before release: #{reaction.index_before}")
+    index_opening_closing = extract_index_value_on(reaction.after)
+    reaction.index_after = index_opening_closing[1]
+    LOG.debug("#{self.class}: Index value one day after release: #{reaction.index_after}")
+  end
 
   # Extract the opinion of the analysts (Analystenmeinungen)
   def extract_analysts_opinion(analysts_opinion)
@@ -191,7 +195,7 @@ class FinanzenExtractor < BasicExtractor
         deal.occurred = real_date
         deal.person = cells[1].content()
         deal.quantity = cells[2].content().sub(/\./, '')
-        deal.price =Util.l10n_f(cells[3].content())
+        deal.price =Util.l10n_f_k(cells[3].content())
         action = cells[4].content()
         if action == 'Kauf'
           deal.trade_type = Transaction::BUY

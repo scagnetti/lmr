@@ -1,5 +1,4 @@
 require 'engine/extractor/on_vista_extractor.rb'
-require 'engine/extractor/boerse_extractor.rb'
 require 'engine/extractor/finanzen_extractor.rb'
 require 'engine/rating/rating_service.rb'
 
@@ -34,7 +33,6 @@ class StockProcessor
     LOG.info("#{self.class}: Initializing extractor: FinanzenExtractor")
     @extractors << FinanzenExtractor.new(@score_card.share)
     LOG.info("#{self.class}: Initialization of extractor: FinanzenExtractor completed")
-    #@extractors << BoerseExtractor.new(@score_card.share)
     rating_service = RatingService.new
     @rating_unit = rating_service.choose_rating_unit(@score_card.share.size, @score_card.share.financial)
     LOG.info("#{self.class}: Using #{@rating_unit.class}")

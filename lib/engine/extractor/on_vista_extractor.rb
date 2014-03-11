@@ -198,7 +198,7 @@ class OnVistaExtractor < BasicExtractor
     raise DataMiningError, "Could not extract current stock price", caller if tag_set.nil? || tag_set.size() != 2
     raw_price_now = tag_set[0].content().strip()
     currency = tag_set[1].content().strip()
-    price_now = Util.l10n_f(raw_price_now)
+    price_now = Util.l10n_f_k(raw_price_now)
     LOG.debug("#{self.class}: Stock price: #{price_now} #{currency}")
     return Hash[PRICE => price_now, CURRENCY => currency]
   end
@@ -281,11 +281,11 @@ class OnVistaExtractor < BasicExtractor
     average_price_earnings_ratio.two_years_ago = years[4].to_i
     average_price_earnings_ratio.three_years_ago = years[5].to_i
     
-    average_price_earnings_ratio.value_next_year = Util.l10n_f(values[1])
-    average_price_earnings_ratio.value_this_year = Util.l10n_f(values[2])
-    average_price_earnings_ratio.value_last_year = Util.l10n_f(values[3])
-    average_price_earnings_ratio.value_two_years_ago = Util.l10n_f(values[4])
-    average_price_earnings_ratio.value_three_years_ago = Util.l10n_f(values[5])
+    average_price_earnings_ratio.value_next_year = Util.l10n_f_k(values[1])
+    average_price_earnings_ratio.value_this_year = Util.l10n_f_k(values[2])
+    average_price_earnings_ratio.value_last_year = Util.l10n_f_k(values[3])
+    average_price_earnings_ratio.value_two_years_ago = Util.l10n_f_k(values[4])
+    average_price_earnings_ratio.value_three_years_ago = Util.l10n_f_k(values[5])
 
     LOG.debug("#{self.class}: Price earnings ratio (KGV) #{average_price_earnings_ratio.next_year}: #{average_price_earnings_ratio.value_next_year}")
     LOG.debug("#{self.class}: Price earnings ratio (KGV) #{average_price_earnings_ratio.this_year}: #{average_price_earnings_ratio.value_this_year}")
@@ -315,7 +315,7 @@ class OnVistaExtractor < BasicExtractor
   # ruby -I test test/integration/extract_reaction_on_figures_test.rb
   def extract_reaction_on_figures(reaction)
     figuresExtractor = OnVistaQuarterlyFiguresExtractor.new(@agent, @stock_page)
-    dates = figuresExtractor.extract()
+    dates = figuresExtractor.extract_relevant_dates()
     reaction.release_date = dates['release']
     reaction.before = dates['before']
     reaction.after = dates['after']

@@ -30,10 +30,9 @@ class OnVistaQuarterlyFiguresExtractor
     LOG.info("#{self.class}: Initialization successful")
   end
   
-  # Extract the value of the stock and the value of the index
-  # when the quarterly figures were released.
+  # Extract two important dates: one day before the quarterly figures where released and one day after
   # http://www.onvista.de/aktien/dividendenkalender.html?tab=company&cid=46827&y=2013
-  def extract_release_date()
+  def extract_relevant_dates()
     dates = Array.new
     events = Array.new
     tag_set = @extended_appointment_page.parser().xpath("(//table)[2]//following-sibling::tr[position()>1]")
@@ -62,37 +61,12 @@ class OnVistaQuarterlyFiguresExtractor
       LOG.warn("#{self.class}: #{e.to_s}")
       raise DataMiningError, "Could not find any quaterly figures for the last 100 days", caller
     end
-    return release_date
-  end
-
-  # To figure out the reaction of the market look at dates
-  # one day before and one day after the release date
-  # TODO handle dates wehen the sock exchange has closed
-  def calc_compare_dates(release_date)
-    if release_date.monday?
-      # Go to last workday, which is a Friday
-      before = release_date.prev_day(3)
-    else
-      before = release_date.prev_day()
-    end
-    LOG.debug("#{self.class}: Before release date: #{before}")
-    if release_date.friday?
-      after = release_date.next_day(3)
-    else
-      after = release_date.next_day()
-    end
-    LOG.debug("#{self.class}: After release date: #{after}")
-    return [before, after]
-  end
-  
-  # Extract newest release date, before and after date for comparison
-  def extract()
-    release = extract_release_date()
-    before_after = calc_compare_dates(release)
+    before_after = Util.calc_compare_dates(release_date)
     dates = Hash.new
-    dates['release'] = release
+    dates['release'] = release_date
     dates['before'] = before_after[0]
     dates['after'] = before_after[1]
     return dates
   end
+
 end
