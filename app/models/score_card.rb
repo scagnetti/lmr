@@ -17,12 +17,14 @@ class ScoreCard < ActiveRecord::Base
   belongs_to :profit_growth
 
   # We are only interested in the latest score card of a share
+  # select * from score_cards group by share_id having max(created_at);
+  scope :latest_only , group("share_id").having("max(score_cards.created_at)").order("total_score DESC")
   #SELECT id, max(created_at) from score_cards group by share_id
   #SELECT * from score_cards where created_at = (select max(created_at) from score_cards as sub where sub.share_id = score_cards.share_id)
   #select * from score_cards where id in (SELECT id from score_cards group by share_id order by score_cards.created_at DESC) order by total_score DESC
   #Doesn't work on MYSQL
   #scope :latest_only, where("score_cards.id in (SELECT id from score_cards group by share_id order by score_cards.created_at DESC)").order("total_score DESC")
-  scope :latest_only , where("created_at = (select max(created_at) from score_cards as sub where sub.share_id = score_cards.share_id)").order("total_score DESC")
+  #scope :latest_only , where("created_at = (select max(created_at) from score_cards as sub where sub.share_id = score_cards.share_id)").order("total_score DESC")
 
   # scope :created_filter, ->(d) { where("date(created_at) = ?", d) }
   

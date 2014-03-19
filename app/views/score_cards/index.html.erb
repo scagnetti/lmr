@@ -8,11 +8,16 @@
 	<div class="col-xs-12 col-md-12">
 		<%= form_tag(score_cards_path, {:method => "get", :name => "search_form", :class => "form-inline"}) do %>
 				<div class="form-group">
-					<%= label_tag(:share_name, "Share", :class => "sr-only") %>
-					<%= text_field_tag(:share_name, @share_name, {:class => "form-control", :placeholder => "Share", :autofocus => "autofocus"}) %>
+					<div class="input-group">
+			      <%= label_tag(:share_name, "Share", :class => "sr-only") %>
+						<%= text_field_tag(:share_name, @share_name, {:class => "form-control", :placeholder => "Share Name", :autofocus => "autofocus"}) %>
+			      <span class="input-group-btn">
+			        <%= button_tag(type: "submit", class: "btn btn-default") do %>
+			    			<span class="glyphicon glyphicon-search"></span>
+							<% end %>
+			      </span>
+			    </div>
 				</div>
-				<%= submit_tag("Clear", :name => "clear_form", :type => "reset", :class => "btn btn-default", :data => {clear_form: "dummy"}) %>
-				<%= submit_tag("Apply", :name => "apply_pattern", :class => "btn btn-default") %>
 		<% end %>
 	</div>
 </div>

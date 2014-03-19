@@ -95,7 +95,7 @@ namespace :ex do
   
   desc "Extract the reaction on quarterly figures (onVista)"
   task :reaction => :environment do
-    s = Share.where("name like ?", 'Goo%').first
+    s = Share.where("isin like ?", 'DE0006483001').first
     e = OnVistaExtractor.new(s)
     e.extract_reaction_on_figures(Reaction.new)
   end

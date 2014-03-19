@@ -23,7 +23,6 @@ class OnVistaStockValueExtractor
     history_page = @agent.get(search_url)
     td_set = history_page.parser().xpath("//span[.='#{search_date}']/../../following-sibling::td")
     raise DataMiningError, "Could not get a stock price for the given date (#{search_date})", caller if td_set.nil? || td_set.size != 5
-    LOG.info("td_set[3].content().strip(): #{td_set[3].content().strip()}")
     av.opening = Util.l10n_f_k(td_set[0].content().strip())
     av.closing = Util.l10n_f_k(td_set[3].content().strip())
     LOG.debug("#{self.class}: Opening value #{av.opening}")
