@@ -5,9 +5,7 @@ class ScoreCardsController < ApplicationController
   # GET /score_cards.json
   def index
     @share_name = params[:share_name]
-    #@score_cards = ScoreCard.creation(@created).share_name(@share_name).page(params[:page]).per(20)
-    #@score_cards = ScoreCard.find_by_sql("select * from score_cards where id in (SELECT id from score_cards group by share_id order by score_cards.created_at DESC) order by total_score DESC")
-    @score_cards = ScoreCard.latest_only.share_name(@share_name).page(params[:page]).per(20)
+    @score_cards = ScoreCard.latest_only.share_name(@share_name).order("total_score DESC").page(params[:page]).per(20)
     
     respond_to do |format|
       format.html # index.html.erb
