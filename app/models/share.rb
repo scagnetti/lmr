@@ -1,5 +1,5 @@
 class Share < ActiveRecord::Base
-  attr_accessible :financial, :isin, :name, :size, :currency, :stock_exchange
+  attr_accessible :financial, :isin, :name, :size, :currency, :stock_exchange, :stock_index_id
   belongs_to :stock_index
   has_many :insider_deals, :limit => 20
   has_many :score_cards

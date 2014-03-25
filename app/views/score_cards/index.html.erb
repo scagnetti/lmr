@@ -42,8 +42,8 @@
 			    <th>Created</th>
 			    <th>Show</th>
 			    <th>Share</th>
-			    <th>Financial</th>
-			    <th></th>
+			    <th>ING DiBa</th>
+			    <!-- <th></th> -->
 			  </tr>
 				<% @score_cards.each do |score_card| %>
 				  <tr>
@@ -51,8 +51,8 @@
 				    <td><%= l score_card.created_at %></td>
 				    <td><%= link_to 'Score Card', score_card %></td>
 				    <td nowrap><%= link_to "#{score_card.share.name}" , score_card.share %></td>
-				    <td><%= score_card.share.financial %></td>
-				    <td><%= link_to 'Destroy', score_card, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+				    <td><%= link_to "Open", "https://wertpapiere.ing-diba.de/DE/Showpage.aspx?pageID=23&ISIN=#{score_card.share.isin}", :target => "_blank" %></td>
+				    <!-- <td><%= link_to 'Destroy', score_card, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
 				  </tr>
 				<% end %>
 			</table>

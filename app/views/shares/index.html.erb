@@ -43,7 +43,7 @@
 			  	<th>ISIN</th>
 			    <th>Active</th>
 			    <th></th>
-			    <th></th>
+			    <!-- <th></th> -->
 			  </tr>
 				<% @shares.each do |share| %>
 				  <tr>
@@ -52,7 +52,7 @@
 				    <td><%= share.active %></td>
 				    <td><%= link_to 'Evaluate', "/score_cards/assess_share/#{share.isin}",
 				    					{:method => :put, :class => "btn btn-default btn-xs", "data-toggle" => "modal", "data-target" => "#busyScreen"} %></td>
-				    <td><%= link_to 'Destroy', share, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+				    <!-- <td><%= link_to 'Destroy', share, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
 				  </tr>
 				<% end %>
 			</table>

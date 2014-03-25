@@ -28,13 +28,13 @@
 			  <tr>
 			    <th>Name</th>
 			    <th>ISIN</th>
-			    <th></th>
+			    <!-- <th></th> -->
 			  </tr>
 				<% @stock_indices.each do |stock_index| %>
 				  <tr>
 				  	<td><%= link_to stock_index.name, stock_index %></td>
 				    <td><%= stock_index.isin %></td>
-				    <td><%= link_to 'Destroy', stock_index, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+				    <!-- <td><%= link_to 'Destroy', stock_index, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
 				  </tr>
 				<% end %>
 			</table>

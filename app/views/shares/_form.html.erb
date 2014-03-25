@@ -31,7 +31,8 @@
 		  </div>
 		  <div class="form-group">
 		    <%= f.label(I18n.t(:index)) %>
-		    <%= select_tag :stock_index, options_from_collection_for_select(StockIndex.all, :id, :name), :class => "form-control" %>
+		    <%= f.select :stock_index_id, StockIndex.all.collect {|si| [ si.name, si.id ] }, {}, :class => "form-control" %>
+		    
 		  </div>
 		  <div class="form-group">
 		    <%= f.label :financial %>

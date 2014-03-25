@@ -31,6 +31,7 @@
 			<span class="label label-default"><%= to_readable_comp_size(@share.size) %></span>
 			<span class="label label-default"><%= @share.currency %></span>
 			<span class="label label-default"><%= @share.stock_exchange %></span>
+			<span class="label label-default"><%= @share.stock_index.name %></span>
 			<% if @share.financial %><span class="label label-default">Financial</span><% end %>
 		</p>
 	</div>
