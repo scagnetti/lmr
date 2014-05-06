@@ -17,3 +17,5 @@
 * Börsenfeiertage: https://www.ing-diba.de/popups/wertpapiere/boersenfeiertage.html
 * Quarterly figures for US stocks: http://quicktake.morningstar.com/StockNet/SECDocuments.aspx?Symbol=MMM&Country=usa
 * Samsung S3 Display: 720 x 1.280 Pixel
+* Find all Score Cards for a share by SQL
+  select score_cards.created_at from score_cards join shares on score_cards.share_id = shares.id where shares.name like "Micro%" order by score_cards.created_at DESC;

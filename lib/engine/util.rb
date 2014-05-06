@@ -300,8 +300,9 @@ class Util
     return latest
   end
   
-  # Calculates one day before and one day after the given date, avoiding weekends
-  # TODO handle dates wehen the sock exchange has closed
+  # Calculates one day before and one day after the given date, avoiding weekends.
+  # If the given date is today one day after is also today.
+  # TODO handle dates when the sock exchange has closed
   # +date+ - the date used for the calculation
   def Util.calc_compare_dates(date)
     if date.monday?
@@ -311,7 +312,9 @@ class Util
       before = date.prev_day()
     end
     LOG.debug("#{self.class}: Before release date: #{before}")
-    if date.friday?
+    if date == Date.today
+      after = date
+    elsif date.friday?
       after = date.next_day(3)
     else
       after = date.next_day()

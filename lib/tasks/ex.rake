@@ -164,8 +164,13 @@ namespace :ex do
   #======================
   
   desc "Try to rate a specific share"
-  task :rate_one => :environment do 
-    s = Share.where("isin = ?", "US0378331005").first
+  task :rate_one, [:isin] => :environment do |t, args|
+    if args[:isin] == nil
+      isin = "US0378331005"
+    else
+      isin = args[:isin]
+    end
+    s = Share.where("isin = ?", isin).first
     score_card = ScoreCard.new()
     score_card.share = s
     begin
