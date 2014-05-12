@@ -270,4 +270,57 @@ namespace :ex do
     page = @agent.get(url)
   end
 
+  desc "Find shares with solid rising trend"
+  task :rise, [:isin] => :environment do |t, args|
+    if args[:isin] == nil
+      shares = Share.where('active' => true)
+    else
+      shares = Share.where('active' => true, 'isin' => args[:isin])
+    end
+    @agent = Mechanize.new do |agent|
+      agent.user_agent_alias = 'Linux Firefox'
+      agent.open_timeout=60000
+      agent.read_timeout=60000
+      # Comment in to make use of TOR
+      if Rails.env == 'production'
+       puts("#{self.class}: Using proxy configuration for TOR")
+       agent.set_proxy('127.0.0.1', 8118)
+      else
+        puts("#{self.class}: TOR is disabled")
+      end
+    end
+    score = Hash.new
+    shares.each do |s|
+      page = @agent.get("http://kurse.boerse.ard.de/")
+      form = page.form_with(:name => "Suche")
+      form["suchbegriff"] = s.isin
+      p = form.submit     
+      p.links.each do |l|
+        if l.text() == 'Kurshistorie'
+          h = l.click()
+          td_set = h.parser().xpath("//tbody/tr/td[position() = 5]")
+          last_value = 100000
+          rising_days = -1
+          td_set.each do |td|
+            md = /(\d{1,6},\d{2,3}).*/.match(td.content())
+            current_value = md[1].sub(',', '.').to_f
+            if current_value <= last_value
+              last_value = current_value
+              rising_days += 1
+            else
+              break
+            end
+          end
+          score[s.isin] = rising_days
+          
+        end
+      end
+    end
+    sorted = score.sort_by{|k, v| v}
+    sorted.each do |k,v|
+      share = Share.where('isin' => k).first
+      puts "#{v} days rising - #{share.name} (#{k})"
+    end
+  end
+  
 end

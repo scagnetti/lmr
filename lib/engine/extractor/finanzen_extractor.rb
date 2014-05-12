@@ -30,13 +30,13 @@ class FinanzenExtractor < BasicExtractor
 
   def extract_stock_value_on(date)
     result_page = @historical_stock_page.form_with(:action => /\/kurse\/kurse_historisch\.asp/) do |form|
-      form.dtTag1 = date.day
-      form.dtMonat1 = date.month
-      form.dtJahr1 = date.year
+      form.inTag1 = date.day
+      form.inMonat1 = date.month
+      form.inJahr1 = date.year
       form.fields.last.value = EXCHANGE_MAP[@share.stock_exchange]
-      form.dtTag2 = date.day
-      form.dtMonat2 = date.month
-      form.dtJahr2 = date.year
+      form.inTag2 = date.day
+      form.inMonat2 = date.month
+      form.inJahr2 = date.year
     end.submit
     tag_set = result_page.parser().xpath("//h2[contains(.,'Historische Kurse')]/../following-sibling::div//tr[2]/td")
     if tag_set == nil || tag_set.size() != 6
