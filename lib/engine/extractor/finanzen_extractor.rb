@@ -29,7 +29,7 @@ class FinanzenExtractor < BasicExtractor
   private
 
   def extract_stock_value_on(date)
-    result_page = @historical_stock_page.form_with(:action => /\/kurse\/kurse_historisch\.asp/) do |form|
+    result_page = @historical_stock_page.form_with(:action => /\/historische-kurse.*/) do |form|
       form.inTag1 = date.day
       form.inMonat1 = date.month
       form.inJahr1 = date.year
