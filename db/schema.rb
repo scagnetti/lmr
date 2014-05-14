@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130915064946) do
+ActiveRecord::Schema.define(:version => 20140514180121) do
 
   create_table "analysts_opinions", :force => true do |t|
     t.boolean  "succeeded",  :default => true
@@ -170,6 +170,14 @@ ActiveRecord::Schema.define(:version => 20130915064946) do
     t.float    "index_perf_one_month_ago"
     t.datetime "created_at",                                    :null => false
     t.datetime "updated_at",                                    :null => false
+  end
+
+  create_table "rising_scores", :force => true do |t|
+    t.integer  "share_id"
+    t.integer  "days"
+    t.string   "isin"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "score_cards", :force => true do |t|

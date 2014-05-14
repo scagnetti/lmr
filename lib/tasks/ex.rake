@@ -289,8 +289,11 @@ namespace :ex do
         puts("#{self.class}: TOR is disabled")
       end
     end
+    puts "#{self.class}: Processing #{shares.size} shares"
     score = Hash.new
     shares.each do |s|
+      print "."
+      $stdout.flush
       page = @agent.get("http://kurse.boerse.ard.de/")
       form = page.form_with(:name => "Suche")
       form["suchbegriff"] = s.isin
@@ -312,7 +315,11 @@ namespace :ex do
             end
           end
           score[s.isin] = rising_days
-          
+          rs = RisingScore.new
+          rs.share_id = s.id
+          rs.isin = s.isin
+          rs.days = rising_days
+          rs.save!
         end
       end
     end
