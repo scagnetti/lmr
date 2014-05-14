@@ -1,0 +1,25 @@
+<%= form_for(@rising_score) do |f| %>
+  <% if @rising_score.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@rising_score.errors.count, "error") %> prohibited this rising_score from being saved:</h2>
+
+      <ul>
+      <% @rising_score.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :days %><br />
+    <%= f.number_field :days %>
+  </div>
+  <div class="field">
+    <%= f.label :isin %><br />
+    <%= f.text_field :isin %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
