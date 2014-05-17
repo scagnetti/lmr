@@ -1,33 +1,48 @@
-<h1>Listing insider_deals</h1>
+<div class="row">
+	<div class="col-xs-12 col-md-12">
+		<h1>Insider Deals</h1>
+	</div>
+</div>
 
-<table>
-  <tr>
-    <th>Occurred</th>
-    <th>Person</th>
-    <th>Quanity</th>
-    <th>Price</th>
-    <th>Type</th>
-    <th>Link</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<div class="row">
+	<div class="col-xs-6 col-md-4">
+		<%= paginate @insider_deals %>
+	</div>
+	<div class="col-xs-6 col-md-offset-6 col-md-2">
+		<div class="pull-right pagination">
+			<%= @insider_deals.offset_value + 1 %> - <%= @insider_deals.offset_value + @insider_deals.length %> of <%= @insider_deals.total_count %>
+		</div>
+	</div>
+</div>
 
-<% @insider_deals.each do |insider_deal| %>
-  <tr>
-    <td><%= insider_deal.occurred %></td>
-    <td><%= insider_deal.person %></td>
-    <td><%= insider_deal.quanity %></td>
-    <td><%= insider_deal.price %></td>
-    <td><%= insider_deal.type %></td>
-    <td><%= insider_deal.link %></td>
-    <td><%= link_to 'Show', insider_deal %></td>
-    <td><%= link_to 'Edit', edit_insider_deal_path(insider_deal) %></td>
-    <td><%= link_to 'Destroy', insider_deal, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
+<div class="row">
+	<div class="col-xs-12 col-md-12">
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<tr>
+					<th>Occurred</th>
+					<th>Action</th>
+					<th>Company</th>
+					<th>Person</th>
+					<th>Price</th>
+					<th>Quanity</th>
+					<th>Volume</th>
+					<th>Source</th>
+				</tr>
 
-<br />
-
-<%= link_to 'New Insider deal', new_insider_deal_path %>
+				<% @insider_deals.each do |insider_deal| %>
+				<tr>
+					<td><%= insider_deal.occurred %></td>
+					<td><%= as_string(insider_deal.trade_type) %></td>
+					<td><%= insider_deal.share.name %></td>
+					<td><%= insider_deal.person %></td>
+					<td><%= insider_deal.price %></td>
+					<td><%= insider_deal.quantity %></td>
+					<td><%= number_with_precision(insider_deal.price * insider_deal.quantity, precision: 0, delimiter: ' ') %></td>
+					<td><%= link_to('Show details', insider_deal.link, :target => "_blank") %></td>
+				</tr>
+				<% end %>
+			</table>
+		</div>
+	</div>
+</div>
