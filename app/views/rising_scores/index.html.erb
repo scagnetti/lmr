@@ -5,15 +5,24 @@
 </div>
 
 <div class="row">
+	<div class="col-xs-6 col-md-4">
+		<%= paginate @rising_scores %>
+	</div>
+	<div class="col-xs-6 col-md-offset-6 col-md-2">
+		<div class="pull-right pagination">
+			<%= @rising_scores.offset_value + 1 %> - <%= @rising_scores.offset_value + @rising_scores.length %> of <%= @rising_scores.total_count %>
+		</div>
+	</div>
+</div>
+
+<div class="row">
 	<div class="col-xs-12 col-md-12">
 		<div class="table-responsive">
 			<table class="table table-hover">
 				<tr>
 					<th>Days</th>
-					<th>Isin</th>
+					<th>Company</th>
 					<th>Created</th>
-					<th></th>
-					<th></th>
 				</tr>
 
 				<% @rising_scores.each do |rising_score| %>
@@ -21,15 +30,9 @@
 					<td><%= rising_score.days %></td>
 					<td><%= rising_score.share.name %></td>
 					<td><%= l rising_score.created_at %></td>
-					<td><%= link_to 'Show', rising_score %></td>
-					<td><%= link_to 'Destroy', rising_score, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 				</tr>
 				<% end %>
 			</table>
 		</div>
 	</div>
 </div>
-
-<br />
-
-<%= link_to 'New Rising score', new_rising_score_path %>
