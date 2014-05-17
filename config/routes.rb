@@ -1,10 +1,16 @@
 Lmr::Application.routes.draw do
-
-  resources :rising_scores
-
-
   # The priority is based upon order of creation:
   # first created -> highest priority.
+
+  get "log_in" => "sessions#new", :as => "log_in"
+  
+  get "log_out" => "sessions#destroy", :as => "log_out"
+
+  get "sign_up" => "users#new", :as => "sign_up"
+  
+  resources :sessions
+  
+  resources :users
 
   resources :score_cards
 
@@ -17,6 +23,8 @@ Lmr::Application.routes.draw do
   resources :stock_indices
   
   resources :insider_deals
+  
+  resources :rising_scores
 
   match '/score_cards/assess_share/:isin' => 'score_cards#assess_share'
 

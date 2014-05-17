@@ -27,6 +27,16 @@
           <li class=<%= check_place(shares_path, request.fullpath)%>><%= link_to 'Shares', shares_path %></li>
           <li class=<%= check_place(stock_indices_path, request.fullpath)%>><%= link_to 'Stock Indices', stock_indices_path %></li>
         </ul>
+        <% if current_user %>
+	        <p class="navbar-text navbar-right">
+	        	<span class="glyphicon glyphicon-user" data-toggle="tooltip" data-placement="bottom" title="<%= current_user.email %>" ></span>
+	        	<%= link_to "Log out", log_out_path, :class => 'navbar-link' %>
+	        </p>
+        <% else %>
+        	<p class="navbar-text navbar-right">
+	        	<%= link_to "Log in", log_in_path, :class => 'navbar-link' %>
+	        </p>
+        <% end %>
       </div>
     </div>
   </div>
