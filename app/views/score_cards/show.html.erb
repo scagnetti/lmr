@@ -7,17 +7,6 @@
 	</div>
 </div>
 
-<% if notice != nil %>
-	<div class="row">
-		<div class="col-md-6 col-md-offset-3">
-		  <div class="alert alert-success alert-dismissable">
-		  	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-		  	<strong>Info:</strong> <%= notice %>
-		  </div>
-		</div>
-	</div>
-<% end %>
-
 <div class="row">
 	<div class="col-xs-12 col-md-12">
 		<h1>Total Score for <%= link_to @score_card.share.name, @score_card.share %> is <span class="<%= highlight(@score_card.total_score) %>"><%= @score_card.total_score %></span></h1>

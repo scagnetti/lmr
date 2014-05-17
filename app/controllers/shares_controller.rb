@@ -92,6 +92,6 @@ class SharesController < ApplicationController
     results = Array.new
     e = FinanzenExtractor.new(@share)
     e.extract_insider_deals(results)
-    redirect_to @share, notice: 'Looked up insider trades successfully.'
+    redirect_to "/insider_deals?share_id=#{@share.id}", notice: 'Looked up insider deals successfully.'
   end
 end

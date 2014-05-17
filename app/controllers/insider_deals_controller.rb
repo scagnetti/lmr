@@ -2,7 +2,8 @@ class InsiderDealsController < ApplicationController
   # GET /insider_deals
   # GET /insider_deals.json
   def index
-    @insider_deals = InsiderDeal.order(occurred: :desc).page(params[:page]).per(20)
+    @share_id = params[:share_id]
+    @insider_deals = InsiderDeal.restrict(@share_id).page(params[:page]).per(20)
 
     respond_to do |format|
       format.html # index.html.erb

@@ -17,3 +17,12 @@
 
 body { padding-top: 70px; }
 
+.info_box {
+	position: absolute;
+	z-index: 1060;
+	width: 100%;
+	clear: both;
+	top:60px;
+	left:0px;
+}
+

@@ -22,15 +22,25 @@
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
           <li class=<%= check_place(score_cards_path, request.fullpath)%>><%= link_to 'Score Cards', score_cards_path %></li>
+          <li class=<%= check_place(rising_scores_path, request.fullpath)%>><%= link_to 'Rising Price', rising_scores_path %></li>
+          <li class=<%= check_place(insider_deals_path, request.fullpath)%>><%= link_to 'Insider Deals', insider_deals_path %></li>
           <li class=<%= check_place(shares_path, request.fullpath)%>><%= link_to 'Shares', shares_path %></li>
           <li class=<%= check_place(stock_indices_path, request.fullpath)%>><%= link_to 'Stock Indices', stock_indices_path %></li>
-          <li class=<%= check_place(rising_scores_path, request.fullpath)%>><%= link_to 'Rising Scores', rising_scores_path %></li>
-          <li class=<%= check_place(insider_deals_path, request.fullpath)%>><%= link_to 'Insider Deals', insider_deals_path %></li>
         </ul>
       </div>
     </div>
   </div>
 	<div id="content" class="container">
+		<% if notice != nil %>
+			<div class="info_box">
+				<div class="center-block" style="width: 400px;">
+				  <div class="alert alert-success alert-dismissable">
+				  	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				  	<strong><%= notice %></strong>
+				  </div>
+				</div>
+			</div>
+		<% end %>
 		<%= yield %>
 	</div>
 </body>
