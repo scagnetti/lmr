@@ -24,9 +24,9 @@ class OnVistaExtractor < BasicExtractor
 
   def initialize(share)
     super(ON_VISTA_URL, share)
-    LOG.debug("#{self.class}: Open OnVista with share: #{share.name} (#{share.isin}) and stock index: #{share.stock_index.name} (#{share.stock_index.isin})")
+    Rails.logger.debug("#{self.class}: Open OnVista with share: #{share.name} (#{share.isin}) and stock index: #{share.stock_index.name} (#{share.stock_index.isin})")
     @stock_page = perform_search("action", 'http://www.onvista.de/suche/', "searchValue", share.isin, SUCCESS_XPATH, SUCCESS_VALUE_STOCK)
-    LOG.debug("#{self.class}: Loaded content of: #{@stock_page.uri.to_s}")
+    Rails.logger.debug("#{self.class}: Loaded content of: #{@stock_page.uri.to_s}")
     if using_right_stock_exchange? == false
       switch_stock_exchange()
     end
@@ -35,7 +35,7 @@ class OnVistaExtractor < BasicExtractor
     @index_value_extractor = OnVistaIndexValueExtractor.new(@agent, index_page)
     @key_figures_page = open_sub_page('Fundamental', 1, 0)
     @end_of_business_year = extract_end_of_business_year()
-    LOG.debug("#{self.class}: Initialization successful")
+    Rails.logger.debug("#{self.class}: Initialization successful")
   end
 
 
@@ -49,12 +49,12 @@ class OnVistaExtractor < BasicExtractor
     span_set = @stock_page.parser().xpath("//div[@id='exchangesLayer']/span/child::text()")
     raise DataMiningError, "Could not extract used stock exchange", caller if span_set.nil? || span_set.size < 1
     found_stock_exchange = span_set[0].content().strip()
-    LOG.debug("#{self.class}: Used stock exchange is: #{found_stock_exchange}")
+    Rails.logger.debug("#{self.class}: Used stock exchange is: #{found_stock_exchange}")
     if found_stock_exchange == @share.stock_exchange
-      LOG.debug("#{self.class}: Used stock exchange matches required stock exchange")
+      Rails.logger.debug("#{self.class}: Used stock exchange matches required stock exchange")
       return true
     else
-      LOG.debug("#{self.class}: Stock exchange missmatch! Required stock exchange is #{@share.stock_exchange}")
+      Rails.logger.debug("#{self.class}: Stock exchange missmatch! Required stock exchange is #{@share.stock_exchange}")
       return false
     end
   end
@@ -64,10 +64,10 @@ class OnVistaExtractor < BasicExtractor
   def switch_stock_exchange()
     anchor_set = @stock_page.parser().xpath("//div[@id='exchangesLayer']/ul/li/a[contains(.,'#{@share.stock_exchange}')]")
     raise DataMiningError, "Could not set stock exchange to #{@share.stock_exchange}", caller if anchor_set.nil? || anchor_set.size != 1
-    LOG.debug("#{self.class}: Switching stock exchange to #{@share.stock_exchange}")
+    Rails.logger.debug("#{self.class}: Switching stock exchange to #{@share.stock_exchange}")
     uri = @stock_page.uri.to_s << anchor_set[0].attr('href')
     @stock_page = @agent.get(uri)
-    LOG.debug("#{self.class}: Loaded content of #{uri}")
+    Rails.logger.debug("#{self.class}: Loaded content of #{uri}")
   end
   
   # The business year can end at the end of the year or in the middle
@@ -76,7 +76,7 @@ class OnVistaExtractor < BasicExtractor
     span_set = @key_figures_page.parser().xpath("//span[contains(.,'Geschäftsjahresende')]")
     raise DataMiningError, "Could not extract >>Geschäftsjahresende<< on key figures page", caller if span_set.nil? || span_set.size < 1
     value = span_set[0].content.strip().sub(/Geschäftsjahresende:\s/, '')
-    LOG.debug("#{self.class}: End of business year: #{value}")
+    Rails.logger.debug("#{self.class}: End of business year: #{value}")
     return value
   end
   
@@ -85,7 +85,7 @@ class OnVistaExtractor < BasicExtractor
   def get_on_vista_stock_id()
     uri = @stock_page.canonical_uri()
     stock_id = uri.to_s.sub(/.*\//, '').sub(/\?.*/, '')
-    LOG.debug("#{self.class}: ID of stock: #{stock_id}")
+    Rails.logger.debug("#{self.class}: ID of stock: #{stock_id}")
     return stock_id
   end
 
@@ -104,7 +104,7 @@ class OnVistaExtractor < BasicExtractor
       years = normalize(years)
     end
     years.each do |y|
-      LOG.debug("#{self.class}: Searching for #{figure} of the year #{y}")
+      Rails.logger.debug("#{self.class}: Searching for #{figure} of the year #{y}")
     end
     return years
   end
@@ -119,7 +119,7 @@ class OnVistaExtractor < BasicExtractor
     # Access the content of the node and remove any pre- and postfix around the value
     values = values_set.map{|x| x.content().strip().sub(/^+/,'').sub(/$%/,'')}
     values.each do |v|
-      LOG.debug("#{self.class}: #{figure} is #{v}")
+      Rails.logger.debug("#{self.class}: #{figure} is #{v}")
     end
     return values
   end
@@ -139,7 +139,7 @@ class OnVistaExtractor < BasicExtractor
       if v == "n.a." || v == "-"
         raise DataMiningError, "Could not extract >>#{figure}<<, because two years have n.a. as value", caller
       else
-        LOG.warn("#{self.class}: Figures for #{figure} are not up to date, using figures from the year before!")
+        Rails.logger.warn("#{self.class}: Figures for #{figure} are not up to date, using figures from the year before!")
       end
     end
     return Hash[YEAR => y, VALUE => v]
@@ -183,7 +183,7 @@ class OnVistaExtractor < BasicExtractor
   def extract_stock_name()
     scan_result = @stock_page.title().split(/\|/)
     if scan_result.size > 0
-      LOG.debug("#{self.class}: Stock name: #{scan_result[0]}")
+      Rails.logger.debug("#{self.class}: Stock name: #{scan_result[0]}")
       return scan_result[0].strip()
     else
       raise DataMiningError, "Search result was not a stock page!", caller 
@@ -199,7 +199,7 @@ class OnVistaExtractor < BasicExtractor
     raw_price_now = tag_set[0].content().strip()
     currency = tag_set[1].content().strip()
     price_now = Util.l10n_f_k(raw_price_now)
-    LOG.debug("#{self.class}: Stock price: #{price_now} #{currency}")
+    Rails.logger.debug("#{self.class}: Stock price: #{price_now} #{currency}")
     return Hash[PRICE => price_now, CURRENCY => currency]
   end
 
@@ -219,7 +219,7 @@ class OnVistaExtractor < BasicExtractor
     result = find_most_recent(figure, years, values)
     return_on_equity.value = Util.l10n_f(result[VALUE])
     return_on_equity.last_year = result[YEAR]
-    LOG.debug("#{self.class}: RoE LJ (#{return_on_equity.last_year}): #{return_on_equity.value}")
+    Rails.logger.debug("#{self.class}: RoE LJ (#{return_on_equity.last_year}): #{return_on_equity.value}")
   end
 
 
@@ -234,7 +234,7 @@ class OnVistaExtractor < BasicExtractor
     result = find_most_recent(figure, years, values)
     ebit_margin.value = Util.l10n_f(result[VALUE])
     ebit_margin.last_year = result[YEAR]
-    LOG.debug("#{self.class}: Ebit-Marge LJ(#{ebit_margin.last_year}): #{ebit_margin.value}")
+    Rails.logger.debug("#{self.class}: Ebit-Marge LJ(#{ebit_margin.last_year}): #{ebit_margin.value}")
   end
 
 
@@ -249,7 +249,7 @@ class OnVistaExtractor < BasicExtractor
     result = find_most_recent(figure, years, values)
     equity_ratio.value = Util.l10n_f(result[VALUE])
     equity_ratio.last_year = result[YEAR]
-    LOG.debug("#{self.class}: Eigenkapitalquote LJ(#{equity_ratio.last_year}): #{equity_ratio.value}")
+    Rails.logger.debug("#{self.class}: Eigenkapitalquote LJ(#{equity_ratio.last_year}): #{equity_ratio.value}")
   end
 
   # Extract the current price earnings ratio (KGV)
@@ -263,7 +263,7 @@ class OnVistaExtractor < BasicExtractor
     result = find_value_for_current_year(figure, years, values)
     current_price_earnings_ratio.value = Util.l10n_f(result[VALUE])
     current_price_earnings_ratio.this_year = result[YEAR]
-    LOG.debug("#{self.class}: Current price earnings ratio (KGV) #{current_price_earnings_ratio.this_year}: #{current_price_earnings_ratio.value}")
+    Rails.logger.debug("#{self.class}: Current price earnings ratio (KGV) #{current_price_earnings_ratio.this_year}: #{current_price_earnings_ratio.value}")
   end
 
   # Extract the average price earnings ratio (KGV 5 Jahre)
@@ -287,11 +287,11 @@ class OnVistaExtractor < BasicExtractor
     average_price_earnings_ratio.value_two_years_ago = Util.l10n_f_k(values[4])
     average_price_earnings_ratio.value_three_years_ago = Util.l10n_f_k(values[5])
 
-    LOG.debug("#{self.class}: Price earnings ratio (KGV) #{average_price_earnings_ratio.next_year}: #{average_price_earnings_ratio.value_next_year}")
-    LOG.debug("#{self.class}: Price earnings ratio (KGV) #{average_price_earnings_ratio.this_year}: #{average_price_earnings_ratio.value_this_year}")
-    LOG.debug("#{self.class}: Price earnings ratio (KGV) #{average_price_earnings_ratio.last_year}: #{average_price_earnings_ratio.value_last_year}")
-    LOG.debug("#{self.class}: Price earnings ratio (KGV) #{average_price_earnings_ratio.two_years_ago}: #{average_price_earnings_ratio.value_two_years_ago}")
-    LOG.debug("#{self.class}: Price earnings ratio (KGV) #{average_price_earnings_ratio.three_years_ago}: #{average_price_earnings_ratio.value_three_years_ago}")
+    Rails.logger.debug("#{self.class}: Price earnings ratio (KGV) #{average_price_earnings_ratio.next_year}: #{average_price_earnings_ratio.value_next_year}")
+    Rails.logger.debug("#{self.class}: Price earnings ratio (KGV) #{average_price_earnings_ratio.this_year}: #{average_price_earnings_ratio.value_this_year}")
+    Rails.logger.debug("#{self.class}: Price earnings ratio (KGV) #{average_price_earnings_ratio.last_year}: #{average_price_earnings_ratio.value_last_year}")
+    Rails.logger.debug("#{self.class}: Price earnings ratio (KGV) #{average_price_earnings_ratio.two_years_ago}: #{average_price_earnings_ratio.value_two_years_ago}")
+    Rails.logger.debug("#{self.class}: Price earnings ratio (KGV) #{average_price_earnings_ratio.three_years_ago}: #{average_price_earnings_ratio.value_three_years_ago}")
   end
 
   # Extract the opinion of the analysts (Analystenmeinungen)
@@ -305,9 +305,9 @@ class OnVistaExtractor < BasicExtractor
       analysts_opinion.buy = tag_set[0].inner_text().strip().to_i + tag_set[1].inner_text().strip().to_i
       analysts_opinion.hold = tag_set[2].inner_text().strip().to_i
       analysts_opinion.sell = tag_set[3].inner_text().strip().to_i + tag_set[4].inner_text().strip().to_i
-      LOG.debug("#{self.class}: analyst opinion buy: #{analysts_opinion.buy}")
-      LOG.debug("#{self.class}: analyst opinion hold: #{analysts_opinion.hold}")
-      LOG.debug("#{self.class}: analyst opinion sell: #{analysts_opinion.sell}")
+      Rails.logger.debug("#{self.class}: analyst opinion buy: #{analysts_opinion.buy}")
+      Rails.logger.debug("#{self.class}: analyst opinion hold: #{analysts_opinion.hold}")
+      Rails.logger.debug("#{self.class}: analyst opinion sell: #{analysts_opinion.sell}")
     end
   end
 
@@ -322,19 +322,19 @@ class OnVistaExtractor < BasicExtractor
     # Get the value of the stock one day before the quarterly figures where published
     asset_value = @stock_value_extractor.extract_stock_value_on(reaction.before)
     reaction.price_before = asset_value.closing()
-    LOG.debug("#{self.class}: Stock price one day before release: #{reaction.price_before}")
+    Rails.logger.debug("#{self.class}: Stock price one day before release: #{reaction.price_before}")
     # Get the value of the stock one day after the quarterly figures where published
     asset_value = @stock_value_extractor.extract_stock_value_on(reaction.after)
     reaction.price_after = asset_value.closing()
-    LOG.debug("#{self.class}: Stock price one day after release: #{reaction.price_after}")
+    Rails.logger.debug("#{self.class}: Stock price one day after release: #{reaction.price_after}")
     # Get the value of the index one day before the quaterly figures where published
     asset_value = @index_value_extractor.extract_index_value_on(reaction.before)
     reaction.index_before = asset_value.closing()
-    LOG.debug("#{self.class}: Index value one day before release: #{reaction.index_before}")
+    Rails.logger.debug("#{self.class}: Index value one day before release: #{reaction.index_before}")
     # Get the value of the index one day after the quaterly figures where published
     asset_value = @index_value_extractor.extract_index_value_on(reaction.after)
     reaction.index_after = asset_value.closing()
-    LOG.debug("#{self.class}: Index value one day after release: #{reaction.index_after}")
+    Rails.logger.debug("#{self.class}: Index value one day after release: #{reaction.index_after}")
   end
 
   # Extract the revision of estimated profits
@@ -349,15 +349,15 @@ class OnVistaExtractor < BasicExtractor
       # profit_revision.up = tag_set[0].inner_text().strip().to_i
       # profit_revision.equal = tag_set[1].inner_text().strip().to_i
       # profit_revision.down = tag_set[2].inner_text().strip().to_i
-      # LOG.debug("#{self.class}: profit revision up: #{profit_revision.up}")
-      # LOG.debug("#{self.class}: profit revision equal: #{profit_revision.equal}")
-      # LOG.debug("#{self.class}: profit revision down: #{profit_revision.down}")
+      # Rails.logger.debug("#{self.class}: profit revision up: #{profit_revision.up}")
+      # Rails.logger.debug("#{self.class}: profit revision equal: #{profit_revision.equal}")
+      # Rails.logger.debug("#{self.class}: profit revision down: #{profit_revision.down}")
     # end
     # This way works also with american shares like DOW
     tag_set = @stock_page.parser().xpath("//th[contains(.,'Revidierte Gewinnprognose')]/following-sibling::td[1]/span[1]")
     raise DataMiningError, "Could not extract profit revision", caller if tag_set == nil || tag_set.size() != 1
     assessment = tag_set[0].attr('class')
-    LOG.debug("#{self.class}: profit revision: #{assessment}")
+    Rails.logger.debug("#{self.class}: profit revision: #{assessment}")
     case assessment
     when "KAUFEN"
       profit_revision.up = 1
@@ -374,9 +374,9 @@ class OnVistaExtractor < BasicExtractor
     else
       raise DataMiningError, "Don't know how to interpret profit revision: #{assessment}", caller
     end
-    LOG.debug("#{self.class}: profit revision up: #{profit_revision.up}")
-    LOG.debug("#{self.class}: profit revision equal: #{profit_revision.equal}")
-    LOG.debug("#{self.class}: profit revision down: #{profit_revision.down}")
+    Rails.logger.debug("#{self.class}: profit revision up: #{profit_revision.up}")
+    Rails.logger.debug("#{self.class}: profit revision equal: #{profit_revision.equal}")
+    Rails.logger.debug("#{self.class}: profit revision down: #{profit_revision.down}")
   end
   
   # Extract the stock price development for the last half year
@@ -385,7 +385,7 @@ class OnVistaExtractor < BasicExtractor
     half_a_year_ago = Util.step_back_in_time(183, Time.now)
     stock_price_dev_half_year.historical_date = half_a_year_ago 
     asset_value = @stock_value_extractor.extract_stock_value_on(half_a_year_ago)
-    LOG.debug("#{self.class}: stock value 6 months ago (#{Util.format(half_a_year_ago)}): #{asset_value.closing()}")
+    Rails.logger.debug("#{self.class}: stock value 6 months ago (#{Util.format(half_a_year_ago)}): #{asset_value.closing()}")
     stock_price_dev_half_year.value = asset_value.closing()
   end
   
@@ -395,7 +395,7 @@ class OnVistaExtractor < BasicExtractor
     one_year_ago = Util.step_back_in_time(365, Time.now)
     stock_price_dev_one_year.historical_date = one_year_ago
     asset_value = @stock_value_extractor.extract_stock_value_on(one_year_ago)
-    LOG.debug("#{self.class}: stock value 1 year ago (#{Util.format(one_year_ago)}): #{asset_value.closing}")
+    Rails.logger.debug("#{self.class}: stock value 1 year ago (#{Util.format(one_year_ago)}): #{asset_value.closing}")
     stock_price_dev_one_year.value = asset_value.closing()
   end
   
@@ -406,35 +406,35 @@ class OnVistaExtractor < BasicExtractor
     asset_value = @stock_value_extractor.extract_stock_value_on(historical_date)
     reversal.value_four_months_ago = asset_value.closing()
     reversal.four_months_ago = asset_value.representing_date()
-    LOG.debug("#{self.class}: Stock price four months ago (#{reversal.four_months_ago}): #{reversal.value_four_months_ago}")
+    Rails.logger.debug("#{self.class}: Stock price four months ago (#{reversal.four_months_ago}): #{reversal.value_four_months_ago}")
     historical_date = Util.avoid_weekend(Time.now - 3.months)
     asset_value = @stock_value_extractor.extract_stock_value_on(historical_date)
     reversal.value_three_months_ago = asset_value.closing()
     reversal.three_months_ago = asset_value.representing_date()
-    LOG.debug("#{self.class}: Stock price three months ago (#{reversal.three_months_ago}): #{reversal.value_three_months_ago}")
+    Rails.logger.debug("#{self.class}: Stock price three months ago (#{reversal.three_months_ago}): #{reversal.value_three_months_ago}")
     historical_date = Util.avoid_weekend(Time.now - 2.months)
     asset_value = @stock_value_extractor.extract_stock_value_on(historical_date)
     reversal.value_two_months_ago = asset_value.closing()
     reversal.two_months_ago = asset_value.representing_date()
-    LOG.debug("#{self.class}: Stock price two months ago (#{reversal.two_months_ago}): #{reversal.value_two_months_ago}")
+    Rails.logger.debug("#{self.class}: Stock price two months ago (#{reversal.two_months_ago}): #{reversal.value_two_months_ago}")
     historical_date = Util.avoid_weekend(Time.now - 1.month)
     asset_value = @stock_value_extractor.extract_stock_value_on(historical_date)
     reversal.value_one_month_ago = asset_value.closing()
     reversal.one_month_ago = asset_value.representing_date()
-    LOG.debug("#{self.class}: Stock price one month ago (#{reversal.one_month_ago}): #{reversal.value_one_month_ago}")
+    Rails.logger.debug("#{self.class}: Stock price one month ago (#{reversal.one_month_ago}): #{reversal.value_one_month_ago}")
     # Calculate the values for the corresponding index at the same dates
     asset_value = @index_value_extractor.extract_index_value_on(reversal.four_months_ago)
     reversal.index_four_months_ago = asset_value.closing()
-    LOG.debug("#{self.class}: Index four months ago (#{reversal.four_months_ago}): #{reversal.index_four_months_ago}")
+    Rails.logger.debug("#{self.class}: Index four months ago (#{reversal.four_months_ago}): #{reversal.index_four_months_ago}")
     asset_value = @index_value_extractor.extract_index_value_on(reversal.three_months_ago)
     reversal.index_three_months_ago = asset_value.closing()
-    LOG.debug("#{self.class}: Index three months ago (#{reversal.three_months_ago}): #{reversal.index_three_months_ago}")
+    Rails.logger.debug("#{self.class}: Index three months ago (#{reversal.three_months_ago}): #{reversal.index_three_months_ago}")
     asset_value = @index_value_extractor.extract_index_value_on(reversal.two_months_ago)
     reversal.index_two_months_ago = asset_value.closing()
-    LOG.debug("#{self.class}: Index two months ago (#{reversal.two_months_ago}): #{reversal.index_two_months_ago}")
+    Rails.logger.debug("#{self.class}: Index two months ago (#{reversal.two_months_ago}): #{reversal.index_two_months_ago}")
     asset_value = @index_value_extractor.extract_index_value_on(reversal.one_month_ago)
     reversal.index_one_month_ago = asset_value.closing()
-    LOG.debug("#{self.class}: Index one month ago (#{reversal.one_month_ago}): #{reversal.index_one_month_ago}")
+    Rails.logger.debug("#{self.class}: Index one month ago (#{reversal.one_month_ago}): #{reversal.index_one_month_ago}")
   end
 
   # Extract profit growth (Gewinnwachstum)
@@ -451,8 +451,8 @@ class OnVistaExtractor < BasicExtractor
     value_next_year = find_value_for_given_year(figure, profit_growth.next_year.to_s, years, values) 
     profit_growth.value_this_year = Util.l10n_f(value_this_year[VALUE])
     profit_growth.value_next_year = Util.l10n_f(value_next_year[VALUE])
-    LOG.debug("#{self.class}: Profit growth this year: #{profit_growth.value_this_year}")
-    LOG.debug("#{self.class}: Profit growth next year: #{profit_growth.value_next_year}")
+    Rails.logger.debug("#{self.class}: Profit growth this year: #{profit_growth.value_this_year}")
+    Rails.logger.debug("#{self.class}: Profit growth next year: #{profit_growth.value_next_year}")
   end
 
 end

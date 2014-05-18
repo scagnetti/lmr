@@ -11,7 +11,7 @@ class StockProcessor
   
   # The supplied score_card is populated with the calculated figures.
   def initialize(score_card)
-    LOG.info("#{self.class}: Starting configuration process for share: #{score_card.share.name}")
+    Rails.logger.info("#{self.class}: Starting configuration process for share: #{score_card.share.name}")
     @score_card = score_card
     @score_card.return_on_equity = ReturnOnEquity.new
     @score_card.ebit_margin = EbitMargin.new
@@ -27,23 +27,23 @@ class StockProcessor
     @score_card.reversal = Reversal.new
     @score_card.profit_growth = ProfitGrowth.new
     @extractors = Array.new
-    LOG.info("#{self.class}: Initializing extractor: OnVistaExtractor")
+    Rails.logger.info("#{self.class}: Initializing extractor: OnVistaExtractor")
     @extractors << OnVistaExtractor.new(@score_card.share)
-    LOG.info("#{self.class}: Initialization of extractor: OnVistaExtractor completed")
-    LOG.info("#{self.class}: Initializing extractor: FinanzenExtractor")
+    Rails.logger.info("#{self.class}: Initialization of extractor: OnVistaExtractor completed")
+    Rails.logger.info("#{self.class}: Initializing extractor: FinanzenExtractor")
     @extractors << FinanzenExtractor.new(@score_card.share)
-    LOG.info("#{self.class}: Initialization of extractor: FinanzenExtractor completed")
+    Rails.logger.info("#{self.class}: Initialization of extractor: FinanzenExtractor completed")
     rating_service = RatingService.new
     @rating_unit = rating_service.choose_rating_unit(@score_card.share.size, @score_card.share.financial)
-    LOG.info("#{self.class}: Using #{@rating_unit.class}")
-    LOG.info("#{self.class}: Configuration process for share: #{@score_card.share.name} completed")
+    Rails.logger.info("#{self.class}: Using #{@rating_unit.class}")
+    Rails.logger.info("#{self.class}: Configuration process for share: #{@score_card.share.name} completed")
   end
 
   public
   
   # Extract the figures described by Susan Levermann
   def run_extraction
-    LOG.info("#{self.class}: Starting extraction process for share: #{@score_card.share.name}")
+    Rails.logger.info("#{self.class}: Starting extraction process for share: #{@score_card.share.name}")
     run_on_all_extractors(@score_card.price) { |e| 
       result = e.extract_stock_price()
       @score_card.price = result['price']
@@ -97,12 +97,12 @@ class StockProcessor
     run_on_all_extractors(@score_card.profit_growth) { |e|
       e.extract_profit_growth(@score_card.profit_growth)
     }
-    LOG.info("#{self.class}: Extraction process for share: #{@score_card.share.name} completed")
+    Rails.logger.info("#{self.class}: Extraction process for share: #{@score_card.share.name} completed")
   end
   
   # Applies the rating rules on the extracted figures
   def run_rating
-    LOG.info("#{self.class}: Starting rating process for share: #{@score_card.share.name}")
+    Rails.logger.info("#{self.class}: Starting rating process for share: #{@score_card.share.name}")
     @rating_unit.rate_roe(@score_card.return_on_equity) if @score_card.return_on_equity.succeeded
     @rating_unit.rate_ebit_margin(@score_card.ebit_margin) if @score_card.ebit_margin.succeeded
     @rating_unit.rate_equity_ratio(@score_card.equity_ratio) if @score_card.equity_ratio.succeeded
@@ -138,7 +138,7 @@ class StockProcessor
     @score_card.total_score += @score_card.momentum.score
     @score_card.total_score += @score_card.reversal.score
     @score_card.total_score += @score_card.profit_growth.score
-    LOG.info("#{self.class}: Rating process for share: #{@score_card.share.name} completed")
+    Rails.logger.info("#{self.class}: Rating process for share: #{@score_card.share.name} completed")
   end
   
   private
@@ -155,10 +155,10 @@ class StockProcessor
         break
       rescue DataMiningError => e
         # Log the contained message
-        LOG.warn("#{extractor.class}: #{e.to_s}")
+        Rails.logger.warn("#{extractor.class}: #{e.to_s}")
         if i == (@extractors.size - 1)
           # Even the last extractor failed
-          LOG.warn("#{self.class}: Extraction failed permanently")
+          Rails.logger.warn("#{self.class}: Extraction failed permanently")
           rated_figure.succeeded = false
           rated_figure.error_msg = "#{extractor.class}: #{e.to_s}"
         end

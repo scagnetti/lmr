@@ -11,7 +11,7 @@ class OnVistaStockValueExtractor
     @stock_exchange = stock_exchange
     @stock_exchange_id = get_stock_exchange_id()
     @asset_name = get_asset_name()
-    LOG.debug("#{self.class}: Initialization successful")
+    Rails.logger.debug("#{self.class}: Initialization successful")
   end
 
   # Extract the open and closing values of a stock
@@ -25,8 +25,8 @@ class OnVistaStockValueExtractor
     raise DataMiningError, "Could not get a stock price for the given date (#{search_date})", caller if td_set.nil? || td_set.size != 5
     av.opening = Util.l10n_f_k(td_set[0].content().strip())
     av.closing = Util.l10n_f_k(td_set[3].content().strip())
-    LOG.debug("#{self.class}: Opening value #{av.opening}")
-    LOG.debug("#{self.class}: Closing value #{av.closing}")
+    Rails.logger.debug("#{self.class}: Opening value #{av.opening}")
+    Rails.logger.debug("#{self.class}: Closing value #{av.closing}")
     return av
   end
 
@@ -40,7 +40,7 @@ class OnVistaStockValueExtractor
     anchor_set = @stock_page.parser().xpath("//div[@id='exchangesLayer']/ul/li/a[contains(.,'#{@stock_exchange}')]")
     raise DataMiningError, "Could not extract onVista stock exchange ID for #{@stock_exchange}", caller if anchor_set.nil? || anchor_set.size < 1
     stock_exchange_id = anchor_set[0].attr('href').sub(/.*=/, '')
-    LOG.debug("#{self.class}: ID of stock exchange #{@stock_exchange}: #{stock_exchange_id}")
+    Rails.logger.debug("#{self.class}: ID of stock exchange #{@stock_exchange}: #{stock_exchange_id}")
     return stock_exchange_id
   end
 
@@ -50,7 +50,7 @@ class OnVistaStockValueExtractor
     uri = @stock_page.canonical_uri()
     match = uri.to_s.match(/.*\/(.*)-Aktie/)
     raise DataMiningError, "Could not extract stock asset name", caller if match.nil?
-    LOG.debug("#{self.class}: Stock asset name: #{match[1]}")
+    Rails.logger.debug("#{self.class}: Stock asset name: #{match[1]}")
     return match[1]
   end
   
@@ -72,7 +72,7 @@ class OnVistaStockValueExtractor
     search_url << "&interval=M1"
     search_url << "&assetName=#{@asset_name}"
     search_url << "&exchange=#{@stock_exchange}"
-    LOG.debug("#{self.class}: Constructed search URL: #{search_url}")
+    Rails.logger.debug("#{self.class}: Constructed search URL: #{search_url}")
     return search_url
   end
 end

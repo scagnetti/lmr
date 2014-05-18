@@ -23,24 +23,24 @@ class DaxIndexParser < BasicIndexParser
   def process_dax_entries(stock_listing)
     stock_listing.each do |row|
       share = create_share()
-      LOG.debug("{self.class}: #{row.content()}")
+      Rails.logger.debug("{self.class}: #{row.content()}")
       td_set = row.xpath("td")
       if td_set == nil || td_set.size() != 9
         raise DataMiningError, "Row did't have the expected number of 9 cells", caller
       end
-      LOG.debug("#{self.class}: Content of third cell #{td_set[2].content()}")
+      Rails.logger.debug("#{self.class}: Content of third cell #{td_set[2].content()}")
       # Remove UNICODE white space
       raw_stock_exchange = td_set[2].content().gsub(/[[:space:]]/, '')
       share.stock_exchange = map_stock_exchange(raw_stock_exchange)
-      LOG.debug("#{self.class}: Assigned stock exchange: #{share.stock_exchange}")
+      Rails.logger.debug("#{self.class}: Assigned stock exchange: #{share.stock_exchange}")
       #Extract link to stock page
       stock_link = td_set[0].xpath("a").first.attr("href")
-      LOG.debug("#{self.class}: Following link: #{stock_link}.")
+      Rails.logger.debug("#{self.class}: Following link: #{stock_link}.")
       extract_data_from_stock_page(stock_link, share)
       if share.save
-        LOG.debug("#{self.class}: Create share with ID #{share.id} successfully!")
+        Rails.logger.debug("#{self.class}: Create share with ID #{share.id} successfully!")
       else
-        LOG.debug("#{self.class}: Failed to save share #{share.name}!")
+        Rails.logger.debug("#{self.class}: Failed to save share #{share.name}!")
       end
     end
   end
@@ -65,13 +65,13 @@ class DaxIndexParser < BasicIndexParser
       raise DataMiningError, "Wrong number of matching links, expecting exact one", caller
     end
     share.name = result[0].content().gsub(/[[:space:]]/, '')
-    LOG.debug("Stock name: #{share.name}")
+    Rails.logger.debug("Stock name: #{share.name}")
     # ===ISIN===
     result = page.parser().xpath("//dd[@itemprop='productID']")
     if result == nil || result.size != 2
       raise DataMiningError, "Found too many tags with attribute 'itemprop=productID', expected two matches", caller
     end
     share.isin = result[0].content().gsub(/[[:space:]]/, '')
-    LOG.debug("Stock ISIN: #{share.isin}")
+    Rails.logger.debug("Stock ISIN: #{share.isin}")
   end
 end

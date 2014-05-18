@@ -19,7 +19,7 @@ class FinanzenExtractor < BasicExtractor
 
   def initialize(share)
     super(FINANZEN_URL, share)
-    LOG.debug("#{self.class}: Open finanzen.net with share: #{share.name} (#{share.isin}) and stock index: #{share.stock_index.name} (#{share.stock_index.isin})")
+    Rails.logger.debug("#{self.class}: Open finanzen.net with share: #{share.name} (#{share.isin}) and stock index: #{share.stock_index.name} (#{share.stock_index.isin})")
     @stock_page = perform_search("action", '/suchergebnis.asp', "frmAktiensucheTextfeld", share.isin, STOCK_SUCCESS_XPATH, STOCK_SUCCESS_VALUE)
     @index_page = perform_search("action", '/suchergebnis.asp', "frmAktiensucheTextfeld", share.stock_index.isin, INDEX_SUCCESS_XPATH, INDEX_SUCCESS_VALUE)
     @historical_stock_page = open_sub_page('Historisch', 2, 1, @stock_page)
@@ -42,9 +42,9 @@ class FinanzenExtractor < BasicExtractor
     if tag_set == nil || tag_set.size() != 6
       raise DataMiningError, "Could not get a stock value for the given date (#{date})", caller
     end
-    LOG.debug("#{self.class}: Found historical stock value for date #{tag_set[0].content()}")  
-    LOG.debug("#{self.class}: Opening value #{tag_set[1].content()}")
-    LOG.debug("#{self.class}: Closing value #{tag_set[2].content()}")
+    Rails.logger.debug("#{self.class}: Found historical stock value for date #{tag_set[0].content()}")  
+    Rails.logger.debug("#{self.class}: Opening value #{tag_set[1].content()}")
+    Rails.logger.debug("#{self.class}: Closing value #{tag_set[2].content()}")
     opening = Util.l10n_f_k(tag_set[1].content().strip())
     closing = Util.l10n_f_k(tag_set[2].content().strip())
     return [opening, closing]
@@ -63,9 +63,9 @@ class FinanzenExtractor < BasicExtractor
     if tag_set == nil || tag_set.size() != 5
       raise DataMiningError, "Could not get a index value for the given date (#{date})", caller
     end
-    LOG.debug("#{self.class}: Found historical index value for date #{tag_set[0].content()}")  
-    LOG.debug("#{self.class}: Opening value #{tag_set[1].content()}")
-    LOG.debug("#{self.class}: Closing value #{tag_set[2].content()}")
+    Rails.logger.debug("#{self.class}: Found historical index value for date #{tag_set[0].content()}")  
+    Rails.logger.debug("#{self.class}: Opening value #{tag_set[1].content()}")
+    Rails.logger.debug("#{self.class}: Closing value #{tag_set[2].content()}")
     opening = Util.l10n_f_k(tag_set[1].content().strip())
     closing = Util.l10n_f_k(tag_set[2].content().strip())
     return [opening, closing]
@@ -105,9 +105,9 @@ class FinanzenExtractor < BasicExtractor
     dates = get_release_dates()
     begin
       release_date = Util.get_latest(dates)
-      LOG.debug("#{self.class}: Last release date: #{release_date}")
+      Rails.logger.debug("#{self.class}: Last release date: #{release_date}")
     rescue RuntimeError => e
-      LOG.warn("#{self.class}: #{e.to_s}")
+      Rails.logger.warn("#{self.class}: #{e.to_s}")
       raise DataMiningError, "Could not find any quaterly figures for the last 100 days", caller
     end
     before_after = Util.calc_compare_dates(release_date)
@@ -117,17 +117,17 @@ class FinanzenExtractor < BasicExtractor
     # Get the value of the stock when quarterly figures where published
     stock_opening_closing = extract_stock_value_on(reaction.before)
     reaction.price_before = stock_opening_closing[1]
-    LOG.debug("#{self.class}: Stock price one day before release: #{reaction.price_before}")
+    Rails.logger.debug("#{self.class}: Stock price one day before release: #{reaction.price_before}")
     stock_opening_closing = extract_stock_value_on(reaction.after)
     reaction.price_after = stock_opening_closing[1]
-    LOG.debug("#{self.class}: Stock price one day after release: #{reaction.price_after}")
+    Rails.logger.debug("#{self.class}: Stock price one day after release: #{reaction.price_after}")
     # Get the value of the index when quaterly figures where published
     index_opening_closing = extract_index_value_on(reaction.before)
     reaction.index_before = index_opening_closing[1]
-    LOG.debug("#{self.class}: Index value one day before release: #{reaction.index_before}")
+    Rails.logger.debug("#{self.class}: Index value one day before release: #{reaction.index_before}")
     index_opening_closing = extract_index_value_on(reaction.after)
     reaction.index_after = index_opening_closing[1]
-    LOG.debug("#{self.class}: Index value one day after release: #{reaction.index_after}")
+    Rails.logger.debug("#{self.class}: Index value one day after release: #{reaction.index_after}")
   end
 
   # Extract the opinion of the analysts (Analystenmeinungen)
@@ -144,7 +144,7 @@ class FinanzenExtractor < BasicExtractor
     if tr_set == nil || tr_set.size() < 1
       raise DataMiningError, "Could not extract analysts opinion", caller
     end
-    LOG.debug("#{self.class}: #{tr_set.size} analysts rated this stock")
+    Rails.logger.debug("#{self.class}: #{tr_set.size} analysts rated this stock")
     tr_set.each do |tr|
       # Data extraction
       td_set = tr.xpath("child::node()")
@@ -161,28 +161,28 @@ class FinanzenExtractor < BasicExtractor
       end
       exp = Util.information_expired(release_date, Util::DAY_IN_SECONDS * 92)
       if exp
-        LOG.debug("Rating of #{analyst} expired (released: #{Util.format(release_date)})")
+        Rails.logger.debug("Rating of #{analyst} expired (released: #{Util.format(release_date)})")
       else
         buy = tr.xpath("td[2][@class = 'background_green_white']").size()
         hold = tr.xpath("td[3][@class = 'background_yellow']").size()
         sell = tr.xpath("td[4][@class = 'background_red_white']").size()
-        LOG.debug("#{self.class}: Analyst #{analyst} says buy") if buy > 0
-        LOG.debug("#{self.class}: Analyst #{analyst} says hold") if hold > 0
-        LOG.debug("#{self.class}: Analyst #{analyst} says sell") if sell > 0
+        Rails.logger.debug("#{self.class}: Analyst #{analyst} says buy") if buy > 0
+        Rails.logger.debug("#{self.class}: Analyst #{analyst} says hold") if hold > 0
+        Rails.logger.debug("#{self.class}: Analyst #{analyst} says sell") if sell > 0
         analysts_opinion.buy = analysts_opinion.buy + buy
         analysts_opinion.hold = analysts_opinion.hold + hold
         analysts_opinion.sell = analysts_opinion.sell + sell
       end
     end
-    LOG.debug("#{self.class}: analyst opinion buy: #{analysts_opinion.buy}")
-    LOG.debug("#{self.class}: analyst opinion hold: #{analysts_opinion.hold}")
-    LOG.debug("#{self.class}: analyst opinion sell: #{analysts_opinion.sell}")
+    Rails.logger.debug("#{self.class}: analyst opinion buy: #{analysts_opinion.buy}")
+    Rails.logger.debug("#{self.class}: analyst opinion hold: #{analysts_opinion.hold}")
+    Rails.logger.debug("#{self.class}: analyst opinion sell: #{analysts_opinion.sell}")
   end
 
   def extract_insider_deals(results)
     insider_trades = open_sub_page('Insidertrades', 1, 0, @stock_page)
     rows = insider_trades.parser().xpath("//h1[contains(.,'Insidertrades bei ')]/../../div[@class='content']/table//tr[position() > 1]")
-    LOG.debug("found #{rows.size} insider deals")
+    Rails.logger.debug("found #{rows.size} insider deals")
     share = Share.where(:isin => @share.isin).first
     rows.each do |row|
       cells = row.xpath('.//td')
@@ -210,7 +210,7 @@ class FinanzenExtractor < BasicExtractor
         results << deal
         exp = Util.information_expired(real_date, Util::DAY_IN_SECONDS * 92)
         if !exp
-          LOG.debug("Datum: #{d}  Meldender: #{deal.person}  Anzahl: #{deal.quantity}  Kurs: #{deal.price}  Art: #{action}")
+          Rails.logger.debug("Datum: #{d}  Meldender: #{deal.person}  Anzahl: #{deal.quantity}  Kurs: #{deal.price}  Art: #{action}")
           duplicates = InsiderDeal.where(:share_id => share.id, :occurred => deal.occurred, :person => deal.person, :quantity => deal.quantity, :trade_type => deal.trade_type)
           if duplicates.size == 0
             deal.save!

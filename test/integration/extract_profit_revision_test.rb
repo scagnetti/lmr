@@ -48,11 +48,11 @@ class ExtractProfitRevisionTest < ActiveSupport::TestCase
   
   # test "dummy" do
     # shares = Share.joins(:stock_index).where("stock_indices.isin" => "US2605661048")
-    # LOG.debug("Loaded #{shares.size()} shares")
+    # Rails.logger.debug("Loaded #{shares.size()} shares")
     # errors = Hash.new
     # map = Hash.new
     # shares.each do |s|
-      # LOG.debug("Processing: #{s.to_s}")
+      # Rails.logger.debug("Processing: #{s.to_s}")
       # profit_revision = ProfitRevision.new
       # begin
         # e = OnVistaExtractor.new(s)
@@ -65,7 +65,7 @@ class ExtractProfitRevisionTest < ActiveSupport::TestCase
       # msg = profit_revision.error_msg == nil ? "" : profit_revision.error_msg
       # assert(profit_revision.succeeded, msg)
     # end
-    # LOG.debug(map.inspect)
+    # Rails.logger.debug(map.inspect)
   # end
 # 
   # def populate(key, map)

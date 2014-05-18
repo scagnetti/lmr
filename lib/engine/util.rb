@@ -286,7 +286,7 @@ class Util
     dates.each do |date|
       days_ago = Util.days_between(date, now)
       if days_ago < 100
-        #LOG.debug "Datum #{t.strftime('%Y-%m-%d')} ist noch keine drei Monate her"
+        #Rails.logger.debug "Datum #{t.strftime('%Y-%m-%d')} ist noch keine drei Monate her"
         # Check if the current date is newer than the last one we found
         if date > latest
           latest = date
@@ -311,7 +311,7 @@ class Util
     else
       before = date.prev_day()
     end
-    LOG.debug("#{self.class}: Before release date: #{before}")
+    Rails.logger.debug("#{self.class}: Before release date: #{before}")
     if date == Date.today
       after = date
     elsif date.friday?
@@ -319,7 +319,7 @@ class Util
     else
       after = date.next_day()
     end
-    LOG.debug("#{self.class}: After release date: #{after}")
+    Rails.logger.debug("#{self.class}: After release date: #{after}")
     return [before, after]
   end
 end

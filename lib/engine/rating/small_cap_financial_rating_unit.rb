@@ -32,19 +32,19 @@ class SmallCapFinancialRatingUnit < SmallCapRatingUnit
   # * if the majority says buy we rate -1  
   def rate_analysts_opinion(analysts_opinion)
     all = analysts_opinion.buy + analysts_opinion.hold + analysts_opinion.sell
-    LOG.debug("#{self.class}: Total opinions: #{all}")
+    Rails.logger.debug("#{self.class}: Total opinions: #{all}")
     buy = analysts_opinion.buy.to_f / all
-    LOG.debug("#{self.class}: buy in percent: #{buy}")
+    Rails.logger.debug("#{self.class}: buy in percent: #{buy}")
     hold = analysts_opinion.hold.to_f / all
-    LOG.debug("#{self.class}: hold in percent: #{hold}")
+    Rails.logger.debug("#{self.class}: hold in percent: #{hold}")
     sell = analysts_opinion.sell.to_f / all
-    LOG.debug("#{self.class}: sell in percent: #{sell}")
+    Rails.logger.debug("#{self.class}: sell in percent: #{sell}")
     case
     when buy > hold && buy > sell
       if all > 5
         score = -1
       else
-        LOG.debug("#{self.class}: switching rule because less than five analysts are watching")
+        Rails.logger.debug("#{self.class}: switching rule because less than five analysts are watching")
         score = 1
       end
     when hold > buy && hold > sell
@@ -53,7 +53,7 @@ class SmallCapFinancialRatingUnit < SmallCapRatingUnit
       if all > 5
         score = 1
       else
-        LOG.debug("#{self.class}: switching rule because less than five analysts are watching")
+        Rails.logger.debug("#{self.class}: switching rule because less than five analysts are watching")
         score = -1
       end
     else

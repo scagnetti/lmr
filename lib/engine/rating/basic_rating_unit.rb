@@ -70,13 +70,13 @@ class BasicRatingUnit
   # Assess the reaction on the release of quarterly figures
   def rate_reaction(reaction)
     stock_performance = Util.perf(reaction.price_after, reaction.price_before)
-    LOG.debug("#{self.class}: stock performance: #{stock_performance}")
+    Rails.logger.debug("#{self.class}: stock performance: #{stock_performance}")
     reaction.share_perf = stock_performance
     index_performance = Util.perf(reaction.index_after, reaction.index_before)
-    LOG.debug("#{self.class}: index performance: #{index_performance}")
+    Rails.logger.debug("#{self.class}: index performance: #{index_performance}")
     reaction.index_perf = index_performance
     diff = stock_performance - index_performance
-    LOG.debug("#{self.class}: performance diff: #{diff}")
+    Rails.logger.debug("#{self.class}: performance diff: #{diff}")
     case 
     when diff > 1
       score = 1

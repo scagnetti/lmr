@@ -19,15 +19,15 @@ class OnVistaQuarterlyFiguresExtractor
       raise DataMiningError, "Could not extract onVista specific stock id", caller
     end
     share_id = match_obj[1]
-    LOG.debug("#{self.class}: OnVista specific stock id: #{share_id}")
+    Rails.logger.debug("#{self.class}: OnVista specific stock id: #{share_id}")
     @search_url = SEARCH_URL_PREFIX.sub("id_placeholder", share_id)
     # search for release date back to this year
     last_year = (Time.now.year - 1).to_s
     @search_url = @search_url.sub("year_placeholder", last_year)
-    LOG.debug("#{self.class}: Using search URL: #{@search_url}")
+    Rails.logger.debug("#{self.class}: Using search URL: #{@search_url}")
     # Delete
     @extended_appointment_page = agent.get(@search_url) 
-    LOG.info("#{self.class}: Initialization successful")
+    Rails.logger.info("#{self.class}: Initialization successful")
   end
   
   # Extract two important dates: one day before the quarterly figures where released and one day after
@@ -41,7 +41,7 @@ class OnVistaQuarterlyFiguresExtractor
       # This is neccesary to remove HTML escaped whitespace: &nbsp;
       nbsp = Nokogiri::HTML(EscapedCharacters::SPACE).text
       raw_date = tr.xpath("td[1]").first().content().sub(nbsp,'').strip()
-      #LOG.debug("#{self.class}: Adding release date: #{raw_date}")
+      #Rails.logger.debug("#{self.class}: Adding release date: #{raw_date}")
       raw_event = tr.xpath("td[3]").first().content().strip()
       date = Util.to_date_time(raw_date)
       # Make sure date is in the past and the event is in the white list
@@ -52,13 +52,13 @@ class OnVistaQuarterlyFiguresExtractor
     end
     # For debugging only
     #for i in 0..dates.size-1
-    #  LOG.debug("#{self.class}: Date: #{dates[i]}, Event: #{events[i]}")
+    #  Rails.logger.debug("#{self.class}: Date: #{dates[i]}, Event: #{events[i]}")
     #end
     begin
       release_date = Util.get_latest(dates)
-      LOG.debug("#{self.class}: Last release date: #{release_date}")
+      Rails.logger.debug("#{self.class}: Last release date: #{release_date}")
     rescue RuntimeError => e
-      LOG.warn("#{self.class}: #{e.to_s}")
+      Rails.logger.warn("#{self.class}: #{e.to_s}")
       raise DataMiningError, "Could not find any quaterly figures for the last 100 days", caller
     end
     before_after = Util.calc_compare_dates(release_date)

@@ -22,7 +22,7 @@ class ExtractReactionOnFiguresTest < ActiveSupport::TestCase
       begin
         e = OnVistaExtractor.new(share)
         e.extract_reaction_on_figures(reaction)
-        LOG.debug("Release date: #{reaction.release_date}, index opening: #{reaction.index_opening}, index closing: #{reaction.index_closing}, share opening: #{reaction.price_opening}, share closing: #{reaction.price_closing}")
+        Rails.logger.debug("Release date: #{reaction.release_date}, index opening: #{reaction.index_opening}, index closing: #{reaction.index_closing}, share opening: #{reaction.price_opening}, share closing: #{reaction.price_closing}")
       rescue DataMiningError => e
         reaction.succeeded = false
         reaction.error_msg = "#{e.to_s}"
@@ -42,7 +42,7 @@ class ExtractReactionOnFiguresTest < ActiveSupport::TestCase
       begin
         e = OnVistaExtractor.new(share)
         e.extract_reaction_on_figures(reaction)
-        LOG.debug("Release date: #{reaction.release_date}, index opening: #{reaction.index_opening}, index closing: #{reaction.index_closing}, share opening: #{reaction.price_opening}, share closing: #{reaction.price_closing}")
+        Rails.logger.debug("Release date: #{reaction.release_date}, index opening: #{reaction.index_opening}, index closing: #{reaction.index_closing}, share opening: #{reaction.price_opening}, share closing: #{reaction.price_closing}")
       rescue DataMiningError => e
         reaction.succeeded = false
         reaction.error_msg = "#{e.to_s}"

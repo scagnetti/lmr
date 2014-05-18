@@ -18,7 +18,7 @@ class BasicIndexParser
     if tr_set == nil || tr_set.size() != exp_size
       raise DataMiningError, "Could not extract index entries", caller
     else
-      LOG.debug("#{self.class}: Found #{tr_set.size()} entries.")
+      Rails.logger.debug("#{self.class}: Found #{tr_set.size()} entries.")
     end
     return tr_set
   end

@@ -8,6 +8,8 @@ namespace :ex do
 
   task :test => :environment do
     # For simple testing only
+    Rails.logger.info("Log level is: #{Rails.logger.level}")
+    Rails.logger.info("Test log msg!")
   end
   
   desc "Extract the onVista stock exchange ID"

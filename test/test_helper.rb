@@ -54,10 +54,10 @@ class ActiveSupport::TestCase
   # * +index_isin+ - load the shares of this index
   def exec_on_index_shares(index_isin)
     shares = Share.joins(:stock_index).where("stock_indices.isin" => index_isin)
-    LOG.debug("Loaded #{shares.size()} shares")
+    Rails.logger.debug("Loaded #{shares.size()} shares")
     errors = Hash.new
     shares.each do |s|
-      LOG.debug("Processing: #{s.to_s}")
+      Rails.logger.debug("Processing: #{s.to_s}")
       yield(s)
     end
   end

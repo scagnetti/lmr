@@ -39,13 +39,13 @@ class LargeCapRatingUnit < BasicRatingUnit
   # * if the majority says buy we rate -1  
   def rate_analysts_opinion(analysts_opinion)
     all = analysts_opinion.buy + analysts_opinion.hold + analysts_opinion.sell
-    LOG.debug("#{self.class}: Total opinions: #{all}")
+    Rails.logger.debug("#{self.class}: Total opinions: #{all}")
     buy = analysts_opinion.buy.to_f / all
-    LOG.debug("#{self.class}: buy in percent: #{buy}")
+    Rails.logger.debug("#{self.class}: buy in percent: #{buy}")
     hold = analysts_opinion.hold.to_f / all
-    LOG.debug("#{self.class}: hold in percent: #{hold}")
+    Rails.logger.debug("#{self.class}: hold in percent: #{hold}")
     sell = analysts_opinion.sell.to_f / all
-    LOG.debug("#{self.class}: sell in percent: #{sell}")
+    Rails.logger.debug("#{self.class}: sell in percent: #{sell}")
     case
     when buy > hold && buy > sell
       score = -1

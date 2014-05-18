@@ -8,13 +8,13 @@ class OnVistaIndexValueExtractor
   def initialize(agent, index_page)
     on_vista_index_id = get_on_vista_index_id(index_page)
     @index_search_page = agent.get("#{INDEX_VALUE_SEARCH_URL}#{on_vista_index_id}")
-    LOG.debug("#{self.class}: Initialization successful")
+    Rails.logger.debug("#{self.class}: Initialization successful")
   end
   
   # Return the onVista specific index ID
   def get_on_vista_index_id(index_page)
     match_obj = index_page.uri.to_s.match(/.*-(\d+)$/)
-    LOG.debug("#{self.class}: page URI: #{index_page.uri.to_s}")
+    Rails.logger.debug("#{self.class}: page URI: #{index_page.uri.to_s}")
     if match_obj == nil || match_obj[1] == nil
       raise DataMiningError, "Could not extract onVista specific index id", caller
     end
@@ -36,9 +36,9 @@ class OnVistaIndexValueExtractor
     if tag_set == nil || tag_set.size() != 11
       raise DataMiningError, "Could not get an index value for the given date (#{search_date})", caller
     end
-    LOG.debug("#{self.class}: Found historical index value for date #{tag_set[0].content()}")
-    LOG.debug("#{self.class}: Index opening value #{tag_set[2].content()}")
-    LOG.debug("#{self.class}: Index closing value #{tag_set[8].content()}")
+    Rails.logger.debug("#{self.class}: Found historical index value for date #{tag_set[0].content()}")
+    Rails.logger.debug("#{self.class}: Index opening value #{tag_set[2].content()}")
+    Rails.logger.debug("#{self.class}: Index closing value #{tag_set[8].content()}")
     av.opening = Util.l10n_f_k(tag_set[2].content().strip())
     av.closing = Util.l10n_f_k(tag_set[8].content().strip())
     return av
