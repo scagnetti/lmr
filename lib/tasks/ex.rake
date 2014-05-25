@@ -108,14 +108,14 @@ namespace :ex do
   
   desc "Extract the reaction on quarterly figures (finanzen)"
   task :reaction_fin => :environment do
-    s = Share.where("name like ?", 'Goo%').first
+    s = Share.where("name like ?", 'UnitedT%').first
     e = FinanzenExtractor.new(s)
     e.extract_reaction_on_figures(Reaction.new)
   end
 
   desc "Extract the profit growth"
   task :profit_growth => :environment do
-    s = Share.where("name like ?", 'Volk%').first
+    s = Share.where("name like ?", 'UnitedT%').first
     e = OnVistaExtractor.new(s)
     e.extract_profit_growth(ProfitGrowth.new)
   end

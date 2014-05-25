@@ -29,18 +29,32 @@ class FinanzenExtractor < BasicExtractor
   private
 
   def extract_stock_value_on(date)
-    result_page = @historical_stock_page.form_with(:action => /\/historische-kurse.*/) do |form|
+    # Populate hidden field, we need to simulate the AJAX request
+    tmp = @agent.get("http://www.finanzen.net/holedaten.asp?strFrag=vdBHTSService")
+    token = tmp.body
+    Rails.logger.debug("Access token: #{token}") 
+    result_page = @historical_stock_page.form_with(:id => /hikuZR/) do |form|
       form.inTag1 = date.day
       form.inMonat1 = date.month
       form.inJahr1 = date.year
-      form.fields.last.value = EXCHANGE_MAP[@share.stock_exchange]
+      # form.strBoerse = EXCHANGE_MAP[@share.stock_exchange]
+      form.field_with(:name => "strBoerse").option_with(:value => EXCHANGE_MAP[@share.stock_exchange]).click
       form.inTag2 = date.day
       form.inMonat2 = date.month
       form.inJahr2 = date.year
+      if form["pkBHTs"] == nil
+        form.add_field!("pkBHTs", token)
+      else
+        form.pkBHTs = token
+      end
     end.submit
-    tag_set = result_page.parser().xpath("//h2[contains(.,'Historische Kurse')]/../following-sibling::div//tr[2]/td")
+    # result_page = a.submit(f, f.buttons.first) 
+    tag_set = result_page.parser().xpath("/html/body/div/div[6]/div[4]/div[3]/div/div[2]/div/h2[contains(.,'Historische Kurse')]/../following-sibling::div//tr[2]/td")
     if tag_set == nil || tag_set.size() != 6
       raise DataMiningError, "Could not get a stock value for the given date (#{date})", caller
+    end
+    if ! tag_set[0].content().match(/\d{2}\.\d{2}\.\d{4}/)
+      raise DataMiningError, "Could not parse date ", caller
     end
     Rails.logger.debug("#{self.class}: Found historical stock value for date #{tag_set[0].content()}")  
     Rails.logger.debug("#{self.class}: Opening value #{tag_set[1].content()}")
@@ -51,15 +65,15 @@ class FinanzenExtractor < BasicExtractor
   end
 
   def extract_index_value_on(date)
-    result_page = @historical_index_page.form_with(:id => /frmHistorisch/) do |form|
-      form.dtTag1 = date.day
-      form.dtMonat1 = date.month
-      form.dtJahr1 = date.year
-      form.dtTag2 = date.day
-      form.dtMonat2 = date.month
-      form.dtJahr2 = date.year
+    result_page = @historical_index_page.form_with(:id => /hikuZR/) do |form|
+      form.inTag1 = date.day
+      form.inMonat1 = date.month
+      form.inJahr1 = date.year
+      form.inTag2 = date.day
+      form.inMonat2 = date.month
+      form.inJahr2 = date.year
     end.submit
-    tag_set = result_page.parser().xpath("//h2[contains(.,'Historische Kursdaten')]/../following-sibling::div//tr[2]/td")
+    tag_set = result_page.parser().xpath("/html/body/div/div[6]/div[4]/div[3]/div/div[2]/div/h2[contains(.,'Historische Kursdaten')]/../following-sibling::div//tr[2]/td")
     if tag_set == nil || tag_set.size() != 5
       raise DataMiningError, "Could not get a index value for the given date (#{date})", caller
     end

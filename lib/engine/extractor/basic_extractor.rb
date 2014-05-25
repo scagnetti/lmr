@@ -9,19 +9,7 @@ class BasicExtractor
   # Set up the HTML pareser, load the web page of the extractor.
   def initialize(extractor_url, share)
     @share = share
-    @agent = Mechanize.new do |agent|
-      agent.user_agent_alias = 'Linux Firefox'
-      agent.open_timeout=60000
-      agent.read_timeout=60000
-      # agent.follow_meta_refresh = true
-      # Comment in to make use of TOR
-      if Rails.env == 'production'
-       Rails.logger.debug("#{self.class}: Using proxy configuration for TOR")
-       agent.set_proxy('127.0.0.1', 8118)
-      else
-        Rails.logger.info("#{self.class}: TOR is disabled")
-      end
-    end
+    @agent = Util.createAgent()
     @start_page = @agent.get(extractor_url)
   end
 

@@ -1,4 +1,5 @@
 require 'date'
+require 'mechanize'
 
 # Provides static support methods
 class Util
@@ -321,5 +322,22 @@ class Util
     end
     Rails.logger.debug("#{self.class}: After release date: #{after}")
     return [before, after]
+  end
+  
+  def Util.createAgent()
+    agent = Mechanize.new do |a|
+      a.user_agent_alias = 'Linux Firefox'
+      a.open_timeout=60000
+      a.read_timeout=60000
+      # agent.follow_meta_refresh = true
+      # Comment in to make use of TOR
+      if Rails.env == 'production'
+       Rails.logger.debug("#{self.class}: Using proxy configuration for TOR")
+       a.set_proxy('127.0.0.1', 8118)
+      else
+        Rails.logger.info("#{self.class}: TOR is disabled")
+      end
+    end
+    return agent
   end
 end
