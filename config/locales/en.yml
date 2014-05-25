@@ -5,9 +5,12 @@ en:
   date:
     formats:
       default: "%Y-%m-%d"
+      finanzen: "%d.%m.%Y"
+      
   time:
     formats:
       default: "%Y-%m-%d %H:%M:%S"
+      finanzen: "%d.%m.%Y"
 
   views:
     pagination:

@@ -64,7 +64,15 @@ class FinanzenExtractor < BasicExtractor
     return [opening, closing]
   end
 
+  # Possible result after doing the search:
+  # Datum       Eröffnung   Schluss     Tageshoch   Tagestief
+  # 23.05.2014  16.560,35   -           16.613,07   16.544,49
+  # 23.04.2014  16.513,73   16.501,65   16.525,99   16.477,28
   def extract_index_value_on(date)
+    tmp = @agent.get("http://www.finanzen.net/holedaten.asp?strFrag=vdBHTSService")
+    token = tmp.body
+    f_date = I18n.l(date, format: :finanzen)
+    Rails.logger.debug("#{self.class} Searching for index value on #{f_date}")
     result_page = @historical_index_page.form_with(:id => /hikuZR/) do |form|
       form.inTag1 = date.day
       form.inMonat1 = date.month
@@ -72,16 +80,22 @@ class FinanzenExtractor < BasicExtractor
       form.inTag2 = date.day
       form.inMonat2 = date.month
       form.inJahr2 = date.year
+      if form["pkBHTs"] == nil
+        form.add_field!("pkBHTs", token)
+      else
+        form.pkBHTs = token
+      end
     end.submit
-    tag_set = result_page.parser().xpath("/html/body/div/div[6]/div[4]/div[3]/div/div[2]/div/h2[contains(.,'Historische Kursdaten')]/../following-sibling::div//tr[2]/td")
-    if tag_set == nil || tag_set.size() != 5
-      raise DataMiningError, "Could not get a index value for the given date (#{date})", caller
+    #xpath = "/html/body/div/div[6]/div[4]/div[3]/div/div[2]/div/h2[contains(.,'Historische Kursdaten')]/../following-sibling::div//tr[2]/td"
+    xpath = "//h2[contains(.,'Historische Kursdaten')]/../following-sibling::div//tr/td[contains(.,'#{f_date}')]/following-sibling::td"
+    Rails.logger.debug("#{self.class}: Using XPATH: #{xpath}")
+    tag_set = result_page.parser().xpath(xpath)
+    if tag_set == nil || tag_set.size != 4
+      raise DataMiningError, "Could not get index value for the given date (#{f_date})", caller
     end
-    Rails.logger.debug("#{self.class}: Found historical index value for date #{tag_set[0].content()}")  
-    Rails.logger.debug("#{self.class}: Opening value #{tag_set[1].content()}")
-    Rails.logger.debug("#{self.class}: Closing value #{tag_set[2].content()}")
-    opening = Util.l10n_f_k(tag_set[1].content().strip())
-    closing = Util.l10n_f_k(tag_set[2].content().strip())
+    Rails.logger.debug("#{self.class}: Index value for date #{f_date}, opening: #{tag_set[0].content()}, closing: #{tag_set[1].content()}")  
+    opening = Util.l10n_f_k(tag_set[0].content().strip())
+    closing = Util.l10n_f_k(tag_set[1].content().strip())
     return [opening, closing]
   end 
 
