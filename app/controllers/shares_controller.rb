@@ -45,8 +45,9 @@ class SharesController < ApplicationController
   # POST /shares
   # POST /shares.json
   def create
-    @share = Share.new(params[:share])
-    @share.stock_index = StockIndex.find(params[:stock_index])
+    share_params = params[:share]
+    @share = Share.new(share_params)
+    @share.stock_index = StockIndex.find(share_params[:stock_index_id])
 
     respond_to do |format|
       if @share.save

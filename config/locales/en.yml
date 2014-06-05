@@ -27,3 +27,5 @@ en:
   large_cap: "Large Cap"
   mid_cap: "Mid Cap"
   small_cap: "Small Cap"
+  
+  index: "Stock Index"
