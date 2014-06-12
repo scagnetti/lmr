@@ -9,9 +9,9 @@ require 'engine/exceptions/invalid_isin_error.rb'
 class FinanzenExtractor < BasicExtractor
 
   FINANZEN_URL = "http://www.finanzen.net/"
-  STOCK_SUCCESS_XPATH = "//div[@class='breadcrumb cf']/a[2]"
+  STOCK_SUCCESS_XPATH = "//div[@class='breadcrumb']/a[2]"
   STOCK_SUCCESS_VALUE = "Aktien"
-  INDEX_SUCCESS_XPATH = "//div[@class='breadcrumb cf']/a[2]"
+  INDEX_SUCCESS_XPATH = "//div[@class='breadcrumb']/a[2]"
   INDEX_SUCCESS_VALUE = "Indizes"
   SEARCH_FAILURE = "//div[contains(.,'Keine Ergebnisse')]"
   THREE_MONTHS_IN_SECONDS = 60 * 60 * 24 * 31 * 3

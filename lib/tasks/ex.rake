@@ -168,7 +168,7 @@ namespace :ex do
   desc "Try to rate a specific share"
   task :rate_one, [:isin] => :environment do |t, args|
     if args[:isin] == nil
-      isin = "US0378331005"
+      isin = "DE0005439004" #Continental
     else
       isin = args[:isin]
     end

@@ -18,8 +18,10 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
 
+  # Distributes the V8 JavaScript engine in binary and source forms in order to support fast builds of The Ruby Racer
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'libv8', '3.11.8.4'
+  # Embed the V8 Javascript Interpreter into Ruby
   gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
