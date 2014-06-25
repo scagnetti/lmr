@@ -181,8 +181,8 @@ namespace :ex do
       stock_processor.run_extraction()
       stock_processor.run_rating()
       score_card.save!
-    rescue DataMiningError
-      puts "#{s.name} - FAILED"
+    rescue StandardError => se
+      puts "#{s.name} - FAILED because: #{se.message}"
     end
   end
   
@@ -199,7 +199,38 @@ namespace :ex do
         stock_processor.run_extraction()
         stock_processor.run_rating()
         score_card.save!
-      rescue DataMiningError
+      rescue StandardError => se
+        puts "#{s.name} - FAILED because: #{se.message}"
+        failed << s
+      end
+    end
+    t2 = Time.now
+    diff_seconds = t2 - t1
+    min = diff_seconds / 60
+    sec = diff_seconds % 60
+    puts "The evaluation took #{min} minutes and #{sec} seconds"
+    #Show stocks with problems
+    puts "For the following shares, problems occured during the evaluation:"
+    failed.each do |s|
+      puts "#{s.name} - FAILED"
+    end
+  end
+  
+  desc "Rate all shares that were not yet rated today"
+  task :rate_today => :environment do 
+    t1 = Time.now
+    failed = Array.new
+    shares = Share.joins(:score_cards).where("score_cards.created_at not between ? and ?", Time.zone.now.beginning_of_day, Time.zone.now.end_of_day)
+    shares.each do |s|
+      begin
+        score_card = ScoreCard.new()
+        score_card.share = s
+        stock_processor = StockProcessor.new(score_card)
+        stock_processor.run_extraction()
+        stock_processor.run_rating()
+        score_card.save!
+      rescue StandardError => se
+        puts "#{s.name} - FAILED because: #{se.message}"
         failed << s
       end
     end
