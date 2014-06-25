@@ -1,8 +1,6 @@
 ENV["RAILS_ENV"] = "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
-require 'engine/parser/dow_index_parser.rb'
-require 'engine/parser/dax_index_parser.rb'
 
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
@@ -43,10 +41,6 @@ class ActiveSupport::TestCase
   end
 
   def populate_test_db()
-    # Extract Dow Jones and DAX shares from onVista homepage
-    # DowIndexParser.new
-    # DaxIndexParser.new
-    # OR load the database dump file data.yml (created with rake db:data:dump)
     %x[rake db:data:load]
   end
   
