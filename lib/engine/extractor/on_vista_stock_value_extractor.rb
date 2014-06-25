@@ -22,7 +22,7 @@ class OnVistaStockValueExtractor
     search_url = construct_search_url(search_date)
     history_page = @agent.get(search_url)
     td_set = history_page.parser().xpath("//span[.='#{search_date}']/../../following-sibling::td")
-    raise DataMiningError, "Could not get a stock price for the given date (#{search_date})", caller if td_set.nil? || td_set.size != 5
+    raise RuntimeError, "Could not get a stock price for the given date (#{search_date})", caller if td_set.nil? || td_set.size != 5
     av.opening = Util.l10n_f_k(td_set[0].content().strip())
     av.closing = Util.l10n_f_k(td_set[3].content().strip())
     Rails.logger.debug("#{self.class}: Opening value #{av.opening}")
@@ -38,7 +38,7 @@ class OnVistaStockValueExtractor
   # The stock exchange ID, should look like: '?notationId=37967484'
   def get_stock_exchange_id()
     anchor_set = @stock_page.parser().xpath("//div[@id='exchangesLayer']/ul/li/a[contains(.,'#{@stock_exchange}')]")
-    raise DataMiningError, "Could not extract onVista stock exchange ID for #{@stock_exchange}", caller if anchor_set.nil? || anchor_set.size < 1
+    raise RuntimeError, "Could not extract onVista stock exchange ID for #{@stock_exchange}", caller if anchor_set.nil? || anchor_set.size < 1
     stock_exchange_id = anchor_set[0].attr('href').sub(/.*=/, '')
     Rails.logger.debug("#{self.class}: ID of stock exchange #{@stock_exchange}: #{stock_exchange_id}")
     return stock_exchange_id
@@ -49,7 +49,7 @@ class OnVistaStockValueExtractor
   def get_asset_name()
     uri = @stock_page.canonical_uri()
     match = uri.to_s.match(/.*\/(.*)-Aktie/)
-    raise DataMiningError, "Could not extract stock asset name", caller if match.nil?
+    raise RuntimeError, "Could not extract stock asset name", caller if match.nil?
     Rails.logger.debug("#{self.class}: Stock asset name: #{match[1]}")
     return match[1]
   end

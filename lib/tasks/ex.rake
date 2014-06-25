@@ -46,7 +46,7 @@ namespace :ex do
 
   desc "Extract the return on equity (Eigenkapitalrendite)"  
   task :roe => :environment do
-    s = Share.where("name like ?", 'Volk%').first
+    s = Share.where("name like ?", 'Fed%').first
     e = OnVistaExtractor.new(s)
     e.extract_roe(ReturnOnEquity.new)
   end
@@ -180,7 +180,7 @@ namespace :ex do
       stock_processor = StockProcessor.new(score_card)
       stock_processor.run_extraction()
       stock_processor.run_rating()
-      score_card.save
+      score_card.save!
     rescue DataMiningError
       puts "#{s.name} - FAILED"
     end
@@ -195,11 +195,10 @@ namespace :ex do
       begin
         score_card = ScoreCard.new()
         score_card.share = s
-        # Run the algorithm
         stock_processor = StockProcessor.new(score_card)
         stock_processor.run_extraction()
         stock_processor.run_rating()
-        score_card.save
+        score_card.save!
       rescue DataMiningError
         failed << s
       end

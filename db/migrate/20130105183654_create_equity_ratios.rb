@@ -4,8 +4,8 @@ class CreateEquityRatios < ActiveRecord::Migration
       t.boolean :succeeded, :default => true
       t.integer :score, :default => -1
       t.text :error_msg
-      t.integer :last_year
-      t.float :value
+      t.integer :last_year, :default => -1
+      t.float :value, :default => -1
 
       t.timestamps
     end

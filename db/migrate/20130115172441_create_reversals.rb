@@ -9,19 +9,19 @@ class CreateReversals < ActiveRecord::Migration
       t.date :two_months_ago
       t.date :one_month_ago
       
-      t.float :value_four_months_ago
-      t.float :value_three_months_ago
-      t.float :value_two_months_ago
-      t.float :value_one_month_ago
+      t.float :value_four_months_ago, :default => -1
+      t.float :value_three_months_ago, :default => -1
+      t.float :value_two_months_ago, :default => -1
+      t.float :value_one_month_ago, :default => -1
       
       t.float :value_perf_three_months_ago
       t.float :value_perf_two_months_ago
       t.float :value_perf_one_month_ago
       
-      t.float :index_four_months_ago
-      t.float :index_three_months_ago
-      t.float :index_two_months_ago
-      t.float :index_one_month_ago
+      t.float :index_four_months_ago, :default => -1
+      t.float :index_three_months_ago, :default => -1
+      t.float :index_two_months_ago, :default => -1
+      t.float :index_one_month_ago, :default => -1
       
       t.float :index_perf_three_months_ago
       t.float :index_perf_two_months_ago

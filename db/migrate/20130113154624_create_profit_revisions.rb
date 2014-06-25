@@ -4,9 +4,9 @@ class CreateProfitRevisions < ActiveRecord::Migration
       t.boolean :succeeded, :default => true
       t.integer :score, :default => -1
       t.text :error_msg
-      t.integer :up
-      t.integer :equal
-      t.integer :down
+      t.integer :up, :default => -1
+      t.integer :equal, :default => -1
+      t.integer :down, :default => -1
 
       t.timestamps
     end

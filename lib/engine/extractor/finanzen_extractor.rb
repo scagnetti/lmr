@@ -2,7 +2,6 @@
 require 'engine/util'
 require 'engine/extractor/basic_extractor.rb'
 require 'engine/exceptions/data_mining_error.rb'
-require 'engine/exceptions/invalid_isin_error.rb'
 
 # This class has the capability to extract allor at least a part of the information neccessary to evaluate
 # a stock against the rules defined by Susan Levermann from the Boerse web site.
@@ -48,19 +47,18 @@ class FinanzenExtractor < BasicExtractor
         form.pkBHTs = token
       end
     end.submit
-    # result_page = a.submit(f, f.buttons.first) 
-    tag_set = result_page.parser().xpath("/html/body/div/div[6]/div[4]/div[3]/div/div[2]/div/h2[contains(.,'Historische Kurse')]/../following-sibling::div//tr[2]/td")
-    if tag_set == nil || tag_set.size() != 6
-      raise DataMiningError, "Could not get a stock value for the given date (#{date})", caller
-    end
-    if ! tag_set[0].content().match(/\d{2}\.\d{2}\.\d{4}/)
-      raise DataMiningError, "Could not parse date ", caller
-    end
-    Rails.logger.debug("#{self.class}: Found historical stock value for date #{tag_set[0].content()}")  
-    Rails.logger.debug("#{self.class}: Opening value #{tag_set[1].content()}")
-    Rails.logger.debug("#{self.class}: Closing value #{tag_set[2].content()}")
-    opening = Util.l10n_f_k(tag_set[1].content().strip())
-    closing = Util.l10n_f_k(tag_set[2].content().strip())
+    # result_page = a.submit(f, f.buttons.first)
+    search_date = Util.ensure_string(date)
+    tmp_xpath = "//h2[contains(.,'Historische Kurse')]/../following-sibling::div//tr/td[.='#{search_date}']/following-sibling::td"
+    #tmp_xpath = "/html/body/div/div[6]/div[4]/div[3]/div/div[2]/div/h2[contains(.,'Historische Kurse')]/../following-sibling::div//tr[2]/td"
+    tag_set = result_page.parser().xpath(tmp_xpath)
+    raise RuntimeError, "Could not find stock price at (#{date}) with xpath: #{tmp_xpath}", caller if tag_set == nil
+    raise RuntimeError, "Could not get stock price at (#{date}), because wrong size of result set, expected 6 but found #{tag_set.size()}", caller if tag_set.size() != 5
+    Rails.logger.debug("#{self.class}: Found historical stock value for date #{search_date}")  
+    Rails.logger.debug("#{self.class}: Opening value #{tag_set[0].content()}")
+    Rails.logger.debug("#{self.class}: Closing value #{tag_set[1].content()}")
+    opening = Util.l10n_f_k(tag_set[0].content().strip())
+    closing = Util.l10n_f_k(tag_set[1].content().strip())
     return [opening, closing]
   end
 
@@ -91,7 +89,7 @@ class FinanzenExtractor < BasicExtractor
     Rails.logger.debug("#{self.class}: Using XPATH: #{xpath}")
     tag_set = result_page.parser().xpath(xpath)
     if tag_set == nil || tag_set.size != 4
-      raise DataMiningError, "Could not get index value for the given date (#{f_date})", caller
+      raise DataMiningError.new("Reaktion auf Quartalszahlen", "Could not get index value for the given date (#{f_date})")
     end
     Rails.logger.debug("#{self.class}: Index value for date #{f_date}, opening: #{tag_set[0].content()}, closing: #{tag_set[1].content()}")  
     opening = Util.l10n_f_k(tag_set[0].content().strip())
@@ -105,7 +103,7 @@ class FinanzenExtractor < BasicExtractor
     appointment_page = open_sub_page('Termine', 3, 2)
     tag_set = appointment_page.parser().xpath("//h2[contains(.,'vergangene Termine')]/../following-sibling::div//tr[position() > 1]")
     if tag_set == nil || tag_set.size() < 1
-      raise DataMiningError, "Could no extract release of quarterly figures", caller
+      raise DataMiningError.new("Reaktion auf Quartalszahlen", "Could no extract release dates of quarterly figures")
       return
     end
     tag_set.each do |tr|
@@ -136,7 +134,7 @@ class FinanzenExtractor < BasicExtractor
       Rails.logger.debug("#{self.class}: Last release date: #{release_date}")
     rescue RuntimeError => e
       Rails.logger.warn("#{self.class}: #{e.to_s}")
-      raise DataMiningError, "Could not find any quaterly figures for the last 100 days", caller
+      raise DataMiningError.new("Reaktion auf Quartalszahlen", "Could not find any quaterly figures for the last 100 days")
     end
     before_after = Util.calc_compare_dates(release_date)
     reaction.release_date = release_date
@@ -164,13 +162,15 @@ class FinanzenExtractor < BasicExtractor
     analysts_opinion.hold = 0
     analysts_opinion.sell = 0
     page = open_sub_page("Kursziele", 1, 0, @stock_page)
-    heading = page.parser().xpath("//div/h2[contains(.,'Diese Analysten')]")
+    xp1 = "//div/h2[contains(.,'Diese Analysten')]"
+    heading = page.parser().xpath(xp1)
     if heading == nil || heading.size() != 1
-      raise DataMiningError, "Could not extract analysts opinion", caller
+      raise DataMiningError.new("Analystenmeinungen", "Could not extract analysts opinion with xpath #{xp1}")
     end
-    tr_set = page.parser().xpath("(//table)[3]//tr[position()>1]")
+    xp2 = "(//table)[3]//tr[position()>1]"
+    tr_set = page.parser().xpath(xp2)
     if tr_set == nil || tr_set.size() < 1
-      raise DataMiningError, "Could not extract analysts opinion", caller
+      raise DataMiningError.new("Analystenmeinungen", "Could not extract analysts opinion with xpath #{xp2}")
     end
     Rails.logger.debug("#{self.class}: #{tr_set.size} analysts rated this stock")
     tr_set.each do |tr|

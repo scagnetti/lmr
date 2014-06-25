@@ -17,9 +17,9 @@ ActiveRecord::Schema.define(:version => 20140517191803) do
     t.boolean  "succeeded",  :default => true
     t.integer  "score",      :default => -1
     t.text     "error_msg"
-    t.integer  "buy"
-    t.integer  "hold"
-    t.integer  "sell"
+    t.integer  "buy",        :default => -1
+    t.integer  "hold",       :default => -1
+    t.integer  "sell",       :default => -1
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
   end
@@ -28,17 +28,17 @@ ActiveRecord::Schema.define(:version => 20140517191803) do
     t.boolean  "succeeded",             :default => true
     t.integer  "score",                 :default => -1
     t.text     "error_msg"
-    t.integer  "three_years_ago"
-    t.integer  "two_years_ago"
-    t.integer  "last_year"
-    t.integer  "this_year"
-    t.integer  "next_year"
+    t.integer  "three_years_ago",       :default => -1
+    t.integer  "two_years_ago",         :default => -1
+    t.integer  "last_year",             :default => -1
+    t.integer  "this_year",             :default => -1
+    t.integer  "next_year",             :default => -1
     t.float    "average"
-    t.float    "value_three_years_ago"
-    t.float    "value_two_years_ago"
-    t.float    "value_last_year"
-    t.float    "value_this_year"
-    t.float    "value_next_year"
+    t.float    "value_three_years_ago", :default => -1.0
+    t.float    "value_two_years_ago",   :default => -1.0
+    t.float    "value_last_year",       :default => -1.0
+    t.float    "value_this_year",       :default => -1.0
+    t.float    "value_next_year",       :default => -1.0
     t.datetime "created_at",                              :null => false
     t.datetime "updated_at",                              :null => false
   end
@@ -47,8 +47,8 @@ ActiveRecord::Schema.define(:version => 20140517191803) do
     t.boolean  "succeeded",  :default => true
     t.integer  "score",      :default => -1
     t.text     "error_msg"
-    t.integer  "this_year"
-    t.float    "value"
+    t.integer  "this_year",  :default => -1
+    t.float    "value",      :default => -1.0
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
   end
@@ -57,8 +57,8 @@ ActiveRecord::Schema.define(:version => 20140517191803) do
     t.boolean  "succeeded",  :default => true
     t.integer  "score",      :default => -1
     t.text     "error_msg"
-    t.integer  "last_year"
-    t.float    "value"
+    t.integer  "last_year",  :default => -1
+    t.float    "value",      :default => -1.0
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
   end
@@ -67,8 +67,8 @@ ActiveRecord::Schema.define(:version => 20140517191803) do
     t.boolean  "succeeded",  :default => true
     t.integer  "score",      :default => -1
     t.text     "error_msg"
-    t.integer  "last_year"
-    t.float    "value"
+    t.integer  "last_year",  :default => -1
+    t.float    "value",      :default => -1.0
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
   end
@@ -99,10 +99,10 @@ ActiveRecord::Schema.define(:version => 20140517191803) do
     t.boolean  "succeeded",       :default => true
     t.integer  "score",           :default => -1
     t.text     "error_msg"
-    t.integer  "this_year"
-    t.integer  "next_year"
-    t.float    "value_this_year"
-    t.float    "value_next_year"
+    t.integer  "this_year",       :default => -1
+    t.integer  "next_year",       :default => -1
+    t.float    "value_this_year", :default => -1.0
+    t.float    "value_next_year", :default => -1.0
     t.float    "perf"
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
@@ -112,9 +112,9 @@ ActiveRecord::Schema.define(:version => 20140517191803) do
     t.boolean  "succeeded",  :default => true
     t.integer  "score",      :default => -1
     t.text     "error_msg"
-    t.integer  "up"
-    t.integer  "equal"
-    t.integer  "down"
+    t.integer  "up",         :default => -1
+    t.integer  "equal",      :default => -1
+    t.integer  "down",       :default => -1
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
   end
@@ -126,12 +126,12 @@ ActiveRecord::Schema.define(:version => 20140517191803) do
     t.date     "release_date"
     t.date     "before"
     t.date     "after"
-    t.float    "price_before"
-    t.float    "price_after"
-    t.float    "index_before"
-    t.float    "index_after"
-    t.float    "share_perf"
-    t.float    "index_perf"
+    t.float    "price_before", :default => -1.0
+    t.float    "price_after",  :default => -1.0
+    t.float    "index_before", :default => -1.0
+    t.float    "index_after",  :default => -1.0
+    t.float    "share_perf",   :default => -1.0
+    t.float    "index_perf",   :default => -1.0
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
   end
@@ -140,8 +140,8 @@ ActiveRecord::Schema.define(:version => 20140517191803) do
     t.boolean  "succeeded",  :default => true
     t.integer  "score",      :default => -1
     t.text     "error_msg"
-    t.integer  "last_year"
-    t.float    "value"
+    t.integer  "last_year",  :default => -1
+    t.float    "value",      :default => -1.0
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
   end
@@ -154,17 +154,17 @@ ActiveRecord::Schema.define(:version => 20140517191803) do
     t.date     "three_months_ago"
     t.date     "two_months_ago"
     t.date     "one_month_ago"
-    t.float    "value_four_months_ago"
-    t.float    "value_three_months_ago"
-    t.float    "value_two_months_ago"
-    t.float    "value_one_month_ago"
+    t.float    "value_four_months_ago",       :default => -1.0
+    t.float    "value_three_months_ago",      :default => -1.0
+    t.float    "value_two_months_ago",        :default => -1.0
+    t.float    "value_one_month_ago",         :default => -1.0
     t.float    "value_perf_three_months_ago"
     t.float    "value_perf_two_months_ago"
     t.float    "value_perf_one_month_ago"
-    t.float    "index_four_months_ago"
-    t.float    "index_three_months_ago"
-    t.float    "index_two_months_ago"
-    t.float    "index_one_month_ago"
+    t.float    "index_four_months_ago",       :default => -1.0
+    t.float    "index_three_months_ago",      :default => -1.0
+    t.float    "index_two_months_ago",        :default => -1.0
+    t.float    "index_one_month_ago",         :default => -1.0
     t.float    "index_perf_three_months_ago"
     t.float    "index_perf_two_months_ago"
     t.float    "index_perf_one_month_ago"
@@ -226,8 +226,8 @@ ActiveRecord::Schema.define(:version => 20140517191803) do
     t.boolean  "succeeded",       :default => true
     t.integer  "score",           :default => -1
     t.text     "error_msg"
-    t.float    "compare"
-    t.float    "value"
+    t.float    "compare",         :default => -1.0
+    t.float    "value",           :default => -1.0
     t.date     "historical_date"
     t.float    "perf"
     t.datetime "created_at",                        :null => false
@@ -238,8 +238,8 @@ ActiveRecord::Schema.define(:version => 20140517191803) do
     t.boolean  "succeeded",       :default => true
     t.integer  "score",           :default => -1
     t.text     "error_msg"
-    t.float    "compare"
-    t.float    "value"
+    t.float    "compare",         :default => -1.0
+    t.float    "value",           :default => -1.0
     t.date     "historical_date"
     t.float    "perf"
     t.datetime "created_at",                        :null => false

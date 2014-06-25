@@ -16,7 +16,7 @@ class OnVistaIndexValueExtractor
     match_obj = index_page.uri.to_s.match(/.*-(\d+)$/)
     Rails.logger.debug("#{self.class}: page URI: #{index_page.uri.to_s}")
     if match_obj == nil || match_obj[1] == nil
-      raise DataMiningError, "Could not extract onVista specific index id", caller
+      raise RuntimeError, "Could not extract onVista specific index id", caller
     end
     return match_obj[1]
   end
@@ -34,7 +34,7 @@ class OnVistaIndexValueExtractor
     #tag_set = history_page.parser().xpath("//td[starts-with(.,'#{d}')]/following-sibling::td")
     tag_set = history_page.parser().xpath("//input[@name='DATE']/../../../../../../../tr[7]/td/table/tr/td")
     if tag_set == nil || tag_set.size() != 11
-      raise DataMiningError, "Could not get an index value for the given date (#{search_date})", caller
+      raise RuntimeError, "Could not get an index value for the given date (#{search_date})", caller
     end
     Rails.logger.debug("#{self.class}: Found historical index value for date #{tag_set[0].content()}")
     Rails.logger.debug("#{self.class}: Index opening value #{tag_set[2].content()}")

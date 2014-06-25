@@ -41,7 +41,7 @@ class ScoreCardsController < ApplicationController
     share = Share.where(:isin => params[:isin]).first
     @score_card = ScoreCard.new()
     @score_card.share = share
-    # Run the algorithm
+
     stock_processor = StockProcessor.new(@score_card)
     stock_processor.run_extraction()
     stock_processor.run_rating()

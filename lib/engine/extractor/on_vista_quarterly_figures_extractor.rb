@@ -16,7 +16,7 @@ class OnVistaQuarterlyFiguresExtractor
     # Extract ID (e.g. http://www.onvista.de/aktien/dividendenkalender.html?tab=company&cid=46644)
     match_obj = url_with_id.match(/.*cid=(\d+)$/)
     if match_obj == nil || match_obj[1] == nil
-      raise DataMiningError, "Could not extract onVista specific stock id", caller
+      raise DataMiningError.new("Reaktion auf Quartalszahlen", "Could not extract onVista specific stock id")
     end
     share_id = match_obj[1]
     Rails.logger.debug("#{self.class}: OnVista specific stock id: #{share_id}")
@@ -36,7 +36,7 @@ class OnVistaQuarterlyFiguresExtractor
     dates = Array.new
     events = Array.new
     tag_set = @extended_appointment_page.parser().xpath("(//table)[2]//following-sibling::tr[position()>1]")
-    raise DataMiningError, "Could not extract any release dates for quarterly figures", caller if tag_set.nil? || tag_set.size() < 1
+    raise DataMiningError.new("Reaktion auf Quartalszahlen", "Could not extract any release dates for quarterly figures") if tag_set.nil? || tag_set.size() < 1
     tag_set.each do |tr|
       # This is neccesary to remove HTML escaped whitespace: &nbsp;
       nbsp = Nokogiri::HTML(EscapedCharacters::SPACE).text
@@ -59,7 +59,7 @@ class OnVistaQuarterlyFiguresExtractor
       Rails.logger.debug("#{self.class}: Last release date: #{release_date}")
     rescue RuntimeError => e
       Rails.logger.warn("#{self.class}: #{e.to_s}")
-      raise DataMiningError, "Could not find any quaterly figures for the last 100 days", caller
+      raise DataMiningError.new("Reaktion auf Quartalszahlen", "Could not find any quaterly figures for the last 100 days")
     end
     before_after = Util.calc_compare_dates(release_date)
     dates = Hash.new

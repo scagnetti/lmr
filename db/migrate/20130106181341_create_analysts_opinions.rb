@@ -4,9 +4,9 @@ class CreateAnalystsOpinions < ActiveRecord::Migration
       t.boolean :succeeded, :default => true
       t.integer :score, :default => -1
       t.text :error_msg
-      t.integer :buy
-      t.integer :hold
-      t.integer :sell
+      t.integer :buy, :default => -1
+      t.integer :hold, :default => -1
+      t.integer :sell, :default => -1
 
       t.timestamps
     end

@@ -7,12 +7,12 @@ class CreateReactions < ActiveRecord::Migration
       t.date :release_date
       t.date :before
       t.date :after
-      t.float :price_before
-      t.float :price_after
-      t.float :index_before
-      t.float :index_after
-      t.float :share_perf
-      t.float :index_perf
+      t.float :price_before, :default => -1
+      t.float :price_after, :default => -1
+      t.float :index_before, :default => -1
+      t.float :index_after, :default => -1
+      t.float :share_perf, :default => -1
+      t.float :index_perf, :default => -1
 
       t.timestamps
     end

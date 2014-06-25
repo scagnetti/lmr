@@ -1,6 +1,7 @@
 =TODOs
 
 ===Run "rake doc:app" to generate this API documentation.
+* Sonderbehandlung für den Fall, dass heute Quartalszahlen veröffentlicht wurden. Der Tag dannach liegt in diesem Fall in der Zukunft!
 * Fehlerquelle @historical_stock_page sollte keine Klassenvariable sein, da sonst zu Formularen attribute zu oft hinzugefügt werden!
 * Update score highlighting for Small Caps and financial values (see ScoreCardHelper)
 * Adapt Tooltips for financial and small shares

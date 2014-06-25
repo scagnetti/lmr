@@ -1,8 +1,8 @@
 # encoding: utf-8
+require 'date'
 require 'engine/util.rb'
 require 'engine/extractor/basic_extractor.rb'
 require 'engine/exceptions/data_mining_error.rb'
-require 'engine/exceptions/invalid_isin_error.rb'
 require 'engine/extractor/on_vista_quarterly_figures_extractor.rb'
 require 'engine/extractor/on_vista_stock_value_extractor.rb'
 require 'engine/extractor/on_vista_index_value_extractor.rb'
@@ -47,7 +47,7 @@ class OnVistaExtractor < BasicExtractor
   # required by the the stock settings, otherwise expect currency issues.
   def using_right_stock_exchange?
     span_set = @stock_page.parser().xpath("//div[@id='exchangesLayer']/span/child::text()")
-    raise DataMiningError, "Could not extract used stock exchange", caller if span_set.nil? || span_set.size < 1
+    raise RuntimeError, "Could not extract used stock exchange", caller if span_set.nil? || span_set.size < 1
     found_stock_exchange = span_set[0].content().strip()
     Rails.logger.debug("#{self.class}: Used stock exchange is: #{found_stock_exchange}")
     if found_stock_exchange == @share.stock_exchange
@@ -63,7 +63,7 @@ class OnVistaExtractor < BasicExtractor
   # which is defined in the settings of the share
   def switch_stock_exchange()
     anchor_set = @stock_page.parser().xpath("//div[@id='exchangesLayer']/ul/li/a[contains(.,'#{@share.stock_exchange}')]")
-    raise DataMiningError, "Could not set stock exchange to #{@share.stock_exchange}", caller if anchor_set.nil? || anchor_set.size != 1
+    raise RuntimeError, "Could not set stock exchange to #{@share.stock_exchange}", caller if anchor_set.nil? || anchor_set.size != 1
     Rails.logger.debug("#{self.class}: Switching stock exchange to #{@share.stock_exchange}")
     uri = @stock_page.uri.to_s << anchor_set[0].attr('href')
     @stock_page = @agent.get(uri)
@@ -74,8 +74,13 @@ class OnVistaExtractor < BasicExtractor
   # Should either be '31.12.' or '30.06.' or '30.09.' or '31.07.'
   def extract_end_of_business_year()
     span_set = @key_figures_page.parser().xpath("//span[contains(.,'Geschäftsjahresende')]")
-    raise DataMiningError, "Could not extract >>Geschäftsjahresende<< on key figures page", caller if span_set.nil? || span_set.size < 1
+    if span_set.nil? || span_set.size < 1
+      raise RuntimeError, "Could not extract >>Geschäftsjahresende<< on key figures page", caller
+    end
     value = span_set[0].content.strip().sub(/Geschäftsjahresende:\s/, '')
+    #if value.nil? || !value.match('\A\d{2}\.\d{2}\Z')
+    #  raise RuntimeError, "Could not process >>#{value}<< as >>Geschäftsjahresende<<", caller
+    #end
     Rails.logger.debug("#{self.class}: End of business year: #{value}")
     return value
   end
@@ -95,7 +100,8 @@ class OnVistaExtractor < BasicExtractor
   # * +em+ - estimated matches regarding the number of publication years found
   def extract_years_of_publication_for(figure, xpath, em)
     years_set = @key_figures_page.parser().xpath(xpath)
-    raise DataMiningError, "Could not extract >>#{figure}<<, because of missing publication years", caller if years_set.nil? || years_set.size() != em
+    raise DataMiningError.new(figure, "Could not find any years with xpath: #{xpath}") if years_set.nil?
+    raise DataMiningError.new(figure, "Result set of years has wrong item size, found #{years_set.size} items but expected #{em}") if years_set.size() != em
     # Access the content of the node and remove the 'e' for 'expected'
     years = years_set.map{|x| x.content().strip().sub(/e/,'')}
     # Care about stocks where business ends in the middle of the year
@@ -104,6 +110,7 @@ class OnVistaExtractor < BasicExtractor
       years = normalize(years)
     end
     years.each do |y|
+      raise DataMiningError.new(figure, "Found year with bad format: #{y}") if !y.match('\A\d{4}\Z')
       Rails.logger.debug("#{self.class}: Searching for #{figure} of the year #{y}")
     end
     return years
@@ -115,10 +122,12 @@ class OnVistaExtractor < BasicExtractor
   # * +em+ - estimated matches regarding the number of values found
   def extract_values_for(figure, xpath, em)
     values_set = @key_figures_page.parser().xpath(xpath)
-    raise DataMiningError, "Could not find >>#{figure}<<", caller if values_set.nil? || values_set.size() != em
+    raise DataMiningError.new(figure, "Could not find any values with xpath: #{xpath}") if values_set.nil?
+    raise DataMiningError.new(figure, "Result set has wrong item size, found #{values_set.size} items but expected #{em}") if values_set.size() != em
     # Access the content of the node and remove any pre- and postfix around the value
     values = values_set.map{|x| x.content().strip().sub(/^+/,'').sub(/$%/,'')}
     values.each do |v|
+      raise DataMiningError.new(figure, "Found illegal value: #{v}") if v == "n.a." || v == "-" 
       Rails.logger.debug("#{self.class}: #{figure} is #{v}")
     end
     return values
@@ -133,14 +142,12 @@ class OnVistaExtractor < BasicExtractor
     v = values[0]
     y = years[0]
     if v == "n.a." || v == "-"
+      Rails.logger.warn("#{self.class}: Using out dated values for figure #{figure}!")
       # Data for this year is not yet available, so take year before
       v = values[1]
       y = years[1]
-      if v == "n.a." || v == "-"
-        raise DataMiningError, "Could not extract >>#{figure}<<, because two years have n.a. as value", caller
-      else
-        Rails.logger.warn("#{self.class}: Figures for #{figure} are not up to date, using figures from the year before!")
-      end
+      raise DataMiningError.new(figure, "Failed to find current year: #{y}") if y == "n.a." || y == "-"
+      raise DataMiningError.new(figure, "Failed to find current value: #{v}") if v == "n.a." || v == "-"
     end
     return Hash[YEAR => y, VALUE => v]
   end
@@ -159,9 +166,11 @@ class OnVistaExtractor < BasicExtractor
   # * +years+ - the extracted year for the key figure
   # * +values+ - the extracted values for the key figure
   def find_value_for_given_year(figure, year_of_interest, years, values)
-    raise DataMiningError, "Could not extract >>#{figure}<<, because years differ from values in size", caller if years.size != values.size
+    raise DataMiningError.new(figure, "Supplied years and values differ in size") if years.size != values.size
     i = years.index(year_of_interest)
-    raise DataMiningError, "Could not extract >>#{figure}<<, because year of interest (#{year_of_interest}) could not be found in #{years.to_s}", caller if i.nil?
+    if i.nil?
+      raise DataMiningError.new(figure, "The year of interest: #{year_of_interest} could not be found in #{years.to_s}")
+    end
     year = years[i]
     value = values[i]
     return Hash[YEAR => year, VALUE => value]
@@ -186,7 +195,7 @@ class OnVistaExtractor < BasicExtractor
       Rails.logger.debug("#{self.class}: Stock name: #{scan_result[0]}")
       return scan_result[0].strip()
     else
-      raise DataMiningError, "Search result was not a stock page!", caller 
+      raise RuntimeError, "Search result was not a stock page!", caller 
     end
   end
   
@@ -195,7 +204,8 @@ class OnVistaExtractor < BasicExtractor
     price_now = -1
     currency = 'not set'
     tag_set = @stock_page.parser().xpath("//ul[@class='KURSDATEN']/li[1]/span")
-    raise DataMiningError, "Could not extract current stock price", caller if tag_set.nil? || tag_set.size() != 2
+    raise RuntimeError, "Could find current stock price", caller if tag_set.nil?
+    raise RuntimeError, "Search for current stock price was ambiguous, xpath matched #{tag_set.size()} times", caller if tag_set.size() != 2
     raw_price_now = tag_set[0].content().strip()
     currency = tag_set[1].content().strip()
     price_now = Util.l10n_f_k(raw_price_now)
@@ -211,7 +221,7 @@ class OnVistaExtractor < BasicExtractor
   # Extract Return on Equity (RoE) in German: Eigenkapitalrendite
   # ruby -I test test/integration/extract_roe_test.rb
   def extract_roe(return_on_equity)
-    figure = "Eigenkapitalrendite"
+    figure = "Eigenkapitalrendite (RoE)"
     years_xpath = "(//th[contains(.,'Rentabilit')])[2]/following-sibling::th[position() > 3]"
     values_xpath = "//td[.='Eigenkapitalrendite']/following-sibling::td[position() > 3]"
     years = extract_years_of_publication_for(figure, years_xpath, 4)
@@ -299,16 +309,14 @@ class OnVistaExtractor < BasicExtractor
   def extract_analysts_opinion(analysts_opinion)
     analyzer_page = open_sub_page("Analyzer", 1, 0)
     tag_set = analyzer_page.parser().xpath("//td[@class='BALKEN']")
-    if tag_set == nil || tag_set.size() != 5
-      raise DataMiningError, "Could not extract analysts opinion", caller
-    else
-      analysts_opinion.buy = tag_set[0].inner_text().strip().to_i + tag_set[1].inner_text().strip().to_i
-      analysts_opinion.hold = tag_set[2].inner_text().strip().to_i
-      analysts_opinion.sell = tag_set[3].inner_text().strip().to_i + tag_set[4].inner_text().strip().to_i
-      Rails.logger.debug("#{self.class}: analyst opinion buy: #{analysts_opinion.buy}")
-      Rails.logger.debug("#{self.class}: analyst opinion hold: #{analysts_opinion.hold}")
-      Rails.logger.debug("#{self.class}: analyst opinion sell: #{analysts_opinion.sell}")
-    end
+    raise DataMiningError.new("Analystenmeinungen", "XPath did not match at all") if tag_set == nil
+    raise DataMiningError.new("Analystenmeinungen", "Number of items in result set did not fit, expected 5 but found #{tag_set.size()}") if tag_set.size() != 5
+    analysts_opinion.buy = tag_set[0].inner_text().strip().to_i + tag_set[1].inner_text().strip().to_i
+    analysts_opinion.hold = tag_set[2].inner_text().strip().to_i
+    analysts_opinion.sell = tag_set[3].inner_text().strip().to_i + tag_set[4].inner_text().strip().to_i
+    Rails.logger.debug("#{self.class}: analyst opinion buy: #{analysts_opinion.buy}")
+    Rails.logger.debug("#{self.class}: analyst opinion hold: #{analysts_opinion.hold}")
+    Rails.logger.debug("#{self.class}: analyst opinion sell: #{analysts_opinion.sell}")
   end
 
   # Extract the reaction on the release of quarterly figures
@@ -324,8 +332,14 @@ class OnVistaExtractor < BasicExtractor
     reaction.price_before = asset_value.closing()
     Rails.logger.debug("#{self.class}: Stock price one day before release: #{reaction.price_before}")
     # Get the value of the stock one day after the quarterly figures where published
-    asset_value = @stock_value_extractor.extract_stock_value_on(reaction.after)
-    reaction.price_after = asset_value.closing()
+    if reaction.release_date == Date.today
+      # If quarterly figures where released today we use the current stock price
+      reaction.price_after = extract_stock_price()
+    else
+      # Otherwise we use the history search for historical stock prices
+      asset_value = @stock_value_extractor.extract_stock_value_on(reaction.after)
+      reaction.price_after = asset_value.closing()
+    end
     Rails.logger.debug("#{self.class}: Stock price one day after release: #{reaction.price_after}")
     # Get the value of the index one day before the quaterly figures where published
     asset_value = @index_value_extractor.extract_index_value_on(reaction.before)
@@ -340,22 +354,11 @@ class OnVistaExtractor < BasicExtractor
   # Extract the revision of estimated profits
   # ruby -I test test/integration/extract_profit_revision_test.rb
   def extract_profit_revision(profit_revision)
-    ## This way doesn't work with american shares like DOW, because no values are found
-    # analyzer_page = open_sub_page("Analyzer", 1, 0)
-    # tag_set = analyzer_page.parser().xpath("//th[.='Revisionen der Empfehlung der letzten 3 Monate']/../../../tbody/tr/td[2]")
-    # if tag_set == nil || tag_set.size() != 3
-      # raise DataMiningError, "Could not extract profit revision", caller
-    # else
-      # profit_revision.up = tag_set[0].inner_text().strip().to_i
-      # profit_revision.equal = tag_set[1].inner_text().strip().to_i
-      # profit_revision.down = tag_set[2].inner_text().strip().to_i
-      # Rails.logger.debug("#{self.class}: profit revision up: #{profit_revision.up}")
-      # Rails.logger.debug("#{self.class}: profit revision equal: #{profit_revision.equal}")
-      # Rails.logger.debug("#{self.class}: profit revision down: #{profit_revision.down}")
-    # end
     # This way works also with american shares like DOW
-    tag_set = @stock_page.parser().xpath("//th[contains(.,'Revidierte Gewinnprognose')]/following-sibling::td[1]/span[1]")
-    raise DataMiningError, "Could not extract profit revision", caller if tag_set == nil || tag_set.size() != 1
+    tmp_xpath = "//th[contains(.,'Revidierte Gewinnprognose')]/following-sibling::td[1]/span[1]"
+    tag_set = @stock_page.parser().xpath(tmp_xpath)
+    raise DataMiningError.new("Gewinnrevisionen", "Could not find any revisions with xpath: #{tmp_xpath}") if tag_set == nil
+    raise DataMiningError.new("Gewinnrevisionen", "Expected result set size of 1 but found #{tag_set.size()} with xpath: #{tmp_xpath}") if tag_set.size() != 1
     assessment = tag_set[0].attr('class')
     Rails.logger.debug("#{self.class}: profit revision: #{assessment}")
     case assessment
@@ -372,7 +375,7 @@ class OnVistaExtractor < BasicExtractor
       profit_revision.equal = 0
       profit_revision.down = 1
     else
-      raise DataMiningError, "Don't know how to interpret profit revision: #{assessment}", caller
+      raise DataMiningError.new("Gewinnrevisionen", "Don't know how to interpret profit revision: #{assessment}")
     end
     Rails.logger.debug("#{self.class}: profit revision up: #{profit_revision.up}")
     Rails.logger.debug("#{self.class}: profit revision equal: #{profit_revision.equal}")
