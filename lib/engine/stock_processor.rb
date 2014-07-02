@@ -13,19 +13,19 @@ class StockProcessor
   def initialize(score_card)
     Rails.logger.info("#{self.class}: Starting configuration process for share: #{score_card.share.name}")
     @score_card = score_card
-    @score_card.return_on_equity = ReturnOnEquity.new
-    @score_card.ebit_margin = EbitMargin.new
-    @score_card.equity_ratio = EquityRatio.new
-    @score_card.current_price_earnings_ratio = CurrentPriceEarningsRatio.new
-    @score_card.average_price_earnings_ratio = AveragePriceEarningsRatio.new
-    @score_card.analysts_opinion = AnalystsOpinion.new
-    @score_card.reaction = Reaction.new
-    @score_card.profit_revision = ProfitRevision.new
-    @score_card.stock_price_dev_half_year = StockPriceDevHalfYear.new
-    @score_card.stock_price_dev_one_year = StockPriceDevOneYear.new
-    @score_card.momentum = Momentum.new
-    @score_card.reversal = Reversal.new
-    @score_card.profit_growth = ProfitGrowth.new
+    # @score_card.return_on_equity = ReturnOnEquity.new
+    # @score_card.ebit_margin = EbitMargin.new
+    # @score_card.equity_ratio = EquityRatio.new
+    # @score_card.current_price_earnings_ratio = CurrentPriceEarningsRatio.new
+    # @score_card.average_price_earnings_ratio = AveragePriceEarningsRatio.new
+    # @score_card.analysts_opinion = AnalystsOpinion.new
+    # @score_card.reaction = Reaction.new
+    # @score_card.profit_revision = ProfitRevision.new
+    # @score_card.stock_price_dev_half_year = StockPriceDevHalfYear.new
+    # @score_card.stock_price_dev_one_year = StockPriceDevOneYear.new
+    # @score_card.momentum = Momentum.new
+    # @score_card.reversal = Reversal.new
+    # @score_card.profit_growth = ProfitGrowth.new
     @extractors = Array.new
     Rails.logger.info("#{self.class}: Initializing extractor: OnVistaExtractor")
     @extractors << OnVistaExtractor.new(@score_card.share)
@@ -54,13 +54,9 @@ class StockProcessor
       e.extract_roe(@score_card.return_on_equity)
     }
 
-    if @score_card.share.financial
-      # Do nothing, because this figure is always rated with 0
-    else
-      run_on_all_extractors(@score_card.ebit_margin) { |e|
-        e.extract_ebit_margin(@score_card.ebit_margin)
-      }
-    end
+    run_on_all_extractors(@score_card.ebit_margin) { |e|
+      e.extract_ebit_margin(@score_card.ebit_margin, @score_card.share.financial)
+    }
     
     run_on_all_extractors(@score_card.equity_ratio) { |e|
       e.extract_equity_ratio(@score_card.equity_ratio)

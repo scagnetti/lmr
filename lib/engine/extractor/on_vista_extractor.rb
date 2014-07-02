@@ -235,16 +235,21 @@ class OnVistaExtractor < BasicExtractor
 
   # Extract EBIT-Margin
   # ruby -I test test/integration/extract_ebit_test.rb
-  def extract_ebit_margin(ebit_margin)
-    figure = "EBIT-Marge"
-    years_xpath = "(//th[contains(.,'Rentabilit')])[2]/following-sibling::th[position() > 3]"
-    values_xpath = "//td[.='EBIT-Marge']/following-sibling::td[position() > 3]"
-    years = extract_years_of_publication_for(figure, years_xpath, 4)
-    values = extract_values_for(figure, values_xpath, 4)
-    result = find_most_recent(figure, years, values)
-    ebit_margin.value = Util.l10n_f(result[VALUE])
-    ebit_margin.last_year = result[YEAR]
-    Rails.logger.debug("#{self.class}: Ebit-Marge LJ(#{ebit_margin.last_year}): #{ebit_margin.value}")
+  def extract_ebit_margin(ebit_margin, financial)
+    if financial
+      # Do nothing, because this figure is always rated with 0
+      Rails.logger.debug("#{self.class}: Won't extract Ebit-Marge LJ, because it's a financial share")
+    else
+      figure = "EBIT-Marge"
+      years_xpath = "(//th[contains(.,'Rentabilit')])[2]/following-sibling::th[position() > 3]"
+      values_xpath = "//td[.='EBIT-Marge']/following-sibling::td[position() > 3]"
+      years = extract_years_of_publication_for(figure, years_xpath, 4)
+      values = extract_values_for(figure, values_xpath, 4)
+      result = find_most_recent(figure, years, values)
+      ebit_margin.value = Util.l10n_f(result[VALUE])
+      ebit_margin.last_year = result[YEAR]
+      Rails.logger.debug("#{self.class}: Ebit-Marge LJ(#{ebit_margin.last_year}): #{ebit_margin.value}")
+    end
   end
 
 

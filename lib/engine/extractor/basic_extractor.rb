@@ -67,7 +67,7 @@ class BasicExtractor
   end
 
   # Extract EBIT-Margin
-  def extract_ebit_margin(ebit_margin)
+  def extract_ebit_margin(ebit_margin, financial)
     raise NotImplementedError, "Could not extract EBIT-Margin", caller
   end
 

@@ -21,7 +21,7 @@ class ExtractEbitTest < ActiveSupport::TestCase
       ebit = EbitMargin.new
       begin
         e = OnVistaExtractor.new(share)  
-        e.extract_ebit_margin(ebit)
+        e.extract_ebit_margin(ebit, share.financial)
       rescue DataMiningError => e
         ebit.succeeded = false
         ebit.error_msg = "#{e.to_s}"
@@ -36,7 +36,7 @@ class ExtractEbitTest < ActiveSupport::TestCase
       ebit = EbitMargin.new
       begin
         e = OnVistaExtractor.new(share)  
-        e.extract_ebit_margin(ebit)
+        e.extract_ebit_margin(ebit, share.financial)
       rescue DataMiningError => e
         ebit.succeeded = false
         ebit.error_msg = "#{e.to_s}"
