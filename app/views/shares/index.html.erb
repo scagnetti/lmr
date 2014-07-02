@@ -51,7 +51,7 @@
 				  	<td><%= share.isin %></td>
 				    <td><%= share.active %></td>
 				    <td><%= link_to 'Evaluate', "/score_cards/assess_share/#{share.isin}",
-				    					{:method => :put, :class => "btn btn-default btn-xs", "data-toggle" => "modal", "data-target" => "#busyScreen"} %></td>
+				    					{:class => "btn btn-default btn-xs", :onclick => "$('#busyScreen').modal('show')"} %></td>
 				    <!-- <td><%= link_to 'Destroy', share, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
 				  </tr>
 				<% end %>
