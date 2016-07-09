@@ -44,4 +44,5 @@ gem 'watir'
 # Datepicker
 # gem 'bootstrap-datepicker-rails'
 
-# gem 'mysql2'
+# MySql Support
+gem 'mysql2', '~> 0.3.18'
