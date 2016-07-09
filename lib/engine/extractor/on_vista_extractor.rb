@@ -24,9 +24,9 @@ class OnVistaExtractor < BasicExtractor
 
   def initialize(share)
     super(ON_VISTA_URL, share)
-    Rails.logger.debug("#{self.class}: Open OnVista with share: #{share.name} (#{share.isin}) and stock index: #{share.stock_index.name} (#{share.stock_index.isin})")
+    Rails.logger.warn("#{self.class}: Open OnVista with share: #{share.name} (#{share.isin}) and stock index: #{share.stock_index.name} (#{share.stock_index.isin})")
     @stock_page = perform_search("action", 'http://www.onvista.de/suche/', "searchValue", share.isin, SUCCESS_XPATH, SUCCESS_VALUE_STOCK)
-    Rails.logger.debug("#{self.class}: Loaded content of: #{@stock_page.uri.to_s}")
+    Rails.logger.warn("#{self.class}: Loaded content of: #{@stock_page.uri.to_s}")
     if using_right_stock_exchange? == false
       switch_stock_exchange()
     end
@@ -35,7 +35,6 @@ class OnVistaExtractor < BasicExtractor
     @index_value_extractor = OnVistaIndexValueExtractor.new(@agent, index_page)
     @key_figures_page = open_sub_page('Fundamental', 1, 0)
     @end_of_business_year = extract_end_of_business_year()
-    Rails.logger.debug("#{self.class}: Initialization successful")
   end
 
 
@@ -54,7 +53,7 @@ class OnVistaExtractor < BasicExtractor
       Rails.logger.debug("#{self.class}: Used stock exchange matches required stock exchange")
       return true
     else
-      Rails.logger.debug("#{self.class}: Stock exchange missmatch! Required stock exchange is #{@share.stock_exchange}")
+      Rails.logger.info("#{self.class}: Stock exchange missmatch! Required stock exchange is #{@share.stock_exchange}")
       return false
     end
   end
@@ -127,7 +126,7 @@ class OnVistaExtractor < BasicExtractor
     # Access the content of the node and remove any pre- and postfix around the value
     values = values_set.map{|x| x.content().strip().sub(/^+/,'').sub(/$%/,'')}
     values.each do |v|
-      raise DataMiningError.new(figure, "Found illegal value: #{v}") if v == "n.a." || v == "-" 
+      # raise DataMiningError.new(figure, "Found illegal value: #{v}") if v == "n.a." || v == "-" 
       Rails.logger.debug("#{self.class}: #{figure} is #{v}")
     end
     return values
@@ -312,13 +311,15 @@ class OnVistaExtractor < BasicExtractor
   # Extract the opinion of the analysts (Analystenmeinungen)
   # ruby -I test test/integration/extract_analysts_opinion_test.rb
   def extract_analysts_opinion(analysts_opinion)
-    analyzer_page = open_sub_page("Analyzer", 1, 0)
-    tag_set = analyzer_page.parser().xpath("//td[@class='BALKEN']")
+    analyzer_page = open_sub_page_by_href(/.*aktien-analysen.*/, 2, 0)
+    tag_set = analyzer_page.parser().xpath("//article[@class = 'ANALYZER_TEASER BOX']//tr/td[position() = 2]")
+    #tag_set = analyzer_page.parser().css(".BALKEN_CONTAINER")
+    #tag_set = analyzer_page.parser().xpath("//td[@class='BALKEN']")
     raise DataMiningError.new("Analystenmeinungen", "XPath did not match at all") if tag_set == nil
-    raise DataMiningError.new("Analystenmeinungen", "Number of items in result set did not fit, expected 5 but found #{tag_set.size()}") if tag_set.size() != 5
-    analysts_opinion.buy = tag_set[0].inner_text().strip().to_i + tag_set[1].inner_text().strip().to_i
-    analysts_opinion.hold = tag_set[2].inner_text().strip().to_i
-    analysts_opinion.sell = tag_set[3].inner_text().strip().to_i + tag_set[4].inner_text().strip().to_i
+    raise DataMiningError.new("Analystenmeinungen", "Number of items in result set did not fit, expected 3 but found #{tag_set.size()}") if tag_set.size() != 3
+    analysts_opinion.buy = tag_set[0].inner_text().strip().to_i
+    analysts_opinion.hold = tag_set[1].inner_text().strip().to_i
+    analysts_opinion.sell = tag_set[2].inner_text().strip().to_i
     Rails.logger.debug("#{self.class}: analyst opinion buy: #{analysts_opinion.buy}")
     Rails.logger.debug("#{self.class}: analyst opinion hold: #{analysts_opinion.hold}")
     Rails.logger.debug("#{self.class}: analyst opinion sell: #{analysts_opinion.sell}")

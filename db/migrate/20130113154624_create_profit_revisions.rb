@@ -7,6 +7,7 @@ class CreateProfitRevisions < ActiveRecord::Migration
       t.integer :up, :default => -1
       t.integer :equal, :default => -1
       t.integer :down, :default => -1
+      t.belongs_to :score_card, index: true
 
       t.timestamps
     end

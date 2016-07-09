@@ -1,8 +1,7 @@
 <div class="row">
 	<%= render 'score', :score => @score_card.current_price_earnings_ratio.score %>
 	<div class="col-xs-11 col-md-3">
-		KGV aktuell
-		<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="< 12 | 12 - 16 | > 16"></span>
+		<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="< 12 | 12 - 16 | > 16"></span> KGV aktuell
 	</div>
 	<% if @score_card.current_price_earnings_ratio.succeeded %>
 		<div class="col-xs-6 col-md-2">

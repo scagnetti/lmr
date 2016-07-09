@@ -2,8 +2,8 @@ class InsiderDealsController < ApplicationController
   # GET /insider_deals
   # GET /insider_deals.json
   def index
-    @share_id = params[:share_id]
-    @insider_deals = InsiderDeal.restrict(@share_id).page(params[:page]).per(20)
+
+    @insider_deals = InsiderDeal.page(params[:page]).per(20)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -41,17 +41,7 @@ class InsiderDealsController < ApplicationController
   # POST /insider_deals
   # POST /insider_deals.json
   def create
-    @insider_deal = InsiderDeal.new(params[:insider_deal])
 
-    respond_to do |format|
-      if @insider_deal.save
-        format.html { redirect_to @insider_deal, notice: 'Insider deal was successfully created.' }
-        format.json { render json: @insider_deal, status: :created, location: @insider_deal }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @insider_deal.errors, status: :unprocessable_entity }
-      end
-    end
   end
 
   # PUT /insider_deals/1

@@ -1,7 +1,5 @@
 class User < ActiveRecord::Base
-  # Rails white lists those variables that can be mass assigned
-  attr_accessible :email, :admin, :password, :password_confirmation
-  
+
   # Ruby generates getters and setter for these variables
   attr_accessor :password
   

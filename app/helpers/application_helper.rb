@@ -11,4 +11,7 @@ module ApplicationHelper
     end
   end
 
+  def format_currency(price, unit)
+    return number_to_currency(price, unit: unit, locale: :de, separator: ',', delimiter:' ', format: "%n %u", precision: 0)
+  end
 end

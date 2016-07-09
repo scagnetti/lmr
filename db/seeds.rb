@@ -7,5 +7,5 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 require 'active_record/fixtures'
 
-ActiveRecord::Fixtures.create_fixtures("#{Rails.root}/test/fixtures", "stock_indices")
-ActiveRecord::Fixtures.create_fixtures("#{Rails.root}/test/fixtures", "shares")
+ActiveRecord::FixtureSet.create_fixtures("#{Rails.root}/test/fixtures", "stock_indices")
+ActiveRecord::FixtureSet.create_fixtures("#{Rails.root}/test/fixtures", "shares")

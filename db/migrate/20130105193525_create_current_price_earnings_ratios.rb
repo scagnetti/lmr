@@ -6,6 +6,7 @@ class CreateCurrentPriceEarningsRatios < ActiveRecord::Migration
       t.text :error_msg
       t.integer :this_year, :default => -1
       t.float :value, :default => -1
+      t.belongs_to :score_card, index: true
 
       t.timestamps
     end

@@ -1,0 +1,25 @@
+<div class="row">
+	<div class="col-md-12">
+		<ol class="breadcrumb">
+		  <li><%= link_to 'ScoreCards', score_cards_path %></li>
+		  <li class="active">Add</li>
+		</ol>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<h1>Run evaluation on the following shares:</h1>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-4">
+		<%= form_tag(@score_card) do %>
+		  <div class="form-group">
+		    <%= select_tag 'scope', get_options_for_select(), {:class => "form-control"} %>
+		  </div>
+			<%= submit_tag("Launch") %>
+		<% end %>
+	</div>
+</div>

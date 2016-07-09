@@ -1,20 +1,21 @@
 # Contains all extracted data for a certain stock
 class ScoreCard < ActiveRecord::Base
-  attr_accessible :price, :currency, :share
+
   belongs_to :share
-  belongs_to :return_on_equity, autosave: true
-  belongs_to :reaction, autosave: true
-  belongs_to :ebit_margin, autosave: true
-  belongs_to :equity_ratio, autosave: true
-  belongs_to :current_price_earnings_ratio, autosave: true
-  belongs_to :average_price_earnings_ratio, autosave: true
-  belongs_to :analysts_opinion, autosave: true
-  belongs_to :profit_revision, autosave: true
-  belongs_to :stock_price_dev_half_year, autosave: true
-  belongs_to :stock_price_dev_one_year, autosave: true
-  belongs_to :momentum, autosave: true
-  belongs_to :reversal, autosave: true
-  belongs_to :profit_growth, autosave: true
+  has_one :return_on_equity, autosave: true
+  has_one :reaction, autosave: true
+  has_one :ebit_margin, autosave: true
+  has_one :equity_ratio, autosave: true
+  has_one :current_price_earnings_ratio, autosave: true
+  has_one :average_price_earnings_ratio, autosave: true
+  has_one :analysts_opinion, autosave: true
+  has_one :profit_revision, autosave: true
+  has_one :stock_price_dev_half_year, autosave: true
+  has_one :stock_price_dev_one_year, autosave: true
+  has_one :momentum, autosave: true
+  has_one :reversal, autosave: true
+  has_one :profit_growth, autosave: true
+  has_one :insider_info, autosave: true
 
   after_initialize do |score_card|
     if new_record?
@@ -31,6 +32,7 @@ class ScoreCard < ActiveRecord::Base
       score_card.momentum = Momentum.new
       score_card.reversal = Reversal.new
       score_card.profit_growth = ProfitGrowth.new
+      score_card.insider_info = InsiderInfo.new
     end
   end
 
@@ -44,5 +46,9 @@ class ScoreCard < ActiveRecord::Base
   # select * from score_cards group by share_id having max(created_at);
   
   # scope :created_filter, ->(d) { where("date(created_at) = ?", d) }
-  scope :share_name, lambda { |value| joins(:share).where("shares.name like ?", value + "%") unless value.blank? }
+  scope :share_name, lambda { |value| joins(:share).where("shares.name like ? OR shares.isin like ?", value + "%", value) unless value.blank? }
+
+  # ScoreCard.joins(share: :stock_index).where("stock_indices.name like 'DAX' and score_cards.created_at between '2015-05-19' and '2015-05-20'").size
+  scope :stock_index, lambda { |value| joins(share: :stock_index).where("stock_indices.id = ?", value) unless value.blank? }
+
 end

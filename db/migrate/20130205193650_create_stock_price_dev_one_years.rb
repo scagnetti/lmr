@@ -8,6 +8,7 @@ class CreateStockPriceDevOneYears < ActiveRecord::Migration
       t.float :value, :default => -1
       t.date :historical_date
       t.float :perf
+      t.belongs_to :score_card, index: true
 
       t.timestamps
     end

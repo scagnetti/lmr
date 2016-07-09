@@ -1,63 +1,47 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.17'
+gem 'rails', '4.2.1'
 
 gem 'sqlite3'
 
-gem 'mysql2'
+gem 'sass-rails',   '~> 4.0.3'
 
-# For pagination
-gem 'kaminari'
+gem 'coffee-rails', '~> 4.0.0'
 
-# Datepicker
-# gem 'bootstrap-datepicker-rails'
+gem 'uglifier', '>= 1.3.0'
 
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
+gem 'therubyracer'
 
-  # Distributes the V8 JavaScript engine in binary and source forms in order to support fast builds of The Ruby Racer
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  gem 'libv8', '3.11.8.4'
-  # Embed the V8 Javascript Interpreter into Ruby
-  gem 'therubyracer', :platforms => :ruby
-
-  gem 'uglifier', '>= 1.0.3'
-end
+gem 'web-console', '~> 2.0'
 
 gem 'jquery-rails'
 
-gem 'jquery-ui-rails'
-
-# Deploy with Capistrano
-gem 'capistrano', '=2.14.2'
-
-gem 'rvm-capistrano', '=1.2.7'
-
-#gem 'linecache19', "0.5.13"
-
-#gem "ruby-debug-base19x", "0.11.30.pre10"
-
-#gem 'ruby-debug-ide', "0.4.17.beta14"
-
-gem 'mechanize', '~> 2.6.0'
+gem 'jquery-ui-rails', '~> 4.2.1'
 
 gem 'thin'
 
 gem 'yaml_db'
 
+# For pagination
+gem 'kaminari'
+
+# Scraping
+gem 'mechanize', '~> 2.6.0'
+
+# Layouting
 gem 'less-rails-bootstrap'
 
 # To use ActiveModel has_secure_password
 gem "bcrypt-ruby", :require => "bcrypt"
 
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
+# Scraping
+gem 'watir'
 
-# Use unicorn as the app server
-# gem 'unicorn'
+# Deploy with Capistrano
+# gem 'capistrano', '=2.14.2'
+# gem 'rvm-capistrano', '=1.2.7'
 
-# To use debugger
-# gem 'debugger'
+# Datepicker
+# gem 'bootstrap-datepicker-rails'
+
+# gem 'mysql2'

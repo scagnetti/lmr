@@ -26,6 +26,7 @@ class CreateReversals < ActiveRecord::Migration
       t.float :index_perf_three_months_ago
       t.float :index_perf_two_months_ago
       t.float :index_perf_one_month_ago
+      t.belongs_to :score_card, index: true
 
       t.timestamps
     end

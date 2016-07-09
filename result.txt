@@ -1,0 +1,118 @@
+GB00B24CGK77 Reckitt Benckiser Group Plc
+US7562552049 Reckitt Benckiser Group Plc (spons. ADRs)
+
+US00206R1023 AT&T Inc. (AT & T Inc.)
+US0733031092 Be At TV Incorporated
+CA89351T2039 Transat A.T. Inc (A) Variable Voting
+CA89351T3029 Transat A.T. IncShs -B- Voting
+US4881523074 Kelly Services IncConv Shs -B- Conv at any time
+US19326U1007 Cole Credit Property Trust IV Inc Cash Settlement At USD 7.25 A Sh
+US00089J1025 ACT Clean Technologies Inc
+US0092071010 Air T IncShs
+US8722291098 T Bancshares Inc
+US4229131036 Help At Home Inc
+US04650V1061 At Play Vacations Inc
+US04648K1051 At Road Inc. (@Road Inc.)
+US5251692076 Lehman T H & Co Inc
+US1731531075 Citizens B & T Holdings Inc
+US7838591011 S&T Bancorp Inc. (S & T Bancorp)
+US74144T1088 T. Rowe Price Group Inc.
+US63867Q1022 Nationwide Safe T Propane Inc
+CA05534B8107 BCE Inc. Cum Conv Red Pfd Shs Series T
+US0266491036 American Homepatient Inc Cash Settlement At USD 0.67 A Sh
+CA44330J1075 Huakan International Mining Inc Cash Settlement At CAD 0.5 A Sh
+CA70319W1086 Patheon Inc Restricted Voting Cash Settlement At USD 9.32 A Sh
+CA1129007664 Brookfield Office Properties Inc Cum Pfd Shs -AAA- (T)
+CA67011D1078 Novus Energy Inc Cash Settlement At CAD 1.18 A Sh
+US9043231029 Underground Solutions Inc ( ex At VentureWorks Inc)
+CA5827791040 McVicar industries Inc Cash Settlement At CAD 0.5 A Sh
+CA2700461056 Eaglewood Energy Inc Cash Settlement At CAD 0.38 A Sh
+US69360J6854 PS Business Parks Inc Cumulative Preferred Shs Depositary Shs Repr 1-1000th Cum Pref Shs Ser -T-
+US82567D3026 Shurgard Storage Centers Inc 8.70 % Cum.Red.Pfd Shs Series -C- Called For Red 22.8.06 At USD 25.00 A
+US0396701049 Arctic Cat IncShs
+RSINCLE37564 Incijal a.d.
+
+US30231G1022 Exxon Mobil Corp. (ExxonMobil)
+ARDEUT110152 Exxon Mobil Corp Cert. Deposito Arg.Repr. 0.2 Shs
+BREXXOBDR006 Exxon Mobil Corp Unsponsored Brazilian Depository Receipts Repr 1-4 Sh
+
+CH0012032048 Roche Holding AG (Genussschein)
+CH0012032113 Roche Holding AG (Inhaberaktie)
+US7711951043 Roche Holding AG Sponsored American Deposit Receipt Repr 1/2 NVTGSh
+GB00B63H8491 Rolls-Royce Holdings Plc
+QA000VSUG130 Mesaieed Petrochemical Holding Company Q.S.C.
+KYG853951203 Strong Petrochemical Holdings Ltd
+US7757812067 Rolls-Royce Holdings Plc (spons. ADRs)
+CZ0008467834 Ocel Holding SE
+JP3196630002 OCHI HOLDINGS CO LTD
+CH0024666528 HOCHDORF Holding AG
+DE0008415100 Rheinland Holding AG
+CH0012530207 Bachem Holding AG
+AU000000OLV7 OtherLevels Holdings Ltd
+AU000000OGH6 Ochre Group Holdings Ltd
+BG1100069985 Chernomorski Holding AD
+US3807093030 Gold Rock Holdings Inc (A)
+HK0001000014 Cheung Kong (Holdings) Ltd.
+GB00BF8H6F45 Bonmarche Holdings PLC
+US67501R1032 Ocean Shore Holding Co
+US8358981079 Sotheby's Holdings Inc.
+US21076Y1001 Content Checked Holdings Inc
+BMG2117K1045 China Oceanwide Holdings Ltd
+US1018081034 Bourbon Brothers Holding Corp
+SG1U49933948 SunVic Chemical Holdings Ltd
+BMG8114X1305 Shun Cheong Holdings LtdShs
+KYG9842Z1164 Yip's Chemical Holdings LtdShs
+US67517P1093 Ocean West Holding Corp Shs
+JE00BKX4SF95 GTS Chemical Holdings PLC
+IE00B6SKRB38 Escher Group Holdings PLC
+SE0005101003 Nexam Chemical Holding AB
+
+DE0005501357 Axel Springer SE vinkuliert
+ Axel Springer Digital Classifieds
+DE000A0LD6M9 Axel Springer AGNamen-Akt. vinkuliert
+
+GB00B03MM408 Royal Dutch Shell Group plc (B)
+GB00B03MLX29 Royal Dutch Shell Group plc (A)
+US7802592060 Royal Dutch Shell Group plc (A) (spons. ADRs)
+ARDEUT112547 Royal Dutch Shell PLC ADR Cert Deposito Arg Repr 0.5 ADRs
+US7802591070 Royal Dutch Shell PLCShs -B- American Deposit Receipt Repr 2 Shs -B-
+
+DE0006013006 Hamborner REIT AG
+DE000A14KLR6 Hamborner REIT AG
+
+US4592001014 IBM Corp. (International Business Machines)
+US89826S2023 Trust Certs 2001-2 7.1 % Trust Certs -A-1- 2001-1.12.96 Series -2001-2- Based On 7 1-8 % Debs 96 IBM
+PLABMSD00015 ABM Solid S.A.
+US0009571003 ABM Industries
+JO3127911019 Ibn Al-Haytham Hospital
+ID1000121502 PT ABM Investama Tbk
+AU000000ABU9 ABM Resources NLShs
+
+DE0008404005 Allianz
+DE000A14KSS9 Allianz SE aus Konv.vinkuliert
+DE000A1YC871 Allianz SE aus Konv. vinkuliert
+SK1110004407 Allianz-Slovenska poistovna a.s.
+
+US92343V1044 Verizon Communications Inc.
+ARDEUT112927 Verizon Communications Inc Cert Deposito Arg Repr 0.5 Shs
+BRVERZBDR008 Verizon Communications Inc Unsponsored Brazilian Depository Receipt Repr 1 Sh
+US92342Y1091 VeriFone Systems Inc
+
+US09247X1019 BlackRock Inc.
+CA0924851011 Blackrock Oil Corp
+US0925331086 BlackRock Kelso Capital Corp
+GB0005774855 Blackrock World Mining Trust PLC
+
+DE0005552004 Deutsche Post AG
+DE000A13SUD2 Deutsche Post AG
+DE0008001009 Deutsche Postbank AG
+US25157Y2028 Deutsche Post AG (spons. ADRs)
+
+CH0012005267 Novartis AG
+CH0038459415 Novartis AG 2. Linie
+US66987V1098 Novartis AG (Spons. ADRS)
+INE234A01025 Novartis India Ltd Dematerialised
+ARDEUT112521 Novartis AG ADR Cert. Deposito Arg. Repr. 2 ADRs
+AU000000NOE9 Novarise Renewable Resources International Ltd
+JP3762100000 NOVARESE Inc
+

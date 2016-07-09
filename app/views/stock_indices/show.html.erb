@@ -37,3 +37,26 @@
 	</div>
 </div>
 
+<div class="row">
+	<div class="col-md-4">
+
+			<h3>Trend</h3>
+
+			<table class="table table-bordered table-hover">
+			  <tr>
+			  	<th>Date</th>
+			  	<th>Average</th>
+			  </tr>
+				<% @avgs.each do |k,v| %>
+					<tr>
+						<td><%= l(k) %></td>
+						<td><%= v %></td>
+					<tr>
+				<% end %>	
+			</table>
+
+	</div>
+</div>
+
+
+

@@ -5,16 +5,10 @@
 </div>
 
 <div class="row">
-	<div class="col-xs-12 col-md-12">
-		<%= link_to 'Add', new_stock_index_path, {:class => "btn btn-default"} %>
-	</div>
-</div>
-
-<div class="row">
 	<div class="col-xs-6 col-md-4">
 		<%= paginate @stock_indices %>
 	</div>
-	<div class="col-xs-6 col-md-offset-6 col-md-2">
+	<div class="col-xs-6 col-md-2">
 		<div class="pull-right pagination">
 			<%= @stock_indices.offset_value + 1 %> - <%= @stock_indices.offset_value + @stock_indices.length %> of <%= @stock_indices.total_count %>
 		</div>
@@ -22,9 +16,9 @@
 </div>
 
 <div class="row">
-	<div class="col-xs-12 col-md-12">
+	<div class="col-xs-12 col-md-6">
 		<div class="table-responsive">
-			<table class="table table-hover">
+			<table class="table table-bordered table-hover">
 			  <tr>
 			    <th>Name</th>
 			    <th>ISIN</th>

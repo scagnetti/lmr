@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  succeeded: false
+  score: 1
+  error_msg: MyText
+
+two:
+  succeeded: false
+  score: 1
+  error_msg: MyText

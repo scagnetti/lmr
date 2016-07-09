@@ -11,39 +11,23 @@ class StockProcessor
   
   # The supplied score_card is populated with the calculated figures.
   def initialize(score_card)
-    Rails.logger.info("#{self.class}: Starting configuration process for share: #{score_card.share.name}")
+    Rails.logger.warn("#{self.class}: Processing share: #{score_card.share.name}")
     @score_card = score_card
-    # @score_card.return_on_equity = ReturnOnEquity.new
-    # @score_card.ebit_margin = EbitMargin.new
-    # @score_card.equity_ratio = EquityRatio.new
-    # @score_card.current_price_earnings_ratio = CurrentPriceEarningsRatio.new
-    # @score_card.average_price_earnings_ratio = AveragePriceEarningsRatio.new
-    # @score_card.analysts_opinion = AnalystsOpinion.new
-    # @score_card.reaction = Reaction.new
-    # @score_card.profit_revision = ProfitRevision.new
-    # @score_card.stock_price_dev_half_year = StockPriceDevHalfYear.new
-    # @score_card.stock_price_dev_one_year = StockPriceDevOneYear.new
-    # @score_card.momentum = Momentum.new
-    # @score_card.reversal = Reversal.new
-    # @score_card.profit_growth = ProfitGrowth.new
+
     @extractors = Array.new
-    Rails.logger.info("#{self.class}: Initializing extractor: OnVistaExtractor")
     @extractors << OnVistaExtractor.new(@score_card.share)
-    Rails.logger.info("#{self.class}: Initialization of extractor: OnVistaExtractor completed")
-    Rails.logger.info("#{self.class}: Initializing extractor: FinanzenExtractor")
     @extractors << FinanzenExtractor.new(@score_card.share)
-    Rails.logger.info("#{self.class}: Initialization of extractor: FinanzenExtractor completed")
+
     rating_service = RatingService.new
     @rating_unit = rating_service.choose_rating_unit(@score_card.share.size, @score_card.share.financial)
-    Rails.logger.info("#{self.class}: Using #{@rating_unit.class}")
-    Rails.logger.info("#{self.class}: Configuration process for share: #{@score_card.share.name} completed")
+    Rails.logger.warn("#{self.class}: Rating stock with class: #{@rating_unit.class}")
   end
 
   public
   
   # Extract the figures described by Susan Levermann
   def run_extraction
-    Rails.logger.info("#{self.class}: Starting extraction process for share: #{@score_card.share.name}")
+
     run_on_all_extractors(@score_card.price) { |e| 
       result = e.extract_stock_price()
       @score_card.price = result['price']
@@ -97,12 +81,16 @@ class StockProcessor
     run_on_all_extractors(@score_card.profit_growth) { |e|
       e.extract_profit_growth(@score_card.profit_growth)
     }
-    Rails.logger.info("#{self.class}: Extraction process for share: #{@score_card.share.name} completed")
+
+    run_on_all_extractors(@score_card.insider_info) { |e|
+      e.extract_insider_deals(@score_card.insider_info)
+    }
+
   end
   
   # Applies the rating rules on the extracted figures
   def run_rating
-    Rails.logger.info("#{self.class}: Starting rating process for share: #{@score_card.share.name}")
+    Rails.logger.warn("#{self.class}: Starting rating process for share: #{@score_card.share.name}")
     @rating_unit.rate_roe(@score_card.return_on_equity) if @score_card.return_on_equity.succeeded
     @rating_unit.rate_ebit_margin(@score_card.ebit_margin) if @score_card.ebit_margin.succeeded
     @rating_unit.rate_equity_ratio(@score_card.equity_ratio) if @score_card.equity_ratio.succeeded
@@ -123,6 +111,7 @@ class StockProcessor
     @rating_unit.rate_stock_price_momentum(@score_card.momentum) if @score_card.momentum.succeeded
     @rating_unit.rate_reversal(@score_card.reversal) if @score_card.reversal.succeeded
     @rating_unit.rate_profit_growth(@score_card.profit_growth) if @score_card.profit_growth.succeeded
+    @rating_unit.rate_insider_deals(@score_card.insider_info) if @score_card.insider_info.succeeded
     
     # Sum up the single scores to the total score
     @score_card.total_score += @score_card.return_on_equity.score
@@ -138,7 +127,8 @@ class StockProcessor
     @score_card.total_score += @score_card.momentum.score
     @score_card.total_score += @score_card.reversal.score
     @score_card.total_score += @score_card.profit_growth.score
-    Rails.logger.info("#{self.class}: Rating process for share: #{@score_card.share.name} completed")
+    @score_card.total_score += @score_card.insider_info.score
+
   end
   
   private

@@ -63,6 +63,18 @@ class Util
     end
   end
 
+  # Checks if a given information is older than a certain threshold (in days).
+  def Util.information_expired_as_date(date, threshold)
+    raise "Couldn't validate age of information because the given date is nil" if date.nil?
+    # The newer the information the smaller the difference in time up to now
+    diff = Date.today - date
+    if diff < threshold
+      return false
+    else
+      return true
+    end
+  end
+
   # Apply default date format
   def Util.format(date)
     if date.nil?
@@ -339,5 +351,23 @@ class Util
       end
     end
     return agent
+  end
+
+  def Util.get_company_size(capitalization)
+    if capitalization.include?('Mio')
+
+      return CompanySize::SMALL
+
+    elsif m = capitalization.match(/^(\d{1,3}),\d{2} Mrd\.$/)
+
+      if m[1].to_i < 5
+        return CompanySize::MID
+      else
+        return CompanySize::LARGE
+      end
+
+    else
+      return -1
+    end
   end
 end

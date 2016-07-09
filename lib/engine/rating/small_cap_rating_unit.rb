@@ -76,5 +76,25 @@ class SmallCapRatingUnit < BasicRatingUnit
     reversal.score = 0
     return 0
   end
-  
+
+  # Assess insider deals
+  def rate_insider_deals(insider_info)
+    score = 0
+
+    if insider_info.insider_deals?
+
+      absolut = insider_info.balance()
+
+      if absolut > 80000
+        score = 1
+      elsif absolut < 0
+        score = -1
+      end
+
+    end
+
+    insider_info.score = score
+    
+    return score
+  end
 end

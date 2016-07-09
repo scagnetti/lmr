@@ -3,15 +3,56 @@ require 'engine/extractor/finanzen_extractor.rb'
 require 'engine/extractor/on_vista_extractor.rb'
 require 'engine/exceptions/data_mining_error.rb'
 require 'engine/stock_processor.rb'
+require 'scripts/find_isin_for_share.rb'
+require 'robot/boerse_ard.rb'
+require 'engine/extractor/bulk_extractor.rb'
 
 namespace :ex do
 
-  task :test => :environment do
+  task :t, [:a,:b] => :environment do |t, args|
+    puts "Parameter a: #{args[:a]}"
+    puts "Parameter b: #{args[:b]}"
     # For simple testing only
     Rails.logger.info("Log level is: #{Rails.logger.level}")
     Rails.logger.info("Test log msg!")
   end
+
+  desc "Do a stock search an try to add the result"
+  task :add_stocks, [:compare_index, :member_index] => :environment do |t, args|
+    if args.compare_index.nil?
+      puts "Usage: rake ex:add_stocks <compare_index> [<member_index>]"
+      exit
+    end
+
+    compare_idx = args[:compare_index]
+    member_idx = args[:member_index]
+    be = BulkExtractor.new("http://www.finanzen.net/aktien/aktien_suche.asp")
+    be.add_shares_to_system(compare_idx, member_idx)
+  end
   
+  desc "Calculate performance for selected shares"
+  task :list_shares_by_loss, [:index, :performance] => :environment do |t, args|
+    if args.index.nil? || args.performance.nil?
+      puts "Usage: rake ex:list_shares_by_loss <index> <performance>"
+      exit
+    end
+    puts "Searching for shares in index #{args.index} where performance is worse than #{args.performance}"
+    be = BulkExtractor.new("http://www.onvista.de")
+    result = Array.new
+    shares = Share.joins(:stock_index).where(stock_indices: {name: args.index})
+    shares.each do |share|
+      map = be.seach_and_sort_by_loss(share)
+      print "."
+      if map[:p] < args.performance.to_f
+        result << map
+      end
+    end
+    puts "\n#{result.size} shares match the criteria"
+    result.sort { |x,y| x[:p] <=> y[:p]}.each do |map|
+      puts "#{map[:s].name}: #{map[:p]}"
+    end
+  end
+
   desc "Extract the onVista stock exchange ID"
   task :stock_exchange_id => :environment do
     s = Share.where("name like ?", 'Volk%').first
@@ -102,10 +143,6 @@ namespace :ex do
     e.extract_reaction_on_figures(Reaction.new)
   end
   
-  task :t => :environment do
-   puts Util.l10n_f("1.180,970".strip()) 
-  end
-  
   desc "Extract the reaction on quarterly figures (finanzen)"
   task :reaction_fin => :environment do
     s = Share.where("name like ?", 'UnitedT%').first
@@ -127,40 +164,49 @@ namespace :ex do
     e.extract_profit_revision(ProfitRevision.new)
   end
 
-  #======================================================
-  #===Deprecated way of populating Share database     ===
-  #===The stock exchange has to be set individualy!   ===
-  #======================================================
-  desc "Add all shares of a given index (ISIN) to databse. Default index is DAX."
-  task :add_shares, [:index_isin] => :environment do |t, args|
-    # Set a default value for the parameter
-    args.with_defaults(:index_isin => 'DE0008469008')
-    indices = StockIndex.where('isin' => args[:index_isin])
-    puts "#{indices.class}"
-    if indices.empty?
-      puts "No matching stock index found for '#{args[:index_isin]}'"
+  #====================
+  #===Indsider Deals===
+  #====================
+  
+desc "Extract DAX Insider Deals of the last three months for a given ISIN"
+  task :insider, [:isin] => :environment do |t, args|
+    if args[:isin] == nil
+      # Volkswagen
+      isin = "DE0007664039"  
     else
-      puts "Extracting shares for index '#{indices.first.name}'"
-      @agent = Mechanize.new
-      @page = @agent.get('http://www.finanzen.net/index/DAX')
-      tag_set = @page.parser().xpath("(//h2[.='DAX 30'])[1]/../following-sibling::div/table//tr/td[1]")
-      tag_set.each do |td|
-        isin = td.xpath("text()").first.content()
-        name = td.xpath("a").first.content()
-        puts "Adding #{isin} - #{name}"
-        share = Share.new
-        share.name = name
-        share.isin = isin
-        share.active = true
-        share.financial = false
-        share.stock_index = indices.first
-        share.size = CompanySize::LARGE
-        share.stock_exchange = 'Tradegate'
-        share.save
-      end
+      isin = args[:isin]
+    end
+    share = Share.where("isin = ?", isin).first
+    score_card = ScoreCard.new()
+    score_card.share = share
+    e = FinanzenExtractor.new(share)
+    e.extract_insider_deals(score_card)
+    score_card.save!
+  end
+
+  desc "Extract known insider deals for all share of a given index (DAX by default)"
+  task :insider_index, [:isin] => :environment do |t, args|
+    if args[:isin] == nil
+      # DAX
+      index_isin = "DE0008469008" 
+    else
+      index_isin = args[:isin]
+    end
+    index_shares = Share.joins(:stock_index).where("stock_indices.isin = ?", index_isin)
+    #@agent = Mechanize.new
+    #@page = @agent.get('http://www.finanzen.net/index/DAX')
+    #tag_set = @page.parser().xpath("(//h2[.='DAX 30'])[1]/../following-sibling::div/table/tr[position()>1]")
+    #tag_set.each do |tr|
+    #  td_set = tr.xpath("child::node()")
+    #  content = td_set[0].text()
+    #  isin = content[-12,12]
+    index_shares.each do |share|
+      puts "\nCalculating insider deals for: #{share.name}"
+      e = FinanzenExtractor.new(share)
+      e.extract_insider_deals(Array.new)
     end
   end
-  
+
   #======================
   #===Task for Cronjob===
   #======================
@@ -245,47 +291,7 @@ namespace :ex do
       puts "#{s.name} - FAILED"
     end
   end
-  
-  #====================
-  #===Indsider Deals===
-  #====================
-  
-  desc "Extract known insider deals for all share of a given index (DAX by default)"
-  task :insider_index, [:isin] => :environment do |t, args|
-    if args[:isin] == nil
-      # DAX
-      index_isin = "DE0008469008" 
-    else
-      index_isin = args[:isin]
-    end
-    index_shares = Share.joins(:stock_index).where("stock_indices.isin = ?", index_isin)
-    #@agent = Mechanize.new
-    #@page = @agent.get('http://www.finanzen.net/index/DAX')
-    #tag_set = @page.parser().xpath("(//h2[.='DAX 30'])[1]/../following-sibling::div/table/tr[position()>1]")
-    #tag_set.each do |tr|
-    #  td_set = tr.xpath("child::node()")
-    #  content = td_set[0].text()
-    #  isin = content[-12,12]
-    index_shares.each do |share|
-      puts "\nCalculating insider deals for: #{share.name}"
-      e = FinanzenExtractor.new(share)
-      e.extract_insider_deals(Array.new)
-    end
-  end
-  
-  desc "Extract DAX Insider Deals of the last three months for a given ISIN"
-  task :insider, [:isin] => :environment do |t, args|
-    if args[:isin] == nil
-      # Volkswagen
-      isin = "DE0007664039"  
-    else
-      isin = args[:isin]
-    end
-    share = Share.where("isin = ?", isin).first
-    e = FinanzenExtractor.new(share)
-    e.extract_insider_deals(Array.new)
-  end
-  
+
   desc "Test tor proxy"
   task :tor => :environment do
     @agent = Mechanize.new do |agent|
@@ -362,4 +368,49 @@ namespace :ex do
     end
   end
   
+  desc "Read stock names from file and try to get their ISIN"
+  task :isin_finder, [:file] => :environment do |t, args|
+    if args[:file] == nil
+      puts "Usage ex:isin_finder <file_name>"
+      exit
+    else
+      file = args[:file]
+    end
+    FindIsinForShare.find_all(args[:file])
+  end
+
+  #======================================================
+  #===Deprecated way of populating Share database     ===
+  #===The stock exchange has to be set individualy!   ===
+  #======================================================
+  desc "Add all shares of a given index (ISIN) to databse. Default index is DAX."
+  task :add_shares, [:index_isin] => :environment do |t, args|
+    # Set a default value for the parameter
+    args.with_defaults(:index_isin => 'DE0008469008')
+    indices = StockIndex.where('isin' => args[:index_isin])
+    puts "#{indices.class}"
+    if indices.empty?
+      puts "No matching stock index found for '#{args[:index_isin]}'"
+    else
+      puts "Extracting shares for index '#{indices.first.name}'"
+      @agent = Mechanize.new
+      @page = @agent.get('http://www.finanzen.net/index/DAX')
+      tag_set = @page.parser().xpath("(//h2[.='DAX 30'])[1]/../following-sibling::div/table//tr/td[1]")
+      tag_set.each do |td|
+        isin = td.xpath("text()").first.content()
+        name = td.xpath("a").first.content()
+        puts "Adding #{isin} - #{name}"
+        share = Share.new
+        share.name = name
+        share.isin = isin
+        share.active = true
+        share.financial = false
+        share.stock_index = indices.first
+        share.size = CompanySize::LARGE
+        share.stock_exchange = 'Tradegate'
+        share.save
+      end
+    end
+  end
+
 end

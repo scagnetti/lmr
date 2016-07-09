@@ -6,7 +6,7 @@ require 'engine/exceptions/unexpected_html_structure.rb'
 # Encapsulate the functionality all extractors have in common.
 class BasicExtractor
 
-  # Set up the HTML pareser, load the web page of the extractor.
+  # Set up the HTML parser, load the web page of the extractor.
   def initialize(extractor_url, share)
     @share = share
     @agent = Util.createAgent()
@@ -23,7 +23,7 @@ class BasicExtractor
   def perform_search(attribute, regexp, field_name, search_pattern, success_xpath, success_value)
     search_form = @start_page.form_with(attribute => regexp)
     if search_form == nil
-      raise UnexpectedHtmlStructure, "Could not find any form with attribute >>#{attribute}<< matching search pattern >>#{regexp}<<", caller
+      raise UnexpectedHtmlStructure, "#{@share.name}: Could not find any form with attribute >>#{attribute}<< matching search pattern >>#{regexp}<<", caller
     end
     search_form[field_name] = search_pattern
     result = search_form.submit
@@ -43,8 +43,28 @@ class BasicExtractor
   def open_sub_page(link_text, result_size, link_index, page=@stock_page)
     links = page.links_with(:text => link_text)
     #puts "Found #{links.size} anchors matching #{link_text}"
+    return handle_scrape_result(links, link_text, result_size, link_index)
+  end
+
+  # Open a sub page on the given page by comparing a given pattern with the href attribute of the link.
+  # * +pattern+ - a part of the URL a link is pointing to
+  # * +result_size+ - the expected number of hits
+  # * +link_index+ - the index of the link which should be followed
+  # * +page+ - the page with the links to search for 
+  def open_sub_page_by_href(pattern, result_size, link_index, page=@stock_page)
+    links = page.links_with(:href => pattern)
+    #puts "Found #{links.size} anchors matching #{pattern}"
+    return handle_scrape_result(links, pattern, result_size, link_index)
+  end
+
+  # Proper error handling if the scraping result is not what we expected.
+  # * +links+ a set of extracted links
+  # * +pattern+ - what we used for the search
+  # * +result_size+ - the expected number of hits
+  # * +link_index+ - the index of the link which should be followed
+  def handle_scrape_result(links, pattern, result_size, link_index)
     if links == nil || links.size() != result_size
-      raise UnexpectedHtmlStructure, "Found #{links.size} link(s) containing text >>#{link_text}<< but expected #{result_size}", caller
+      raise UnexpectedHtmlStructure, "#{@share.name}: Found #{links.size} link(s) matching pattern >>#{pattern}<< but expected #{result_size}", caller
     else
       sub_page = links[link_index].click()
       return sub_page
@@ -115,5 +135,9 @@ class BasicExtractor
   
   def extract_proft_growth(profit_growth)
     raise NotImplementedError, "Could not extract EPS values for profit growth", caller
+  end
+
+  def extract_insider_deals(insider_info)
+    raise NotImplementedError, "Could not extract Insider Deals", caller
   end
 end

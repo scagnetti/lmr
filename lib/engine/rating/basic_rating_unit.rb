@@ -198,4 +198,9 @@ class BasicRatingUnit
     profit_growth.score = score
     return score
   end
+
+  #Assess insider deals
+  def rate_insider_deals(insider_info)
+    raise RatingError, "Could not rate insider deals", caller
+  end
 end

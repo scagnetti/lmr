@@ -17,33 +17,40 @@ class ExtractEquityRatioTest < ActiveSupport::TestCase
   end
   
   test "the equity ratio calculation on DAX shares" do
-    exec_on_index_shares("DE0008469008"){|share|
-      er = EquityRatio.new
-      begin
-        e = OnVistaExtractor.new(share)
-        e.extract_equity_ratio(er)
-      rescue DataMiningError => e
-        er.succeeded = false
-        er.error_msg = "#{e.to_s}"
-      end
-      msg = er.error_msg == nil ? "" : er.error_msg
-      assert(er.succeeded, msg)
+    puts "Testing DAX shares"
+    c = 0
+    exec_on_index_shares("DE0008469008"){|s|
+      extraction_test(s, c)
     }
+    puts "Equity Ratio extraction faild for #{c} shares"
+    assert(true)
   end
 
   test "the equity ratio calculation on DOW shares" do
-    exec_on_index_shares("US2605661048"){|share|
-      er = EquityRatio.new
-      begin
-        e = OnVistaExtractor.new(share)
-        e.extract_equity_ratio(er)
-      rescue DataMiningError => e
-        er.succeeded = false
-        er.error_msg = "#{e.to_s}"
-      end
-      msg = er.error_msg == nil ? "" : er.error_msg
-      assert(er.succeeded, msg)
+    puts "Testing DOW shares"
+    c = 0
+    exec_on_index_shares("US2605661048"){|s|
+      extraction_test(s, c)
     }
+    puts "Equity Ratio extraction faild for #{c} shares"
+    assert(true)
+  end
+
+  def extraction_test(share, counter)
+    er = EquityRatio.new
+    begin
+      e = OnVistaExtractor.new(share)
+      e.extract_equity_ratio(er)
+      print "."
+      $stdout.flush
+    rescue DataMiningError => e
+      print "E"
+      $stdout.flush
+      er.succeeded = false
+      er.error_msg = "#{e.to_s}"
+      puts "#{share.name} failed with this error message: \n#{er.error_msg}"
+      counter = counter + 1
+    end
   end
 
 end

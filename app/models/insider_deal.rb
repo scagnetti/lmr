@@ -1,6 +1,11 @@
 class InsiderDeal < ActiveRecord::Base
-  attr_accessible :link, :occurred, :person, :price, :quantity, :trade_type, :share
-  belongs_to :share
-  default_scope order('occurred DESC')
-  scope :restrict, lambda { |value| where("insider_deals.share_id = ?", value) unless value.blank? }
+  enum transaction_type: [ :unknown, :buy, :sell ]
+
+  belongs_to :insider_info
+
+  default_scope {order('occurred DESC')}
+
+  def to_s
+    return "Datum: #{occurred}  Meldender: #{person}  Anzahl: #{quantity}  Kurs: #{price}  Art: #{transaction_type}"
+  end
 end

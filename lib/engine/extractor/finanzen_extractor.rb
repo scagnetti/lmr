@@ -8,9 +8,9 @@ require 'engine/exceptions/data_mining_error.rb'
 class FinanzenExtractor < BasicExtractor
 
   FINANZEN_URL = "http://www.finanzen.net/"
-  STOCK_SUCCESS_XPATH = "//div[@id='breadcrumb']/a[2]"
+  STOCK_SUCCESS_XPATH = "//div[@id='breadcrumb']/span[2]/a/span"
   STOCK_SUCCESS_VALUE = "Aktien"
-  INDEX_SUCCESS_XPATH = "//div[@id='breadcrumb']/a[2]"
+  INDEX_SUCCESS_XPATH = "//div[@id='breadcrumb']/span[2]/a/span"
   INDEX_SUCCESS_VALUE = "Indizes"
   SEARCH_FAILURE = "//div[contains(.,'Keine Ergebnisse')]"
   THREE_MONTHS_IN_SECONDS = 60 * 60 * 24 * 31 * 3
@@ -207,42 +207,36 @@ class FinanzenExtractor < BasicExtractor
     Rails.logger.debug("#{self.class}: analyst opinion sell: #{analysts_opinion.sell}")
   end
 
-  def extract_insider_deals(results)
+  def extract_insider_deals(insider_info)
     insider_trades = open_sub_page('Insidertrades', 1, 0, @stock_page)
     rows = insider_trades.parser().xpath("//h1[contains(.,'Insidertrades bei ')]/../../div[@class='content']/table//tr[position() > 1]")
     Rails.logger.debug("found #{rows.size} insider deals")
-    share = Share.where(:isin => @share.isin).first
+    #share = Share.where(:isin => @share.isin).first
     rows.each do |row|
       cells = row.xpath('.//td')
       if cells.size == 6
-        deal = InsiderDeal.new
-        deal.share = share
         d = cells[0].content()
         full_date = Util.add_millenium(d)
-        real_date = Util.to_t(full_date)
-        deal.occurred = real_date
-        deal.person = cells[1].content()
-        deal.quantity = cells[2].content().sub(/\./, '')
-        deal.price =Util.l10n_f_k(cells[3].content())
-        action = cells[4].content()
-        if action == 'Kauf'
-          deal.trade_type = Transaction::BUY
-        elsif action == 'Verkauf'
-           deal.trade_type = Transaction::SELL
-         else
-           deal.trade_type = Transaction::UNKNOWN
-        end
-        details = cells[5].xpath("a").first.attr('href')
-        deal.link = "#{FINANZEN_URL}#{details[1,details.length-1]}"
-        
-        results << deal
-        exp = Util.information_expired(real_date, Util::DAY_IN_SECONDS * 92)
-        if !exp
-          Rails.logger.debug("Datum: #{d}  Meldender: #{deal.person}  Anzahl: #{deal.quantity}  Kurs: #{deal.price}  Art: #{action}")
-          duplicates = InsiderDeal.where(:share_id => share.id, :occurred => deal.occurred, :person => deal.person, :quantity => deal.quantity, :trade_type => deal.trade_type)
-          if duplicates.size == 0
-            deal.save!
+        time = Util.to_t(full_date)
+
+        unless Util.information_expired(time, Util::DAY_IN_SECONDS * 92)
+          deal = InsiderDeal.new
+          deal.occurred = time
+          deal.person = cells[1].content()
+          deal.quantity = cells[2].content().sub(/\./, '')
+          deal.price =Util.l10n_f_k(cells[3].content())
+          action = cells[4].content()
+          if action == 'Kauf'
+            deal.buy!
+          elsif action == 'Verkauf'
+             deal.sell!
+           else
+             deal.unknown!
           end
+          details = cells[5].xpath("a").first.attr('href')
+          deal.link = "#{FINANZEN_URL}#{details[1,details.length-1]}"
+          insider_info.insider_deals << deal
+          Rails.logger.debug("#{deal.to_s}")
         end
       end
     end

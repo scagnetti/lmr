@@ -1,12 +1,12 @@
-require 'engine/stock_processor.rb'
-
 class SharesController < ApplicationController
   # GET /shares
   # GET /shares.json
   def index
     #@shares = Share.order("name").page(params[:page]).per(25)
+    @stock_indices = StockIndex.all
     @share_name = params[:share_name]
-    @shares = Share.share_name(@share_name).page(params[:page]).per(20)
+    @stock_index_id = params[:stock_index_id]
+    @shares = Share.share_name(@share_name).stock_index(@stock_index_id).page(params[:page]).per(20)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -45,7 +45,6 @@ class SharesController < ApplicationController
   # POST /shares
   # POST /shares.json
   def create
-    share_params = params[:share]
     @share = Share.new(share_params)
     @share.stock_index = StockIndex.find(share_params[:stock_index_id])
 
@@ -66,7 +65,7 @@ class SharesController < ApplicationController
     @share = Share.find(params[:id])
 
     respond_to do |format|
-      if @share.update_attributes(params[:share])
+      if @share.update_attributes(share_params)
         format.html { redirect_to @share, notice: 'Share was successfully updated.' }
         format.json { head :no_content }
       else
@@ -88,11 +87,10 @@ class SharesController < ApplicationController
     end
   end
 
-  def lookup_insider_trades
-    @share = Share.find(params[:id])
-    results = Array.new
-    e = FinanzenExtractor.new(@share)
-    e.extract_insider_deals(results)
-    redirect_to "/insider_deals?share_id=#{@share.id}", notice: 'Looked up insider deals successfully.'
+  private
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def share_params
+    params.require(:share).permit(:active, :name, :isin, :financial, :size, :stock_exchange, :currency, :stock_index_id)
   end
+
 end

@@ -7,6 +7,7 @@ class CreateAnalystsOpinions < ActiveRecord::Migration
       t.integer :buy, :default => -1
       t.integer :hold, :default => -1
       t.integer :sell, :default => -1
+      t.belongs_to :score_card, index: true
 
       t.timestamps
     end

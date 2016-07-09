@@ -1,3 +1,8 @@
+# rake test: runs all unit, functional and integration tests.
+# rake test:units: runs all the unit tests.
+# rake test:functionals: runs all the functional tests.
+# rake test:integration: runs all the integration tests.
+
 ENV["RAILS_ENV"] = "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'

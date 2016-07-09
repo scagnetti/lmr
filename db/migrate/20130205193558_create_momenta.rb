@@ -6,6 +6,7 @@ class CreateMomenta < ActiveRecord::Migration
       t.text :error_msg
       t.references :stock_price_dev_half_year
       t.references :stock_price_dev_one_year
+      t.belongs_to :score_card, index: true
 
       t.timestamps
     end

@@ -1,0 +1,27 @@
+<h1>Listing person_of_interests</h1>
+
+<table>
+  <tr>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>Desc</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @person_of_interests.each do |person_of_interest| %>
+  <tr>
+    <td><%= person_of_interest.first_name %></td>
+    <td><%= person_of_interest.last_name %></td>
+    <td><%= person_of_interest.desc %></td>
+    <td><%= link_to 'Show', person_of_interest %></td>
+    <td><%= link_to 'Edit', edit_person_of_interest_path(person_of_interest) %></td>
+    <td><%= link_to 'Destroy', person_of_interest, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Person of interest', new_person_of_interest_path %>

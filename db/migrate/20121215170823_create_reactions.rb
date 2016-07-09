@@ -13,6 +13,7 @@ class CreateReactions < ActiveRecord::Migration
       t.float :index_after, :default => -1
       t.float :share_perf, :default => -1
       t.float :index_perf, :default => -1
+      t.belongs_to :score_card, index: true
 
       t.timestamps
     end

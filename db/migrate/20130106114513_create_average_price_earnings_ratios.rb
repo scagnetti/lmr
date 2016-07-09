@@ -15,6 +15,7 @@ class CreateAveragePriceEarningsRatios < ActiveRecord::Migration
       t.float :value_last_year, :default => -1
       t.float :value_this_year, :default => -1
       t.float :value_next_year, :default => -1
+      t.belongs_to :score_card, index: true
 
       t.timestamps
     end

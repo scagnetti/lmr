@@ -18,11 +18,11 @@
 <div class="row">
 	<div class="col-xs-12 col-md-12">
 		<div class="table-responsive">
-			<table class="table table-hover">
+			<table class="table table-bordered table-hover">
 				<tr>
 					<th>Occurred</th>
 					<th>Action</th>
-					<th>Company</th>
+
 					<th>Person</th>
 					<th>Price</th>
 					<th>Quanity</th>
@@ -34,7 +34,7 @@
 				<tr>
 					<td><%= insider_deal.occurred %></td>
 					<td><%= as_string(insider_deal.trade_type) %></td>
-					<td><%= insider_deal.share.name %></td>
+
 					<td><%= insider_deal.person %></td>
 					<td><%= insider_deal.price %></td>
 					<td><%= insider_deal.quantity %></td>

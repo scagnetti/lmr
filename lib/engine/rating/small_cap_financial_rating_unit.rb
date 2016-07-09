@@ -69,4 +69,40 @@ class SmallCapFinancialRatingUnit < SmallCapRatingUnit
     return 0
   end
   
+  # Assess insider deals
+  def rate_insider_deals(insider_info)
+    unless insider_info.insider_deals?
+      return 0
+    end
+
+    absolut = insider_info.total_buy_volume() - insider_info.total_sell_volume()
+    if absolut > 80000
+      return 1
+    elsif absolut < 0
+      return -1
+    else
+      return 0
+    end
+  end
+
+  # Assess insider deals
+  def rate_insider_deals(insider_info)
+    score = 0
+
+    if insider_info.insider_deals?
+
+      absolut = insider_info.balance()
+
+      if absolut > 80000
+        score = 1
+      elsif absolut < 0
+        score = -1
+      end
+
+    end
+
+    insider_info.score = score
+    
+    return score
+  end
 end

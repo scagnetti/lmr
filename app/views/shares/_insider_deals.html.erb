@@ -13,7 +13,7 @@
 			  </tr>
 				<% @share.insider_deals.each do |deal| %>
 				  <tr>
-				  	<td><%= get_deal_type(deal.trade_type) %></td>
+				  	<td><%= deal.transaction_type %></td>
 				  	<td><%= deal.occurred %></td>
 				    <td><%= deal.quantity * deal.price %></td>
 				    <td><%= deal.price %></td>

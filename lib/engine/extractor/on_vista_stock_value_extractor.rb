@@ -72,7 +72,7 @@ class OnVistaStockValueExtractor
     search_url << "&interval=M1"
     search_url << "&assetName=#{@asset_name}"
     search_url << "&exchange=#{@stock_exchange}"
-    Rails.logger.debug("#{self.class}: Constructed search URL: #{search_url}")
+    Rails.logger.warn("#{self.class}: Constructed search URL: \n#{search_url}")
     return search_url
   end
 end

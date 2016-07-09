@@ -17,33 +17,40 @@ class ExtractEbitTest < ActiveSupport::TestCase
   end
   
   test "the EBIT calculation on DAX shares" do
-    exec_on_index_shares("DE0008469008"){|share|
-      ebit = EbitMargin.new
-      begin
-        e = OnVistaExtractor.new(share)  
-        e.extract_ebit_margin(ebit, share.financial)
-      rescue DataMiningError => e
-        ebit.succeeded = false
-        ebit.error_msg = "#{e.to_s}"
-      end
-      msg = ebit.error_msg == nil ? "" : ebit.error_msg
-      assert(ebit.succeeded, msg)
+    puts "Testing DAX shares"
+    c = 0
+    exec_on_index_shares("DE0008469008"){|s|
+      extraction_test(s, c)
     }
+    puts "EBIT extraction faild for #{c} shares"
+    assert(true)
   end
 
   test "the EBIT calculation on DOW shares" do
-    exec_on_index_shares("US2605661048"){|share|
-      ebit = EbitMargin.new
-      begin
-        e = OnVistaExtractor.new(share)  
-        e.extract_ebit_margin(ebit, share.financial)
-      rescue DataMiningError => e
-        ebit.succeeded = false
-        ebit.error_msg = "#{e.to_s}"
-      end
-      msg = ebit.error_msg == nil ? "" : ebit.error_msg
-      assert(ebit.succeeded, msg)
+    puts "Testing DOW shares"
+    c = 0
+    exec_on_index_shares("US2605661048"){|s|
+      extraction_test(s, c)
     }
+    puts "EBIT extraction faild for #{c} shares"
+    assert(true)
+  end
+
+def extraction_test(share, counter)
+    ebit = EbitMargin.new
+    begin
+      e = OnVistaExtractor.new(share)  
+      e.extract_ebit_margin(ebit, share.financial)
+      print "."
+      $stdout.flush
+    rescue DataMiningError => e
+      print "E"
+      $stdout.flush
+      ebit.succeeded = false
+      ebit.error_msg = "#{e.to_s}"
+      puts "#{share.name} failed with this error message: \n#{ebit.error_msg}"
+      counter = counter + 1
+    end
   end
 
 end

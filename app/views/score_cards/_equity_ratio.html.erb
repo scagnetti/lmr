@@ -1,8 +1,7 @@
 <div class="row">
 	<%= render 'score', :score => @score_card.equity_ratio.score %>
 	<div class="col-xs-11 col-md-3">
-		Eigenkapitalquote LJ
-		<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="> 25% | 25% - 15% | < 15%"></span>
+		<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="<%= resolve_info_for_equity_ratio(@score_card.share)%>"></span> Eigenkapitalquote LJ
 	</div>
 	<% if @score_card.equity_ratio.succeeded %>
 		<div class="col-xs-6 col-md-2">

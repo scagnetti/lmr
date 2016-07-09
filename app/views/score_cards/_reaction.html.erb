@@ -1,8 +1,7 @@
 <div class="row">
 	<%= render 'score', :score => @score_card.reaction.score %>
-	<div class="col-xs-11 col-md-3">
-		Reaktion auf Quartalszahlen
-		<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="positiv | zwischen -1% und +1% | negativ"></span>
+	<div class="col-xs-11 col-md-3">		
+		<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="positiv | zwischen -1% und +1% | negativ"></span> Reaktion auf Quartalszahlen
 	</div>
 	<% if @score_card.reaction.succeeded %>
 		<div class="col-xs-4 col-md-2">
@@ -41,12 +40,12 @@
 						<th>Index</th>
 					</tr>
 					<tr>
-						<td>Before (<%= l @score_card.reaction.before %>)</td>
+						<td>Before (<%=  l(@score_card.reaction.before) if @score_card.reaction.before != nil %>)</td>
 						<td><%= @score_card.reaction.price_before %></td>
 						<td><%= @score_card.reaction.index_before %></td>
 					</tr>
 					<tr>
-						<td>After (<%= l @score_card.reaction.after %>)</td>
+						<td>After (<%= l(@score_card.reaction.after) if @score_card.reaction.after != nil %>)</td>
 						<td><%= @score_card.reaction.price_after %></td>
 						<td><%= @score_card.reaction.index_after %></td>
 					</tr>
