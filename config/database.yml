@@ -20,9 +20,9 @@ test:
 
 production:
   adapter: mysql2
-  encoding: utf8
   database: lmr
-  pool: 5
-  username: roboto
-  password: RkFh
-  socket: /var/run/mysqld/mysqld.sock
+  pool: 20
+  encoding: utf8
+  username: "<%=ENV['DB_USER_BS']%>"
+  password: "<%=ENV['DB_PWD_BS']%>"
+  host:  localhost
