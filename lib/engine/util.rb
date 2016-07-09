@@ -343,12 +343,12 @@ class Util
       a.read_timeout=60000
       # agent.follow_meta_refresh = true
       # Comment in to make use of TOR
-      if Rails.env == 'production'
-       Rails.logger.debug("#{self.class}: Using proxy configuration for TOR")
-       a.set_proxy('127.0.0.1', 8118)
-      else
+      #if Rails.env == 'production'
+      # Rails.logger.debug("#{self.class}: Using proxy configuration for TOR")
+      # a.set_proxy('127.0.0.1', 8118)
+      #else
         Rails.logger.info("#{self.class}: TOR is disabled")
-      end
+      #end
     end
     return agent
   end
