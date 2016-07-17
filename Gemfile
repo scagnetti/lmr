@@ -36,6 +36,8 @@ gem "bcrypt-ruby", :require => "bcrypt"
 
 # Scraping
 gem 'watir'
+gem 'watir-webdriver'
+gem 'headless'
 
 # Deploy with Capistrano
 # gem 'capistrano', '=2.14.2'

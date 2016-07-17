@@ -19,18 +19,208 @@
 	</div>
 </div>
 <br>
-<%= render 'roe' %><br>
-<%= render 'ebit_margin' %><br>
-<%= render 'equity_ratio' %><br>
-<%= render 'current_price_earnings_ratio' %><br>
-<%= render 'average_price_earnings_ratio' %><br>
-<%= render 'analysts_opinion' %><br>
-<%= render 'reaction' %><br>
-<%= render 'profit_revision' %><br>
-<%= render 'stock_price_dev_half_year' %><br>
-<%= render 'stock_price_dev_one_year' %><br>
-<%= render 'price_momentum' %><br>
-<%= render 'reversal' %><br>
-<%= render 'profit_growth' %><br>
-<%= render 'insider_info' %><br>
+<table class="table">
+	<%= render 'roe' %>
+	<%= render 'ebit_margin' %>
+	<%= render 'equity_ratio' %>
+	<%= render 'current_price_earnings_ratio' %>
+	<%= render 'average_price_earnings_ratio' %>
+	<%= render 'analysts_opinion' %>
+	<%= render 'reaction' %>
+	<%= render 'profit_revision' %>
+	<%= render 'stock_price_dev_half_year' %>
+	<%= render 'stock_price_dev_one_year' %>
+	<%= render 'price_momentum' %>
+	<%= render 'reversal' %>
+	<%= render 'profit_growth' %>
+	<%= render 'insider_info' %>
+</table>
 
+<div class="modal fade" id="perAvg" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" id="perAvgLabel">KGV 5 Jahre</h4>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered">
+			    <colgroup>
+			      <col width="60">
+		        <col width="60">
+		        <col width="60">
+		        <col width="60">
+		        <col width="60">
+		      </colgroup>
+					<tr>
+						<th><%= @score_card.average_price_earnings_ratio.three_years_ago %></th>
+						<th><%= @score_card.average_price_earnings_ratio.two_years_ago %></th>
+						<th><%= @score_card.average_price_earnings_ratio.last_year %></th>
+						<th><%= @score_card.average_price_earnings_ratio.this_year %></th>
+						<th><%= @score_card.average_price_earnings_ratio.next_year %></th>
+					</tr>
+					<tr>
+						<td><%= @score_card.average_price_earnings_ratio.value_three_years_ago %></td>
+						<td><%= @score_card.average_price_earnings_ratio.value_two_years_ago %></td>
+						<td><%= @score_card.average_price_earnings_ratio.value_last_year %></td>
+						<td><%= @score_card.average_price_earnings_ratio.value_this_year %></td>
+						<td><%= @score_card.average_price_earnings_ratio.value_next_year %></td>
+					</tr>
+				</table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="reaction" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" id="reactionLabel">Reaction on Publication (<%= @score_card.reaction.release_date %>)</h4>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered">
+			    <colgroup>
+			      <col width="60">
+		        <col width="60">
+		        <col width="60">
+		      </colgroup>
+					<tr>
+						<th></th>
+						<th>Share</th>
+						<th>Index</th>
+					</tr>
+					<tr>
+						<td>Before (<%=  l(@score_card.reaction.before) if @score_card.reaction.before != nil %>)</td>
+						<td><%= @score_card.reaction.price_before %></td>
+						<td><%= @score_card.reaction.index_before %></td>
+					</tr>
+					<tr>
+						<td>After (<%= l(@score_card.reaction.after) if @score_card.reaction.after != nil %>)</td>
+						<td><%= @score_card.reaction.price_after %></td>
+						<td><%= @score_card.reaction.index_after %></td>
+					</tr>
+					<tr>
+						<td>Performance</td>
+						<td><%= @score_card.reaction.share_perf %></td>
+						<td><%= @score_card.reaction.index_perf %></td>
+					</tr>
+				</table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="reversal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" id="reversalLabel">Dreimonatsreversal</h4>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered">
+					 <colgroup>
+					   <col width="150">
+					   <col width="100">
+					   <col width="100">
+					   <col width="100">
+					   <col width="100">
+					</colgroup>
+					<tr>
+						<th></th>
+						<th><%= @score_card.reversal.four_months_ago %></th>
+						<th><%= @score_card.reversal.three_months_ago %></th>
+						<th><%= @score_card.reversal.two_months_ago %></th>
+						<th><%= @score_card.reversal.one_month_ago %></th>
+					</tr>
+					<tr>
+						<td>Aktienkurs</td>
+						<td><%= @score_card.reversal.value_four_months_ago %></td>
+						<td><%= @score_card.reversal.value_three_months_ago %></td>
+						<td><%= @score_card.reversal.value_two_months_ago %></td>
+						<td><%= @score_card.reversal.value_one_month_ago %></td>
+					</tr>
+					<tr>
+						<td>Indexpunkte</td>
+						<td><%= @score_card.reversal.index_four_months_ago %></td>
+						<td><%= @score_card.reversal.index_three_months_ago %></td>
+						<td><%= @score_card.reversal.index_two_months_ago %></td>
+						<td><%= @score_card.reversal.index_one_month_ago %></td>
+					</tr>
+					<tr>
+						<td>Aktienperformance</td>
+						<td></td>
+						<td><%= @score_card.reversal.value_perf_three_months_ago %></td>
+						<td><%= @score_card.reversal.value_perf_two_months_ago %></td>
+						<td><%= @score_card.reversal.value_perf_one_month_ago %></td>
+					</tr>
+					<tr>
+						<td>Indexperformance</td>
+						<td></td>
+						<td><%= @score_card.reversal.index_perf_three_months_ago %></td>
+						<td><%= @score_card.reversal.index_perf_two_months_ago %></td>
+						<td><%= @score_card.reversal.index_perf_one_month_ago %></td>
+					</tr>
+			  </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="insiderDeals" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" id="perAvgLabel">Insider Deals</h4>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered">
+			    <colgroup>
+			      <col width="40">
+		        <col width="80">
+		        <col width="40">
+		        <col width="100">
+		        <col width="80">
+		        <col width="60">
+		      </colgroup>
+					<tr>
+						<th>Type</th>
+						<th>Price</th>
+						<th>Quantity</th>
+						<th>Volume</th>
+						<th>Occurred</th>
+						<th>Person</th>
+					</tr>
+					<% @score_card.insider_info.insider_deals.each do |deal| %>	
+						<tr>
+							<td><%= deal.transaction_type %></td>
+							<td><%= format_currency(deal.price, @score_card.share.currency) %></td>
+							<td><%= deal.quantity %></td>
+							<td><%= format_currency(deal.price * deal.quantity, @score_card.share.currency) %></td>
+							<td><%= deal.occurred %></td>
+							<td><%= deal.person %></td>
+						</tr>
+					<% end %>
+				</table>
+				<p>Total buy: <%= format_currency(@score_card.insider_info.total_buy_volume(), @score_card.share.currency) %></p>
+				<p>Total sell: <%= format_currency(@score_card.insider_info.total_sell_volume(), @score_card.share.currency) %></p>
+				<p>Balance: <%= format_currency(@score_card.insider_info.balance(), @score_card.share.currency) %></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

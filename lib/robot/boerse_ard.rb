@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'mechanize'
 require 'watir'
+require 'watir-webdriver'
 
 # Manages the portfolio on boerse.ard.de
 class BoerseArd

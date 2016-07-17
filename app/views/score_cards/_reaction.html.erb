@@ -1,64 +1,22 @@
-<div class="row">
+<tr>
 	<%= render 'score', :score => @score_card.reaction.score %>
-	<div class="col-xs-11 col-md-3">		
+	<td>		
 		<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="positiv | zwischen -1% und +1% | negativ"></span> Reaktion auf Quartalszahlen
-	</div>
+	</td>
 	<% if @score_card.reaction.succeeded %>
-		<div class="col-xs-4 col-md-2">
+		<td>
 			Value: <%= number_with_precision (@score_card.reaction.share_perf - @score_card.reaction.index_perf), :precision => 2 %>%
-		</div>
-		<div class="col-xs-4 col-md-2">
+		</td>
+		<td>
 			relative to <%= @score_card.share.stock_index.name %>
-		</div>
-		<div class="col-xs-4 col-md-2">
+		</td>
+		<td>
 			<button class="btn btn-default btn-xs" data-toggle="modal" data-target="#reaction">
   			Show
 			</button>
-		</div>
+		</td>
 	<% else %>
 		<%= render 'failed' %>
 	<% end %>
-</div>
+</tr>
 
-<div class="modal fade" id="reaction" tabindex="-1" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title" id="reactionLabel">Reaction on Publication (<%= @score_card.reaction.release_date %>)</h4>
-      </div>
-      <div class="modal-body">
-        <table class="table table-bordered">
-			    <colgroup>
-			      <col width="60">
-		        <col width="60">
-		        <col width="60">
-		      </colgroup>
-					<tr>
-						<th></th>
-						<th>Share</th>
-						<th>Index</th>
-					</tr>
-					<tr>
-						<td>Before (<%=  l(@score_card.reaction.before) if @score_card.reaction.before != nil %>)</td>
-						<td><%= @score_card.reaction.price_before %></td>
-						<td><%= @score_card.reaction.index_before %></td>
-					</tr>
-					<tr>
-						<td>After (<%= l(@score_card.reaction.after) if @score_card.reaction.after != nil %>)</td>
-						<td><%= @score_card.reaction.price_after %></td>
-						<td><%= @score_card.reaction.index_after %></td>
-					</tr>
-					<tr>
-						<td>Performance</td>
-						<td><%= @score_card.reaction.share_perf %></td>
-						<td><%= @score_card.reaction.index_perf %></td>
-					</tr>
-				</table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->

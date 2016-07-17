@@ -1,19 +1,19 @@
-<div class="row">
+<tr>
 	<%= render 'score', :score => @score_card.analysts_opinion.score %>
-	<div class="col-xs-11 col-md-3">
+	<td>
 		<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="TODO"></span> Analystenmeinungen
-	</div>
+	</td>
 	<% if @score_card.analysts_opinion.succeeded %>
-		<div class="col-xs-4 col-md-2">
+		<td>
 			Buy: <%= @score_card.analysts_opinion.buy %>
-		</div>
-		<div class="col-xs-4 col-md-2">
+		</td>
+		<td>
 			Hold: <%= @score_card.analysts_opinion.hold %>
-		</div>
-		<div class="col-xs-4 col-md-2">
+		</td>
+		<td>
 			Sell: <%= @score_card.analysts_opinion.sell %>			
-		</div>
+		</td>
 	<% else %>
 		<%= render 'failed' %>
 	<% end %>
-</div>
+</tr>

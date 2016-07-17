@@ -1,19 +1,19 @@
-<div class="row">
+<tr>
 	<%= render 'score', :score => @score_card.profit_growth.score %>
-	<div class="col-xs-11 col-md-3">
+	<td>
 		<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="EPS AJ < EPS NJ | zwischen -5% und +5% | EPS AJ > EPS NJ"></span> Gewinnwachstum
-	</div>
+	</td>
 	<% if @score_card.profit_growth.succeeded %>
-		<div class="col-xs-4 col-md-2">
+		<td>
 			Performance: <%= number_with_precision @score_card.profit_growth.perf, :precision => 2 %>%
-		</div>
-		<div class="col-xs-4 col-md-2">
+		</td>
+		<td>
 			This year (<%= @score_card.profit_growth.this_year %>): <%= @score_card.profit_growth.value_this_year %>
-		</div>
-		<div class="col-xs-4 col-md-3">
+		</td>
+		<td>
 			Next year (<%= @score_card.profit_growth.next_year %>): <%= @score_card.profit_growth.value_next_year %>
-		</div>
+		</td>
 	<% else %>
 		<%= render 'failed' %>
 	<% end %>
-</div>
+</tr>

@@ -1,68 +1,18 @@
-<div class="row">
+<tr>
 	<%= render 'score', :score => @score_card.insider_info.score %>
-	<div class="col-xs-1 col-md-3">
+	<td>
 		<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="<%= resolve_info_for_insider_deals(@score_card.share) %>"></span> Current Insider Deals
-	</div>
+	</td>
 	<% if @score_card.insider_info.succeeded %>
-		<div class="col-xs-5 col-md-2">
+		<td colspan=3>
 			Buy: <%= @score_card.insider_info.buy_transactions %>
 			Sell: <%= @score_card.insider_info.sell_transactions %>
-		</div>
-		<% if @score_card.insider_info.insider_deals? %>
-			<div class="col-xs-5 col-md-2">
-				<button class="btn btn-default btn-xs" data-toggle="modal" data-target="#insiderDeals">
-	  			Show
-				</button>
-			</div>
-		<% end %>
+		  <% if @score_card.insider_info.insider_deals? %>
+				<button class="btn btn-default btn-xs" data-toggle="modal" data-target="#insiderDeals">Show</button>
+		  <% end %>
+    </td>
 	<% else %>
 		<%= render 'failed' %>
 	<% end %>
-</div>
+</tr>
 
-<div class="modal fade" id="insiderDeals" tabindex="-1" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title" id="perAvgLabel">Insider Deals</h4>
-      </div>
-      <div class="modal-body">
-        <table class="table table-bordered">
-			    <colgroup>
-			      <col width="40">
-		        <col width="80">
-		        <col width="40">
-		        <col width="100">
-		        <col width="80">
-		        <col width="60">
-		      </colgroup>
-					<tr>
-						<th>Type</th>
-						<th>Price</th>
-						<th>Quantity</th>
-						<th>Volume</th>
-						<th>Occurred</th>
-						<th>Person</th>
-					</tr>
-					<% @score_card.insider_info.insider_deals.each do |deal| %>	
-						<tr>
-							<td><%= deal.transaction_type %></td>
-							<td><%= format_currency(deal.price, @score_card.share.currency) %></td>
-							<td><%= deal.quantity %></td>
-							<td><%= format_currency(deal.price * deal.quantity, @score_card.share.currency) %></td>
-							<td><%= deal.occurred %></td>
-							<td><%= deal.person %></td>
-						</tr>
-					<% end %>
-				</table>
-				<p>Total buy: <%= format_currency(@score_card.insider_info.total_buy_volume(), @score_card.share.currency) %></p>
-				<p>Total sell: <%= format_currency(@score_card.insider_info.total_sell_volume(), @score_card.share.currency) %></p>
-				<p>Balance: <%= format_currency(@score_card.insider_info.balance(), @score_card.share.currency) %></p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->

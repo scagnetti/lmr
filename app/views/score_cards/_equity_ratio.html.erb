@@ -1,16 +1,17 @@
-<div class="row">
+<tr>
 	<%= render 'score', :score => @score_card.equity_ratio.score %>
-	<div class="col-xs-11 col-md-3">
+	<td>
 		<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="<%= resolve_info_for_equity_ratio(@score_card.share)%>"></span> Eigenkapitalquote LJ
-	</div>
+	</td>
 	<% if @score_card.equity_ratio.succeeded %>
-		<div class="col-xs-6 col-md-2">
+		<td>
 			Value: <%= @score_card.equity_ratio.value %>%
-		</div>
-		<div class="col-xs-6 col-md-2">
+		</td>
+		<td>
 			Year: <%= @score_card.equity_ratio.last_year %>
-		</div>
+		</td>
+		<td></td>
 	<% else %>
 		<%= render 'failed' %>
 	<% end %>
-</div>
+</tr>

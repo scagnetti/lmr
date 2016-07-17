@@ -1,19 +1,19 @@
-<div class="row">
+<tr>
 	<%= render 'score', :score => @score_card.stock_price_dev_one_year.score %>
-	<div class="col-xs-11 col-md-3">
+	<td>
 		<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="steigend | zwischen -5% und +5% | fallend"></span> Kurs heute gg. Kurs vor 1 Jahr
-	</div>
+	</td>
 	<% if @score_card.stock_price_dev_half_year.succeeded %>
-		<div class="col-xs-4 col-md-2">
+		<td>
 			Performance: <%= number_with_precision @score_card.stock_price_dev_one_year.perf, :precision => 2 %>%
-		</div>
-		<div class="col-xs-4 col-md-2">
+		</td>
+		<td>
 			Price today: <%= @score_card.price %>
-		</div>
-		<div class="col-xs-4 col-md-3">
+		</td>
+		<td>
 			Price one year ago: <%= @score_card.stock_price_dev_one_year.value %>
-		</div>
+		</td>
 	<% else %>
 		<%= render 'failed' %>
 	<% end %>
-</div>
+</tr>

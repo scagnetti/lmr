@@ -4,14 +4,16 @@ require 'robot/boerse_ard.rb'
 namespace :roboto do
 
   task :t => :environment do
-    browser = Watir::Browser.new
+    browser = Watir::Browser.new(:firefox)
+    puts browser.ready_state
     browser.goto("http://www.w3schools.com/")
-    #td_set = browser.elements(:xpath, '//td')
+   #td_set = browser.elements(:xpath, '//td')
     td_set = browser.tds(:xpath, '//td')
     puts td_set.size
     td_set.each do |td|
       puts td.text()
     end
+  browser.close
   end
 
   task :test => :environment do
