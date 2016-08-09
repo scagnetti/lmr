@@ -19,8 +19,8 @@ class FinanzenExtractor < BasicExtractor
   def initialize(share)
     super(FINANZEN_URL, share)
     Rails.logger.debug("#{self.class}: Open finanzen.net with share: #{share.name} (#{share.isin}) and stock index: #{share.stock_index.name} (#{share.stock_index.isin})")
-    @stock_page = perform_search("action", '/suchergebnis.asp', "frmAktiensucheTextfeld", share.isin, STOCK_SUCCESS_XPATH, STOCK_SUCCESS_VALUE)
-    @index_page = perform_search("action", '/suchergebnis.asp', "frmAktiensucheTextfeld", share.stock_index.isin, INDEX_SUCCESS_XPATH, INDEX_SUCCESS_VALUE)
+    @stock_page = perform_search("action", '/suchergebnis.asp', "_search", share.isin, STOCK_SUCCESS_XPATH, STOCK_SUCCESS_VALUE)
+    @index_page = perform_search("action", '/suchergebnis.asp', "_search", share.stock_index.isin, INDEX_SUCCESS_XPATH, INDEX_SUCCESS_VALUE)
     @historical_stock_page = open_sub_page('Historisch', 2, 1, @stock_page)
     @historical_index_page = open_sub_page('Historisch', 1, 0, @index_page)
   end
