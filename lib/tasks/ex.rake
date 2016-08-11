@@ -320,12 +320,12 @@ desc "Extract DAX Insider Deals of the last three months for a given ISIN"
       agent.open_timeout=60000
       agent.read_timeout=60000
       # Comment in to make use of TOR
-      if Rails.env == 'production'
-       puts("#{self.class}: Using proxy configuration for TOR")
-       agent.set_proxy('127.0.0.1', 8118)
-      else
-        puts("#{self.class}: TOR is disabled")
-      end
+      #if Rails.env == 'production'
+      # puts("#{self.class}: Using proxy configuration for TOR")
+      # agent.set_proxy('127.0.0.1', 8118)
+      #else
+      #  puts("#{self.class}: TOR is disabled")
+      #end
     end
     puts "#{self.class}: Processing #{shares.size} shares"
     score = Hash.new

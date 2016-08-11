@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-xs-12 col-md-12">
-		<h1>Rising Price</h1>
+		<h1>Shares ordered by continuous rising price</h1>
 	</div>
 </div>
 
@@ -20,16 +20,16 @@
 		<div class="table-responsive">
 			<table class="table table-hover">
 				<tr>
-					<th>Days</th>
+					<th>Days<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="Number of days the price is rising"></span></th>
 					<th>Company</th>
-					<th>Created</th>
+					<th>ING DiBa</th>
 				</tr>
 
 				<% @rising_scores.each do |rising_score| %>
 				<tr>
 					<td><%= rising_score.days %></td>
-					<td><%= rising_score.isin %></td>
-					<td><%= l rising_score.created_at %></td>
+					<td nowrap><%= link_to "#{rising_score.share.name}" , rising_score.share %></td>
+					<td><%= link_to "Open", link_to_ing_diba(rising_score.share.isin), :target => "_blank" %></td>
 				</tr>
 				<% end %>
 			</table>
