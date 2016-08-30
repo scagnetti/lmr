@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-xs-12 col-md-12">
+    <h1>Deposit Entries<small><%= " %.2f" % total_balance() %></small></h1>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-xs-12 col-md-12">
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover">
+
+        <thead>
+          <tr>
+            <th class="text-center">Share</th>
+            <th class="text-center">Quantity</th>
+            <th class="text-center">Price when bought</th>
+            <th class="text-center">Price when sold</th>
+            <th class="text-center">Earnings</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @deposit_entries.each do |deposit_entry| %>
+            <tr>
+              <td class="text-left"><%= deposit_entry.share.name %> (<%= deposit_entry.share.currency %>)</td>
+              <td class="text-center"><%= deposit_entry.buy_transaction.amount %></td>
+              <td class="text-right"><%= "%.2f" % deposit_entry.buy_transaction.price %></td>
+              <td class="text-right"><%= deposit_entry.sell_transaction ? deposit_entry.sell_transaction.price : "" %></td>
+              <td class="text-right <%= do_highlight(deposit_entry) %>" ><%= get_balance_for_display(deposit_entry) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

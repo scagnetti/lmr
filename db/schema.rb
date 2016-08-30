@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150531154700) do
+ActiveRecord::Schema.define(version: 20160811204521) do
 
   create_table "analysts_opinions", force: :cascade do |t|
     t.boolean  "succeeded",     default: true
@@ -49,6 +49,19 @@ ActiveRecord::Schema.define(version: 20150531154700) do
 
   add_index "average_price_earnings_ratios", ["score_card_id"], name: "index_average_price_earnings_ratios_on_score_card_id"
 
+  create_table "buy_transactions", force: :cascade do |t|
+    t.date     "occurred"
+    t.float    "price"
+    t.string   "currency"
+    t.integer  "amount"
+    t.float    "fees"
+    t.integer  "deposit_entry_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "buy_transactions", ["deposit_entry_id"], name: "index_buy_transactions_on_deposit_entry_id"
+
   create_table "current_price_earnings_ratios", force: :cascade do |t|
     t.boolean  "succeeded",     default: true
     t.integer  "score",         default: -1
@@ -61,6 +74,14 @@ ActiveRecord::Schema.define(version: 20150531154700) do
   end
 
   add_index "current_price_earnings_ratios", ["score_card_id"], name: "index_current_price_earnings_ratios_on_score_card_id"
+
+  create_table "deposit_entries", force: :cascade do |t|
+    t.float    "balance",    default: 0.0
+    t.boolean  "archived",   default: false
+    t.integer  "share_id"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
 
   create_table "ebit_margins", force: :cascade do |t|
     t.boolean  "succeeded",     default: true
@@ -242,6 +263,19 @@ ActiveRecord::Schema.define(version: 20150531154700) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "sell_transactions", force: :cascade do |t|
+    t.date     "occurred"
+    t.float    "price"
+    t.string   "currency"
+    t.integer  "amount"
+    t.float    "fees"
+    t.integer  "deposit_entry_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "sell_transactions", ["deposit_entry_id"], name: "index_sell_transactions_on_deposit_entry_id"
 
   create_table "shares", force: :cascade do |t|
     t.boolean  "active",                     default: true

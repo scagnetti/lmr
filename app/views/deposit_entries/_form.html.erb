@@ -1,0 +1,21 @@
+<%= form_for(@deposit_entry) do |f| %>
+  <% if @deposit_entry.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@deposit_entry.errors.count, "error") %> prohibited this deposit_entry from being saved:</h2>
+
+      <ul>
+      <% @deposit_entry.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :balance %><br>
+    <%= f.text_field :balance %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

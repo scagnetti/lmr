@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  occurred: 2016-08-11
+  price: 1.5
+  amount: 1
+  fees: 1.5
+
+two:
+  occurred: 2016-08-11
+  price: 1.5
+  amount: 1
+  fees: 1.5
