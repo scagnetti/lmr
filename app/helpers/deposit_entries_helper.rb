@@ -40,12 +40,10 @@ module DepositEntriesHelper
   def total_balance()
     sum = 0
     @deposit_entries.each do |deposit_entry|
-      if deposit_entry.archived
-        sum = sum + calc_balance(deposit_entry)
-        sum = sum - deposit_entry.buy_transaction.fees
-        if deposit_entry.sell_transaction != nil
-          sum = sum - deposit_entry.sell_transaction.fees
-        end
+      sum = sum + calc_balance(deposit_entry)
+      sum = sum - deposit_entry.buy_transaction.fees
+      if deposit_entry.sell_transaction != nil
+        sum = sum - deposit_entry.sell_transaction.fees
       end
     end
     return sum
