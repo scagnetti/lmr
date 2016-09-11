@@ -12,16 +12,32 @@ module DepositEntriesHelper
     end
   end
 
-  def do_highlight(deposit_entry)
+  def highlight_sold(deposit_entry)
     if deposit_entry.sell_transaction != nil
       value = deposit_entry.sell_transaction.price - deposit_entry.buy_transaction.price
-      if value > 0
-        return "success"
-      else
-        return "bg-danger"
-      end
+      return highlighting_bg(value)
     else
       return ""
+    end
+  end
+
+  def highlight_total_balance
+    return highlighting_label(balance_vended())
+  end
+
+  def highlighting_bg(value)
+    if value > 0
+      return "success"
+    else
+      return "bg-danger"
+    end
+  end
+
+  def highlighting_label(value)
+    if value > 0
+      return "label-success"
+    else
+      return "label-danger"
     end
   end
 
@@ -37,13 +53,26 @@ module DepositEntriesHelper
     end
   end
 
-  def total_balance()
+  def balance_vended()
     sum = 0
     @deposit_entries.each do |deposit_entry|
-      sum = sum + calc_balance(deposit_entry)
-      sum = sum - deposit_entry.buy_transaction.fees
-      if deposit_entry.sell_transaction != nil
-        sum = sum - deposit_entry.sell_transaction.fees
+      # Use sold entries only
+      if deposit_entry.archived == true
+        sum = sum + calc_balance(deposit_entry)
+        sum = sum - deposit_entry.buy_transaction.fees
+        if deposit_entry.sell_transaction != nil
+          sum = sum - deposit_entry.sell_transaction.fees
+        end
+      end
+    end
+    return sum
+  end
+
+  def balance_invested()
+    sum = 0
+    @deposit_entries.each do |deposit_entry|
+      if deposit_entry.archived == false
+        sum = sum + deposit_entry.buy_transaction.price * deposit_entry.buy_transaction.amount
       end
     end
     return sum

@@ -1,9 +1,15 @@
 <div class="row">
   <div class="col-xs-12 col-md-12">
-    <h1>Deposit Entries<small><%= " %.2f" % total_balance() %></small></h1>
+    <h1>Deposit Entries
+      <small>
+        Invested volume:
+        <span class="label label-info"><%= " %.2f" % balance_invested() %></span>
+        Total balance:
+        <span class="label <%= highlight_total_balance() %>"><%= " %.2f" % balance_vended() %></span>
+      </small>
+    </h1>
   </div>
 </div>
-
 
 <div class="row">
   <div class="col-xs-12 col-md-12">
@@ -27,7 +33,7 @@
               <td class="text-center"><%= deposit_entry.buy_transaction.amount %></td>
               <td class="text-right"><%= "%.2f" % deposit_entry.buy_transaction.price %></td>
               <td class="text-right"><%= deposit_entry.sell_transaction ? deposit_entry.sell_transaction.price : "" %></td>
-              <td class="text-right <%= do_highlight(deposit_entry) %>" ><%= get_balance_for_display(deposit_entry) %></td>
+              <td class="text-right <%= highlight_sold(deposit_entry) %>" ><%= get_balance_for_display(deposit_entry) %></td>
             </tr>
           <% end %>
         </tbody>
