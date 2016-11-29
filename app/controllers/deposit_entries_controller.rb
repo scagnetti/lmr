@@ -3,7 +3,7 @@ class DepositEntriesController < ApplicationController
 
   # GET /deposit_entries
   def index
-    @deposit_entries = DepositEntry.all.order(:archived)
+    @deposit_entries = DepositEntry.all.order(:archived, :balance)
   end
 
   # GET /deposit_entries/1

@@ -60,6 +60,7 @@ namespace :broker do
         transaction.amount = entry.buy_transaction.amount
         transaction.fees = 10
 
+        entry.balance = (transaction.price * transaction.amount) - transaction.fees - entry.buy_transaction.fees - (entry.buy_transaction.price * entry.buy_transaction.amount)
         entry.sell_transaction = transaction
         entry.archived = true
         entry.save

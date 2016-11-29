@@ -184,7 +184,7 @@ desc "Extract DAX Insider Deals of the last three months for a given ISIN"
     score_card.save!
   end
 
-  desc "Extract known insider deals for all share of a given index (DAX by default)"
+  desc "Extract known insider deals for all shares of a given index (DAX by default)"
   task :insider_index, [:isin] => :environment do |t, args|
     if args[:isin] == nil
       # DAX
