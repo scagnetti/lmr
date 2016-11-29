@@ -18,7 +18,7 @@ namespace :broker do
     #end
     
     recommendations.each do |sc|
-      de = DepositEntry.where("share_id = ? AND archived = false", sc.share.id)
+      de = DepositEntry.find_by_share_id_and_archived(sc.share.id,false)
       if de.nil?
         puts "Going to buy share #{sc.share.name} because it is not yet in the deposit"
         
